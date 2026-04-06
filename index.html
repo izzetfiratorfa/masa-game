@@ -3,249 +3,655 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#1a1a2e">
+  <meta name="theme-color" content="#0a0a0a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>MASA - Parti Oyunları</title>
+  <title>MASA</title>
   <link rel="manifest" href="manifest.json">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --black: #0a0a0a;
+      --black-light: #141414;
+      --black-lighter: #1a1a1a;
+      --cream: #f5f0e8;
+      --cream-dark: #e6dfd3;
+      --gold: #c9a959;
+      --gold-light: #d4ba6a;
+      --gold-dark: #a68a3a;
+      --burgundy: #722f37;
+      --burgundy-light: #8b3a44;
+      --ink: #2c2c2c;
+      
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-elegant: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      
+      --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--cream);
       min-height: 100vh;
-      color: #fff;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 1000;
     }
 
     .container {
-      max-width: 500px;
+      max-width: 480px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 24px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
-    /* SCREENS */
+    /* Screens */
     .screen { display: none; flex-direction: column; flex: 1; }
-    .screen.active { display: flex; }
-
-    /* HOME SCREEN */
-    .home-header {
-      text-align: center;
-      padding: 40px 0;
+    .screen.active { display: flex; animation: fadeIn 0.5s var(--ease-smooth); }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .logo { font-size: 80px; margin-bottom: 10px; }
-    .title { font-size: 48px; font-weight: 800; letter-spacing: 8px; }
-    .subtitle { color: rgba(255,255,255,0.6); margin-top: 8px; letter-spacing: 2px; }
 
-    .game-modes {
+    /* ===================== */
+    /* HOME / ENTRANCE SCREEN */
+    /* ===================== */
+    .entrance {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .emblem {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    
+    .emblem-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      animation: rotate 20s linear infinite;
+    }
+    
+    .emblem-ring::before,
+    .emblem-ring::after {
+      content: '✦';
+      position: absolute;
+      color: var(--gold);
+      font-size: 10px;
+    }
+    .emblem-ring::before { top: -5px; left: 50%; transform: translateX(-50%); }
+    .emblem-ring::after { bottom: -5px; left: 50%; transform: translateX(-50%); }
+    
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+    
+    .emblem-inner {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border: 1px solid var(--gold-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .emblem-symbol {
+      font-size: 36px;
+      color: var(--gold);
+      font-family: var(--font-display);
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
+
+    .brand {
+      margin-bottom: 48px;
+    }
+    
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 400;
+      letter-spacing: 12px;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+    
+    .brand-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 12px;
+    }
+    
+    .brand-tagline {
+      font-family: var(--font-elegant);
+      font-size: 14px;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .entry-cards {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    
+    .entry-card {
+      width: 56px;
+      height: 78px;
+      background: var(--black-lighter);
+      border: 1px solid var(--gold-dark);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .entry-card::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      right: 4px;
+      bottom: 4px;
+      border: 1px solid var(--gold-dark);
+      border-radius: 2px;
+      opacity: 0.3;
+    }
+    
+    .entry-card:hover {
+      transform: translateY(-4px) rotate(-2deg);
+      border-color: var(--gold);
+      box-shadow: 0 10px 30px rgba(201, 169, 89, 0.1);
+    }
+
+    .actions {
+      width: 100%;
+      max-width: 280px;
+    }
+    
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px 24px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary {
+      background: var(--gold);
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+    
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(201, 169, 89, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid var(--cream-dark);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .footer-note {
+      position: absolute;
+      bottom: 32px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(245, 240, 232, 0.3);
+      letter-spacing: 1px;
+    }
+
+    /* ===================== */
+    /* CREATE / JOIN SCREENS */
+    /* ===================== */
+    .page-header {
+      margin-bottom: 40px;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(245, 240, 232, 0.5);
+      text-decoration: none;
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+    .back-link:hover { color: var(--gold); }
+    
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    
+    .page-subtitle {
+      font-family: var(--font-elegant);
+      font-size: 15px;
+      font-style: italic;
+      color: rgba(245, 240, 232, 0.5);
+    }
+
+    .form-section {
+      margin-bottom: 32px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 16px 0;
+      font-family: var(--font-elegant);
+      font-size: 20px;
+      color: var(--cream);
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(245, 240, 232, 0.2);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    
+    .form-input::placeholder {
+      color: rgba(245, 240, 232, 0.3);
+      font-style: italic;
+    }
+    
+    .form-input:focus {
+      border-color: var(--gold);
+    }
+
+    /* Code Input */
+    .code-container {
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin: 30px 0;
+      margin-bottom: 8px;
     }
-    .mode-card {
-      background: rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 16px;
-      text-align: center;
-      flex: 1;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .mode-emoji { font-size: 28px; margin-bottom: 6px; }
-    .mode-name { font-size: 12px; font-weight: 600; }
-
-    .buttons { display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
     
-    .btn {
-      padding: 18px;
-      border-radius: 14px;
-      font-size: 18px;
-      font-weight: 700;
-      border: none;
+    .code-input {
+      width: 44px;
+      height: 56px;
+      background: var(--black-lighter);
+      border: 1px solid rgba(245, 240, 232, 0.15);
+      border-radius: 2px;
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--cream);
+      text-align: center;
+      text-transform: uppercase;
+      outline: none;
+      transition: all 0.3s;
+    }
+    
+    .code-input:focus {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.05);
+    }
+    
+    .code-input.filled {
+      border-color: var(--gold-dark);
+    }
+
+    /* Settings */
+    .setting-group {
+      margin-bottom: 28px;
+    }
+    
+    .setting-options {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .setting-btn {
+      flex: 1;
+      padding: 14px 8px;
+      background: var(--black-lighter);
+      border: 1px solid rgba(245, 240, 232, 0.1);
+      border-radius: 2px;
       cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+    
+    .setting-btn:hover {
+      border-color: rgba(245, 240, 232, 0.3);
+    }
+    
+    .setting-btn.active {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.08);
+    }
+    
+    .setting-icon {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+    
+    .setting-label {
+      font-size: 11px;
+      color: rgba(245, 240, 232, 0.7);
+      letter-spacing: 1px;
+    }
+    
+    .setting-btn.active .setting-label {
+      color: var(--gold);
+    }
+
+    .category-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .category-btn {
+      padding: 10px 16px;
+      background: var(--black-lighter);
+      border: 1px solid rgba(245, 240, 232, 0.1);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 12px;
+      color: rgba(245, 240, 232, 0.7);
+      letter-spacing: 1px;
+    }
+    
+    .category-btn:hover {
+      border-color: rgba(245, 240, 232, 0.3);
+    }
+    
+    .category-btn.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201, 169, 89, 0.08);
+    }
+
+    .form-actions {
+      margin-top: auto;
+      padding-top: 24px;
+    }
+
+    /* ===================== */
+    /* LOBBY SCREEN */
+    /* ===================== */
+    .room-code-section {
+      text-align: center;
+      padding: 32px 24px;
+      background: var(--black-lighter);
+      border: 1px solid rgba(245, 240, 232, 0.08);
+      margin-bottom: 32px;
+      position: relative;
+    }
+    
+    .room-code-section::before,
+    .room-code-section::after {
+      content: '◆';
+      position: absolute;
+      top: -8px;
+      font-size: 12px;
+      color: var(--gold-dark);
+    }
+    .room-code-section::before { left: 24px; }
+    .room-code-section::after { right: 24px; }
+    
+    .room-code-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: rgba(245, 240, 232, 0.4);
+      margin-bottom: 12px;
+    }
+    
+    .room-code-value {
+      font-family: var(--font-display);
+      font-size: 36px;
+      letter-spacing: 8px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid rgba(245, 240, 232, 0.2);
+      color: var(--cream);
+      font-size: 11px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .share-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .members-section {
+      flex: 1;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    
+    .section-title {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: rgba(245, 240, 232, 0.5);
+      text-transform: uppercase;
+    }
+    
+    .member-count {
+      font-size: 11px;
+      color: var(--gold);
+    }
+    
+    .member-card {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      background: var(--black-lighter);
+      border-left: 2px solid transparent;
+      margin-bottom: 8px;
+      transition: all 0.3s;
+    }
+    
+    .member-card.host {
+      border-left-color: var(--gold);
+      background: rgba(201, 169, 89, 0.05);
+    }
+    
+    .member-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--black);
+      border: 1px solid rgba(245, 240, 232, 0.1);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      transition: transform 0.2s, opacity 0.2s;
+      font-size: 20px;
+      margin-right: 14px;
     }
-    .btn:active { transform: scale(0.98); }
-    .btn:disabled { opacity: 0.5; }
-
-    .btn-primary {
-      background: linear-gradient(90deg, #e94560, #ff6b6b);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+    
+    .member-info { flex: 1; }
+    
+    .member-name {
+      font-family: var(--font-elegant);
+      font-size: 17px;
+      margin-bottom: 2px;
     }
-    .btn-secondary {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 2px solid rgba(255,255,255,0.3);
+    
+    .member-status {
+      font-size: 11px;
+      color: rgba(245, 240, 232, 0.4);
     }
-    .btn-success {
-      background: linear-gradient(90deg, #4ecdc4, #44a08d);
-      color: #fff;
+    
+    .member-status.ready {
+      color: var(--gold);
     }
-
-    .footer {
-      text-align: center;
-      padding: 20px;
-      color: rgba(255,255,255,0.4);
-      font-size: 12px;
-    }
-
-    /* FORM ELEMENTS */
-    .form-group { margin-bottom: 20px; }
-    .form-label {
-      display: block;
-      color: rgba(255,255,255,0.7);
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
+    
+    .host-mark {
+      font-size: 10px;
+      color: var(--gold);
       letter-spacing: 1px;
-      margin-bottom: 10px;
+      padding: 4px 10px;
+      border: 1px solid var(--gold-dark);
     }
-    .form-input {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      font-size: 18px;
-    }
-    .form-input::placeholder { color: rgba(255,255,255,0.4); }
-    .form-input:focus { outline: none; border-color: #e94560; }
 
-    /* CODE INPUT */
-    .code-inputs {
+    /* ===================== */
+    /* GAME SCREEN */
+    /* ===================== */
+    .game-header {
       display: flex;
-      gap: 8px;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
     }
-    .code-input {
-      width: 48px;
-      height: 60px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: 700;
-      border-radius: 12px;
-      border: 2px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      text-transform: uppercase;
-    }
-    .code-input:focus { border-color: #4ecdc4; background: rgba(78, 205, 196, 0.1); }
-
-    /* BACK BUTTON */
-    .back-btn {
+    
+    .exit-btn {
+      font-size: 11px;
+      color: rgba(245, 240, 232, 0.4);
       background: none;
       border: none;
-      color: rgba(255,255,255,0.7);
-      font-size: 16px;
       cursor: pointer;
-      padding: 10px 0;
-      text-align: left;
+      letter-spacing: 1px;
     }
-
-    .page-title { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
-    .page-subtitle { color: rgba(255,255,255,0.6); margin-bottom: 30px; }
-
-    /* SETTINGS */
-    .settings-group { margin-bottom: 24px; }
-    .intensity-options, .category-options {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .intensity-btn, .category-btn {
-      flex: 1;
-      min-width: 90px;
-      padding: 12px;
-      border-radius: 12px;
-      border: 2px solid transparent;
-      background: rgba(255,255,255,0.05);
-      color: rgba(255,255,255,0.8);
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .intensity-btn.active, .category-btn.active {
-      border-color: #e94560;
-      background: rgba(233, 69, 96, 0.2);
-      color: #fff;
-    }
-    .intensity-emoji { font-size: 24px; display: block; margin-bottom: 4px; }
-    .intensity-label { font-size: 12px; font-weight: 600; }
-
-    /* LOBBY */
-    .room-code-display {
-      text-align: center;
-      padding: 20px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 16px;
-      margin-bottom: 20px;
-    }
-    .room-code-label { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 2px; }
-    .room-code-value { font-size: 36px; font-weight: 800; letter-spacing: 6px; margin: 10px 0; }
-    .room-code-hint { font-size: 12px; color: rgba(255,255,255,0.4); }
-
-    .players-list { flex: 1; }
-    .player-card {
-      display: flex;
-      align-items: center;
-      padding: 14px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 14px;
-      margin-bottom: 10px;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .player-card.host { border-color: #e94560; background: rgba(233, 69, 96, 0.1); }
-    .player-avatar { font-size: 32px; margin-right: 14px; }
-    .player-info { flex: 1; }
-    .player-name { font-size: 16px; font-weight: 600; }
-    .player-status { font-size: 13px; color: rgba(255,255,255,0.5); }
-    .player-status.ready { color: #4ecdc4; }
-    .host-badge {
-      background: rgba(233, 69, 96, 0.3);
-      color: #e94560;
+    
+    .round-indicator {
       font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 6px;
-      margin-left: 8px;
+      color: var(--gold);
+      letter-spacing: 2px;
     }
 
-    /* GAME SCREEN */
-    .scoreboard {
+    .scores-bar {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       flex-wrap: wrap;
     }
-    .score-item {
-      background: rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-      min-width: 70px;
-      border: 2px solid transparent;
+    
+    .score-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--black-lighter);
+      border: 1px solid transparent;
+      border-radius: 2px;
+      transition: all 0.3s;
     }
-    .score-item.active { border-color: #e94560; background: rgba(233, 69, 96, 0.15); }
-    .score-avatar { font-size: 24px; }
-    .score-name { font-size: 11px; color: rgba(255,255,255,0.7); }
-    .score-value { font-size: 16px; font-weight: 700; }
+    
+    .score-chip.active {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.08);
+    }
+    
+    .score-avatar { font-size: 18px; }
+    .score-points {
+      font-family: var(--font-display);
+      font-size: 16px;
+      color: var(--gold);
+    }
 
-    .current-player {
+    .turn-indicator {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 32px;
     }
-    .current-avatar { font-size: 48px; }
-    .current-name { font-size: 18px; font-weight: 600; margin-top: 8px; }
+    
+    .turn-avatar {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+    
+    .turn-text {
+      font-family: var(--font-elegant);
+      font-size: 18px;
+      font-style: italic;
+    }
 
     .game-area {
       flex: 1;
@@ -255,175 +661,349 @@
       justify-content: center;
     }
 
-    .draw-btn {
-      padding: 40px 60px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #e94560, #ff6b6b);
-      border: none;
+    /* Draw Button */
+    .draw-button {
+      width: 160px;
+      height: 200px;
+      background: var(--black-lighter);
+      border: 1px solid var(--gold);
       cursor: pointer;
-      box-shadow: 0 8px 30px rgba(233, 69, 96, 0.4);
-      transition: transform 0.2s;
+      position: relative;
+      transition: all 0.4s var(--ease-smooth);
     }
-    .draw-btn:active { transform: scale(0.95); }
-    .draw-btn-emoji { font-size: 64px; display: block; }
-    .draw-btn-text { color: #fff; font-size: 20px; font-weight: 700; margin-top: 10px; }
+    
+    .draw-button::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 1px solid var(--gold-dark);
+    }
+    
+    .draw-button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(201, 169, 89, 0.15);
+    }
+    
+    .draw-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .draw-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    
+    .draw-symbol {
+      font-size: 48px;
+      color: var(--gold);
+    }
+    
+    .draw-text {
+      font-family: var(--font-elegant);
+      font-size: 14px;
+      color: var(--cream);
+      letter-spacing: 2px;
+    }
 
-    /* CARD */
+    /* Card */
     .card {
       width: 100%;
-      border-radius: 20px;
-      padding: 24px;
+      max-width: 320px;
+      background: var(--cream);
+      color: var(--black);
+      padding: 32px 24px;
+      position: relative;
+      animation: cardReveal 0.5s var(--ease-bounce);
+    }
+    
+    @keyframes cardReveal {
+      0% { transform: scale(0.8) rotateY(90deg); opacity: 0; }
+      100% { transform: scale(1) rotateY(0); opacity: 1; }
+    }
+    
+    .card::before,
+    .card::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--gold-dark);
+    }
+    .card::before { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+    .card::after { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+    
+    .card-category {
       text-align: center;
-      margin-bottom: 20px;
-      animation: cardAppear 0.3s ease-out;
+      margin-bottom: 24px;
     }
-    @keyframes cardAppear {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .card.itiraf { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
-    .card.cesaret { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-    .card.oylama { background: linear-gradient(135deg, #3498db, #2980b9); }
-    .card.siralama { background: linear-gradient(135deg, #1abc9c, #16a085); }
-
-    .card-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0,0,0,0.2);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-    .card-text {
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-    .timer-bar {
-      height: 6px;
-      background: rgba(0,0,0,0.2);
-      border-radius: 3px;
-      overflow: hidden;
+    
+    .card-category-icon {
+      font-size: 32px;
       margin-bottom: 8px;
     }
+    
+    .card-category-name {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--burgundy);
+      text-transform: uppercase;
+    }
+    
+    .card-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 24px;
+    }
+    
+    .card-text {
+      font-family: var(--font-elegant);
+      font-size: 22px;
+      line-height: 1.5;
+      text-align: center;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    
+    .card-timer {
+      text-align: center;
+    }
+    
+    .timer-bar {
+      height: 3px;
+      background: rgba(0, 0, 0, 0.1);
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    
     .timer-fill {
       height: 100%;
-      background: #4ecdc4;
-      border-radius: 3px;
+      background: var(--burgundy);
       transition: width 1s linear;
     }
-    .timer-fill.warning { background: #ff6b6b; }
-    .timer-text { font-size: 14px; color: rgba(255,255,255,0.8); }
+    
+    .timer-fill.warning { background: #c0392b; }
+    
+    .timer-text {
+      font-size: 12px;
+      color: var(--ink);
+      opacity: 0.5;
+    }
 
-    .action-buttons {
+    .card-actions {
       display: flex;
       gap: 12px;
       width: 100%;
+      max-width: 320px;
+      margin-top: 24px;
     }
-    .action-buttons .btn { flex: 1; }
-    .action-buttons .btn-skip { flex: 0.6; }
-
-    /* VOTING */
-    .voting-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; text-align: center; }
-    .voting-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-    }
-    .vote-option {
-      background: rgba(255,255,255,0.1);
-      border: 2px solid transparent;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      min-width: 90px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .vote-option:active { transform: scale(0.95); }
-    .vote-option.selected { border-color: #4ecdc4; background: rgba(78, 205, 196, 0.2); }
-    .vote-avatar { font-size: 32px; margin-bottom: 6px; }
-    .vote-name { font-size: 14px; }
-    .vote-count {
-      background: #e94560;
-      padding: 2px 8px;
-      border-radius: 10px;
+    
+    .card-actions .btn {
+      flex: 1;
+      padding: 14px;
       font-size: 12px;
-      margin-top: 6px;
-      display: inline-block;
+    }
+    
+    .btn-pass {
+      background: transparent;
+      border: 1px solid rgba(245, 240, 232, 0.3);
+      color: var(--cream);
+    }
+    
+    .btn-pass:hover {
+      border-color: var(--cream);
+    }
+    
+    .btn-done {
+      background: var(--gold);
+      color: var(--black);
     }
 
-    /* REACTIONS */
+    /* Voting */
+    .voting-section {
+      width: 100%;
+      max-width: 320px;
+    }
+    
+    .voting-title {
+      font-family: var(--font-elegant);
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    
+    .voting-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 10px;
+    }
+    
+    .vote-card {
+      padding: 16px 12px;
+      background: var(--black-lighter);
+      border: 1px solid rgba(245, 240, 232, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .vote-card:hover {
+      border-color: rgba(245, 240, 232, 0.3);
+    }
+    
+    .vote-card.selected {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.1);
+    }
+    
+    .vote-avatar { font-size: 28px; margin-bottom: 8px; }
+    .vote-name { font-size: 12px; color: var(--cream); }
+    .vote-count {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 10px;
+      background: var(--burgundy);
+      font-size: 11px;
+      color: var(--cream);
+    }
+
+    /* Reactions */
     .reactions-bar {
       display: flex;
       justify-content: center;
       gap: 8px;
-      padding: 16px 0;
+      padding: 20px 0;
     }
+    
     .reaction-btn {
       width: 44px;
       height: 44px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      border: none;
-      font-size: 22px;
+      background: var(--black-lighter);
+      border: 1px solid rgba(245, 240, 232, 0.1);
+      font-size: 20px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: all 0.3s;
     }
-    .reaction-btn:active { transform: scale(1.2); }
-
+    
+    .reaction-btn:hover {
+      border-color: var(--gold);
+      transform: scale(1.1);
+    }
+    
     .floating-reaction {
       position: fixed;
-      font-size: 40px;
-      animation: floatUp 2s ease-out forwards;
+      font-size: 36px;
       pointer-events: none;
+      animation: floatUp 2s var(--ease-smooth) forwards;
     }
+    
     @keyframes floatUp {
       0% { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-200px) scale(1.5); }
+      100% { opacity: 0; transform: translateY(-150px) scale(1.3); }
     }
 
-    /* RESULTS */
+    /* ===================== */
+    /* RESULTS SCREEN */
+    /* ===================== */
     .results-header {
       text-align: center;
-      padding: 20px 0;
+      padding: 40px 0;
     }
-    .results-title { font-size: 32px; font-weight: 800; }
-    .results-subtitle { color: rgba(255,255,255,0.7); margin-top: 8px; }
+    
+    .results-ornament {
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 6px;
+      margin-bottom: 16px;
+    }
+    
+    .results-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 400;
+      margin-bottom: 8px;
+    }
+    
+    .results-winner {
+      font-family: var(--font-elegant);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--gold);
+    }
 
     .podium {
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      gap: 10px;
-      margin: 30px 0;
+      gap: 12px;
+      margin: 40px 0;
       height: 220px;
     }
-    .podium-item { text-align: center; }
-    .podium-player { margin-bottom: 10px; }
-    .podium-avatar { font-size: 36px; }
-    .podium-name { font-size: 14px; font-weight: 600; }
-    .podium-score { font-size: 12px; color: rgba(255,255,255,0.7); }
+    
+    .podium-place {
+      text-align: center;
+      animation: riseUp 0.6s var(--ease-bounce) backwards;
+    }
+    
+    .podium-place:nth-child(1) { animation-delay: 0.2s; }
+    .podium-place:nth-child(2) { animation-delay: 0s; }
+    .podium-place:nth-child(3) { animation-delay: 0.4s; }
+    
+    @keyframes riseUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .podium-player {
+      margin-bottom: 12px;
+    }
+    
+    .podium-avatar { font-size: 32px; margin-bottom: 6px; }
+    .podium-name { font-family: var(--font-elegant); font-size: 15px; }
+    .podium-score { font-size: 12px; color: var(--gold); }
+    
     .podium-block {
-      width: 80px;
-      border-radius: 12px 12px 0 0;
+      width: 72px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
-      font-weight: 800;
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--black);
     }
-    .podium-block.gold { background: linear-gradient(135deg, #FFD700, #FFA500); height: 120px; }
-    .podium-block.silver { background: linear-gradient(135deg, #C0C0C0, #A0A0A0); height: 90px; }
-    .podium-block.bronze { background: linear-gradient(135deg, #CD7F32, #8B4513); height: 60px; }
+    
+    .podium-block.gold {
+      background: linear-gradient(180deg, #d4ba6a 0%, #a68a3a 100%);
+      height: 100px;
+    }
+    .podium-block.silver {
+      background: linear-gradient(180deg, #c0c0c0 0%, #8a8a8a 100%);
+      height: 70px;
+    }
+    .podium-block.bronze {
+      background: linear-gradient(180deg, #cd9a6a 0%, #8b5a3a 100%);
+      height: 50px;
+    }
 
-    /* CONFETTI */
-    .confetti {
+    .results-actions {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Confetti */
+    .confetti-container {
       position: fixed;
       top: 0;
       left: 0;
@@ -431,128 +1011,110 @@
       pointer-events: none;
       z-index: 100;
     }
-    .confetti-piece {
+    
+    .confetti {
       position: absolute;
-      font-size: 24px;
-      animation: confettiFall 3s ease-out infinite;
+      font-size: 20px;
+      animation: confettiFall 4s linear forwards;
     }
+    
     @keyframes confettiFall {
       0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
       100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
     }
-
-    /* LOADING */
-    .loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 20px;
-    }
-    .spinner {
-      width: 24px;
-      height: 24px;
-      border: 3px solid rgba(255,255,255,0.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- HOME SCREEN -->
-    <div id="home-screen" class="screen active">
-      <div class="home-header">
-        <div class="logo">🎲</div>
-        <div class="title">MASA</div>
-        <div class="subtitle">Dijital Parti Oyunları</div>
-      </div>
-
-      <div class="game-modes">
-        <div class="mode-card">
-          <div class="mode-emoji">🗣️</div>
-          <div class="mode-name">İtiraf</div>
-        </div>
-        <div class="mode-card">
-          <div class="mode-emoji">🎭</div>
-          <div class="mode-name">Cesaret</div>
-        </div>
-        <div class="mode-card">
-          <div class="mode-emoji">🗳️</div>
-          <div class="mode-name">Oylama</div>
+    
+    <!-- ENTRANCE SCREEN -->
+    <div id="entrance-screen" class="screen entrance active">
+      <div class="emblem">
+        <div class="emblem-ring"></div>
+        <div class="emblem-inner">
+          <span class="emblem-symbol">M</span>
         </div>
       </div>
-
-      <div class="buttons">
+      
+      <div class="brand">
+        <h1 class="brand-name">MASA</h1>
+        <div class="brand-line"></div>
+        <p class="brand-tagline">İç Çember Oyunları</p>
+      </div>
+      
+      <div class="entry-cards">
+        <div class="entry-card">🗣️</div>
+        <div class="entry-card">🎭</div>
+        <div class="entry-card">🗳️</div>
+      </div>
+      
+      <div class="actions">
         <button class="btn btn-primary" onclick="showScreen('create-screen')">
-          ➕ Masa Kur
+          Masa Kur
         </button>
         <button class="btn btn-secondary" onclick="showScreen('join-screen')">
-          🔗 Masaya Katıl
+          Davetiye Gir
         </button>
       </div>
-
-      <div class="footer">
-        4-15 oyuncu • Aynı odada veya uzaktan<br>
-        v1.0 • Nora Kitap Evi
-      </div>
+      
+      <p class="footer-note">Sadece davetliler için</p>
     </div>
 
-    <!-- CREATE ROOM SCREEN -->
+    <!-- CREATE SCREEN -->
     <div id="create-screen" class="screen">
-      <button class="back-btn" onclick="showScreen('home-screen')">← Geri</button>
-      <h1 class="page-title">Masa Kur</h1>
-      <p class="page-subtitle">Oyun ayarlarını seç</p>
-
-      <div class="form-group">
-        <label class="form-label">Senin İsmin</label>
-        <input type="text" id="host-name" class="form-input" placeholder="İsmini yaz..." maxlength="20">
+      <div class="page-header">
+        <a class="back-link" onclick="showScreen('entrance-screen')">← Geri</a>
+        <h1 class="page-title">Masa Kur</h1>
+        <p class="page-subtitle">Oyun kurallarını belirle</p>
       </div>
-
-      <div class="settings-group">
-        <label class="form-label">Sıcaklık Seviyesi</label>
-        <div class="intensity-options">
-          <div class="intensity-btn" data-intensity="1" onclick="selectIntensity(1)">
-            <span class="intensity-emoji">😊</span>
-            <span class="intensity-label">Hafif</span>
+      
+      <div class="form-section">
+        <label class="form-label">Adın</label>
+        <input type="text" id="host-name" class="form-input" placeholder="Nasıl çağıralım..." maxlength="20">
+      </div>
+      
+      <div class="setting-group">
+        <label class="form-label">Atmosfer</label>
+        <div class="setting-options">
+          <div class="setting-btn" data-intensity="1" onclick="selectIntensity(1)">
+            <div class="setting-icon">☕</div>
+            <div class="setting-label">Sohbet</div>
           </div>
-          <div class="intensity-btn active" data-intensity="2" onclick="selectIntensity(2)">
-            <span class="intensity-emoji">😏</span>
-            <span class="intensity-label">Orta</span>
+          <div class="setting-btn active" data-intensity="2" onclick="selectIntensity(2)">
+            <div class="setting-icon">🍷</div>
+            <div class="setting-label">Samimi</div>
           </div>
-          <div class="intensity-btn" data-intensity="3" onclick="selectIntensity(3)">
-            <span class="intensity-emoji">🔥</span>
-            <span class="intensity-label">Ateşli</span>
+          <div class="setting-btn" data-intensity="3" onclick="selectIntensity(3)">
+            <div class="setting-icon">🔥</div>
+            <div class="setting-label">Cesur</div>
           </div>
         </div>
       </div>
-
-      <div class="settings-group">
-        <label class="form-label">Kategoriler</label>
+      
+      <div class="setting-group">
+        <label class="form-label">Oyun Türleri</label>
         <div class="category-options">
-          <div class="category-btn active" data-cat="itiraf" onclick="toggleCategory('itiraf')">🗣️ İtiraf</div>
-          <div class="category-btn active" data-cat="cesaret" onclick="toggleCategory('cesaret')">🎭 Cesaret</div>
-          <div class="category-btn active" data-cat="oylama" onclick="toggleCategory('oylama')">🗳️ Oylama</div>
+          <button class="category-btn active" data-cat="itiraf" onclick="toggleCategory('itiraf')">İtiraf</button>
+          <button class="category-btn active" data-cat="cesaret" onclick="toggleCategory('cesaret')">Cesaret</button>
+          <button class="category-btn active" data-cat="oylama" onclick="toggleCategory('oylama')">Oylama</button>
         </div>
       </div>
-
-      <div class="buttons" style="margin-top: auto;">
-        <button class="btn btn-primary" onclick="createRoom()">
-          🎲 Masayı Kur
-        </button>
+      
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="createRoom()">Masayı Aç</button>
       </div>
     </div>
 
-    <!-- JOIN ROOM SCREEN -->
+    <!-- JOIN SCREEN -->
     <div id="join-screen" class="screen">
-      <button class="back-btn" onclick="showScreen('home-screen')">← Geri</button>
-      <h1 class="page-title">Masaya Katıl</h1>
-      <p class="page-subtitle">6 haneli kodu gir</p>
-
-      <div class="form-group" style="text-align: center;">
-        <div class="code-inputs">
+      <div class="page-header">
+        <a class="back-link" onclick="showScreen('entrance-screen')">← Geri</a>
+        <h1 class="page-title">Davetiye</h1>
+        <p class="page-subtitle">6 haneli kodu gir</p>
+      </div>
+      
+      <div class="form-section" style="text-align: center;">
+        <div class="code-container">
           <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 0)">
           <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 1)">
           <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 2)">
@@ -561,87 +1123,97 @@
           <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 5)">
         </div>
       </div>
-
-      <div class="form-group">
-        <label class="form-label">Senin İsmin</label>
-        <input type="text" id="player-name" class="form-input" placeholder="İsmini yaz..." maxlength="20">
+      
+      <div class="form-section">
+        <label class="form-label">Adın</label>
+        <input type="text" id="player-name" class="form-input" placeholder="Nasıl çağıralım..." maxlength="20">
       </div>
-
-      <div class="buttons" style="margin-top: auto;">
-        <button class="btn btn-success" onclick="joinRoom()">
-          🚀 Katıl
-        </button>
+      
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="joinRoom()">Masaya Otur</button>
       </div>
     </div>
 
     <!-- LOBBY SCREEN -->
     <div id="lobby-screen" class="screen">
-      <button class="back-btn" onclick="leaveRoom()">← Çık</button>
+      <a class="back-link" onclick="leaveRoom()">← Ayrıl</a>
       
-      <div class="room-code-display">
-        <div class="room-code-label">ODA KODU</div>
+      <div class="room-code-section">
+        <div class="room-code-label">DAVETİYE KODU</div>
         <div class="room-code-value" id="display-room-code">------</div>
-        <div class="room-code-hint">Arkadaşlarına bu kodu gönder</div>
-        <button class="btn btn-secondary" style="margin-top: 12px; padding: 10px 20px; font-size: 14px;" onclick="shareRoom()">
-          📤 Paylaş
+        <button class="share-btn" onclick="shareRoom()">
+          <span>Paylaş</span>
         </button>
       </div>
-
-      <div class="form-label">Oyuncular (<span id="player-count">1</span>/15)</div>
-      <div class="players-list" id="players-list"></div>
-
-      <div class="buttons">
+      
+      <div class="members-section">
+        <div class="section-header">
+          <span class="section-title">Masadakiler</span>
+          <span class="member-count" id="player-count">1 kişi</span>
+        </div>
+        <div id="players-list"></div>
+      </div>
+      
+      <div class="form-actions">
         <button class="btn btn-primary" id="start-btn" onclick="startGame()" style="display: none;">
-          🎮 Oyunu Başlat
+          Oyunu Başlat
         </button>
-        <button class="btn btn-success" id="ready-btn" onclick="toggleReady()">
-          Hazır Ol
+        <button class="btn btn-secondary" id="ready-btn" onclick="toggleReady()">
+          Hazırım
         </button>
       </div>
     </div>
 
     <!-- GAME SCREEN -->
     <div id="game-screen" class="screen">
-      <div class="scoreboard" id="scoreboard"></div>
-      
-      <div class="current-player" id="current-player">
-        <div class="current-avatar">🦊</div>
-        <div class="current-name">Senin sıran!</div>
+      <div class="game-header">
+        <button class="exit-btn" onclick="showScreen('entrance-screen')">✕ ÇIK</button>
+        <span class="round-indicator" id="round-indicator">I / V</span>
       </div>
-
+      
+      <div class="scores-bar" id="scoreboard"></div>
+      
+      <div class="turn-indicator" id="turn-indicator">
+        <div class="turn-avatar">🦊</div>
+        <div class="turn-text">Senin sıran</div>
+      </div>
+      
       <div class="game-area" id="game-area">
-        <button class="draw-btn" id="draw-btn" onclick="drawCard()">
-          <span class="draw-btn-emoji">🎴</span>
-          <span class="draw-btn-text">Kart Çek</span>
+        <button class="draw-button" id="draw-btn" onclick="drawCard()">
+          <div class="draw-content">
+            <span class="draw-symbol">✦</span>
+            <span class="draw-text">Kart Çek</span>
+          </div>
         </button>
       </div>
-
+      
       <div class="reactions-bar" id="reactions-bar" style="display: none;">
         <button class="reaction-btn" onclick="sendReaction('😂')">😂</button>
         <button class="reaction-btn" onclick="sendReaction('🔥')">🔥</button>
         <button class="reaction-btn" onclick="sendReaction('😱')">😱</button>
         <button class="reaction-btn" onclick="sendReaction('👏')">👏</button>
         <button class="reaction-btn" onclick="sendReaction('💀')">💀</button>
-        <button class="reaction-btn" onclick="sendReaction('❤️')">❤️</button>
       </div>
     </div>
 
     <!-- RESULTS SCREEN -->
     <div id="results-screen" class="screen">
-      <div class="confetti" id="confetti"></div>
+      <div class="confetti-container" id="confetti"></div>
       
       <div class="results-header">
-        <h1 class="results-title">🎮 Oyun Bitti!</h1>
-        <p class="results-subtitle" id="winner-text">Tebrikler!</p>
+        <div class="results-ornament">✦ ✦ ✦</div>
+        <h1 class="results-title">Oyun Bitti</h1>
+        <p class="results-winner" id="winner-text">Tebrikler</p>
       </div>
-
+      
       <div class="podium" id="podium"></div>
-
-      <div class="buttons" style="margin-top: auto;">
-        <button class="btn btn-secondary" onclick="shareResults()">📤 Paylaş</button>
-        <button class="btn btn-primary" onclick="playAgain()">🔄 Tekrar Oyna</button>
+      
+      <div class="results-actions">
+        <button class="btn btn-secondary" onclick="shareResults()">Sonuçları Paylaş</button>
+        <button class="btn btn-primary" onclick="playAgain()">Tekrar Oyna</button>
       </div>
     </div>
+
   </div>
 
   <script>
@@ -658,45 +1230,61 @@
       { id: 6, category: 'itiraf', intensity: 1, text: 'Hiç tanımadığın birine el salladın mı?' },
       // İTİRAF - Seviye 2
       { id: 7, category: 'itiraf', intensity: 2, text: 'Sosyal medyada stalkladığın kişi kim?' },
-      { id: 8, category: 'itiraf', intensity: 2, text: 'Bu gruptaki biri hakkında düşündüğün ama söylemediğin bir şey?' },
+      { id: 8, category: 'itiraf', intensity: 2, text: 'Bu masadaki biri hakkında düşündüğün ama söylemediğin bir şey?' },
       { id: 9, category: 'itiraf', intensity: 2, text: 'En utanç verici arama geçmişin ne olurdu?' },
       { id: 10, category: 'itiraf', intensity: 2, text: 'Ailenin bilmediği bir sırrın var mı?' },
       { id: 11, category: 'itiraf', intensity: 2, text: 'En son pişman olduğun mesaj ne?' },
+      { id: 12, category: 'itiraf', intensity: 2, text: 'Parasız kalsan bu masadan kimin evinde kalırdın?' },
       // İTİRAF - Seviye 3
-      { id: 12, category: 'itiraf', intensity: 3, text: 'En utanç verici anın neydi? Detaylı anlat.' },
-      { id: 13, category: 'itiraf', intensity: 3, text: 'Silinen mesajların geri gelse en çok utanacağın konuşma hangisi?' },
-      { id: 14, category: 'itiraf', intensity: 3, text: 'Hiç kimseye söylemediğin bir fantezin var mı?' },
+      { id: 13, category: 'itiraf', intensity: 3, text: 'En utanç verici anın neydi? Detaylı anlat.' },
+      { id: 14, category: 'itiraf', intensity: 3, text: 'Silinen mesajların geri gelse en çok utanacağın konuşma hangisi?' },
+      { id: 15, category: 'itiraf', intensity: 3, text: 'Hiç kimseye söylemediğin bir fantezin var mı?' },
+      { id: 16, category: 'itiraf', intensity: 3, text: 'Bu masadaki biriyle geçmişte yaşadığın ama sakladığın bir olay?' },
       
       // CESARET - Seviye 1
       { id: 20, category: 'cesaret', intensity: 1, text: 'Sağındaki kişiye samimi bir iltifat et.' },
-      { id: 21, category: 'cesaret', intensity: 1, text: '10 saniye boyunca komik bir yüz ifadesi yap.' },
+      { id: 21, category: 'cesaret', intensity: 1, text: 'On saniye boyunca komik bir yüz ifadesi yap.' },
       { id: 22, category: 'cesaret', intensity: 1, text: 'En sevdiğin şarkının nakaratını söyle.' },
-      { id: 23, category: 'cesaret', intensity: 1, text: 'Gruba en iyi taklitini göster.' },
-      { id: 24, category: 'cesaret', intensity: 1, text: 'Telefonundaki son selfieyi herkese göster.' },
+      { id: 23, category: 'cesaret', intensity: 1, text: 'Masaya en iyi taklitini göster.' },
+      { id: 24, category: 'cesaret', intensity: 1, text: 'Telefonundaki son selfie\'yi herkese göster.' },
+      { id: 25, category: 'cesaret', intensity: 1, text: 'Bir sonraki tura kadar sadece fısıldayarak konuş.' },
       // CESARET - Seviye 2
-      { id: 25, category: 'cesaret', intensity: 2, text: 'Solundaki kişiyle 15 saniye göz teması kur.' },
-      { id: 26, category: 'cesaret', intensity: 2, text: 'Son gelen mesajını yüksek sesle oku.' },
-      { id: 27, category: 'cesaret', intensity: 2, text: 'Instagram\'daki son 5 beğenini açıkla.' },
-      { id: 28, category: 'cesaret', intensity: 2, text: 'Karşındaki kişiye dramatik bir aşk ilanı yap.' },
+      { id: 26, category: 'cesaret', intensity: 2, text: 'Solundaki kişiyle on beş saniye göz teması kur.' },
+      { id: 27, category: 'cesaret', intensity: 2, text: 'Son gelen mesajını yüksek sesle oku.' },
+      { id: 28, category: 'cesaret', intensity: 2, text: 'Instagram\'daki son beş beğenini açıkla.' },
+      { id: 29, category: 'cesaret', intensity: 2, text: 'Karşındaki kişiye dramatik bir aşk ilanı yap.' },
+      { id: 30, category: 'cesaret', intensity: 2, text: 'Bir dakika boyunca herkesin her sorusuna dürüstçe cevap ver.' },
       // CESARET - Seviye 3
-      { id: 29, category: 'cesaret', intensity: 3, text: 'Eski sevgiline "Seni hâlâ düşünüyorum" mesajı at!' },
-      { id: 30, category: 'cesaret', intensity: 3, text: 'WhatsApp durumuna "Satılık: Hayatım" yaz, 5 dk bekle.' },
+      { id: 31, category: 'cesaret', intensity: 3, text: 'Eski sevgiline "Seni hâlâ düşünüyorum" mesajı at.' },
+      { id: 32, category: 'cesaret', intensity: 3, text: 'WhatsApp durumuna "Satılık: Hayatım" yaz, beş dakika bekle.' },
+      { id: 33, category: 'cesaret', intensity: 3, text: 'Masanın seçtiği kişiyle otuz saniye sarıl.' },
       
       // OYLAMA
       { id: 40, category: 'oylama', intensity: 1, text: 'Kim en kötü yalan söyler?' },
       { id: 41, category: 'oylama', intensity: 1, text: 'Kim en romantik?' },
-      { id: 42, category: 'oylama', intensity: 2, text: 'Kim en çok dedikodu yapar?' },
-      { id: 43, category: 'oylama', intensity: 2, text: 'Kim en tehlikeli sürücü?' },
-      { id: 44, category: 'oylama', intensity: 2, text: 'Kim ilk evlenecek?' },
-      { id: 45, category: 'oylama', intensity: 3, text: 'Kim en çekici?' },
-      { id: 46, category: 'oylama', intensity: 3, text: 'Kimin en çok sırrı var?' },
+      { id: 42, category: 'oylama', intensity: 1, text: 'Kim en iyi sır saklar?' },
+      { id: 43, category: 'oylama', intensity: 2, text: 'Kim en çok dedikodu yapar?' },
+      { id: 44, category: 'oylama', intensity: 2, text: 'Kim en tehlikeli sürücü?' },
+      { id: 45, category: 'oylama', intensity: 2, text: 'Kim ilk evlenecek?' },
+      { id: 46, category: 'oylama', intensity: 2, text: 'Kim en iyi parti verir?' },
+      { id: 47, category: 'oylama', intensity: 3, text: 'Kim en çekici?' },
+      { id: 48, category: 'oylama', intensity: 3, text: 'Kimin en çok sırrı var?' },
+      { id: 49, category: 'oylama', intensity: 3, text: 'Kim en çok flört eder?' },
     ];
 
-    const avatars = ['🦊', '🐼', '🦁', '🐸', '🐵', '🐷', '🐰', '🐻', '🦄', '🐲', '🦋', '🐝'];
+    const avatars = ['🦊', '🦉', '🐺', '🦅', '🐆', '🦇', '🐍', '🦚', '🦢', '🐉'];
+    const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+    
     const scoreRules = {
       itiraf: { complete: 5, skip: -2 },
       cesaret: { complete: 10, skip: -3 },
       oylama: { winner: 15, participant: 2 }
+    };
+
+    const categoryIcons = {
+      itiraf: '🗣️',
+      cesaret: '🎭',
+      oylama: '🗳️'
     };
 
     // ==========================================
@@ -738,7 +1326,7 @@
     // ==========================================
     function selectIntensity(level) {
       gameState.settings.intensity = level;
-      document.querySelectorAll('.intensity-btn').forEach(btn => {
+      document.querySelectorAll('.setting-btn[data-intensity]').forEach(btn => {
         btn.classList.toggle('active', parseInt(btn.dataset.intensity) === level);
       });
     }
@@ -773,7 +1361,7 @@
     function createRoom() {
       const name = document.getElementById('host-name').value.trim();
       if (!name) {
-        alert('Lütfen ismini gir!');
+        alert('Lütfen adını gir');
         return;
       }
 
@@ -790,9 +1378,7 @@
         isReady: true
       }];
 
-      // LocalStorage'a kaydet (aynı cihazda test için)
       saveRoomToStorage();
-      
       showScreen('lobby-screen');
       updateLobby();
     }
@@ -803,18 +1389,17 @@
       const name = document.getElementById('player-name').value.trim();
 
       if (code.length !== 6) {
-        alert('6 haneli kodu gir!');
+        alert('6 haneli kodu gir');
         return;
       }
       if (!name) {
-        alert('Lütfen ismini gir!');
+        alert('Lütfen adını gir');
         return;
       }
 
-      // LocalStorage'dan oda bilgisi al
       const roomData = localStorage.getItem('masa_room_' + code);
       if (!roomData) {
-        alert('Oda bulunamadı!');
+        alert('Masa bulunamadı');
         return;
       }
 
@@ -826,7 +1411,6 @@
       gameState.settings = room.settings;
       gameState.players = room.players;
       
-      // Kendini ekle
       const avatarIndex = gameState.players.length % avatars.length;
       gameState.players.push({
         id: gameState.playerId,
@@ -845,6 +1429,7 @@
     function handleCodeInput(input, index) {
       const value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
       input.value = value;
+      input.classList.toggle('filled', value.length > 0);
       
       if (value && index < 5) {
         document.querySelectorAll('.code-input')[index + 1].focus();
@@ -876,37 +1461,34 @@
 
     function updateLobby() {
       document.getElementById('display-room-code').textContent = gameState.roomCode;
-      document.getElementById('player-count').textContent = gameState.players.length;
+      document.getElementById('player-count').textContent = gameState.players.length + ' kişi';
 
       const list = document.getElementById('players-list');
       list.innerHTML = gameState.players.map(p => `
-        <div class="player-card ${p.isHost ? 'host' : ''}">
-          <div class="player-avatar">${p.avatar}</div>
-          <div class="player-info">
-            <div class="player-name">
-              ${p.name}
-              ${p.isHost ? '<span class="host-badge">👑 Host</span>' : ''}
-            </div>
-            <div class="player-status ${p.isReady ? 'ready' : ''}">
-              ${p.isHost ? 'Hazır' : (p.isReady ? '✓ Hazır' : 'Bekliyor...')}
+        <div class="member-card ${p.isHost ? 'host' : ''}">
+          <div class="member-avatar">${p.avatar}</div>
+          <div class="member-info">
+            <div class="member-name">${p.name}</div>
+            <div class="member-status ${p.isReady ? 'ready' : ''}">
+              ${p.isHost ? 'Ev sahibi' : (p.isReady ? '✓ Hazır' : 'Bekliyor')}
             </div>
           </div>
+          ${p.isHost ? '<span class="host-mark">HOST</span>' : ''}
         </div>
       `).join('');
 
-      // Butonları güncelle
       const startBtn = document.getElementById('start-btn');
       const readyBtn = document.getElementById('ready-btn');
       
       if (gameState.isHost) {
         startBtn.style.display = 'block';
         readyBtn.style.display = 'none';
-        startBtn.disabled = gameState.players.length < 1; // Test için 1, normalde 2
+        startBtn.disabled = gameState.players.length < 1;
       } else {
         startBtn.style.display = 'none';
         readyBtn.style.display = 'block';
-        readyBtn.textContent = gameState.isReady ? '✓ Hazırım!' : 'Hazır Ol';
-        readyBtn.className = gameState.isReady ? 'btn btn-success' : 'btn btn-secondary';
+        readyBtn.textContent = gameState.isReady ? '✓ Hazırım' : 'Hazırım';
+        readyBtn.className = gameState.isReady ? 'btn btn-primary' : 'btn btn-secondary';
       }
     }
 
@@ -919,13 +1501,13 @@
     }
 
     function shareRoom() {
-      const text = `🎲 MASA parti oyununa katıl!\n\nOda Kodu: ${gameState.roomCode}\n\nLink: ${window.location.href}`;
+      const text = `MASA'ya davetlisin.\n\nKod: ${gameState.roomCode}\n\n${window.location.href}`;
       
       if (navigator.share) {
-        navigator.share({ title: 'MASA Parti Oyunu', text: text });
+        navigator.share({ title: 'MASA Daveti', text: text });
       } else {
         navigator.clipboard.writeText(text);
-        alert('Kod kopyalandı!');
+        alert('Davetiye kopyalandı');
       }
     }
 
@@ -933,7 +1515,6 @@
       gameState.players = gameState.players.filter(p => p.id !== gameState.playerId);
       saveRoomToStorage();
       
-      // Reset
       gameState = {
         ...gameState,
         roomCode: null,
@@ -944,7 +1525,7 @@
         gameStarted: false
       };
       
-      showScreen('home-screen');
+      showScreen('entrance-screen');
     }
 
     // ==========================================
@@ -962,32 +1543,35 @@
     }
 
     function updateGameScreen() {
-      // Skor tablosu
+      // Round indicator
+      const roundNum = Math.min(gameState.currentRound + 1, gameState.totalRounds);
+      document.getElementById('round-indicator').textContent = 
+        `${romanNumerals[roundNum - 1] || roundNum} / ${romanNumerals[gameState.totalRounds - 1]}`;
+
+      // Scoreboard
       const scoreboard = document.getElementById('scoreboard');
       scoreboard.innerHTML = gameState.players.map((p, i) => `
-        <div class="score-item ${i === gameState.currentPlayerIndex ? 'active' : ''}">
-          <div class="score-avatar">${p.avatar}</div>
-          <div class="score-name">${p.name}</div>
-          <div class="score-value">${p.score}</div>
+        <div class="score-chip ${i === gameState.currentPlayerIndex ? 'active' : ''}">
+          <span class="score-avatar">${p.avatar}</span>
+          <span class="score-points">${p.score}</span>
         </div>
       `).join('');
 
-      // Mevcut oyuncu
+      // Turn indicator
       const current = gameState.players[gameState.currentPlayerIndex];
       const isMyTurn = current.id === gameState.playerId;
       
-      document.getElementById('current-player').innerHTML = `
-        <div class="current-avatar">${current.avatar}</div>
-        <div class="current-name">${isMyTurn ? 'Senin sıran!' : current.name + "'ın sırası"}</div>
+      document.getElementById('turn-indicator').innerHTML = `
+        <div class="turn-avatar">${current.avatar}</div>
+        <div class="turn-text">${isMyTurn ? 'Senin sıran' : current.name + ' oynuyor'}</div>
       `;
 
-      // Kart çekme butonu
+      // Draw button
       const drawBtn = document.getElementById('draw-btn');
       drawBtn.style.display = gameState.currentCard ? 'none' : 'block';
       drawBtn.disabled = !isMyTurn;
-      drawBtn.querySelector('.draw-btn-text').textContent = isMyTurn ? 'Kart Çek' : 'Bekle...';
       
-      // Tepki barı
+      // Reactions
       document.getElementById('reactions-bar').style.display = gameState.currentCard ? 'flex' : 'none';
     }
 
@@ -1013,45 +1597,51 @@
 
       saveRoomToStorage();
       showCard(card);
+      updateGameScreen();
     }
 
     function showCard(card) {
       const gameArea = document.getElementById('game-area');
       const isMyTurn = gameState.players[gameState.currentPlayerIndex].id === gameState.playerId;
-      const categoryEmojis = { itiraf: '🗣️', cesaret: '🎭', oylama: '🗳️', siralama: '📊' };
 
       let actionsHtml = '';
       if (card.category === 'oylama') {
         actionsHtml = `
-          <div class="voting-title">Kime oy veriyorsun?</div>
-          <div class="voting-options">
-            ${gameState.players.map(p => `
-              <div class="vote-option" onclick="vote('${p.id}')">
-                <div class="vote-avatar">${p.avatar}</div>
-                <div class="vote-name">${p.name}</div>
-              </div>
-            `).join('')}
+          <div class="voting-section">
+            <div class="voting-title">Kime oy veriyorsun?</div>
+            <div class="voting-grid">
+              ${gameState.players.map(p => `
+                <div class="vote-card" onclick="vote('${p.id}')">
+                  <div class="vote-avatar">${p.avatar}</div>
+                  <div class="vote-name">${p.name}</div>
+                </div>
+              `).join('')}
+            </div>
           </div>
         `;
       } else if (isMyTurn) {
         actionsHtml = `
-          <div class="action-buttons">
-            <button class="btn btn-secondary btn-skip" onclick="skipCard()">Pas 👎</button>
-            <button class="btn btn-success" onclick="completeCard()">Tamamladım ✓</button>
+          <div class="card-actions">
+            <button class="btn btn-pass" onclick="skipCard()">Pas</button>
+            <button class="btn btn-done" onclick="completeCard()">Tamamladım</button>
           </div>
         `;
       }
 
       gameArea.innerHTML = `
-        <div class="card ${card.category}">
-          <div class="card-badge">
-            ${categoryEmojis[card.category]} ${card.category.toUpperCase()}
+        <div class="card">
+          <div class="card-category">
+            <div class="card-category-icon">${categoryIcons[card.category]}</div>
+            <div class="card-category-name">${card.category}</div>
           </div>
+          <div class="card-divider"></div>
           <div class="card-text">${card.text}</div>
-          <div class="timer-bar">
-            <div class="timer-fill" id="timer-fill" style="width: 100%"></div>
+          <div class="card-timer">
+            <div class="timer-bar">
+              <div class="timer-fill" id="timer-fill" style="width: 100%"></div>
+            </div>
+            <div class="timer-text"><span id="timer-value">30</span> saniye</div>
           </div>
-          <div class="timer-text"><span id="timer-value">30</span>s</div>
         </div>
         ${actionsHtml}
       `;
@@ -1111,17 +1701,14 @@
     function vote(playerId) {
       gameState.votes[gameState.playerId] = playerId;
       
-      const options = document.querySelectorAll('.vote-option');
-      options.forEach(opt => {
-        opt.classList.remove('selected');
-        if (opt.onclick.toString().includes(playerId)) {
-          opt.classList.add('selected');
+      document.querySelectorAll('.vote-card').forEach(card => {
+        card.classList.remove('selected');
+        if (card.onclick.toString().includes(playerId)) {
+          card.classList.add('selected');
         }
       });
 
-      // Simüle: Tüm oylar geldi varsay
       setTimeout(() => {
-        // Rastgele sonuçlar oluştur
         const results = {};
         gameState.players.forEach(p => {
           const randomVote = gameState.players[Math.floor(Math.random() * gameState.players.length)].id;
@@ -1136,16 +1723,14 @@
     function showVoteResults(results) {
       clearInterval(gameState.timerInterval);
       
-      const options = document.querySelectorAll('.vote-option');
-      options.forEach(opt => {
-        const pId = opt.onclick.toString().match(/'([^']+)'/)[1];
+      document.querySelectorAll('.vote-card').forEach(card => {
+        const pId = card.onclick.toString().match(/'([^']+)'/)[1];
         const count = results[pId] || 0;
         if (count > 0) {
-          opt.innerHTML += `<div class="vote-count">${count} oy</div>`;
+          card.innerHTML += `<div class="vote-count">${count} oy</div>`;
         }
       });
 
-      // En çok oy alana puan ver
       const winnerId = Object.entries(results).sort((a, b) => b[1] - a[1])[0][0];
       const winner = gameState.players.find(p => p.id === winnerId);
       if (winner) {
@@ -1153,7 +1738,6 @@
       }
 
       saveRoomToStorage();
-      
       setTimeout(() => nextTurn(), 2500);
     }
 
@@ -1163,17 +1747,17 @@
       
       saveRoomToStorage();
 
-      // Oyun bitti mi?
       if (gameState.currentRound >= gameState.totalRounds * gameState.players.length) {
         endGame();
         return;
       }
 
-      // Ekranı güncelle
       document.getElementById('game-area').innerHTML = `
-        <button class="draw-btn" id="draw-btn" onclick="drawCard()">
-          <span class="draw-btn-emoji">🎴</span>
-          <span class="draw-btn-text">Kart Çek</span>
+        <button class="draw-button" id="draw-btn" onclick="drawCard()">
+          <div class="draw-content">
+            <span class="draw-symbol">✦</span>
+            <span class="draw-text">Kart Çek</span>
+          </div>
         </button>
       `;
       
@@ -1184,8 +1768,8 @@
       const reaction = document.createElement('div');
       reaction.className = 'floating-reaction';
       reaction.textContent = emoji;
-      reaction.style.left = (Math.random() * 80 + 10) + '%';
-      reaction.style.bottom = '100px';
+      reaction.style.left = (Math.random() * 60 + 20) + '%';
+      reaction.style.bottom = '120px';
       document.body.appendChild(reaction);
       
       setTimeout(() => reaction.remove(), 2000);
@@ -1200,27 +1784,27 @@
       
       const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
       
-      // Konfeti
+      // Confetti
       const confetti = document.getElementById('confetti');
-      confetti.innerHTML = Array(15).fill(0).map((_, i) => 
-        `<div class="confetti-piece" style="left: ${i * 7}%; animation-delay: ${i * 0.1}s;">
-          ${['🎉', '🎊', '✨', '⭐', '🌟'][i % 5]}
+      const confettiEmojis = ['✦', '✧', '◆', '◇', '○'];
+      confetti.innerHTML = Array(12).fill(0).map((_, i) => 
+        `<div class="confetti" style="left: ${i * 8 + 4}%; animation-delay: ${i * 0.2}s; color: var(--gold);">
+          ${confettiEmojis[i % confettiEmojis.length]}
         </div>`
       ).join('');
 
-      // Kazanan
-      document.getElementById('winner-text').textContent = `Tebrikler ${sorted[0].name}!`;
+      document.getElementById('winner-text').textContent = `Tebrikler, ${sorted[0].name}`;
 
-      // Podyum
+      // Podium
       const podium = document.getElementById('podium');
-      const podiumOrder = [1, 0, 2]; // 2., 1., 3. sıra
+      const podiumOrder = [1, 0, 2];
       const blocks = ['silver', 'gold', 'bronze'];
       
       podium.innerHTML = podiumOrder.map((rank, i) => {
         const player = sorted[rank];
         if (!player) return '';
         return `
-          <div class="podium-item">
+          <div class="podium-place">
             <div class="podium-player">
               <div class="podium-avatar">${player.avatar}</div>
               <div class="podium-name">${player.name}</div>
@@ -1236,13 +1820,13 @@
 
     function shareResults() {
       const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
-      const text = `🎲 MASA Parti Oyunu Sonuçları!\n\n🏆 Kazanan: ${sorted[0].name} (${sorted[0].score} puan)\n\nBizimle oynamak ister misin?`;
+      const text = `MASA Sonuçları\n\n🏆 ${sorted[0].name} — ${sorted[0].score} puan\n\nSıralama:\n${sorted.map((p, i) => `${i + 1}. ${p.name}: ${p.score}`).join('\n')}`;
       
       if (navigator.share) {
         navigator.share({ title: 'MASA Sonuçları', text: text });
       } else {
         navigator.clipboard.writeText(text);
-        alert('Sonuçlar kopyalandı!');
+        alert('Sonuçlar kopyalandı');
       }
     }
 
@@ -1260,21 +1844,19 @@
     // ==========================================
     // BAŞLANGIÇ
     // ==========================================
-    // Sayfa yüklendiğinde
     document.addEventListener('DOMContentLoaded', () => {
-      // URL'de oda kodu var mı?
       const urlParams = new URLSearchParams(window.location.search);
       const roomCode = urlParams.get('room');
       
       if (roomCode) {
         document.querySelectorAll('.code-input').forEach((input, i) => {
           input.value = roomCode[i] || '';
+          if (roomCode[i]) input.classList.add('filled');
         });
         showScreen('join-screen');
       }
     });
 
-    // Her 2 saniyede oda verisini güncelle (basit polling)
     setInterval(() => {
       if (gameState.roomCode && !gameState.gameStarted) {
         loadRoomFromStorage();
