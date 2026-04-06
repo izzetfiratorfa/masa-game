@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>MASA - Parti Oyunları</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* SCREENS */
+    .screen { display: none; flex-direction: column; flex: 1; }
+    .screen.active { display: flex; }
+
+    /* HOME SCREEN */
+    .home-header {
+      text-align: center;
+      padding: 40px 0;
+    }
+    .logo { font-size: 80px; margin-bottom: 10px; }
+    .title { font-size: 48px; font-weight: 800; letter-spacing: 8px; }
+    .subtitle { color: rgba(255,255,255,0.6); margin-top: 8px; letter-spacing: 2px; }
+
+    .game-modes {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 30px 0;
+    }
+    .mode-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      flex: 1;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .mode-emoji { font-size: 28px; margin-bottom: 6px; }
+    .mode-name { font-size: 12px; font-weight: 600; }
+
+    .buttons { display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
+    
+    .btn {
+      padding: 18px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.5; }
+
+    .btn-primary {
+      background: linear-gradient(90deg, #e94560, #ff6b6b);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+    .btn-success {
+      background: linear-gradient(90deg, #4ecdc4, #44a08d);
+      color: #fff;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: rgba(255,255,255,0.4);
+      font-size: 12px;
+    }
+
+    /* FORM ELEMENTS */
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 18px;
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.4); }
+    .form-input:focus { outline: none; border-color: #e94560; }
+
+    /* CODE INPUT */
+    .code-inputs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+    .code-input {
+      width: 48px;
+      height: 60px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 700;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .code-input:focus { border-color: #4ecdc4; background: rgba(78, 205, 196, 0.1); }
+
+    /* BACK BUTTON */
+    .back-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 10px 0;
+      text-align: left;
+    }
+
+    .page-title { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .page-subtitle { color: rgba(255,255,255,0.6); margin-bottom: 30px; }
+
+    /* SETTINGS */
+    .settings-group { margin-bottom: 24px; }
+    .intensity-options, .category-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .intensity-btn, .category-btn {
+      flex: 1;
+      min-width: 90px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .intensity-btn.active, .category-btn.active {
+      border-color: #e94560;
+      background: rgba(233, 69, 96, 0.2);
+      color: #fff;
+    }
+    .intensity-emoji { font-size: 24px; display: block; margin-bottom: 4px; }
+    .intensity-label { font-size: 12px; font-weight: 600; }
+
+    /* LOBBY */
+    .room-code-display {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+    .room-code-label { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 2px; }
+    .room-code-value { font-size: 36px; font-weight: 800; letter-spacing: 6px; margin: 10px 0; }
+    .room-code-hint { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+    .players-list { flex: 1; }
+    .player-card {
+      display: flex;
+      align-items: center;
+      padding: 14px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .player-card.host { border-color: #e94560; background: rgba(233, 69, 96, 0.1); }
+    .player-avatar { font-size: 32px; margin-right: 14px; }
+    .player-info { flex: 1; }
+    .player-name { font-size: 16px; font-weight: 600; }
+    .player-status { font-size: 13px; color: rgba(255,255,255,0.5); }
+    .player-status.ready { color: #4ecdc4; }
+    .host-badge {
+      background: rgba(233, 69, 96, 0.3);
+      color: #e94560;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-left: 8px;
+    }
+
+    /* GAME SCREEN */
+    .scoreboard {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .score-item {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      min-width: 70px;
+      border: 2px solid transparent;
+    }
+    .score-item.active { border-color: #e94560; background: rgba(233, 69, 96, 0.15); }
+    .score-avatar { font-size: 24px; }
+    .score-name { font-size: 11px; color: rgba(255,255,255,0.7); }
+    .score-value { font-size: 16px; font-weight: 700; }
+
+    .current-player {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .current-avatar { font-size: 48px; }
+    .current-name { font-size: 18px; font-weight: 600; margin-top: 8px; }
+
+    .game-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .draw-btn {
+      padding: 40px 60px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #e94560, #ff6b6b);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(233, 69, 96, 0.4);
+      transition: transform 0.2s;
+    }
+    .draw-btn:active { transform: scale(0.95); }
+    .draw-btn-emoji { font-size: 64px; display: block; }
+    .draw-btn-text { color: #fff; font-size: 20px; font-weight: 700; margin-top: 10px; }
+
+    /* CARD */
+    .card {
+      width: 100%;
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: cardAppear 0.3s ease-out;
+    }
+    @keyframes cardAppear {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .card.itiraf { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+    .card.cesaret { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .card.oylama { background: linear-gradient(135deg, #3498db, #2980b9); }
+    .card.siralama { background: linear-gradient(135deg, #1abc9c, #16a085); }
+
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,0,0,0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .card-text {
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .timer-bar {
+      height: 6px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .timer-fill {
+      height: 100%;
+      background: #4ecdc4;
+      border-radius: 3px;
+      transition: width 1s linear;
+    }
+    .timer-fill.warning { background: #ff6b6b; }
+    .timer-text { font-size: 14px; color: rgba(255,255,255,0.8); }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+    .action-buttons .btn { flex: 1; }
+    .action-buttons .btn-skip { flex: 0.6; }
+
+    /* VOTING */
+    .voting-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; text-align: center; }
+    .voting-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .vote-option {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      min-width: 90px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .vote-option:active { transform: scale(0.95); }
+    .vote-option.selected { border-color: #4ecdc4; background: rgba(78, 205, 196, 0.2); }
+    .vote-avatar { font-size: 32px; margin-bottom: 6px; }
+    .vote-name { font-size: 14px; }
+    .vote-count {
+      background: #e94560;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-top: 6px;
+      display: inline-block;
+    }
+
+    /* REACTIONS */
+    .reactions-bar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 0;
+    }
+    .reaction-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .reaction-btn:active { transform: scale(1.2); }
+
+    .floating-reaction {
+      position: fixed;
+      font-size: 40px;
+      animation: floatUp 2s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-200px) scale(1.5); }
+    }
+
+    /* RESULTS */
+    .results-header {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .results-title { font-size: 32px; font-weight: 800; }
+    .results-subtitle { color: rgba(255,255,255,0.7); margin-top: 8px; }
+
+    .podium {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 10px;
+      margin: 30px 0;
+      height: 220px;
+    }
+    .podium-item { text-align: center; }
+    .podium-player { margin-bottom: 10px; }
+    .podium-avatar { font-size: 36px; }
+    .podium-name { font-size: 14px; font-weight: 600; }
+    .podium-score { font-size: 12px; color: rgba(255,255,255,0.7); }
+    .podium-block {
+      width: 80px;
+      border-radius: 12px 12px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
+    }
+    .podium-block.gold { background: linear-gradient(135deg, #FFD700, #FFA500); height: 120px; }
+    .podium-block.silver { background: linear-gradient(135deg, #C0C0C0, #A0A0A0); height: 90px; }
+    .podium-block.bronze { background: linear-gradient(135deg, #CD7F32, #8B4513); height: 60px; }
+
+    /* CONFETTI */
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .confetti-piece {
+      position: absolute;
+      font-size: 24px;
+      animation: confettiFall 3s ease-out infinite;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* LOADING */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px;
+    }
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HOME SCREEN -->
+    <div id="home-screen" class="screen active">
+      <div class="home-header">
+        <div class="logo">🎲</div>
+        <div class="title">MASA</div>
+        <div class="subtitle">Dijital Parti Oyunları</div>
+      </div>
+
+      <div class="game-modes">
+        <div class="mode-card">
+          <div class="mode-emoji">🗣️</div>
+          <div class="mode-name">İtiraf</div>
+        </div>
+        <div class="mode-card">
+          <div class="mode-emoji">🎭</div>
+          <div class="mode-name">Cesaret</div>
+        </div>
+        <div class="mode-card">
+          <div class="mode-emoji">🗳️</div>
+          <div class="mode-name">Oylama</div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button class="btn btn-primary" onclick="showScreen('create-screen')">
+          ➕ Masa Kur
+        </button>
+        <button class="btn btn-secondary" onclick="showScreen('join-screen')">
+          🔗 Masaya Katıl
+        </button>
+      </div>
+
+      <div class="footer">
+        4-15 oyuncu • Aynı odada veya uzaktan<br>
+        v1.0 • Nora Kitap Evi
+      </div>
+    </div>
+
+    <!-- CREATE ROOM SCREEN -->
+    <div id="create-screen" class="screen">
+      <button class="back-btn" onclick="showScreen('home-screen')">← Geri</button>
+      <h1 class="page-title">Masa Kur</h1>
+      <p class="page-subtitle">Oyun ayarlarını seç</p>
+
+      <div class="form-group">
+        <label class="form-label">Senin İsmin</label>
+        <input type="text" id="host-name" class="form-input" placeholder="İsmini yaz..." maxlength="20">
+      </div>
+
+      <div class="settings-group">
+        <label class="form-label">Sıcaklık Seviyesi</label>
+        <div class="intensity-options">
+          <div class="intensity-btn" data-intensity="1" onclick="selectIntensity(1)">
+            <span class="intensity-emoji">😊</span>
+            <span class="intensity-label">Hafif</span>
+          </div>
+          <div class="intensity-btn active" data-intensity="2" onclick="selectIntensity(2)">
+            <span class="intensity-emoji">😏</span>
+            <span class="intensity-label">Orta</span>
+          </div>
+          <div class="intensity-btn" data-intensity="3" onclick="selectIntensity(3)">
+            <span class="intensity-emoji">🔥</span>
+            <span class="intensity-label">Ateşli</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <label class="form-label">Kategoriler</label>
+        <div class="category-options">
+          <div class="category-btn active" data-cat="itiraf" onclick="toggleCategory('itiraf')">🗣️ İtiraf</div>
+          <div class="category-btn active" data-cat="cesaret" onclick="toggleCategory('cesaret')">🎭 Cesaret</div>
+          <div class="category-btn active" data-cat="oylama" onclick="toggleCategory('oylama')">🗳️ Oylama</div>
+        </div>
+      </div>
+
+      <div class="buttons" style="margin-top: auto;">
+        <button class="btn btn-primary" onclick="createRoom()">
+          🎲 Masayı Kur
+        </button>
+      </div>
+    </div>
+
+    <!-- JOIN ROOM SCREEN -->
+    <div id="join-screen" class="screen">
+      <button class="back-btn" onclick="showScreen('home-screen')">← Geri</button>
+      <h1 class="page-title">Masaya Katıl</h1>
+      <p class="page-subtitle">6 haneli kodu gir</p>
+
+      <div class="form-group" style="text-align: center;">
+        <div class="code-inputs">
+          <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 0)">
+          <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 1)">
+          <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 2)">
+          <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 3)">
+          <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 4)">
+          <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 5)">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Senin İsmin</label>
+        <input type="text" id="player-name" class="form-input" placeholder="İsmini yaz..." maxlength="20">
+      </div>
+
+      <div class="buttons" style="margin-top: auto;">
+        <button class="btn btn-success" onclick="joinRoom()">
+          🚀 Katıl
+        </button>
+      </div>
+    </div>
+
+    <!-- LOBBY SCREEN -->
+    <div id="lobby-screen" class="screen">
+      <button class="back-btn" onclick="leaveRoom()">← Çık</button>
+      
+      <div class="room-code-display">
+        <div class="room-code-label">ODA KODU</div>
+        <div class="room-code-value" id="display-room-code">------</div>
+        <div class="room-code-hint">Arkadaşlarına bu kodu gönder</div>
+        <button class="btn btn-secondary" style="margin-top: 12px; padding: 10px 20px; font-size: 14px;" onclick="shareRoom()">
+          📤 Paylaş
+        </button>
+      </div>
+
+      <div class="form-label">Oyuncular (<span id="player-count">1</span>/15)</div>
+      <div class="players-list" id="players-list"></div>
+
+      <div class="buttons">
+        <button class="btn btn-primary" id="start-btn" onclick="startGame()" style="display: none;">
+          🎮 Oyunu Başlat
+        </button>
+        <button class="btn btn-success" id="ready-btn" onclick="toggleReady()">
+          Hazır Ol
+        </button>
+      </div>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="game-screen" class="screen">
+      <div class="scoreboard" id="scoreboard"></div>
+      
+      <div class="current-player" id="current-player">
+        <div class="current-avatar">🦊</div>
+        <div class="current-name">Senin sıran!</div>
+      </div>
+
+      <div class="game-area" id="game-area">
+        <button class="draw-btn" id="draw-btn" onclick="drawCard()">
+          <span class="draw-btn-emoji">🎴</span>
+          <span class="draw-btn-text">Kart Çek</span>
+        </button>
+      </div>
+
+      <div class="reactions-bar" id="reactions-bar" style="display: none;">
+        <button class="reaction-btn" onclick="sendReaction('😂')">😂</button>
+        <button class="reaction-btn" onclick="sendReaction('🔥')">🔥</button>
+        <button class="reaction-btn" onclick="sendReaction('😱')">😱</button>
+        <button class="reaction-btn" onclick="sendReaction('👏')">👏</button>
+        <button class="reaction-btn" onclick="sendReaction('💀')">💀</button>
+        <button class="reaction-btn" onclick="sendReaction('❤️')">❤️</button>
+      </div>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div id="results-screen" class="screen">
+      <div class="confetti" id="confetti"></div>
+      
+      <div class="results-header">
+        <h1 class="results-title">🎮 Oyun Bitti!</h1>
+        <p class="results-subtitle" id="winner-text">Tebrikler!</p>
+      </div>
+
+      <div class="podium" id="podium"></div>
+
+      <div class="buttons" style="margin-top: auto;">
+        <button class="btn btn-secondary" onclick="shareResults()">📤 Paylaş</button>
+        <button class="btn btn-primary" onclick="playAgain()">🔄 Tekrar Oyna</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // KART VERİTABANI
+    // ==========================================
+    const cards = [
+      // İTİRAF - Seviye 1
+      { id: 1, category: 'itiraf', intensity: 1, text: 'Bugün söylediğin en küçük yalan neydi?' },
+      { id: 2, category: 'itiraf', intensity: 1, text: 'En son ne zaman ve neden ağladın?' },
+      { id: 3, category: 'itiraf', intensity: 1, text: 'Telefonundaki en utanç verici uygulama hangisi?' },
+      { id: 4, category: 'itiraf', intensity: 1, text: 'En garip korkun nedir?' },
+      { id: 5, category: 'itiraf', intensity: 1, text: 'Bugün yaptığın en tembel şey neydi?' },
+      { id: 6, category: 'itiraf', intensity: 1, text: 'Hiç tanımadığın birine el salladın mı?' },
+      // İTİRAF - Seviye 2
+      { id: 7, category: 'itiraf', intensity: 2, text: 'Sosyal medyada stalkladığın kişi kim?' },
+      { id: 8, category: 'itiraf', intensity: 2, text: 'Bu gruptaki biri hakkında düşündüğün ama söylemediğin bir şey?' },
+      { id: 9, category: 'itiraf', intensity: 2, text: 'En utanç verici arama geçmişin ne olurdu?' },
+      { id: 10, category: 'itiraf', intensity: 2, text: 'Ailenin bilmediği bir sırrın var mı?' },
+      { id: 11, category: 'itiraf', intensity: 2, text: 'En son pişman olduğun mesaj ne?' },
+      // İTİRAF - Seviye 3
+      { id: 12, category: 'itiraf', intensity: 3, text: 'En utanç verici anın neydi? Detaylı anlat.' },
+      { id: 13, category: 'itiraf', intensity: 3, text: 'Silinen mesajların geri gelse en çok utanacağın konuşma hangisi?' },
+      { id: 14, category: 'itiraf', intensity: 3, text: 'Hiç kimseye söylemediğin bir fantezin var mı?' },
+      
+      // CESARET - Seviye 1
+      { id: 20, category: 'cesaret', intensity: 1, text: 'Sağındaki kişiye samimi bir iltifat et.' },
+      { id: 21, category: 'cesaret', intensity: 1, text: '10 saniye boyunca komik bir yüz ifadesi yap.' },
+      { id: 22, category: 'cesaret', intensity: 1, text: 'En sevdiğin şarkının nakaratını söyle.' },
+      { id: 23, category: 'cesaret', intensity: 1, text: 'Gruba en iyi taklitini göster.' },
+      { id: 24, category: 'cesaret', intensity: 1, text: 'Telefonundaki son selfieyi herkese göster.' },
+      // CESARET - Seviye 2
+      { id: 25, category: 'cesaret', intensity: 2, text: 'Solundaki kişiyle 15 saniye göz teması kur.' },
+      { id: 26, category: 'cesaret', intensity: 2, text: 'Son gelen mesajını yüksek sesle oku.' },
+      { id: 27, category: 'cesaret', intensity: 2, text: 'Instagram\'daki son 5 beğenini açıkla.' },
+      { id: 28, category: 'cesaret', intensity: 2, text: 'Karşındaki kişiye dramatik bir aşk ilanı yap.' },
+      // CESARET - Seviye 3
+      { id: 29, category: 'cesaret', intensity: 3, text: 'Eski sevgiline "Seni hâlâ düşünüyorum" mesajı at!' },
+      { id: 30, category: 'cesaret', intensity: 3, text: 'WhatsApp durumuna "Satılık: Hayatım" yaz, 5 dk bekle.' },
+      
+      // OYLAMA
+      { id: 40, category: 'oylama', intensity: 1, text: 'Kim en kötü yalan söyler?' },
+      { id: 41, category: 'oylama', intensity: 1, text: 'Kim en romantik?' },
+      { id: 42, category: 'oylama', intensity: 2, text: 'Kim en çok dedikodu yapar?' },
+      { id: 43, category: 'oylama', intensity: 2, text: 'Kim en tehlikeli sürücü?' },
+      { id: 44, category: 'oylama', intensity: 2, text: 'Kim ilk evlenecek?' },
+      { id: 45, category: 'oylama', intensity: 3, text: 'Kim en çekici?' },
+      { id: 46, category: 'oylama', intensity: 3, text: 'Kimin en çok sırrı var?' },
+    ];
+
+    const avatars = ['🦊', '🐼', '🦁', '🐸', '🐵', '🐷', '🐰', '🐻', '🦄', '🐲', '🦋', '🐝'];
+    const scoreRules = {
+      itiraf: { complete: 5, skip: -2 },
+      cesaret: { complete: 10, skip: -3 },
+      oylama: { winner: 15, participant: 2 }
+    };
+
+    // ==========================================
+    // OYUN DURUMU
+    // ==========================================
+    let gameState = {
+      roomCode: null,
+      playerId: null,
+      playerName: '',
+      isHost: false,
+      players: [],
+      settings: {
+        intensity: 2,
+        categories: ['itiraf', 'cesaret', 'oylama']
+      },
+      currentPlayerIndex: 0,
+      currentCard: null,
+      usedCardIds: [],
+      timer: 30,
+      timerInterval: null,
+      isReady: false,
+      votes: {},
+      voteResults: null,
+      gameStarted: false,
+      totalRounds: 5,
+      currentRound: 0
+    };
+
+    // ==========================================
+    // EKRAN YÖNETİMİ
+    // ==========================================
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+    }
+
+    // ==========================================
+    // AYARLAR
+    // ==========================================
+    function selectIntensity(level) {
+      gameState.settings.intensity = level;
+      document.querySelectorAll('.intensity-btn').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.intensity) === level);
+      });
+    }
+
+    function toggleCategory(cat) {
+      const btn = document.querySelector(`.category-btn[data-cat="${cat}"]`);
+      const index = gameState.settings.categories.indexOf(cat);
+      
+      if (index > -1) {
+        if (gameState.settings.categories.length > 1) {
+          gameState.settings.categories.splice(index, 1);
+          btn.classList.remove('active');
+        }
+      } else {
+        gameState.settings.categories.push(cat);
+        btn.classList.add('active');
+      }
+    }
+
+    // ==========================================
+    // ODA İŞLEMLERİ
+    // ==========================================
+    function generateRoomCode() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let code = '';
+      for (let i = 0; i < 6; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return code;
+    }
+
+    function createRoom() {
+      const name = document.getElementById('host-name').value.trim();
+      if (!name) {
+        alert('Lütfen ismini gir!');
+        return;
+      }
+
+      gameState.roomCode = generateRoomCode();
+      gameState.playerId = 'player_' + Date.now();
+      gameState.playerName = name;
+      gameState.isHost = true;
+      gameState.players = [{
+        id: gameState.playerId,
+        name: name,
+        avatar: avatars[0],
+        score: 0,
+        isHost: true,
+        isReady: true
+      }];
+
+      // LocalStorage'a kaydet (aynı cihazda test için)
+      saveRoomToStorage();
+      
+      showScreen('lobby-screen');
+      updateLobby();
+    }
+
+    function joinRoom() {
+      const codeInputs = document.querySelectorAll('.code-input');
+      const code = Array.from(codeInputs).map(i => i.value).join('').toUpperCase();
+      const name = document.getElementById('player-name').value.trim();
+
+      if (code.length !== 6) {
+        alert('6 haneli kodu gir!');
+        return;
+      }
+      if (!name) {
+        alert('Lütfen ismini gir!');
+        return;
+      }
+
+      // LocalStorage'dan oda bilgisi al
+      const roomData = localStorage.getItem('masa_room_' + code);
+      if (!roomData) {
+        alert('Oda bulunamadı!');
+        return;
+      }
+
+      const room = JSON.parse(roomData);
+      gameState.roomCode = code;
+      gameState.playerId = 'player_' + Date.now();
+      gameState.playerName = name;
+      gameState.isHost = false;
+      gameState.settings = room.settings;
+      gameState.players = room.players;
+      
+      // Kendini ekle
+      const avatarIndex = gameState.players.length % avatars.length;
+      gameState.players.push({
+        id: gameState.playerId,
+        name: name,
+        avatar: avatars[avatarIndex],
+        score: 0,
+        isHost: false,
+        isReady: false
+      });
+
+      saveRoomToStorage();
+      showScreen('lobby-screen');
+      updateLobby();
+    }
+
+    function handleCodeInput(input, index) {
+      const value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      input.value = value;
+      
+      if (value && index < 5) {
+        document.querySelectorAll('.code-input')[index + 1].focus();
+      }
+    }
+
+    function saveRoomToStorage() {
+      const data = {
+        code: gameState.roomCode,
+        settings: gameState.settings,
+        players: gameState.players,
+        currentPlayerIndex: gameState.currentPlayerIndex,
+        gameStarted: gameState.gameStarted,
+        usedCardIds: gameState.usedCardIds
+      };
+      localStorage.setItem('masa_room_' + gameState.roomCode, JSON.stringify(data));
+    }
+
+    function loadRoomFromStorage() {
+      const data = localStorage.getItem('masa_room_' + gameState.roomCode);
+      if (data) {
+        const room = JSON.parse(data);
+        gameState.players = room.players;
+        gameState.currentPlayerIndex = room.currentPlayerIndex || 0;
+        gameState.gameStarted = room.gameStarted || false;
+        gameState.usedCardIds = room.usedCardIds || [];
+      }
+    }
+
+    function updateLobby() {
+      document.getElementById('display-room-code').textContent = gameState.roomCode;
+      document.getElementById('player-count').textContent = gameState.players.length;
+
+      const list = document.getElementById('players-list');
+      list.innerHTML = gameState.players.map(p => `
+        <div class="player-card ${p.isHost ? 'host' : ''}">
+          <div class="player-avatar">${p.avatar}</div>
+          <div class="player-info">
+            <div class="player-name">
+              ${p.name}
+              ${p.isHost ? '<span class="host-badge">👑 Host</span>' : ''}
+            </div>
+            <div class="player-status ${p.isReady ? 'ready' : ''}">
+              ${p.isHost ? 'Hazır' : (p.isReady ? '✓ Hazır' : 'Bekliyor...')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Butonları güncelle
+      const startBtn = document.getElementById('start-btn');
+      const readyBtn = document.getElementById('ready-btn');
+      
+      if (gameState.isHost) {
+        startBtn.style.display = 'block';
+        readyBtn.style.display = 'none';
+        startBtn.disabled = gameState.players.length < 1; // Test için 1, normalde 2
+      } else {
+        startBtn.style.display = 'none';
+        readyBtn.style.display = 'block';
+        readyBtn.textContent = gameState.isReady ? '✓ Hazırım!' : 'Hazır Ol';
+        readyBtn.className = gameState.isReady ? 'btn btn-success' : 'btn btn-secondary';
+      }
+    }
+
+    function toggleReady() {
+      gameState.isReady = !gameState.isReady;
+      const player = gameState.players.find(p => p.id === gameState.playerId);
+      if (player) player.isReady = gameState.isReady;
+      saveRoomToStorage();
+      updateLobby();
+    }
+
+    function shareRoom() {
+      const text = `🎲 MASA parti oyununa katıl!\n\nOda Kodu: ${gameState.roomCode}\n\nLink: ${window.location.href}`;
+      
+      if (navigator.share) {
+        navigator.share({ title: 'MASA Parti Oyunu', text: text });
+      } else {
+        navigator.clipboard.writeText(text);
+        alert('Kod kopyalandı!');
+      }
+    }
+
+    function leaveRoom() {
+      gameState.players = gameState.players.filter(p => p.id !== gameState.playerId);
+      saveRoomToStorage();
+      
+      // Reset
+      gameState = {
+        ...gameState,
+        roomCode: null,
+        playerId: null,
+        playerName: '',
+        isHost: false,
+        players: [],
+        gameStarted: false
+      };
+      
+      showScreen('home-screen');
+    }
+
+    // ==========================================
+    // OYUN İŞLEMLERİ
+    // ==========================================
+    function startGame() {
+      gameState.gameStarted = true;
+      gameState.currentPlayerIndex = 0;
+      gameState.currentRound = 0;
+      gameState.usedCardIds = [];
+      
+      saveRoomToStorage();
+      showScreen('game-screen');
+      updateGameScreen();
+    }
+
+    function updateGameScreen() {
+      // Skor tablosu
+      const scoreboard = document.getElementById('scoreboard');
+      scoreboard.innerHTML = gameState.players.map((p, i) => `
+        <div class="score-item ${i === gameState.currentPlayerIndex ? 'active' : ''}">
+          <div class="score-avatar">${p.avatar}</div>
+          <div class="score-name">${p.name}</div>
+          <div class="score-value">${p.score}</div>
+        </div>
+      `).join('');
+
+      // Mevcut oyuncu
+      const current = gameState.players[gameState.currentPlayerIndex];
+      const isMyTurn = current.id === gameState.playerId;
+      
+      document.getElementById('current-player').innerHTML = `
+        <div class="current-avatar">${current.avatar}</div>
+        <div class="current-name">${isMyTurn ? 'Senin sıran!' : current.name + "'ın sırası"}</div>
+      `;
+
+      // Kart çekme butonu
+      const drawBtn = document.getElementById('draw-btn');
+      drawBtn.style.display = gameState.currentCard ? 'none' : 'block';
+      drawBtn.disabled = !isMyTurn;
+      drawBtn.querySelector('.draw-btn-text').textContent = isMyTurn ? 'Kart Çek' : 'Bekle...';
+      
+      // Tepki barı
+      document.getElementById('reactions-bar').style.display = gameState.currentCard ? 'flex' : 'none';
+    }
+
+    function drawCard() {
+      const availableCards = cards.filter(c => 
+        gameState.settings.categories.includes(c.category) &&
+        c.intensity <= gameState.settings.intensity &&
+        !gameState.usedCardIds.includes(c.id)
+      );
+
+      if (availableCards.length === 0) {
+        endGame();
+        return;
+      }
+
+      const card = availableCards[Math.floor(Math.random() * availableCards.length)];
+      gameState.currentCard = card;
+      gameState.usedCardIds.push(card.id);
+      gameState.currentRound++;
+      gameState.timer = 30;
+      gameState.votes = {};
+      gameState.voteResults = null;
+
+      saveRoomToStorage();
+      showCard(card);
+    }
+
+    function showCard(card) {
+      const gameArea = document.getElementById('game-area');
+      const isMyTurn = gameState.players[gameState.currentPlayerIndex].id === gameState.playerId;
+      const categoryEmojis = { itiraf: '🗣️', cesaret: '🎭', oylama: '🗳️', siralama: '📊' };
+
+      let actionsHtml = '';
+      if (card.category === 'oylama') {
+        actionsHtml = `
+          <div class="voting-title">Kime oy veriyorsun?</div>
+          <div class="voting-options">
+            ${gameState.players.map(p => `
+              <div class="vote-option" onclick="vote('${p.id}')">
+                <div class="vote-avatar">${p.avatar}</div>
+                <div class="vote-name">${p.name}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (isMyTurn) {
+        actionsHtml = `
+          <div class="action-buttons">
+            <button class="btn btn-secondary btn-skip" onclick="skipCard()">Pas 👎</button>
+            <button class="btn btn-success" onclick="completeCard()">Tamamladım ✓</button>
+          </div>
+        `;
+      }
+
+      gameArea.innerHTML = `
+        <div class="card ${card.category}">
+          <div class="card-badge">
+            ${categoryEmojis[card.category]} ${card.category.toUpperCase()}
+          </div>
+          <div class="card-text">${card.text}</div>
+          <div class="timer-bar">
+            <div class="timer-fill" id="timer-fill" style="width: 100%"></div>
+          </div>
+          <div class="timer-text"><span id="timer-value">30</span>s</div>
+        </div>
+        ${actionsHtml}
+      `;
+
+      document.getElementById('draw-btn').style.display = 'none';
+      document.getElementById('reactions-bar').style.display = 'flex';
+      
+      startTimer();
+    }
+
+    function startTimer() {
+      if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+      
+      gameState.timerInterval = setInterval(() => {
+        gameState.timer--;
+        
+        const fill = document.getElementById('timer-fill');
+        const value = document.getElementById('timer-value');
+        
+        if (fill && value) {
+          fill.style.width = (gameState.timer / 30 * 100) + '%';
+          fill.classList.toggle('warning', gameState.timer <= 10);
+          value.textContent = gameState.timer;
+        }
+        
+        if (gameState.timer <= 0) {
+          clearInterval(gameState.timerInterval);
+          skipCard();
+        }
+      }, 1000);
+    }
+
+    function completeCard() {
+      if (!gameState.currentCard) return;
+      clearInterval(gameState.timerInterval);
+      
+      const player = gameState.players[gameState.currentPlayerIndex];
+      const points = scoreRules[gameState.currentCard.category].complete;
+      player.score += points;
+      
+      saveRoomToStorage();
+      nextTurn();
+    }
+
+    function skipCard() {
+      if (!gameState.currentCard) return;
+      clearInterval(gameState.timerInterval);
+      
+      const player = gameState.players[gameState.currentPlayerIndex];
+      const penalty = scoreRules[gameState.currentCard.category].skip;
+      player.score = Math.max(0, player.score + penalty);
+      
+      saveRoomToStorage();
+      nextTurn();
+    }
+
+    function vote(playerId) {
+      gameState.votes[gameState.playerId] = playerId;
+      
+      const options = document.querySelectorAll('.vote-option');
+      options.forEach(opt => {
+        opt.classList.remove('selected');
+        if (opt.onclick.toString().includes(playerId)) {
+          opt.classList.add('selected');
+        }
+      });
+
+      // Simüle: Tüm oylar geldi varsay
+      setTimeout(() => {
+        // Rastgele sonuçlar oluştur
+        const results = {};
+        gameState.players.forEach(p => {
+          const randomVote = gameState.players[Math.floor(Math.random() * gameState.players.length)].id;
+          results[randomVote] = (results[randomVote] || 0) + 1;
+        });
+        results[playerId] = (results[playerId] || 0) + 1;
+        
+        showVoteResults(results);
+      }, 1500);
+    }
+
+    function showVoteResults(results) {
+      clearInterval(gameState.timerInterval);
+      
+      const options = document.querySelectorAll('.vote-option');
+      options.forEach(opt => {
+        const pId = opt.onclick.toString().match(/'([^']+)'/)[1];
+        const count = results[pId] || 0;
+        if (count > 0) {
+          opt.innerHTML += `<div class="vote-count">${count} oy</div>`;
+        }
+      });
+
+      // En çok oy alana puan ver
+      const winnerId = Object.entries(results).sort((a, b) => b[1] - a[1])[0][0];
+      const winner = gameState.players.find(p => p.id === winnerId);
+      if (winner) {
+        winner.score += scoreRules.oylama.winner;
+      }
+
+      saveRoomToStorage();
+      
+      setTimeout(() => nextTurn(), 2500);
+    }
+
+    function nextTurn() {
+      gameState.currentCard = null;
+      gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
+      
+      saveRoomToStorage();
+
+      // Oyun bitti mi?
+      if (gameState.currentRound >= gameState.totalRounds * gameState.players.length) {
+        endGame();
+        return;
+      }
+
+      // Ekranı güncelle
+      document.getElementById('game-area').innerHTML = `
+        <button class="draw-btn" id="draw-btn" onclick="drawCard()">
+          <span class="draw-btn-emoji">🎴</span>
+          <span class="draw-btn-text">Kart Çek</span>
+        </button>
+      `;
+      
+      updateGameScreen();
+    }
+
+    function sendReaction(emoji) {
+      const reaction = document.createElement('div');
+      reaction.className = 'floating-reaction';
+      reaction.textContent = emoji;
+      reaction.style.left = (Math.random() * 80 + 10) + '%';
+      reaction.style.bottom = '100px';
+      document.body.appendChild(reaction);
+      
+      setTimeout(() => reaction.remove(), 2000);
+    }
+
+    // ==========================================
+    // SONUÇLAR
+    // ==========================================
+    function endGame() {
+      clearInterval(gameState.timerInterval);
+      gameState.gameStarted = false;
+      
+      const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
+      
+      // Konfeti
+      const confetti = document.getElementById('confetti');
+      confetti.innerHTML = Array(15).fill(0).map((_, i) => 
+        `<div class="confetti-piece" style="left: ${i * 7}%; animation-delay: ${i * 0.1}s;">
+          ${['🎉', '🎊', '✨', '⭐', '🌟'][i % 5]}
+        </div>`
+      ).join('');
+
+      // Kazanan
+      document.getElementById('winner-text').textContent = `Tebrikler ${sorted[0].name}!`;
+
+      // Podyum
+      const podium = document.getElementById('podium');
+      const podiumOrder = [1, 0, 2]; // 2., 1., 3. sıra
+      const blocks = ['silver', 'gold', 'bronze'];
+      
+      podium.innerHTML = podiumOrder.map((rank, i) => {
+        const player = sorted[rank];
+        if (!player) return '';
+        return `
+          <div class="podium-item">
+            <div class="podium-player">
+              <div class="podium-avatar">${player.avatar}</div>
+              <div class="podium-name">${player.name}</div>
+              <div class="podium-score">${player.score} puan</div>
+            </div>
+            <div class="podium-block ${blocks[rank]}">${rank + 1}</div>
+          </div>
+        `;
+      }).join('');
+
+      showScreen('results-screen');
+    }
+
+    function shareResults() {
+      const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
+      const text = `🎲 MASA Parti Oyunu Sonuçları!\n\n🏆 Kazanan: ${sorted[0].name} (${sorted[0].score} puan)\n\nBizimle oynamak ister misin?`;
+      
+      if (navigator.share) {
+        navigator.share({ title: 'MASA Sonuçları', text: text });
+      } else {
+        navigator.clipboard.writeText(text);
+        alert('Sonuçlar kopyalandı!');
+      }
+    }
+
+    function playAgain() {
+      gameState.players.forEach(p => p.score = 0);
+      gameState.currentRound = 0;
+      gameState.usedCardIds = [];
+      gameState.currentPlayerIndex = 0;
+      
+      saveRoomToStorage();
+      showScreen('lobby-screen');
+      updateLobby();
+    }
+
+    // ==========================================
+    // BAŞLANGIÇ
+    // ==========================================
+    // Sayfa yüklendiğinde
+    document.addEventListener('DOMContentLoaded', () => {
+      // URL'de oda kodu var mı?
+      const urlParams = new URLSearchParams(window.location.search);
+      const roomCode = urlParams.get('room');
+      
+      if (roomCode) {
+        document.querySelectorAll('.code-input').forEach((input, i) => {
+          input.value = roomCode[i] || '';
+        });
+        showScreen('join-screen');
+      }
+    });
+
+    // Her 2 saniyede oda verisini güncelle (basit polling)
+    setInterval(() => {
+      if (gameState.roomCode && !gameState.gameStarted) {
+        loadRoomFromStorage();
+        updateLobby();
+      }
+    }, 2000);
+  </script>
+</body>
+</html>
