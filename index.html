@@ -415,12 +415,16 @@
 
     .intensity-options {
       display: flex;
-      gap: 8px;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     
     .intensity-btn {
-      flex: 1;
-      padding: 14px 8px;
+      flex: 1 1 auto;
+      min-width: 60px;
+      max-width: 80px;
+      padding: 12px 6px;
       background: var(--black-lighter);
       border: 1px solid rgba(245, 240, 232, 0.1);
       cursor: pointer;
@@ -1126,7 +1130,7 @@
           <div class="game-card" onclick="selectGame('ifsa-klasik')" data-game="ifsa-klasik">
             <div class="game-card-icon">🎭</div>
             <div class="game-card-name">İfşa Klasik</div>
-            <div class="game-card-desc">Zamansız sorular ve görevler</div>
+            <div class="game-card-desc">5 seviyeli sistem - hafiften ağıra</div>
             <div class="game-card-players">3-15 oyuncu</div>
           </div>
           <div class="game-card" onclick="selectGame('itiraf-klasik')" data-game="itiraf-klasik">
@@ -1216,21 +1220,11 @@
       </div>
 
       <div class="form-section" id="intensity-section">
-        <label class="form-label">Atmosfer</label>
-        <div class="intensity-options">
-          <div class="intensity-btn" data-intensity="1" onclick="selectIntensity(1)">
-            <div class="intensity-icon">☕</div>
-            <div class="intensity-label">Light</div>
-          </div>
-          <div class="intensity-btn active" data-intensity="2" onclick="selectIntensity(2)">
-            <div class="intensity-icon">🍷</div>
-            <div class="intensity-label">Samimi</div>
-          </div>
-          <div class="intensity-btn" data-intensity="3" onclick="selectIntensity(3)">
-            <div class="intensity-icon">🔥</div>
-            <div class="intensity-label">Ateşli</div>
-          </div>
+        <label class="form-label">Atmosfer Seviyesi</label>
+        <div class="intensity-options" id="intensity-options">
+          <!-- Dinamik olarak doldurulacak -->
         </div>
+        <div class="intensity-desc" id="intensity-desc" style="font-size: 11px; color: rgba(245,240,232,0.5); margin-top: 10px; text-align: center; font-style: italic;"></div>
       </div>
 
       <div style="margin-top: auto; padding-top: 20px;">
@@ -1366,9 +1360,10 @@
         id: 'ifsa-klasik',
         name: 'İfşa Klasik',
         icon: '🎭',
-        desc: 'Zamansız sorular ve görevler',
+        desc: '5 seviyeli itiraf sistemi - hafiften ağıra',
         category: 'ifsa',
         hasIntensity: true,
+        maxIntensity: 5,
         hasTruthLie: false,
         hasVoting: true
       },
@@ -1453,36 +1448,130 @@
         ]
       },
 
-      // İFŞA KLASİK
+      // İFŞA KLASİK - 5 SEVİYELİ SİSTEM
       'ifsa-klasik': {
         itiraf: [
-          { intensity: 1, text: "En son kime yalan söyledin?" },
-          { intensity: 1, text: "Bugün söylediğin en küçük yalan ne?" },
-          { intensity: 1, text: "En garip alışkanlığın ne?" },
-          { intensity: 1, text: "Hiç birinin arkasından konuştun mu?" },
-          { intensity: 2, text: "Ailenin bilmediği bir sırrın?" },
-          { intensity: 2, text: "En son ne için pişman oldun?" },
-          { intensity: 2, text: "Bu masadan kimin evinde kalırdın parasız kalsan?" },
-          { intensity: 2, text: "Hiç çaldığın bir şey oldu mu?" },
-          { intensity: 3, text: "En utanç verici anın, detaylı anlat." },
-          { intensity: 3, text: "Kimseye söylemediğin bir fantezin var mı?" },
-          { intensity: 3, text: "Bu masadaki biri hakkında sakladığın bir şey?" }
-        ],
-        cesaret: [
-          { intensity: 1, text: "Sağındaki kişiye samimi bir iltifat et." },
-          { intensity: 1, text: "En sevdiğin şarkının nakaratını söyle." },
-          { intensity: 2, text: "Solundaki kişiyle 20 saniye göz teması kur." },
-          { intensity: 2, text: "Son gelen mesajını yüksek sesle oku." },
-          { intensity: 2, text: "Karşındakine dramatik aşk ilanı yap." },
-          { intensity: 3, text: "Birine 'Seni özledim' mesajı at." },
-          { intensity: 3, text: "1 dakika boyunca her soruya dürüst cevap ver." }
+          // SEVİYE 1: Sosyal Maskeler ve Küçük Günahlar (Düşük Şiddet)
+          { intensity: 1, text: "Bu odadaki hangi kişinin başarısızlığına gizliden gizliye bir kez bile olsa sevindin?" },
+          { intensity: 1, text: "Sosyal medyada çok mutlu göründüğün bir fotoğraf paylaştıktan hemen sonra ağladığın oldu mu?" },
+          { intensity: 1, text: "Hiç bir arkadaşının yüzüne gülerken, o gittikten sonra 'keşke buraya gelmeseydi' dedin mi?" },
+          { intensity: 1, text: "Bu gruptaki hangi arkadaşının tarzını içten içe 'rüküş' buluyorsun ama hep övüyorsun?" },
+          { intensity: 1, text: "Hiç bir ortamda zeki görünmek için okumadığın bir kitap hakkında yalan yanlış yorum yaptın mı?" },
+          { intensity: 1, text: "Birini sadece sana bir faydası dokunabileceği için hayatında tuttuğun oldu mu?" },
+          { intensity: 1, text: "Aynaya baktığında 'bu ben değilim' dediğin ve sosyal rollerinden nefret ettiğin o an neydi?" },
+          { intensity: 1, text: "Hiç birinin dikkatini çekmek için uydurma bir hastalık veya üzücü bir olay anlattın mı?" },
+          { intensity: 1, text: "Bu odadaki kimin hayatına sahip olmak için kendi hayatından bir yıl feda ederdin?" },
+          { intensity: 1, text: "Sosyal medyada birini stalklarken yanlışlıkla fotoğrafını beğendin mi? Kimdi o?" },
+          { intensity: 1, text: "Hiç bir iş görüşmesinde veya ilk randevuda CV'ne veya geçmişine dair büyük bir yalan söyledin mi?" },
+          { intensity: 1, text: "Bu gruptaki hangi arkadaşının sevgilisini/eşini aslında hiç sevmiyor ama ona çok iyi davranıyorsun?" },
+          { intensity: 1, text: "Hiç bir ortamda sırf dışlanmamak için aslında hiç katılmadığın bir fikre 'evet' dedin mi?" },
+          { intensity: 1, text: "Kendini en çok 'yetersiz' hissettiğin sosyal ortam neresi ve neden oraya gitmeye devam ediyorsun?" },
+          { intensity: 1, text: "Hiç bir arkadaşının başarısını sabote etmek istediğin bir an oldu mu?" },
+          { intensity: 1, text: "Sosyal statü kazanmak için yaptığın en utanç verici, 'ucuz' şey neydi?" },
+          { intensity: 1, text: "Hiç birine 'Seni seviyorum' dediğinde, aslında sadece o an yalnız kalmaktan korktuğun için mi söyledin?" },
+          { intensity: 1, text: "Bu odada bulunan ve senin hakkında en çok yanlış varsayıma sahip olduğunu düşündüğün kişi kim?" },
+          { intensity: 1, text: "Hiç bir arkadaşının arkasından 'aslında o kadar da yetenekli değil' dedin mi?" },
+          { intensity: 1, text: "Kendini bir film karakteri olarak görsen, bu odadakiler seni 'kötü adam' olarak mı yoksa 'ezik' olarak mı görürdü?" },
+
+          // SEVİYE 2: İlişkisel Sırlar ve Duygusal Mayın Tarlası (Orta Şiddet)
+          { intensity: 2, text: "Hiç bir ilişkideyken, partnerin yanındayken başka birine 'keşke onunla olsaydım' diye baktın mı?" },
+          { intensity: 2, text: "Eski sevgilini sosyal medyada en son ne zaman stalkladın ve o an ne hissettin?" },
+          { intensity: 2, text: "Şu anki ilişkinde partnerinin asla öğrenmemesi gereken en büyük 'küçük yalanın' nedir?" },
+          { intensity: 2, text: "Hiç birine sadece cinsel bir çekim duyduğun için 'sana aşık oluyorum' dedin mi?" },
+          { intensity: 2, text: "Bir ilişkini bitirmek için uydurduğun en saçma, en inanılmaz bahane neydi?" },
+          { intensity: 2, text: "Partnerinin hangi fiziksel veya kişilik özelliği aslında senin için bir 'tiksinti' sebebi ama söyleyemiyorsun?" },
+          { intensity: 2, text: "Hiç sevgiline başka birinin ismini söyleyerek hitap ettiğin o felaket anı yaşadın mı?" },
+          { intensity: 2, text: "İlk cinsel deneyiminle ilgili kimseye söylemediğin en utanç verici detay nedir?" },
+          { intensity: 2, text: "Hiç bir arkadaşının sevgilisiyle gizlice, 'sınırı aşmadan' flörtleştin mi?" },
+          { intensity: 2, text: "Partnerinin telefonunu karıştırırken yakalansan, en çok hangi arama geçmişinden utanırdın?" },
+          { intensity: 2, text: "Hiç birine sadece sana maddi bir konfor sağladığı için tahammül ettin mi?" },
+          { intensity: 2, text: "Ailenin senin hakkında asla bilmemesini dilediğin en büyük 'günahın' nedir?" },
+          { intensity: 2, text: "Hiç bir ilişkide yaptığın ve 'asla affedilmez' dediğin en büyük ihanet nedir?" },
+          { intensity: 2, text: "Hayatının 'kaçan balığı' kim ve şu an nerede olduğunu biliyor musun?" },
+          { intensity: 2, text: "Hiç bir randevudan kaçmak için 'arkadaşım kaza yapmış' gibi bir yalan söyledin mi?" },
+          { intensity: 2, text: "Bir ilişkideyken başka birine çıplak fotoğraf gönderdin mi?" },
+          { intensity: 2, text: "Hiç sevgilinle ilgili arkadaşlarına yalan söyleyip onu olduğundan daha iyi veya daha kötü gösterdin mi?" },
+          { intensity: 2, text: "Eski sevgilinin yeni partnerini gördüğünde hissettiğin o ilk kıskançlık ve aşağılama duygusunu anlatır mısın?" },
+          { intensity: 2, text: "Hiç birine acıdığın için onunla ilişkiye devam ettiğin o zavallı dönem ne kadar sürdü?" },
+          { intensity: 2, text: "Bu odadaki hangi arkadaşının eski sevgilisiyle, eğer şansın olsaydı bir gece geçirmek isterdin?" },
+
+          // SEVİYE 3: Ahlaki Pusula ve Karanlık Tercihler (Yüksek Şiddet)
+          { intensity: 3, text: "10 milyon TL karşılığında bu odadaki en yakın arkadaşının tüm sırlarını bir televizyon programında anlatır mıydın?" },
+          { intensity: 3, text: "Hiç kimsenin öğrenmeyeceğinden %100 emin olsan, nefret ettiğin birinin hayatını karartacak bir iftira atar mıydın?" },
+          { intensity: 3, text: "Bir yabancının hayatını kurtarmak için kendi kariyerini ve itibarını kalıcı olarak riske atar mıydın?" },
+          { intensity: 3, text: "Hiç birinden bir şey çaldın mı? Maddi bir eşya veya birinin fikri, emeği gibi manevi bir değer?" },
+          { intensity: 3, text: "Bir suç işleyip suçu en sevmediğin iş arkadaşının üzerine yıksan ve asla yakalanmasan, vicdanın ne kadar sızlardı?" },
+          { intensity: 3, text: "Hiç bir hayvana veya savunmasız bir canlıya bilerek zarar verdiğin bir an oldu mu?" },
+          { intensity: 3, text: "Bu odadaki iki kişi bir yangında kalsa ve sadece birini kurtarabilecek olsan, kimi orada bırakırdın?" },
+          { intensity: 3, text: "Hiç birine yardım etme şansın varken, 'başım ağrımasın' diyerek olay yerinden kaçtığın bir an oldu mu?" },
+          { intensity: 3, text: "Sadece zengin ve güçlü olmak için etik değerlerinden ne kadar vazgeçebilirsin? Bir 'fiyatın' var mı?" },
+          { intensity: 3, text: "Hiç birinin özel mesajlarını, günlüğünü veya mailini gizlice okuyup öğrendiğin bilgiyi ona karşı kullandın mı?" },
+          { intensity: 3, text: "Bir arkadaşının sevgilisine gizliden gizliye ilgi duyup, onların arasının bozulması için ufak hamleler yaptın mı?" },
+          { intensity: 3, text: "Hiç birine bilerek yanlış tavsiye verip onun hata yapmasını izlemekten zevk aldın mı?" },
+          { intensity: 3, text: "Birinin parasını veya duygusal emeğini sömürdüğünü hissettiğin en uzun ilişkin hangisiydi?" },
+          { intensity: 3, text: "Hiç birinin fiziksel veya zihinsel bir kusuruyla arkasından acımasızca alay ettin mi?" },
+          { intensity: 3, text: "Kendini kurtarmak için en sevdiğin insanı 'ateşe attığın' o an ne hissettin?" },
+          { intensity: 3, text: "Hiç birinin yasını tutarken aslında içten içe onun gidişiyle gelen miras veya özgürlük için rahatladın mı?" },
+          { intensity: 3, text: "Kanunen suç olmayan ama toplumsal olarak 'iğrenç' kabul edilen bir fantezini şu an açıklayabilir misin?" },
+          { intensity: 3, text: "Hiç bir arkadaşının en büyük sırrını, onu rezil etmek için başka birine anlattın mı?" },
+          { intensity: 3, text: "Eğer bir günlüğüne görünmez olsaydın, bu odadaki kimin mahrem alanına girip onu izlemek isterdin?" },
+          { intensity: 3, text: "Birinin hayatını mahvettiğini bildiğin halde hala 'hak etmişti' dediğin bir olay var mı?" },
+
+          // SEVİYE 4: Pişmanlıklar ve Geçmişin Hayaletleri (Zorlayıcı)
+          { intensity: 4, text: "'Keşke o kararı vermeseydim' dediğin ve hayatının rotasını tamamen değiştiren o karanlık an hangisi?" },
+          { intensity: 4, text: "Hiç sarhoşken yapıp ertesi gün herkesten özür dilemek zorunda kaldığın, hatırladıkça yerin dibine girdiğin o olay neydi?" },
+          { intensity: 4, text: "Birine söylediğin ve hala devam ettirmek zorunda olduğun, artık seni boğan en uzun süreli yalan nedir?" },
+          { intensity: 4, text: "Hiç birinin güvenini sarsıp, o kişi yıkılmışken hiçbir şey olmamış gibi hayatına devam ettiğin oldu mu?" },
+          { intensity: 4, text: "Ergenlik döneminde sahip olduğun ve şimdi 'nasıl böyle bir canavar/ezik olabilmişim' dediğin o düşünce neydi?" },
+          { intensity: 4, text: "Hiç bir işte çalışırken şirketi kasten zarara uğratacak veya bir iş arkadaşını işinden edecek bir şey yaptın mı?" },
+          { intensity: 4, text: "Bir arkadaşının en zor anında yanında olmamanın gerçek, bencilce sebebi neydi?" },
+          { intensity: 4, text: "Hiç bir kavgada söylediğin ve hala geri alabilmek için her şeyini feda edebileceğin o acımasız cümle neydi?" },
+          { intensity: 4, text: "'İyi ki bitti' dediğin ama aslında her gece rüyalarına giren o toksik kişi kim?" },
+          { intensity: 4, text: "Hiç birine verdiğin ve tutmadığın, o kişinin hayatını zorlaştıran en büyük sözün neydi?" },
+          { intensity: 4, text: "Geçmişte birini ghosting yaparak, ona hiçbir açıklama yapmadan hayatından çıkardın mı? O kişi şu an burada olsa ne derdin?" },
+          { intensity: 4, text: "Hiç birinin başarısını kendi başarınmış gibi pazarlayıp ödül aldığın veya övgü topladığın oldu mu?" },
+          { intensity: 4, text: "Hayatında 'en dipte' olduğun ve kimsenin bilmediği o anı, tüm çıplaklığıyla anlatır mısın?" },
+          { intensity: 4, text: "Hiç birine iftira atıp onun toplum önünde küçük düşmesini izlerken ne hissettin?" },
+          { intensity: 4, text: "'Ona karşı çok haksızlık ettim' dediğin kişi şu an karşında olsa, özür mü dilerdin yoksa yine saldırır mıydın?" },
+          { intensity: 4, text: "Hiç birinin cenazesinde veya çok üzücü bir anda, aslında başka bir şeye çok güldüğün için kendini zor tuttun mu?" },
+          { intensity: 4, text: "Hayatındaki en büyük 'boşa harcanmış zaman' dediğin dönemde aslında neyi gizliyordun?" },
+          { intensity: 4, text: "Hiç ailenin bir üyesinden nefret ettiğini kendine bile itiraf edemediğin o an ne zamandı?" },
+          { intensity: 4, text: "Kendi potansiyelini korkaklığın yüzünden harcadığın en büyük fırsat neydi?" },
+          { intensity: 4, text: "Eğer bugün ölecek olsan, 'keşke bunu ona söyleseydim' dediğin o kişi ve o cümle nedir?" },
+
+          // SEVİYE 5: Tabular, Fetişler ve Gizli Alışkanlıklar (Muzip ve Utandırıcı)
+          { intensity: 5, text: "Kimse yokken evde yaptığın, birinin görse senden sonsuza dek soğuyacağı en iğrenç alışkanlığın nedir?" },
+          { intensity: 5, text: "İnternet geçmişinde bulunmasından en çok korktuğun o garip arama terimi nedir?" },
+          { intensity: 5, text: "Hiç kamuya açık bir yerde cinsel bir eylemde bulundun mu? Detay ver." },
+          { intensity: 5, text: "En garip fetişin nedir? Başkalarına 'bu sapıklık' gibi gelebilecek ama senin zevk aldığın o şey?" },
+          { intensity: 5, text: "Hiç birinin eşyasına karşı takıntılı ve mahrem bir ilgi duydun mu?" },
+          { intensity: 5, text: "Banyoda veya tuvalette yaptığın, hijyen kurallarına tamamen aykırı o garip şey nedir?" },
+          { intensity: 5, text: "Hiç bir 'röntgencilik' durumun oldu mu? Birini gizlice izlerken yakalanma korkusu seni heyecanlandırdı mı?" },
+          { intensity: 5, text: "En son ne zaman ve neden altına kaçırdın veya benzeri bir 'hijyen kazası' yaşadın?" },
+          { intensity: 5, text: "Hiç kendi vücudunla ilgili başkalarına sormaya utandığın, internette gizli gizli arattığın o tuhaf sağlık sorunu nedir?" },
+          { intensity: 5, text: "Bir günlüğüne karşı cinsin vücudunda olsaydın, yapacağın ilk 'ahlaksızca' merakın ne olurdu?" },
+          { intensity: 5, text: "Hiç bir ünlüye veya ulaşılmaz birine karşı 'saplantılı' bir hayranlık besleyip ona taciz boyutunda mesajlar attın mı?" },
+          { intensity: 5, text: "En tuhaf, mide bulandırıcı yemek alışkanlığın nedir?" },
+          { intensity: 5, text: "Hiç birinin kokusundan gizli bir zevk aldın mı?" },
+          { intensity: 5, text: "Rüyanda gördüğün ve gerçek hayatta karşılaşınca utancından yüzüne bakamadığın o 'yasaklı' kişi kim?" },
+          { intensity: 5, text: "Hiç birinin bardağından gizlice içip veya yemeğinden gizlice yiyip sonra 'ben yapmadım' dedin mi?" },
+          { intensity: 5, text: "En son ne zaman burnunu karıştırırken veya benzeri bir şeyi yaparken birine yakalandın?" },
+          { intensity: 5, text: "Hiç birine anonim bir hesaptan nefret kusup, onun hayatını sosyal medyada cehenneme çevirdin mi?" },
+          { intensity: 5, text: "En büyük 'guilty pleasure' videon, şarkın veya izlediğin o 'çöp' program nedir?" },
+          { intensity: 5, text: "Hiç birinin iç çamaşırını veya mahrem eşyalarını gizlice inceleyip sonra yerine koydun mu?" },
+          { intensity: 5, text: "Eğer şu an tüm sırlarımız bir ekrana yansıtılacak olsa, bu odadan ilk kim kaçardı ve o kişi neden sensin?" }
         ],
         oylama: [
           { text: "Kim en kötü yalan söyler?" },
           { text: "Kim en çok dedikodu yapar?" },
           { text: "Kim en romantik?" },
           { text: "Kim ilk evlenecek?" },
-          { text: "Kimin en çok sırrı var?" }
+          { text: "Kimin en çok sırrı var?" },
+          { text: "Kim en çok stalklar?" },
+          { text: "Kim en tehlikeli sürücü?" },
+          { text: "Kim en çok flört eder?" },
+          { text: "Bu odadaki en çekici kişi kim?" },
+          { text: "Kim en iyi sır saklar?" }
         ]
       },
 
@@ -1630,9 +1719,44 @@
 
       if (game.fixedIntensity) {
         gameState.settings.intensity = game.fixedIntensity;
+      } else if (game.hasIntensity) {
+        // Build intensity options dynamically
+        buildIntensityOptions(game.maxIntensity || 3);
       }
 
       showScreen('setup-screen');
+    }
+
+    // Intensity seviyeleri tanımları
+    const INTENSITY_LEVELS = {
+      1: { icon: '☕', label: 'Light', desc: 'Sosyal maskeler, küçük günahlar' },
+      2: { icon: '🍷', label: 'Samimi', desc: 'İlişkisel sırlar, duygusal mayınlar' },
+      3: { icon: '🔥', label: 'Ateşli', desc: 'Ahlaki pusula, karanlık tercihler' },
+      4: { icon: '💀', label: 'Hardcore', desc: 'Pişmanlıklar, geçmişin hayaletleri' },
+      5: { icon: '🚨', label: 'Limit Yok', desc: 'Tabular, fetişler, gizli alışkanlıklar' }
+    };
+
+    function buildIntensityOptions(maxLevel) {
+      const container = document.getElementById('intensity-options');
+      const descEl = document.getElementById('intensity-desc');
+      
+      let html = '';
+      for (let i = 1; i <= maxLevel; i++) {
+        const level = INTENSITY_LEVELS[i];
+        const isActive = i === Math.min(2, maxLevel) ? 'active' : '';
+        html += `
+          <div class="intensity-btn ${isActive}" data-intensity="${i}" onclick="selectIntensity(${i})">
+            <div class="intensity-icon">${level.icon}</div>
+            <div class="intensity-label">${level.label}</div>
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+      
+      // Set default
+      const defaultLevel = Math.min(2, maxLevel);
+      gameState.settings.intensity = defaultLevel;
+      descEl.textContent = INTENSITY_LEVELS[defaultLevel].desc;
     }
 
     function selectIntensity(level) {
@@ -1640,6 +1764,12 @@
       document.querySelectorAll('.intensity-btn').forEach(btn => {
         btn.classList.toggle('active', parseInt(btn.dataset.intensity) === level);
       });
+      
+      // Update description
+      const descEl = document.getElementById('intensity-desc');
+      if (descEl && INTENSITY_LEVELS[level]) {
+        descEl.textContent = INTENSITY_LEVELS[level].desc;
+      }
     }
 
     // ==========================================
