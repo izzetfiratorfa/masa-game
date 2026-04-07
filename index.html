@@ -7,9 +7,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>MASA</title>
-  <link rel="manifest" href="manifest.json">
   
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -27,6 +25,8 @@
       --burgundy: #722f37;
       --burgundy-light: #8b3a44;
       --ink: #2c2c2c;
+      --purple: #6b4c7a;
+      --teal: #2d6a6a;
       
       --font-display: 'Playfair Display', Georgia, serif;
       --font-elegant: 'Cormorant Garamond', Georgia, serif;
@@ -43,18 +43,15 @@
       background: var(--black);
       color: var(--cream);
       min-height: 100vh;
+      min-height: 100dvh;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Subtle texture overlay */
     body::before {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
       opacity: 0.03;
       pointer-events: none;
@@ -64,158 +61,52 @@
     .container {
       max-width: 480px;
       margin: 0 auto;
-      padding: 24px;
+      padding: 20px;
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
-      position: relative;
     }
 
-    /* Screens */
     .screen { display: none; flex-direction: column; flex: 1; }
-    .screen.active { display: flex; animation: fadeIn 0.5s var(--ease-smooth); }
+    .screen.active { display: flex; animation: fadeIn 0.4s var(--ease-smooth); }
     
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     /* ===================== */
-    /* HOME / ENTRANCE SCREEN */
+    /* COMMON ELEMENTS */
     /* ===================== */
-    .entrance {
-      justify-content: center;
+    .back-link {
+      display: inline-flex;
       align-items: center;
-      text-align: center;
-      padding: 40px 24px;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(245, 240, 232, 0.5);
+      text-decoration: none;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+      cursor: pointer;
+      transition: color 0.3s;
     }
+    .back-link:hover { color: var(--gold); }
 
-    .emblem {
-      width: 120px;
-      height: 120px;
-      margin-bottom: 32px;
-      position: relative;
-    }
-    
-    .emblem-ring {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border: 1px solid var(--gold);
-      border-radius: 50%;
-      animation: rotate 20s linear infinite;
-    }
-    
-    .emblem-ring::before,
-    .emblem-ring::after {
-      content: '✦';
-      position: absolute;
-      color: var(--gold);
-      font-size: 10px;
-    }
-    .emblem-ring::before { top: -5px; left: 50%; transform: translateX(-50%); }
-    .emblem-ring::after { bottom: -5px; left: 50%; transform: translateX(-50%); }
-    
-    @keyframes rotate {
-      to { transform: rotate(360deg); }
-    }
-    
-    .emblem-inner {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      right: 15px;
-      bottom: 15px;
-      border: 1px solid var(--gold-dark);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .emblem-symbol {
-      font-size: 36px;
-      color: var(--gold);
+    .page-title {
       font-family: var(--font-display);
+      font-size: 26px;
       font-weight: 400;
-      letter-spacing: 2px;
+      margin-bottom: 6px;
     }
-
-    .brand {
-      margin-bottom: 48px;
-    }
-    
-    .brand-name {
-      font-family: var(--font-display);
-      font-size: 42px;
-      font-weight: 400;
-      letter-spacing: 12px;
-      color: var(--cream);
-      margin-bottom: 12px;
-    }
-    
-    .brand-line {
-      width: 60px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto 12px;
-    }
-    
-    .brand-tagline {
+    .page-subtitle {
       font-family: var(--font-elegant);
-      font-size: 14px;
+      font-size: 15px;
       font-style: italic;
-      color: var(--gold);
-      letter-spacing: 3px;
-      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.5);
+      margin-bottom: 28px;
     }
 
-    .entry-cards {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 48px;
-    }
-    
-    .entry-card {
-      width: 56px;
-      height: 78px;
-      background: var(--black-lighter);
-      border: 1px solid var(--gold-dark);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      transition: all 0.4s var(--ease-smooth);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .entry-card::before {
-      content: '';
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      right: 4px;
-      bottom: 4px;
-      border: 1px solid var(--gold-dark);
-      border-radius: 2px;
-      opacity: 0.3;
-    }
-    
-    .entry-card:hover {
-      transform: translateY(-4px) rotate(-2deg);
-      border-color: var(--gold);
-      box-shadow: 0 10px 30px rgba(201, 169, 89, 0.1);
-    }
-
-    .actions {
-      width: 100%;
-      max-width: 280px;
-    }
-    
     .btn {
       display: block;
       width: 100%;
@@ -228,83 +119,34 @@
       border: none;
       cursor: pointer;
       transition: all 0.3s var(--ease-smooth);
-      position: relative;
-      overflow: hidden;
     }
     
     .btn-primary {
       background: var(--gold);
       color: var(--black);
-      margin-bottom: 12px;
     }
-    
     .btn-primary:hover {
       background: var(--gold-light);
       transform: translateY(-1px);
       box-shadow: 0 4px 20px rgba(201, 169, 89, 0.3);
     }
+    .btn-primary:disabled {
+      opacity: 0.4;
+      transform: none;
+      cursor: not-allowed;
+    }
     
     .btn-secondary {
       background: transparent;
       color: var(--cream);
-      border: 1px solid var(--cream-dark);
+      border: 1px solid rgba(245, 240, 232, 0.3);
     }
-    
     .btn-secondary:hover {
       border-color: var(--gold);
       color: var(--gold);
     }
 
-    .footer-note {
-      position: absolute;
-      bottom: 32px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 11px;
-      color: rgba(245, 240, 232, 0.3);
-      letter-spacing: 1px;
-    }
-
-    /* ===================== */
-    /* CREATE / JOIN SCREENS */
-    /* ===================== */
-    .page-header {
-      margin-bottom: 40px;
-    }
-    
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: rgba(245, 240, 232, 0.5);
-      text-decoration: none;
-      letter-spacing: 1px;
-      margin-bottom: 32px;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-    
-    .back-link:hover { color: var(--gold); }
-    
-    .page-title {
-      font-family: var(--font-display);
-      font-size: 28px;
-      font-weight: 400;
-      margin-bottom: 8px;
-    }
-    
-    .page-subtitle {
-      font-family: var(--font-elegant);
-      font-size: 15px;
-      font-style: italic;
-      color: rgba(245, 240, 232, 0.5);
-    }
-
-    .form-section {
-      margin-bottom: 32px;
-    }
+    .form-section { margin-bottom: 24px; }
     
     .form-label {
       display: block;
@@ -313,12 +155,12 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     
     .form-input {
       width: 100%;
-      padding: 16px 0;
+      padding: 14px 0;
       font-family: var(--font-elegant);
       font-size: 20px;
       color: var(--cream);
@@ -328,169 +170,359 @@
       outline: none;
       transition: border-color 0.3s;
     }
-    
     .form-input::placeholder {
       color: rgba(245, 240, 232, 0.3);
       font-style: italic;
     }
-    
-    .form-input:focus {
-      border-color: var(--gold);
+    .form-input:focus { border-color: var(--gold); }
+
+    /* ===================== */
+    /* ENTRANCE SCREEN */
+    /* ===================== */
+    .entrance {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
     }
 
-    /* Code Input */
+    .emblem {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    
+    .emblem-ring {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      animation: rotate 20s linear infinite;
+    }
+    .emblem-ring::before, .emblem-ring::after {
+      content: '✦';
+      position: absolute;
+      color: var(--gold);
+      font-size: 8px;
+    }
+    .emblem-ring::before { top: -4px; left: 50%; transform: translateX(-50%); }
+    .emblem-ring::after { bottom: -4px; left: 50%; transform: translateX(-50%); }
+    
+    @keyframes rotate { to { transform: rotate(360deg); } }
+    
+    .emblem-inner {
+      position: absolute;
+      top: 12px; left: 12px; right: 12px; bottom: 12px;
+      border: 1px solid var(--gold-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .emblem-symbol {
+      font-size: 32px;
+      color: var(--gold);
+      font-family: var(--font-display);
+    }
+
+    .brand { margin-bottom: 40px; }
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 38px;
+      font-weight: 400;
+      letter-spacing: 10px;
+      margin-bottom: 10px;
+    }
+    .brand-line {
+      width: 50px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 10px;
+    }
+    .brand-tagline {
+      font-family: var(--font-elegant);
+      font-size: 13px;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .entry-actions {
+      width: 100%;
+      max-width: 260px;
+    }
+    .entry-actions .btn { margin-bottom: 12px; }
+    .entry-actions .btn:last-child { margin-bottom: 0; }
+
+    .footer-note {
+      position: absolute;
+      bottom: 24px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 10px;
+      color: rgba(245, 240, 232, 0.25);
+      letter-spacing: 1px;
+    }
+
+    /* ===================== */
+    /* GAME SELECTION SCREEN */
+    /* ===================== */
+    .category-section {
+      margin-bottom: 28px;
+    }
+    
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(245, 240, 232, 0.1);
+    }
+    
+    .category-icon { font-size: 18px; }
+    
+    .category-name {
+      font-family: var(--font-elegant);
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.6);
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .game-card {
+      background: var(--black-lighter);
+      border: 1px solid rgba(245, 240, 232, 0.08);
+      padding: 16px 14px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--gold);
+      transform: scaleY(0);
+      transition: transform 0.3s;
+    }
+    
+    .game-card:hover {
+      border-color: rgba(245, 240, 232, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    .game-card:hover::before {
+      transform: scaleY(1);
+    }
+    
+    .game-card.selected {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.08);
+    }
+    .game-card.selected::before {
+      transform: scaleY(1);
+    }
+
+    .game-card-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    
+    .game-card-name {
+      font-family: var(--font-elegant);
+      font-size: 15px;
+      margin-bottom: 4px;
+      color: var(--cream);
+    }
+    
+    .game-card-desc {
+      font-size: 10px;
+      color: rgba(245, 240, 232, 0.4);
+      line-height: 1.4;
+    }
+    
+    .game-card-players {
+      font-size: 9px;
+      color: var(--gold-dark);
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    .game-card.coming-soon {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .game-card.coming-soon:hover {
+      transform: none;
+      border-color: rgba(245, 240, 232, 0.08);
+    }
+    .coming-soon-badge {
+      font-size: 8px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-top: 6px;
+    }
+
+    /* ===================== */
+    /* GAME SETUP SCREEN */
+    /* ===================== */
+    .selected-game-card {
+      background: var(--black-lighter);
+      border: 1px solid var(--gold-dark);
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .selected-game-icon { font-size: 36px; }
+    
+    .selected-game-info { flex: 1; }
+    
+    .selected-game-name {
+      font-family: var(--font-elegant);
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    
+    .selected-game-desc {
+      font-size: 12px;
+      color: rgba(245, 240, 232, 0.5);
+    }
+    
+    .change-game-btn {
+      font-size: 11px;
+      color: var(--gold);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .intensity-options {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .intensity-btn {
+      flex: 1;
+      padding: 14px 8px;
+      background: var(--black-lighter);
+      border: 1px solid rgba(245, 240, 232, 0.1);
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+    .intensity-btn:hover { border-color: rgba(245, 240, 232, 0.3); }
+    .intensity-btn.active {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.08);
+    }
+    .intensity-icon { font-size: 20px; margin-bottom: 6px; }
+    .intensity-label {
+      font-size: 11px;
+      color: rgba(245, 240, 232, 0.7);
+      letter-spacing: 1px;
+    }
+    .intensity-btn.active .intensity-label { color: var(--gold); }
+
+    /* ===================== */
+    /* JOIN SCREEN */
+    /* ===================== */
     .code-container {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 8px;
     }
     
     .code-input {
-      width: 44px;
-      height: 56px;
+      width: 42px;
+      height: 52px;
       background: var(--black-lighter);
       border: 1px solid rgba(245, 240, 232, 0.15);
-      border-radius: 2px;
       font-family: var(--font-display);
-      font-size: 22px;
+      font-size: 20px;
       color: var(--cream);
       text-align: center;
       text-transform: uppercase;
       outline: none;
       transition: all 0.3s;
     }
-    
     .code-input:focus {
       border-color: var(--gold);
       background: rgba(201, 169, 89, 0.05);
     }
-    
-    .code-input.filled {
-      border-color: var(--gold-dark);
-    }
-
-    /* Settings */
-    .setting-group {
-      margin-bottom: 28px;
-    }
-    
-    .setting-options {
-      display: flex;
-      gap: 8px;
-    }
-    
-    .setting-btn {
-      flex: 1;
-      padding: 14px 8px;
-      background: var(--black-lighter);
-      border: 1px solid rgba(245, 240, 232, 0.1);
-      border-radius: 2px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-align: center;
-    }
-    
-    .setting-btn:hover {
-      border-color: rgba(245, 240, 232, 0.3);
-    }
-    
-    .setting-btn.active {
-      border-color: var(--gold);
-      background: rgba(201, 169, 89, 0.08);
-    }
-    
-    .setting-icon {
-      font-size: 20px;
-      margin-bottom: 6px;
-    }
-    
-    .setting-label {
-      font-size: 11px;
-      color: rgba(245, 240, 232, 0.7);
-      letter-spacing: 1px;
-    }
-    
-    .setting-btn.active .setting-label {
-      color: var(--gold);
-    }
-
-    .category-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    
-    .category-btn {
-      padding: 10px 16px;
-      background: var(--black-lighter);
-      border: 1px solid rgba(245, 240, 232, 0.1);
-      border-radius: 2px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-size: 12px;
-      color: rgba(245, 240, 232, 0.7);
-      letter-spacing: 1px;
-    }
-    
-    .category-btn:hover {
-      border-color: rgba(245, 240, 232, 0.3);
-    }
-    
-    .category-btn.active {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: rgba(201, 169, 89, 0.08);
-    }
-
-    .form-actions {
-      margin-top: auto;
-      padding-top: 24px;
-    }
+    .code-input.filled { border-color: var(--gold-dark); }
 
     /* ===================== */
     /* LOBBY SCREEN */
     /* ===================== */
+    .lobby-game-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background: var(--black-lighter);
+      border-left: 3px solid var(--gold);
+      margin-bottom: 20px;
+    }
+    .lobby-game-icon { font-size: 28px; }
+    .lobby-game-name {
+      font-family: var(--font-elegant);
+      font-size: 16px;
+    }
+
     .room-code-section {
       text-align: center;
-      padding: 32px 24px;
+      padding: 24px 20px;
       background: var(--black-lighter);
       border: 1px solid rgba(245, 240, 232, 0.08);
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       position: relative;
     }
-    
-    .room-code-section::before,
-    .room-code-section::after {
+    .room-code-section::before, .room-code-section::after {
       content: '◆';
       position: absolute;
-      top: -8px;
-      font-size: 12px;
+      top: -6px;
+      font-size: 10px;
       color: var(--gold-dark);
     }
-    .room-code-section::before { left: 24px; }
-    .room-code-section::after { right: 24px; }
+    .room-code-section::before { left: 20px; }
+    .room-code-section::after { right: 20px; }
     
     .room-code-label {
-      font-size: 10px;
+      font-size: 9px;
       letter-spacing: 3px;
       color: rgba(245, 240, 232, 0.4);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
-    
     .room-code-value {
       font-family: var(--font-display);
-      font-size: 36px;
-      letter-spacing: 8px;
+      font-size: 32px;
+      letter-spacing: 6px;
       color: var(--gold);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-    
     .share-btn {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
+      gap: 6px;
+      padding: 8px 16px;
       background: transparent;
       border: 1px solid rgba(245, 240, 232, 0.2);
       color: var(--cream);
@@ -499,30 +531,25 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    
     .share-btn:hover {
       border-color: var(--gold);
       color: var(--gold);
     }
 
-    .members-section {
-      flex: 1;
-    }
+    .members-section { flex: 1; overflow-y: auto; }
     
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
-    
     .section-title {
       font-size: 10px;
       letter-spacing: 2px;
       color: rgba(245, 240, 232, 0.5);
       text-transform: uppercase;
     }
-    
     .member-count {
       font-size: 11px;
       color: var(--gold);
@@ -531,54 +558,52 @@
     .member-card {
       display: flex;
       align-items: center;
-      padding: 16px;
+      padding: 14px;
       background: var(--black-lighter);
       border-left: 2px solid transparent;
       margin-bottom: 8px;
       transition: all 0.3s;
     }
-    
     .member-card.host {
       border-left-color: var(--gold);
       background: rgba(201, 169, 89, 0.05);
     }
-    
     .member-avatar {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       background: var(--black);
       border: 1px solid rgba(245, 240, 232, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      margin-right: 14px;
+      font-size: 18px;
+      margin-right: 12px;
     }
-    
     .member-info { flex: 1; }
-    
     .member-name {
       font-family: var(--font-elegant);
-      font-size: 17px;
+      font-size: 16px;
       margin-bottom: 2px;
     }
-    
     .member-status {
-      font-size: 11px;
+      font-size: 10px;
       color: rgba(245, 240, 232, 0.4);
     }
-    
-    .member-status.ready {
-      color: var(--gold);
-    }
-    
+    .member-status.ready { color: var(--gold); }
     .host-mark {
-      font-size: 10px;
+      font-size: 9px;
       color: var(--gold);
       letter-spacing: 1px;
-      padding: 4px 10px;
+      padding: 3px 8px;
       border: 1px solid var(--gold-dark);
+    }
+
+    .lobby-actions {
+      padding-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     /* ===================== */
@@ -588,9 +613,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-    
     .exit-btn {
       font-size: 11px;
       color: rgba(245, 240, 232, 0.4);
@@ -599,7 +623,6 @@
       cursor: pointer;
       letter-spacing: 1px;
     }
-    
     .round-indicator {
       font-size: 11px;
       color: var(--gold);
@@ -609,47 +632,38 @@
     .scores-bar {
       display: flex;
       justify-content: center;
-      gap: 8px;
-      margin-bottom: 24px;
+      gap: 6px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
     }
-    
     .score-chip {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
+      gap: 6px;
+      padding: 6px 12px;
       background: var(--black-lighter);
       border: 1px solid transparent;
-      border-radius: 2px;
       transition: all 0.3s;
     }
-    
     .score-chip.active {
       border-color: var(--gold);
       background: rgba(201, 169, 89, 0.08);
     }
-    
-    .score-avatar { font-size: 18px; }
+    .score-avatar { font-size: 16px; }
     .score-points {
       font-family: var(--font-display);
-      font-size: 16px;
+      font-size: 14px;
       color: var(--gold);
     }
 
     .turn-indicator {
       text-align: center;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
-    
-    .turn-avatar {
-      font-size: 48px;
-      margin-bottom: 12px;
-    }
-    
+    .turn-avatar { font-size: 44px; margin-bottom: 10px; }
     .turn-text {
       font-family: var(--font-elegant);
-      font-size: 18px;
+      font-size: 17px;
       font-style: italic;
     }
 
@@ -659,57 +673,49 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 10px 0;
     }
 
     /* Draw Button */
     .draw-button {
-      width: 160px;
-      height: 200px;
+      width: 140px;
+      height: 180px;
       background: var(--black-lighter);
       border: 1px solid var(--gold);
       cursor: pointer;
       position: relative;
       transition: all 0.4s var(--ease-smooth);
     }
-    
     .draw-button::before {
       content: '';
       position: absolute;
-      top: 8px;
-      left: 8px;
-      right: 8px;
-      bottom: 8px;
+      top: 6px; left: 6px; right: 6px; bottom: 6px;
       border: 1px solid var(--gold-dark);
     }
-    
     .draw-button:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 40px rgba(201, 169, 89, 0.15);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(201, 169, 89, 0.15);
     }
-    
     .draw-button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
       transform: none;
     }
-    
     .draw-content {
       height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 14px;
     }
-    
     .draw-symbol {
-      font-size: 48px;
+      font-size: 42px;
       color: var(--gold);
     }
-    
     .draw-text {
       font-family: var(--font-elegant);
-      font-size: 14px;
+      font-size: 13px;
       color: var(--cream);
       letter-spacing: 2px;
     }
@@ -717,112 +723,90 @@
     /* Card */
     .card {
       width: 100%;
-      max-width: 320px;
+      max-width: 300px;
       background: var(--cream);
       color: var(--black);
-      padding: 32px 24px;
+      padding: 28px 22px;
       position: relative;
       animation: cardReveal 0.5s var(--ease-bounce);
     }
-    
     @keyframes cardReveal {
       0% { transform: scale(0.8) rotateY(90deg); opacity: 0; }
       100% { transform: scale(1) rotateY(0); opacity: 1; }
     }
-    
-    .card::before,
-    .card::after {
+    .card::before, .card::after {
       content: '';
       position: absolute;
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       border: 1px solid var(--gold-dark);
     }
-    .card::before { top: 12px; left: 12px; border-right: none; border-bottom: none; }
-    .card::after { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+    .card::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+    .card::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
     
     .card-category {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
-    
-    .card-category-icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-    }
-    
+    .card-category-icon { font-size: 28px; margin-bottom: 6px; }
     .card-category-name {
-      font-size: 10px;
+      font-size: 9px;
       letter-spacing: 3px;
       color: var(--burgundy);
       text-transform: uppercase;
     }
-    
     .card-divider {
-      width: 40px;
+      width: 36px;
       height: 1px;
       background: var(--gold);
-      margin: 0 auto 24px;
+      margin: 0 auto 20px;
     }
-    
     .card-text {
       font-family: var(--font-elegant);
-      font-size: 22px;
+      font-size: 20px;
       line-height: 1.5;
       text-align: center;
       color: var(--ink);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     
-    .card-timer {
-      text-align: center;
-    }
-    
+    .card-timer { text-align: center; }
     .timer-bar {
       height: 3px;
       background: rgba(0, 0, 0, 0.1);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       overflow: hidden;
     }
-    
     .timer-fill {
       height: 100%;
       background: var(--burgundy);
       transition: width 1s linear;
     }
-    
     .timer-fill.warning { background: #c0392b; }
-    
     .timer-text {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--ink);
       opacity: 0.5;
     }
 
     .card-actions {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
-      max-width: 320px;
-      margin-top: 24px;
+      max-width: 300px;
+      margin-top: 20px;
     }
-    
     .card-actions .btn {
       flex: 1;
-      padding: 14px;
-      font-size: 12px;
+      padding: 12px;
+      font-size: 11px;
     }
-    
     .btn-pass {
       background: transparent;
       border: 1px solid rgba(245, 240, 232, 0.3);
       color: var(--cream);
     }
-    
-    .btn-pass:hover {
-      border-color: var(--cream);
-    }
-    
+    .btn-pass:hover { border-color: var(--cream); }
     .btn-done {
       background: var(--gold);
       color: var(--black);
@@ -831,70 +815,89 @@
     /* Voting */
     .voting-section {
       width: 100%;
-      max-width: 320px;
+      max-width: 300px;
     }
-    
     .voting-title {
       font-family: var(--font-elegant);
-      font-size: 16px;
+      font-size: 15px;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       font-style: italic;
     }
-    
     .voting-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+      gap: 8px;
     }
-    
     .vote-card {
-      padding: 16px 12px;
+      padding: 14px 10px;
       background: var(--black-lighter);
       border: 1px solid rgba(245, 240, 232, 0.1);
       text-align: center;
       cursor: pointer;
       transition: all 0.3s;
     }
-    
-    .vote-card:hover {
-      border-color: rgba(245, 240, 232, 0.3);
-    }
-    
+    .vote-card:hover { border-color: rgba(245, 240, 232, 0.3); }
     .vote-card.selected {
       border-color: var(--gold);
       background: rgba(201, 169, 89, 0.1);
     }
-    
-    .vote-avatar { font-size: 28px; margin-bottom: 8px; }
-    .vote-name { font-size: 12px; color: var(--cream); }
+    .vote-avatar { font-size: 24px; margin-bottom: 6px; }
+    .vote-name { font-size: 11px; color: var(--cream); }
     .vote-count {
       display: inline-block;
-      margin-top: 8px;
-      padding: 3px 10px;
+      margin-top: 6px;
+      padding: 2px 8px;
       background: var(--burgundy);
-      font-size: 11px;
+      font-size: 10px;
       color: var(--cream);
     }
+
+    /* Truth/Lie Voting */
+    .truth-lie-section {
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+    }
+    .truth-lie-title {
+      font-family: var(--font-elegant);
+      font-size: 15px;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .truth-lie-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    .truth-lie-btn {
+      flex: 1;
+      padding: 20px;
+      background: var(--black-lighter);
+      border: 1px solid rgba(245, 240, 232, 0.1);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .truth-lie-btn:hover { border-color: rgba(245, 240, 232, 0.3); }
+    .truth-lie-btn.selected { border-color: var(--gold); }
+    .truth-lie-icon { font-size: 28px; margin-bottom: 8px; }
+    .truth-lie-label { font-size: 12px; color: var(--cream); letter-spacing: 1px; }
 
     /* Reactions */
     .reactions-bar {
       display: flex;
       justify-content: center;
-      gap: 8px;
-      padding: 20px 0;
+      gap: 6px;
+      padding: 16px 0;
     }
-    
     .reaction-btn {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       background: var(--black-lighter);
       border: 1px solid rgba(245, 240, 232, 0.1);
-      font-size: 20px;
+      font-size: 18px;
       cursor: pointer;
       transition: all 0.3s;
     }
-    
     .reaction-btn:hover {
       border-color: var(--gold);
       transform: scale(1.1);
@@ -902,14 +905,84 @@
     
     .floating-reaction {
       position: fixed;
-      font-size: 36px;
+      font-size: 32px;
       pointer-events: none;
       animation: floatUp 2s var(--ease-smooth) forwards;
+      z-index: 100;
     }
-    
     @keyframes floatUp {
       0% { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-150px) scale(1.3); }
+      100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
+    }
+
+    /* Random Reveal Button */
+    .random-reveal-btn {
+      margin-top: 16px;
+      padding: 12px 24px;
+      background: var(--burgundy);
+      border: none;
+      color: var(--cream);
+      font-size: 11px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .random-reveal-btn:hover {
+      background: var(--burgundy-light);
+      transform: scale(1.02);
+    }
+
+    /* ===================== */
+    /* BEN KİMİM GAME */
+    /* ===================== */
+    .whoami-section {
+      text-align: center;
+      width: 100%;
+    }
+    
+    .whoami-card {
+      background: linear-gradient(135deg, var(--burgundy), var(--purple));
+      padding: 40px 30px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .whoami-card::before {
+      content: '?';
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-family: var(--font-display);
+      font-size: 40px;
+      opacity: 0.2;
+    }
+    .whoami-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      opacity: 0.7;
+      margin-bottom: 12px;
+    }
+    .whoami-character {
+      font-family: var(--font-display);
+      font-size: 28px;
+      line-height: 1.3;
+    }
+    
+    .whoami-questions {
+      font-size: 12px;
+      color: rgba(245, 240, 232, 0.5);
+      margin-bottom: 20px;
+    }
+    
+    .whoami-actions {
+      display: flex;
+      gap: 10px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .whoami-actions .btn {
+      flex: 1;
+      padding: 14px;
+      font-size: 11px;
     }
 
     /* ===================== */
@@ -917,26 +990,23 @@
     /* ===================== */
     .results-header {
       text-align: center;
-      padding: 40px 0;
+      padding: 32px 0;
     }
-    
     .results-ornament {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--gold);
       letter-spacing: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-    
     .results-title {
       font-family: var(--font-display);
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 400;
       margin-bottom: 8px;
     }
-    
     .results-winner {
       font-family: var(--font-elegant);
-      font-size: 16px;
+      font-size: 15px;
       font-style: italic;
       color: var(--gold);
     }
@@ -945,83 +1015,67 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      gap: 12px;
-      margin: 40px 0;
-      height: 220px;
+      gap: 10px;
+      margin: 32px 0;
+      height: 200px;
     }
-    
     .podium-place {
       text-align: center;
       animation: riseUp 0.6s var(--ease-bounce) backwards;
     }
-    
     .podium-place:nth-child(1) { animation-delay: 0.2s; }
     .podium-place:nth-child(2) { animation-delay: 0s; }
     .podium-place:nth-child(3) { animation-delay: 0.4s; }
-    
     @keyframes riseUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
-    .podium-player {
-      margin-bottom: 12px;
-    }
-    
-    .podium-avatar { font-size: 32px; margin-bottom: 6px; }
-    .podium-name { font-family: var(--font-elegant); font-size: 15px; }
-    .podium-score { font-size: 12px; color: var(--gold); }
+    .podium-player { margin-bottom: 10px; }
+    .podium-avatar { font-size: 28px; margin-bottom: 4px; }
+    .podium-name { font-family: var(--font-elegant); font-size: 14px; }
+    .podium-score { font-size: 11px; color: var(--gold); }
     
     .podium-block {
-      width: 72px;
+      width: 65px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-display);
-      font-size: 24px;
+      font-size: 22px;
       color: var(--black);
     }
-    
-    .podium-block.gold {
-      background: linear-gradient(180deg, #d4ba6a 0%, #a68a3a 100%);
-      height: 100px;
-    }
-    .podium-block.silver {
-      background: linear-gradient(180deg, #c0c0c0 0%, #8a8a8a 100%);
-      height: 70px;
-    }
-    .podium-block.bronze {
-      background: linear-gradient(180deg, #cd9a6a 0%, #8b5a3a 100%);
-      height: 50px;
-    }
+    .podium-block.gold { background: linear-gradient(180deg, #d4ba6a, #a68a3a); height: 90px; }
+    .podium-block.silver { background: linear-gradient(180deg, #c0c0c0, #8a8a8a); height: 65px; }
+    .podium-block.bronze { background: linear-gradient(180deg, #cd9a6a, #8b5a3a); height: 45px; }
 
     .results-actions {
       margin-top: auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
-    /* Confetti */
     .confetti-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       pointer-events: none;
       z-index: 100;
     }
-    
     .confetti {
       position: absolute;
-      font-size: 20px;
+      font-size: 18px;
       animation: confettiFall 4s linear forwards;
     }
-    
     @keyframes confettiFall {
       0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
       100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
     }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black-lighter); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); }
   </style>
 </head>
 <body>
@@ -1042,77 +1096,154 @@
         <p class="brand-tagline">İç Çember Oyunları</p>
       </div>
       
-      <div class="entry-cards">
-        <div class="entry-card">🗣️</div>
-        <div class="entry-card">🎭</div>
-        <div class="entry-card">🗳️</div>
-      </div>
-      
-      <div class="actions">
-        <button class="btn btn-primary" onclick="showScreen('create-screen')">
-          Masa Kur
-        </button>
-        <button class="btn btn-secondary" onclick="showScreen('join-screen')">
-          Davetiye Gir
-        </button>
+      <div class="entry-actions">
+        <button class="btn btn-primary" onclick="showScreen('games-screen')">Masa Kur</button>
+        <button class="btn btn-secondary" onclick="showScreen('join-screen')">Davetiye Gir</button>
       </div>
       
       <p class="footer-note">Sadece davetliler için</p>
     </div>
 
-    <!-- CREATE SCREEN -->
-    <div id="create-screen" class="screen">
-      <div class="page-header">
-        <a class="back-link" onclick="showScreen('entrance-screen')">← Geri</a>
-        <h1 class="page-title">Masa Kur</h1>
-        <p class="page-subtitle">Oyun kurallarını belirle</p>
+    <!-- GAME SELECTION SCREEN -->
+    <div id="games-screen" class="screen">
+      <a class="back-link" onclick="showScreen('entrance-screen')">← Geri</a>
+      <h1 class="page-title">Oyun Seç</h1>
+      <p class="page-subtitle">Bu gece ne oynuyoruz?</p>
+
+      <!-- Category 1: İfşa & İtiraf -->
+      <div class="category-section">
+        <div class="category-header">
+          <span class="category-icon">🗣️</span>
+          <span class="category-name">İfşa & İtiraf</span>
+        </div>
+        <div class="game-grid">
+          <div class="game-card" onclick="selectGame('ifsa-z')" data-game="ifsa-z">
+            <div class="game-card-icon">📱</div>
+            <div class="game-card-name">İfşa Z</div>
+            <div class="game-card-desc">Gen Z versiyonu. DM, story, ghost...</div>
+            <div class="game-card-players">3-15 oyuncu</div>
+          </div>
+          <div class="game-card" onclick="selectGame('ifsa-klasik')" data-game="ifsa-klasik">
+            <div class="game-card-icon">🎭</div>
+            <div class="game-card-name">İfşa Klasik</div>
+            <div class="game-card-desc">Zamansız sorular ve görevler</div>
+            <div class="game-card-players">3-15 oyuncu</div>
+          </div>
+          <div class="game-card" onclick="selectGame('itiraf-klasik')" data-game="itiraf-klasik">
+            <div class="game-card-icon">💬</div>
+            <div class="game-card-name">İtiraf Et!</div>
+            <div class="game-card-desc">Direkt ve acımasız</div>
+            <div class="game-card-players">3-12 oyuncu</div>
+          </div>
+          <div class="game-card" onclick="selectGame('itiraf-hangover')" data-game="itiraf-hangover">
+            <div class="game-card-icon">🍻</div>
+            <div class="game-card-name">İtiraf Hangover</div>
+            <div class="game-card-desc">Absürt & utanç dolu</div>
+            <div class="game-card-players">3-12 oyuncu</div>
+          </div>
+        </div>
       </div>
-      
+
+      <!-- Category 2: Tahmin & Blöf -->
+      <div class="category-section">
+        <div class="category-header">
+          <span class="category-icon">🎭</span>
+          <span class="category-name">Tahmin & Blöf</span>
+        </div>
+        <div class="game-grid">
+          <div class="game-card" onclick="selectGame('benkimim')" data-game="benkimim">
+            <div class="game-card-icon">❓</div>
+            <div class="game-card-name">Ben Kimim?</div>
+            <div class="game-card-desc">Alnındaki ismi tahmin et</div>
+            <div class="game-card-players">3-10 oyuncu</div>
+          </div>
+          <div class="game-card coming-soon">
+            <div class="game-card-icon">🐺</div>
+            <div class="game-card-name">Kurt Adam</div>
+            <div class="game-card-desc">Köyü kurtlar mı, köylüler mi?</div>
+            <div class="coming-soon-badge">YAKINDA</div>
+          </div>
+          <div class="game-card coming-soon">
+            <div class="game-card-icon">🕵️</div>
+            <div class="game-card-name">Köstebek</div>
+            <div class="game-card-desc">Kim farklı kelimeyi bilmiyor?</div>
+            <div class="coming-soon-badge">YAKINDA</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 3: Görev & Kaos -->
+      <div class="category-section">
+        <div class="category-header">
+          <span class="category-icon">🔥</span>
+          <span class="category-name">Görev & Kaos</span>
+        </div>
+        <div class="game-grid">
+          <div class="game-card" onclick="selectGame('hangover')" data-game="hangover">
+            <div class="game-card-icon">🎉</div>
+            <div class="game-card-name">Hangover</div>
+            <div class="game-card-desc">Absürt görevler, sosyal kaos</div>
+            <div class="game-card-players">4-15 oyuncu</div>
+          </div>
+          <div class="game-card coming-soon">
+            <div class="game-card-icon">⏱️</div>
+            <div class="game-card-name">5 Saniye</div>
+            <div class="game-card-desc">5 saniyede 3 şey say</div>
+            <div class="coming-soon-badge">YAKINDA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME SETUP SCREEN -->
+    <div id="setup-screen" class="screen">
+      <a class="back-link" onclick="showScreen('games-screen')">← Oyun Seç</a>
+      <h1 class="page-title">Masa Kur</h1>
+      <p class="page-subtitle">Oyun ayarlarını belirle</p>
+
+      <div class="selected-game-card">
+        <div class="selected-game-icon" id="setup-game-icon">🎭</div>
+        <div class="selected-game-info">
+          <div class="selected-game-name" id="setup-game-name">İfşa Z</div>
+          <div class="selected-game-desc" id="setup-game-desc">Gen Z versiyonu</div>
+        </div>
+        <button class="change-game-btn" onclick="showScreen('games-screen')">Değiştir</button>
+      </div>
+
       <div class="form-section">
         <label class="form-label">Adın</label>
         <input type="text" id="host-name" class="form-input" placeholder="Nasıl çağıralım..." maxlength="20">
       </div>
-      
-      <div class="setting-group">
+
+      <div class="form-section" id="intensity-section">
         <label class="form-label">Atmosfer</label>
-        <div class="setting-options">
-          <div class="setting-btn" data-intensity="1" onclick="selectIntensity(1)">
-            <div class="setting-icon">☕</div>
-            <div class="setting-label">Sohbet</div>
+        <div class="intensity-options">
+          <div class="intensity-btn" data-intensity="1" onclick="selectIntensity(1)">
+            <div class="intensity-icon">☕</div>
+            <div class="intensity-label">Light</div>
           </div>
-          <div class="setting-btn active" data-intensity="2" onclick="selectIntensity(2)">
-            <div class="setting-icon">🍷</div>
-            <div class="setting-label">Samimi</div>
+          <div class="intensity-btn active" data-intensity="2" onclick="selectIntensity(2)">
+            <div class="intensity-icon">🍷</div>
+            <div class="intensity-label">Samimi</div>
           </div>
-          <div class="setting-btn" data-intensity="3" onclick="selectIntensity(3)">
-            <div class="setting-icon">🔥</div>
-            <div class="setting-label">Cesur</div>
+          <div class="intensity-btn" data-intensity="3" onclick="selectIntensity(3)">
+            <div class="intensity-icon">🔥</div>
+            <div class="intensity-label">Ateşli</div>
           </div>
         </div>
       </div>
-      
-      <div class="setting-group">
-        <label class="form-label">Oyun Türleri</label>
-        <div class="category-options">
-          <button class="category-btn active" data-cat="itiraf" onclick="toggleCategory('itiraf')">İtiraf</button>
-          <button class="category-btn active" data-cat="cesaret" onclick="toggleCategory('cesaret')">Cesaret</button>
-          <button class="category-btn active" data-cat="oylama" onclick="toggleCategory('oylama')">Oylama</button>
-        </div>
-      </div>
-      
-      <div class="form-actions">
+
+      <div style="margin-top: auto; padding-top: 20px;">
         <button class="btn btn-primary" onclick="createRoom()">Masayı Aç</button>
       </div>
     </div>
 
     <!-- JOIN SCREEN -->
     <div id="join-screen" class="screen">
-      <div class="page-header">
-        <a class="back-link" onclick="showScreen('entrance-screen')">← Geri</a>
-        <h1 class="page-title">Davetiye</h1>
-        <p class="page-subtitle">6 haneli kodu gir</p>
-      </div>
-      
+      <a class="back-link" onclick="showScreen('entrance-screen')">← Geri</a>
+      <h1 class="page-title">Davetiye</h1>
+      <p class="page-subtitle">6 haneli kodu gir</p>
+
       <div class="form-section" style="text-align: center;">
         <div class="code-container">
           <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 0)">
@@ -1123,13 +1254,13 @@
           <input type="text" class="code-input" maxlength="1" oninput="handleCodeInput(this, 5)">
         </div>
       </div>
-      
+
       <div class="form-section">
         <label class="form-label">Adın</label>
         <input type="text" id="player-name" class="form-input" placeholder="Nasıl çağıralım..." maxlength="20">
       </div>
-      
-      <div class="form-actions">
+
+      <div style="margin-top: auto; padding-top: 20px;">
         <button class="btn btn-primary" onclick="joinRoom()">Masaya Otur</button>
       </div>
     </div>
@@ -1137,15 +1268,18 @@
     <!-- LOBBY SCREEN -->
     <div id="lobby-screen" class="screen">
       <a class="back-link" onclick="leaveRoom()">← Ayrıl</a>
-      
+
+      <div class="lobby-game-info">
+        <div class="lobby-game-icon" id="lobby-game-icon">🎭</div>
+        <div class="lobby-game-name" id="lobby-game-name">İfşa Z</div>
+      </div>
+
       <div class="room-code-section">
         <div class="room-code-label">DAVETİYE KODU</div>
         <div class="room-code-value" id="display-room-code">------</div>
-        <button class="share-btn" onclick="shareRoom()">
-          <span>Paylaş</span>
-        </button>
+        <button class="share-btn" onclick="shareRoom()">📤 Paylaş</button>
       </div>
-      
+
       <div class="members-section">
         <div class="section-header">
           <span class="section-title">Masadakiler</span>
@@ -1153,31 +1287,27 @@
         </div>
         <div id="players-list"></div>
       </div>
-      
-      <div class="form-actions">
-        <button class="btn btn-primary" id="start-btn" onclick="startGame()" style="display: none;">
-          Oyunu Başlat
-        </button>
-        <button class="btn btn-secondary" id="ready-btn" onclick="toggleReady()">
-          Hazırım
-        </button>
+
+      <div class="lobby-actions">
+        <button class="btn btn-primary" id="start-btn" onclick="startGame()" style="display: none;">Oyunu Başlat</button>
+        <button class="btn btn-secondary" id="ready-btn" onclick="toggleReady()">Hazırım</button>
       </div>
     </div>
 
     <!-- GAME SCREEN -->
     <div id="game-screen" class="screen">
       <div class="game-header">
-        <button class="exit-btn" onclick="showScreen('entrance-screen')">✕ ÇIK</button>
+        <button class="exit-btn" onclick="confirmExit()">✕ ÇIK</button>
         <span class="round-indicator" id="round-indicator">I / V</span>
       </div>
-      
+
       <div class="scores-bar" id="scoreboard"></div>
-      
+
       <div class="turn-indicator" id="turn-indicator">
         <div class="turn-avatar">🦊</div>
         <div class="turn-text">Senin sıran</div>
       </div>
-      
+
       <div class="game-area" id="game-area">
         <button class="draw-button" id="draw-btn" onclick="drawCard()">
           <div class="draw-content">
@@ -1186,28 +1316,29 @@
           </div>
         </button>
       </div>
-      
+
       <div class="reactions-bar" id="reactions-bar" style="display: none;">
         <button class="reaction-btn" onclick="sendReaction('😂')">😂</button>
         <button class="reaction-btn" onclick="sendReaction('🔥')">🔥</button>
         <button class="reaction-btn" onclick="sendReaction('😱')">😱</button>
         <button class="reaction-btn" onclick="sendReaction('👏')">👏</button>
         <button class="reaction-btn" onclick="sendReaction('💀')">💀</button>
+        <button class="reaction-btn" onclick="sendReaction('🫣')">🫣</button>
       </div>
     </div>
 
     <!-- RESULTS SCREEN -->
     <div id="results-screen" class="screen">
       <div class="confetti-container" id="confetti"></div>
-      
+
       <div class="results-header">
         <div class="results-ornament">✦ ✦ ✦</div>
         <h1 class="results-title">Oyun Bitti</h1>
         <p class="results-winner" id="winner-text">Tebrikler</p>
       </div>
-      
+
       <div class="podium" id="podium"></div>
-      
+
       <div class="results-actions">
         <button class="btn btn-secondary" onclick="shareResults()">Sonuçları Paylaş</button>
         <button class="btn btn-primary" onclick="playAgain()">Tekrar Oyna</button>
@@ -1218,99 +1349,251 @@
 
   <script>
     // ==========================================
-    // KART VERİTABANI
+    // OYUN VERİTABANI
     // ==========================================
-    const cards = [
-      // İTİRAF - Seviye 1
-      { id: 1, category: 'itiraf', intensity: 1, text: 'Bugün söylediğin en küçük yalan neydi?' },
-      { id: 2, category: 'itiraf', intensity: 1, text: 'En son ne zaman ve neden ağladın?' },
-      { id: 3, category: 'itiraf', intensity: 1, text: 'Telefonundaki en utanç verici uygulama hangisi?' },
-      { id: 4, category: 'itiraf', intensity: 1, text: 'En garip korkun nedir?' },
-      { id: 5, category: 'itiraf', intensity: 1, text: 'Bugün yaptığın en tembel şey neydi?' },
-      { id: 6, category: 'itiraf', intensity: 1, text: 'Hiç tanımadığın birine el salladın mı?' },
-      // İTİRAF - Seviye 2
-      { id: 7, category: 'itiraf', intensity: 2, text: 'Sosyal medyada stalkladığın kişi kim?' },
-      { id: 8, category: 'itiraf', intensity: 2, text: 'Bu masadaki biri hakkında düşündüğün ama söylemediğin bir şey?' },
-      { id: 9, category: 'itiraf', intensity: 2, text: 'En utanç verici arama geçmişin ne olurdu?' },
-      { id: 10, category: 'itiraf', intensity: 2, text: 'Ailenin bilmediği bir sırrın var mı?' },
-      { id: 11, category: 'itiraf', intensity: 2, text: 'En son pişman olduğun mesaj ne?' },
-      { id: 12, category: 'itiraf', intensity: 2, text: 'Parasız kalsan bu masadan kimin evinde kalırdın?' },
-      // İTİRAF - Seviye 3
-      { id: 13, category: 'itiraf', intensity: 3, text: 'En utanç verici anın neydi? Detaylı anlat.' },
-      { id: 14, category: 'itiraf', intensity: 3, text: 'Silinen mesajların geri gelse en çok utanacağın konuşma hangisi?' },
-      { id: 15, category: 'itiraf', intensity: 3, text: 'Hiç kimseye söylemediğin bir fantezin var mı?' },
-      { id: 16, category: 'itiraf', intensity: 3, text: 'Bu masadaki biriyle geçmişte yaşadığın ama sakladığın bir olay?' },
-      
-      // CESARET - Seviye 1
-      { id: 20, category: 'cesaret', intensity: 1, text: 'Sağındaki kişiye samimi bir iltifat et.' },
-      { id: 21, category: 'cesaret', intensity: 1, text: 'On saniye boyunca komik bir yüz ifadesi yap.' },
-      { id: 22, category: 'cesaret', intensity: 1, text: 'En sevdiğin şarkının nakaratını söyle.' },
-      { id: 23, category: 'cesaret', intensity: 1, text: 'Masaya en iyi taklitini göster.' },
-      { id: 24, category: 'cesaret', intensity: 1, text: 'Telefonundaki son selfie\'yi herkese göster.' },
-      { id: 25, category: 'cesaret', intensity: 1, text: 'Bir sonraki tura kadar sadece fısıldayarak konuş.' },
-      // CESARET - Seviye 2
-      { id: 26, category: 'cesaret', intensity: 2, text: 'Solundaki kişiyle on beş saniye göz teması kur.' },
-      { id: 27, category: 'cesaret', intensity: 2, text: 'Son gelen mesajını yüksek sesle oku.' },
-      { id: 28, category: 'cesaret', intensity: 2, text: 'Instagram\'daki son beş beğenini açıkla.' },
-      { id: 29, category: 'cesaret', intensity: 2, text: 'Karşındaki kişiye dramatik bir aşk ilanı yap.' },
-      { id: 30, category: 'cesaret', intensity: 2, text: 'Bir dakika boyunca herkesin her sorusuna dürüstçe cevap ver.' },
-      // CESARET - Seviye 3
-      { id: 31, category: 'cesaret', intensity: 3, text: 'Eski sevgiline "Seni hâlâ düşünüyorum" mesajı at.' },
-      { id: 32, category: 'cesaret', intensity: 3, text: 'WhatsApp durumuna "Satılık: Hayatım" yaz, beş dakika bekle.' },
-      { id: 33, category: 'cesaret', intensity: 3, text: 'Masanın seçtiği kişiyle otuz saniye sarıl.' },
-      
-      // OYLAMA
-      { id: 40, category: 'oylama', intensity: 1, text: 'Kim en kötü yalan söyler?' },
-      { id: 41, category: 'oylama', intensity: 1, text: 'Kim en romantik?' },
-      { id: 42, category: 'oylama', intensity: 1, text: 'Kim en iyi sır saklar?' },
-      { id: 43, category: 'oylama', intensity: 2, text: 'Kim en çok dedikodu yapar?' },
-      { id: 44, category: 'oylama', intensity: 2, text: 'Kim en tehlikeli sürücü?' },
-      { id: 45, category: 'oylama', intensity: 2, text: 'Kim ilk evlenecek?' },
-      { id: 46, category: 'oylama', intensity: 2, text: 'Kim en iyi parti verir?' },
-      { id: 47, category: 'oylama', intensity: 3, text: 'Kim en çekici?' },
-      { id: 48, category: 'oylama', intensity: 3, text: 'Kimin en çok sırrı var?' },
-      { id: 49, category: 'oylama', intensity: 3, text: 'Kim en çok flört eder?' },
-    ];
-
-    const avatars = ['🦊', '🦉', '🐺', '🦅', '🐆', '🦇', '🐍', '🦚', '🦢', '🐉'];
-    const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
-    
-    const scoreRules = {
-      itiraf: { complete: 5, skip: -2 },
-      cesaret: { complete: 10, skip: -3 },
-      oylama: { winner: 15, participant: 2 }
+    const GAMES = {
+      'ifsa-z': {
+        id: 'ifsa-z',
+        name: 'İfşa Z',
+        icon: '📱',
+        desc: 'Gen Z versiyonu. DM, story, ghost...',
+        category: 'ifsa',
+        hasIntensity: true,
+        hasTruthLie: false,
+        hasVoting: true
+      },
+      'ifsa-klasik': {
+        id: 'ifsa-klasik',
+        name: 'İfşa Klasik',
+        icon: '🎭',
+        desc: 'Zamansız sorular ve görevler',
+        category: 'ifsa',
+        hasIntensity: true,
+        hasTruthLie: false,
+        hasVoting: true
+      },
+      'itiraf-klasik': {
+        id: 'itiraf-klasik',
+        name: 'İtiraf Et!',
+        icon: '💬',
+        desc: 'Direkt ve acımasız',
+        category: 'itiraf',
+        hasIntensity: true,
+        hasTruthLie: true,
+        hasVoting: false
+      },
+      'itiraf-hangover': {
+        id: 'itiraf-hangover',
+        name: 'İtiraf Hangover',
+        icon: '🍻',
+        desc: 'Absürt & utanç dolu',
+        category: 'itiraf',
+        hasIntensity: false,
+        hasTruthLie: true,
+        hasVoting: false,
+        fixedIntensity: 3
+      },
+      'benkimim': {
+        id: 'benkimim',
+        name: 'Ben Kimim?',
+        icon: '❓',
+        desc: 'Alnındaki ismi tahmin et',
+        category: 'tahmin',
+        hasIntensity: false,
+        special: true
+      },
+      'hangover': {
+        id: 'hangover',
+        name: 'Hangover',
+        icon: '🎉',
+        desc: 'Absürt görevler, sosyal kaos',
+        category: 'gorev',
+        hasIntensity: false,
+        fixedIntensity: 3
+      }
     };
 
-    const categoryIcons = {
-      itiraf: '🗣️',
-      cesaret: '🎭',
-      oylama: '🗳️'
+    // ==========================================
+    // KART VERİTABANI
+    // ==========================================
+    const CARDS = {
+      // İFŞA Z KUŞAĞI
+      'ifsa-z': {
+        itiraf: [
+          { intensity: 1, text: "Story'de stalkladığın son kişi kim?" },
+          { intensity: 1, text: "En son kimi ghostladın?" },
+          { intensity: 1, text: "DM'den en utanç verici mesajın ne?" },
+          { intensity: 1, text: "Finsta'n var mı? Varsa ne paylaşıyorsun?" },
+          { intensity: 2, text: "Ex'inin profiline en son ne zaman baktın?" },
+          { intensity: 2, text: "Kimin story'sini sessizce takip ediyorsun?" },
+          { intensity: 2, text: "Birini engelleyip sonra stalkladın mı?" },
+          { intensity: 2, text: "En çok hangi ünlüye DM attın?" },
+          { intensity: 2, text: "Screenshot alıp gruba attığın bir konuşma?" },
+          { intensity: 3, text: "Dating app'te en utanç verici anın?" },
+          { intensity: 3, text: "Fake hesaptan kimleri stalklıyorsun?" },
+          { intensity: 3, text: "Silinen mesajların geri gelse en çok utanacağın konuşma?" },
+          { intensity: 3, text: "Close friends'e koyup sonra pişman olduğun story?" }
+        ],
+        cesaret: [
+          { intensity: 1, text: "Son beğendiğin 5 fotoğrafı göster." },
+          { intensity: 1, text: "Arama geçmişinin son 3'ünü oku." },
+          { intensity: 2, text: "Birine şu an story'sine cevap ver." },
+          { intensity: 2, text: "En son sildiğin fotoğrafı göster." },
+          { intensity: 2, text: "Crush'ına şu an bir emoji gönder." },
+          { intensity: 3, text: "Ex'ine 'Nasılsın?' yaz." },
+          { intensity: 3, text: "Rastgele birine DM'den 'Seni düşünüyorum' at." },
+          { intensity: 3, text: "Son mesajlaştığın kişiyle olan chati 30 sn göster." }
+        ],
+        oylama: [
+          { text: "Kim en çok stalklar?" },
+          { text: "Kim en çok ghost yer?" },
+          { text: "Kimin dating app profili en cringe?" },
+          { text: "Kim en hızlı unfollowlar?" },
+          { text: "Kim en fazla ekran görüntüsü alır?" }
+        ]
+      },
+
+      // İFŞA KLASİK
+      'ifsa-klasik': {
+        itiraf: [
+          { intensity: 1, text: "En son kime yalan söyledin?" },
+          { intensity: 1, text: "Bugün söylediğin en küçük yalan ne?" },
+          { intensity: 1, text: "En garip alışkanlığın ne?" },
+          { intensity: 1, text: "Hiç birinin arkasından konuştun mu?" },
+          { intensity: 2, text: "Ailenin bilmediği bir sırrın?" },
+          { intensity: 2, text: "En son ne için pişman oldun?" },
+          { intensity: 2, text: "Bu masadan kimin evinde kalırdın parasız kalsan?" },
+          { intensity: 2, text: "Hiç çaldığın bir şey oldu mu?" },
+          { intensity: 3, text: "En utanç verici anın, detaylı anlat." },
+          { intensity: 3, text: "Kimseye söylemediğin bir fantezin var mı?" },
+          { intensity: 3, text: "Bu masadaki biri hakkında sakladığın bir şey?" }
+        ],
+        cesaret: [
+          { intensity: 1, text: "Sağındaki kişiye samimi bir iltifat et." },
+          { intensity: 1, text: "En sevdiğin şarkının nakaratını söyle." },
+          { intensity: 2, text: "Solundaki kişiyle 20 saniye göz teması kur." },
+          { intensity: 2, text: "Son gelen mesajını yüksek sesle oku." },
+          { intensity: 2, text: "Karşındakine dramatik aşk ilanı yap." },
+          { intensity: 3, text: "Birine 'Seni özledim' mesajı at." },
+          { intensity: 3, text: "1 dakika boyunca her soruya dürüst cevap ver." }
+        ],
+        oylama: [
+          { text: "Kim en kötü yalan söyler?" },
+          { text: "Kim en çok dedikodu yapar?" },
+          { text: "Kim en romantik?" },
+          { text: "Kim ilk evlenecek?" },
+          { text: "Kimin en çok sırrı var?" }
+        ]
+      },
+
+      // İTİRAF ET KLASİK
+      'itiraf-klasik': {
+        itiraf: [
+          { intensity: 1, text: "Hayatta en çok neyi değiştirmek isterdin?" },
+          { intensity: 1, text: "En büyük pişmanlığın ne?" },
+          { intensity: 2, text: "Hiç aşık olduğun birinden reddedildin mi?" },
+          { intensity: 2, text: "En uzun süre sakladığın yalan?" },
+          { intensity: 2, text: "Bir yakınının sırrını ifşa ettin mi?" },
+          { intensity: 3, text: "Bu masadaki biriyle romantik bir anın oldu mu?" },
+          { intensity: 3, text: "Yasadışı yaptığın bir şey var mı?" },
+          { intensity: 3, text: "Birini gerçekten incittin mi? Nasıl?" }
+        ]
+      },
+
+      // İTİRAF HANGOVER
+      'itiraf-hangover': {
+        itiraf: [
+          { intensity: 3, text: "En utanç verici sarhoşluk anını anlat." },
+          { intensity: 3, text: "Şu an bu masadan kimi öpmek isterdin?" },
+          { intensity: 3, text: "Hiç sarhoşken mesaj atıp pişman oldun mu? Ne yazdın?" },
+          { intensity: 3, text: "En kötü one night stand hikayenı anlat." },
+          { intensity: 3, text: "Sarhoşken yaptığın en aptalca şey?" },
+          { intensity: 3, text: "Bu odadaki biriyle uyandın, kim olsun?" },
+          { intensity: 3, text: "En kötü dating deneyimin?" },
+          { intensity: 3, text: "Hiç birinin sevgilisinden/eşinden hoşlandın mı?" }
+        ],
+        cesaret: [
+          { intensity: 3, text: "Şu an shot iç." },
+          { intensity: 3, text: "Sağındaki kişinin kucağına otur, 30 sn kal." },
+          { intensity: 3, text: "Masadaki birine 'lap dance' yap." },
+          { intensity: 3, text: "Striptiz yapar gibi bir kıyafetini çıkar." },
+          { intensity: 3, text: "Birine ağzından ağza shot ver." }
+        ]
+      },
+
+      // BEN KİMİM
+      'benkimim': {
+        characters: [
+          // Ünlüler
+          "Tarkan", "Kemal Sunal", "Barış Manço", "Ajda Pekkan", "Cem Yılmaz",
+          "Atatürk", "Fatih Sultan Mehmet", "Kanuni Sultan Süleyman",
+          // Uluslararası
+          "Elon Musk", "Taylor Swift", "Cristiano Ronaldo", "Donald Trump",
+          "Einstein", "Michael Jackson", "Madonna", "Leonardo DiCaprio",
+          // Kurgusal
+          "Darth Vader", "Harry Potter", "Sherlock Holmes", "Batman",
+          "Recep İvedik", "Hababam Sınıfı - İnek Şaban", "Süleyman Çakır",
+          // Konseptler
+          "Bir kedi", "Instagram algoritması", "ChatGPT", "Türk kahvesi"
+        ]
+      },
+
+      // HANGOVER
+      'hangover': {
+        gorevler: [
+          { text: "Telefonunu masaya koy, 3 tur boyunca herkes bakabilir." },
+          { text: "Bir sonraki tura kadar her cümleye 'aşkım' ekle." },
+          { text: "30 saniye boyunca slow motion hareket et." },
+          { text: "Birine sarıl ve 'beni bırakma' de, 20 sn öyle kal." },
+          { text: "Yabancı aksanıyla bir sonraki tura kadar konuş." },
+          { text: "Masadaki birine evlenme teklifi et, yüzük de bul." },
+          { text: "Bir dakika boyunca yerdeki görünmez bir şeyi temizle." },
+          { text: "Rastgele bir numarayı ara, 'pizzacı mısınız?' de." },
+          { text: "Solundaki kişiye 'ben senin en büyük hayranınım' de, ciddi ol." },
+          { text: "Bir şarkıyı işaret diliyle anlat, masanın bilmesi lazım." },
+          { text: "Instagram story'ne 'BU MASADA DELI GIBI EĞLENIYORUZ' yaz." },
+          { text: "Birine 1 dakika boyunca makyaj yap (varsa)." },
+          { text: "Sağındaki kişiyi 30 saniye boyunca överken asla gözünü kaçırma." },
+          { text: "Herkesin ayakkabısını karıştır, gözü kapalı eşleştir." },
+          { text: "Bir sonraki tura kadar sadece şarkı sözleriyle konuş." }
+        ]
+      }
+    };
+
+    const avatars = ['🦊', '🦉', '🐺', '🦅', '🐆', '🦇', '🐍', '🦚', '🦢', '🐉', '🦁', '🐼'];
+    const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+
+    const scoreRules = {
+      complete: 5,
+      skip: -2,
+      voteWinner: 15,
+      truthLieCorrect: 3,
+      whoamiGuess: 20
     };
 
     // ==========================================
     // OYUN DURUMU
     // ==========================================
     let gameState = {
+      selectedGame: null,
       roomCode: null,
       playerId: null,
       playerName: '',
       isHost: false,
       players: [],
-      settings: {
-        intensity: 2,
-        categories: ['itiraf', 'cesaret', 'oylama']
-      },
+      settings: { intensity: 2 },
       currentPlayerIndex: 0,
       currentCard: null,
       usedCardIds: [],
       timer: 30,
       timerInterval: null,
       isReady: false,
-      votes: {},
-      voteResults: null,
       gameStarted: false,
       totalRounds: 5,
-      currentRound: 0
+      currentRound: 0,
+      // Ben Kimim özel
+      whoamiCharacter: null,
+      whoamiQuestions: 0
     };
 
     // ==========================================
@@ -1322,28 +1605,41 @@
     }
 
     // ==========================================
-    // AYARLAR
+    // OYUN SEÇİMİ
     // ==========================================
-    function selectIntensity(level) {
-      gameState.settings.intensity = level;
-      document.querySelectorAll('.setting-btn[data-intensity]').forEach(btn => {
-        btn.classList.toggle('active', parseInt(btn.dataset.intensity) === level);
-      });
+    function selectGame(gameId) {
+      const game = GAMES[gameId];
+      if (!game || document.querySelector(`[data-game="${gameId}"]`).classList.contains('coming-soon')) {
+        return;
+      }
+
+      gameState.selectedGame = game;
+
+      // Visual selection
+      document.querySelectorAll('.game-card').forEach(c => c.classList.remove('selected'));
+      document.querySelector(`[data-game="${gameId}"]`).classList.add('selected');
+
+      // Update setup screen
+      document.getElementById('setup-game-icon').textContent = game.icon;
+      document.getElementById('setup-game-name').textContent = game.name;
+      document.getElementById('setup-game-desc').textContent = game.desc;
+
+      // Show/hide intensity based on game
+      const intensitySection = document.getElementById('intensity-section');
+      intensitySection.style.display = game.hasIntensity ? 'block' : 'none';
+
+      if (game.fixedIntensity) {
+        gameState.settings.intensity = game.fixedIntensity;
+      }
+
+      showScreen('setup-screen');
     }
 
-    function toggleCategory(cat) {
-      const btn = document.querySelector(`.category-btn[data-cat="${cat}"]`);
-      const index = gameState.settings.categories.indexOf(cat);
-      
-      if (index > -1) {
-        if (gameState.settings.categories.length > 1) {
-          gameState.settings.categories.splice(index, 1);
-          btn.classList.remove('active');
-        }
-      } else {
-        gameState.settings.categories.push(cat);
-        btn.classList.add('active');
-      }
+    function selectIntensity(level) {
+      gameState.settings.intensity = level;
+      document.querySelectorAll('.intensity-btn').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.intensity) === level);
+      });
     }
 
     // ==========================================
@@ -1360,10 +1656,8 @@
 
     function createRoom() {
       const name = document.getElementById('host-name').value.trim();
-      if (!name) {
-        alert('Lütfen adını gir');
-        return;
-      }
+      if (!name) { alert('Lütfen adını gir'); return; }
+      if (!gameState.selectedGame) { alert('Lütfen oyun seç'); return; }
 
       gameState.roomCode = generateRoomCode();
       gameState.playerId = 'player_' + Date.now();
@@ -1379,8 +1673,8 @@
       }];
 
       saveRoomToStorage();
+      updateLobbyUI();
       showScreen('lobby-screen');
-      updateLobby();
     }
 
     function joinRoom() {
@@ -1388,29 +1682,21 @@
       const code = Array.from(codeInputs).map(i => i.value).join('').toUpperCase();
       const name = document.getElementById('player-name').value.trim();
 
-      if (code.length !== 6) {
-        alert('6 haneli kodu gir');
-        return;
-      }
-      if (!name) {
-        alert('Lütfen adını gir');
-        return;
-      }
+      if (code.length !== 6) { alert('6 haneli kodu gir'); return; }
+      if (!name) { alert('Lütfen adını gir'); return; }
 
       const roomData = localStorage.getItem('masa_room_' + code);
-      if (!roomData) {
-        alert('Masa bulunamadı');
-        return;
-      }
+      if (!roomData) { alert('Masa bulunamadı'); return; }
 
       const room = JSON.parse(roomData);
       gameState.roomCode = code;
       gameState.playerId = 'player_' + Date.now();
       gameState.playerName = name;
       gameState.isHost = false;
+      gameState.selectedGame = room.selectedGame;
       gameState.settings = room.settings;
       gameState.players = room.players;
-      
+
       const avatarIndex = gameState.players.length % avatars.length;
       gameState.players.push({
         id: gameState.playerId,
@@ -1422,15 +1708,14 @@
       });
 
       saveRoomToStorage();
+      updateLobbyUI();
       showScreen('lobby-screen');
-      updateLobby();
     }
 
     function handleCodeInput(input, index) {
       const value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
       input.value = value;
       input.classList.toggle('filled', value.length > 0);
-      
       if (value && index < 5) {
         document.querySelectorAll('.code-input')[index + 1].focus();
       }
@@ -1439,6 +1724,7 @@
     function saveRoomToStorage() {
       const data = {
         code: gameState.roomCode,
+        selectedGame: gameState.selectedGame,
         settings: gameState.settings,
         players: gameState.players,
         currentPlayerIndex: gameState.currentPlayerIndex,
@@ -1459,7 +1745,12 @@
       }
     }
 
-    function updateLobby() {
+    function updateLobbyUI() {
+      if (gameState.selectedGame) {
+        document.getElementById('lobby-game-icon').textContent = gameState.selectedGame.icon;
+        document.getElementById('lobby-game-name').textContent = gameState.selectedGame.name;
+      }
+
       document.getElementById('display-room-code').textContent = gameState.roomCode;
       document.getElementById('player-count').textContent = gameState.players.length + ' kişi';
 
@@ -1479,7 +1770,7 @@
 
       const startBtn = document.getElementById('start-btn');
       const readyBtn = document.getElementById('ready-btn');
-      
+
       if (gameState.isHost) {
         startBtn.style.display = 'block';
         readyBtn.style.display = 'none';
@@ -1497,12 +1788,12 @@
       const player = gameState.players.find(p => p.id === gameState.playerId);
       if (player) player.isReady = gameState.isReady;
       saveRoomToStorage();
-      updateLobby();
+      updateLobbyUI();
     }
 
     function shareRoom() {
-      const text = `MASA'ya davetlisin.\n\nKod: ${gameState.roomCode}\n\n${window.location.href}`;
-      
+      const game = gameState.selectedGame;
+      const text = `MASA'ya davetlisin!\n\n${game.icon} ${game.name}\nKod: ${gameState.roomCode}\n\n${window.location.href}`;
       if (navigator.share) {
         navigator.share({ title: 'MASA Daveti', text: text });
       } else {
@@ -1514,41 +1805,35 @@
     function leaveRoom() {
       gameState.players = gameState.players.filter(p => p.id !== gameState.playerId);
       saveRoomToStorage();
-      
-      gameState = {
-        ...gameState,
-        roomCode: null,
-        playerId: null,
-        playerName: '',
-        isHost: false,
-        players: [],
-        gameStarted: false
-      };
-      
+      gameState = { ...gameState, roomCode: null, playerId: null, playerName: '', isHost: false, players: [], gameStarted: false };
       showScreen('entrance-screen');
     }
 
     // ==========================================
-    // OYUN İŞLEMLERİ
+    // OYUN BAŞLAT
     // ==========================================
     function startGame() {
       gameState.gameStarted = true;
       gameState.currentPlayerIndex = 0;
       gameState.currentRound = 0;
       gameState.usedCardIds = [];
-      
+
       saveRoomToStorage();
       showScreen('game-screen');
       updateGameScreen();
     }
 
+    function confirmExit() {
+      if (confirm('Oyundan çıkmak istediğine emin misin?')) {
+        leaveRoom();
+      }
+    }
+
     function updateGameScreen() {
-      // Round indicator
       const roundNum = Math.min(gameState.currentRound + 1, gameState.totalRounds);
-      document.getElementById('round-indicator').textContent = 
+      document.getElementById('round-indicator').textContent =
         `${romanNumerals[roundNum - 1] || roundNum} / ${romanNumerals[gameState.totalRounds - 1]}`;
 
-      // Scoreboard
       const scoreboard = document.getElementById('scoreboard');
       scoreboard.innerHTML = gameState.players.map((p, i) => `
         <div class="score-chip ${i === gameState.currentPlayerIndex ? 'active' : ''}">
@@ -1557,43 +1842,76 @@
         </div>
       `).join('');
 
-      // Turn indicator
       const current = gameState.players[gameState.currentPlayerIndex];
       const isMyTurn = current.id === gameState.playerId;
-      
+
       document.getElementById('turn-indicator').innerHTML = `
         <div class="turn-avatar">${current.avatar}</div>
         <div class="turn-text">${isMyTurn ? 'Senin sıran' : current.name + ' oynuyor'}</div>
       `;
 
-      // Draw button
       const drawBtn = document.getElementById('draw-btn');
-      drawBtn.style.display = gameState.currentCard ? 'none' : 'block';
-      drawBtn.disabled = !isMyTurn;
-      
-      // Reactions
+      if (drawBtn) {
+        drawBtn.style.display = gameState.currentCard ? 'none' : 'block';
+        drawBtn.disabled = !isMyTurn;
+      }
+
       document.getElementById('reactions-bar').style.display = gameState.currentCard ? 'flex' : 'none';
     }
 
+    // ==========================================
+    // KART ÇEK
+    // ==========================================
     function drawCard() {
-      const availableCards = cards.filter(c => 
-        gameState.settings.categories.includes(c.category) &&
-        c.intensity <= gameState.settings.intensity &&
-        !gameState.usedCardIds.includes(c.id)
-      );
+      const game = gameState.selectedGame;
+      const gameCards = CARDS[game.id];
 
-      if (availableCards.length === 0) {
+      if (game.id === 'benkimim') {
+        drawWhoAmI();
+        return;
+      }
+
+      if (game.id === 'hangover') {
+        drawHangoverCard();
+        return;
+      }
+
+      // İfşa / İtiraf oyunları
+      let allCards = [];
+
+      if (gameCards.itiraf) {
+        allCards = allCards.concat(
+          gameCards.itiraf
+            .filter(c => c.intensity <= gameState.settings.intensity)
+            .map(c => ({ ...c, type: 'itiraf' }))
+        );
+      }
+      if (gameCards.cesaret) {
+        allCards = allCards.concat(
+          gameCards.cesaret
+            .filter(c => c.intensity <= gameState.settings.intensity)
+            .map(c => ({ ...c, type: 'cesaret' }))
+        );
+      }
+      if (gameCards.oylama && Math.random() > 0.7) {
+        allCards = allCards.concat(
+          gameCards.oylama.map(c => ({ ...c, type: 'oylama' }))
+        );
+      }
+
+      // Filter used
+      allCards = allCards.filter(c => !gameState.usedCardIds.includes(c.text));
+
+      if (allCards.length === 0) {
         endGame();
         return;
       }
 
-      const card = availableCards[Math.floor(Math.random() * availableCards.length)];
+      const card = allCards[Math.floor(Math.random() * allCards.length)];
       gameState.currentCard = card;
-      gameState.usedCardIds.push(card.id);
+      gameState.usedCardIds.push(card.text);
       gameState.currentRound++;
       gameState.timer = 30;
-      gameState.votes = {};
-      gameState.voteResults = null;
 
       saveRoomToStorage();
       showCard(card);
@@ -1603,9 +1921,14 @@
     function showCard(card) {
       const gameArea = document.getElementById('game-area');
       const isMyTurn = gameState.players[gameState.currentPlayerIndex].id === gameState.playerId;
+      const game = gameState.selectedGame;
+
+      const typeIcons = { itiraf: '🗣️', cesaret: '🎭', oylama: '🗳️', gorev: '🎉' };
+      const typeNames = { itiraf: 'İTİRAF', cesaret: 'CESARET', oylama: 'OYLAMA', gorev: 'GÖREV' };
 
       let actionsHtml = '';
-      if (card.category === 'oylama') {
+
+      if (card.type === 'oylama') {
         actionsHtml = `
           <div class="voting-section">
             <div class="voting-title">Kime oy veriyorsun?</div>
@@ -1619,6 +1942,26 @@
             </div>
           </div>
         `;
+      } else if (game.hasTruthLie && isMyTurn && card.type === 'itiraf') {
+        actionsHtml = `
+          <div class="card-actions">
+            <button class="btn btn-pass" onclick="skipCard()">Pas</button>
+            <button class="btn btn-done" onclick="completeCard()">Cevapladım</button>
+          </div>
+          <div class="truth-lie-section" style="margin-top: 16px;">
+            <div class="truth-lie-title">Diğerleri: Bu doğru mu yalan mı?</div>
+            <div class="truth-lie-buttons">
+              <div class="truth-lie-btn" onclick="voteTruthLie('truth')">
+                <div class="truth-lie-icon">✓</div>
+                <div class="truth-lie-label">Doğru</div>
+              </div>
+              <div class="truth-lie-btn" onclick="voteTruthLie('lie')">
+                <div class="truth-lie-icon">✗</div>
+                <div class="truth-lie-label">Yalan</div>
+              </div>
+            </div>
+          </div>
+        `;
       } else if (isMyTurn) {
         actionsHtml = `
           <div class="card-actions">
@@ -1628,11 +1971,17 @@
         `;
       }
 
+      // Random reveal button for İfşa games
+      let randomRevealHtml = '';
+      if ((game.id === 'ifsa-z' || game.id === 'ifsa-klasik') && isMyTurn) {
+        randomRevealHtml = `<button class="random-reveal-btn" onclick="randomReveal()">💣 Rastgele İfşa Patlat</button>`;
+      }
+
       gameArea.innerHTML = `
         <div class="card">
           <div class="card-category">
-            <div class="card-category-icon">${categoryIcons[card.category]}</div>
-            <div class="card-category-name">${card.category}</div>
+            <div class="card-category-icon">${typeIcons[card.type] || '🎴'}</div>
+            <div class="card-category-name">${typeNames[card.type] || 'KART'}</div>
           </div>
           <div class="card-divider"></div>
           <div class="card-text">${card.text}</div>
@@ -1644,63 +1993,134 @@
           </div>
         </div>
         ${actionsHtml}
+        ${randomRevealHtml}
       `;
 
       document.getElementById('draw-btn').style.display = 'none';
       document.getElementById('reactions-bar').style.display = 'flex';
-      
+
       startTimer();
     }
 
-    function startTimer() {
-      if (gameState.timerInterval) clearInterval(gameState.timerInterval);
-      
-      gameState.timerInterval = setInterval(() => {
-        gameState.timer--;
-        
-        const fill = document.getElementById('timer-fill');
-        const value = document.getElementById('timer-value');
-        
-        if (fill && value) {
-          fill.style.width = (gameState.timer / 30 * 100) + '%';
-          fill.classList.toggle('warning', gameState.timer <= 10);
-          value.textContent = gameState.timer;
-        }
-        
-        if (gameState.timer <= 0) {
-          clearInterval(gameState.timerInterval);
-          skipCard();
-        }
-      }, 1000);
+    function drawHangoverCard() {
+      const gorevler = CARDS['hangover'].gorevler;
+      const available = gorevler.filter(g => !gameState.usedCardIds.includes(g.text));
+
+      if (available.length === 0) {
+        endGame();
+        return;
+      }
+
+      const card = available[Math.floor(Math.random() * available.length)];
+      card.type = 'gorev';
+      gameState.currentCard = card;
+      gameState.usedCardIds.push(card.text);
+      gameState.currentRound++;
+      gameState.timer = 60;
+
+      saveRoomToStorage();
+      showCard(card);
+      updateGameScreen();
     }
 
-    function completeCard() {
-      if (!gameState.currentCard) return;
-      clearInterval(gameState.timerInterval);
-      
-      const player = gameState.players[gameState.currentPlayerIndex];
-      const points = scoreRules[gameState.currentCard.category].complete;
-      player.score += points;
-      
+    function drawWhoAmI() {
+      const characters = CARDS['benkimim'].characters;
+      const character = characters[Math.floor(Math.random() * characters.length)];
+      gameState.whoamiCharacter = character;
+      gameState.whoamiQuestions = 0;
+      gameState.currentRound++;
+
+      const gameArea = document.getElementById('game-area');
+      const current = gameState.players[gameState.currentPlayerIndex];
+      const isMyTurn = current.id === gameState.playerId;
+
+      if (isMyTurn) {
+        // Sen tahmin ediyorsun - karakteri gösterme
+        gameArea.innerHTML = `
+          <div class="whoami-section">
+            <div class="whoami-card">
+              <div class="whoami-label">SENİN KARAKTERİN</div>
+              <div class="whoami-character">???</div>
+            </div>
+            <div class="whoami-questions">Evet/Hayır soruları sor. ${20 - gameState.whoamiQuestions} soru hakkın var.</div>
+            <div class="whoami-actions">
+              <button class="btn btn-secondary" onclick="whoamiQuestion()">Soru Sordum</button>
+              <button class="btn btn-primary" onclick="whoamiGuess()">Tahmin Et!</button>
+            </div>
+          </div>
+        `;
+      } else {
+        // Diğerleri karakteri görüyor
+        gameArea.innerHTML = `
+          <div class="whoami-section">
+            <div class="whoami-card">
+              <div class="whoami-label">${current.name}'IN KARAKTERİ</div>
+              <div class="whoami-character">${character}</div>
+            </div>
+            <div class="whoami-questions">Sadece EVET veya HAYIR ile cevap ver!</div>
+          </div>
+        `;
+      }
+
+      document.getElementById('draw-btn').style.display = 'none';
+      document.getElementById('reactions-bar').style.display = 'flex';
+      updateGameScreen();
+    }
+
+    function whoamiQuestion() {
+      gameState.whoamiQuestions++;
+      const remaining = 20 - gameState.whoamiQuestions;
+      const questionsEl = document.querySelector('.whoami-questions');
+      if (questionsEl) {
+        questionsEl.textContent = `${remaining} soru hakkın kaldı.`;
+      }
+      if (remaining <= 0) {
+        whoamiGiveUp();
+      }
+    }
+
+    function whoamiGuess() {
+      const guess = prompt('Tahminini yaz:');
+      if (guess && guess.toLowerCase().includes(gameState.whoamiCharacter.toLowerCase().split(' ')[0])) {
+        alert('🎉 Doğru bildin! +' + scoreRules.whoamiGuess + ' puan');
+        const player = gameState.players[gameState.currentPlayerIndex];
+        player.score += scoreRules.whoamiGuess;
+      } else {
+        alert('❌ Yanlış! Cevap: ' + gameState.whoamiCharacter);
+      }
       saveRoomToStorage();
       nextTurn();
     }
 
-    function skipCard() {
-      if (!gameState.currentCard) return;
-      clearInterval(gameState.timerInterval);
-      
-      const player = gameState.players[gameState.currentPlayerIndex];
-      const penalty = scoreRules[gameState.currentCard.category].skip;
-      player.score = Math.max(0, player.score + penalty);
-      
-      saveRoomToStorage();
+    function whoamiGiveUp() {
+      alert('Süre doldu! Cevap: ' + gameState.whoamiCharacter);
       nextTurn();
     }
 
+    // ==========================================
+    // RANDOM İFŞA
+    // ==========================================
+    function randomReveal() {
+      const reveals = [
+        "Son 3 DM'ini aç ve masaya göster!",
+        "Galeri'nden rastgele bir fotoğraf göster!",
+        "Son sildiğin fotoğrafı göster!",
+        "Arama geçmişinin son 5'ini oku!",
+        "Son beğendiğin 10 gönderiyi göster!",
+        "En son stalkladığın profili aç!",
+        "Son attığın story'yi göster!",
+        "Close friends listeni göster!",
+        "Sesli mesajını masaya dinlet!",
+        "Engellediğin kişiler listesini göster!"
+      ];
+      const reveal = reveals[Math.floor(Math.random() * reveals.length)];
+      alert('💣 RANDOM İFŞA: ' + reveal);
+    }
+
+    // ==========================================
+    // OYLAMA
+    // ==========================================
     function vote(playerId) {
-      gameState.votes[gameState.playerId] = playerId;
-      
       document.querySelectorAll('.vote-card').forEach(card => {
         card.classList.remove('selected');
         if (card.onclick.toString().includes(playerId)) {
@@ -1715,36 +2135,85 @@
           results[randomVote] = (results[randomVote] || 0) + 1;
         });
         results[playerId] = (results[playerId] || 0) + 1;
-        
-        showVoteResults(results);
+
+        document.querySelectorAll('.vote-card').forEach(card => {
+          const pId = card.onclick.toString().match(/'([^']+)'/)[1];
+          const count = results[pId] || 0;
+          if (count > 0) {
+            card.innerHTML += `<div class="vote-count">${count} oy</div>`;
+          }
+        });
+
+        const winnerId = Object.entries(results).sort((a, b) => b[1] - a[1])[0][0];
+        const winner = gameState.players.find(p => p.id === winnerId);
+        if (winner) {
+          winner.score += scoreRules.voteWinner;
+        }
+
+        saveRoomToStorage();
+        setTimeout(() => nextTurn(), 2500);
       }, 1500);
     }
 
-    function showVoteResults(results) {
-      clearInterval(gameState.timerInterval);
-      
-      document.querySelectorAll('.vote-card').forEach(card => {
-        const pId = card.onclick.toString().match(/'([^']+)'/)[1];
-        const count = results[pId] || 0;
-        if (count > 0) {
-          card.innerHTML += `<div class="vote-count">${count} oy</div>`;
-        }
+    function voteTruthLie(vote) {
+      document.querySelectorAll('.truth-lie-btn').forEach(btn => {
+        btn.classList.toggle('selected', btn.onclick.toString().includes(vote));
       });
+    }
 
-      const winnerId = Object.entries(results).sort((a, b) => b[1] - a[1])[0][0];
-      const winner = gameState.players.find(p => p.id === winnerId);
-      if (winner) {
-        winner.score += scoreRules.oylama.winner;
-      }
+    // ==========================================
+    // KART İŞLEMLERİ
+    // ==========================================
+    function startTimer() {
+      if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+
+      gameState.timerInterval = setInterval(() => {
+        gameState.timer--;
+
+        const fill = document.getElementById('timer-fill');
+        const value = document.getElementById('timer-value');
+
+        if (fill && value) {
+          const maxTime = gameState.selectedGame.id === 'hangover' ? 60 : 30;
+          fill.style.width = (gameState.timer / maxTime * 100) + '%';
+          fill.classList.toggle('warning', gameState.timer <= 10);
+          value.textContent = gameState.timer;
+        }
+
+        if (gameState.timer <= 0) {
+          clearInterval(gameState.timerInterval);
+          skipCard();
+        }
+      }, 1000);
+    }
+
+    function completeCard() {
+      if (!gameState.currentCard) return;
+      clearInterval(gameState.timerInterval);
+
+      const player = gameState.players[gameState.currentPlayerIndex];
+      player.score += scoreRules.complete;
 
       saveRoomToStorage();
-      setTimeout(() => nextTurn(), 2500);
+      nextTurn();
+    }
+
+    function skipCard() {
+      if (!gameState.currentCard && !gameState.whoamiCharacter) return;
+      clearInterval(gameState.timerInterval);
+
+      const player = gameState.players[gameState.currentPlayerIndex];
+      player.score = Math.max(0, player.score + scoreRules.skip);
+
+      saveRoomToStorage();
+      nextTurn();
     }
 
     function nextTurn() {
       gameState.currentCard = null;
+      gameState.whoamiCharacter = null;
       gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
-      
+
       saveRoomToStorage();
 
       if (gameState.currentRound >= gameState.totalRounds * gameState.players.length) {
@@ -1760,7 +2229,7 @@
           </div>
         </button>
       `;
-      
+
       updateGameScreen();
     }
 
@@ -1769,9 +2238,8 @@
       reaction.className = 'floating-reaction';
       reaction.textContent = emoji;
       reaction.style.left = (Math.random() * 60 + 20) + '%';
-      reaction.style.bottom = '120px';
+      reaction.style.bottom = '100px';
       document.body.appendChild(reaction);
-      
       setTimeout(() => reaction.remove(), 2000);
     }
 
@@ -1781,25 +2249,23 @@
     function endGame() {
       clearInterval(gameState.timerInterval);
       gameState.gameStarted = false;
-      
+
       const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
-      
-      // Confetti
+
       const confetti = document.getElementById('confetti');
       const confettiEmojis = ['✦', '✧', '◆', '◇', '○'];
-      confetti.innerHTML = Array(12).fill(0).map((_, i) => 
-        `<div class="confetti" style="left: ${i * 8 + 4}%; animation-delay: ${i * 0.2}s; color: var(--gold);">
+      confetti.innerHTML = Array(12).fill(0).map((_, i) =>
+        `<div class="confetti" style="left: ${i * 8 + 4}%; animation-delay: ${i * 0.15}s; color: var(--gold);">
           ${confettiEmojis[i % confettiEmojis.length]}
         </div>`
       ).join('');
 
       document.getElementById('winner-text').textContent = `Tebrikler, ${sorted[0].name}`;
 
-      // Podium
       const podium = document.getElementById('podium');
       const podiumOrder = [1, 0, 2];
       const blocks = ['silver', 'gold', 'bronze'];
-      
+
       podium.innerHTML = podiumOrder.map((rank, i) => {
         const player = sorted[rank];
         if (!player) return '';
@@ -1820,8 +2286,9 @@
 
     function shareResults() {
       const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
-      const text = `MASA Sonuçları\n\n🏆 ${sorted[0].name} — ${sorted[0].score} puan\n\nSıralama:\n${sorted.map((p, i) => `${i + 1}. ${p.name}: ${p.score}`).join('\n')}`;
-      
+      const game = gameState.selectedGame;
+      const text = `MASA ${game.icon} ${game.name}\n\n🏆 ${sorted[0].name} — ${sorted[0].score} puan\n\n${sorted.map((p, i) => `${i + 1}. ${p.name}: ${p.score}`).join('\n')}`;
+
       if (navigator.share) {
         navigator.share({ title: 'MASA Sonuçları', text: text });
       } else {
@@ -1835,10 +2302,10 @@
       gameState.currentRound = 0;
       gameState.usedCardIds = [];
       gameState.currentPlayerIndex = 0;
-      
+
       saveRoomToStorage();
       showScreen('lobby-screen');
-      updateLobby();
+      updateLobbyUI();
     }
 
     // ==========================================
@@ -1847,7 +2314,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const roomCode = urlParams.get('room');
-      
+
       if (roomCode) {
         document.querySelectorAll('.code-input').forEach((input, i) => {
           input.value = roomCode[i] || '';
@@ -1860,7 +2327,7 @@
     setInterval(() => {
       if (gameState.roomCode && !gameState.gameStarted) {
         loadRoomFromStorage();
-        updateLobby();
+        updateLobbyUI();
       }
     }, 2000);
   </script>
