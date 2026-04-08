@@ -1403,8 +1403,8 @@
         icon: '🎉',
         desc: 'Absürt görevler, sosyal kaos',
         category: 'gorev',
-        hasIntensity: false,
-        fixedIntensity: 3
+        hasIntensity: true,
+        maxIntensity: 5
       }
     };
 
@@ -1837,24 +1837,621 @@
         ]
       },
 
-      // HANGOVER
+      // HANGOVER - TAM VERSİYON
       'hangover': {
+        // GÖREV KARTLARI - SEVİYELERE GÖRE
         gorevler: [
-          { text: "Telefonunu masaya koy, 3 tur boyunca herkes bakabilir." },
-          { text: "Bir sonraki tura kadar her cümleye 'aşkım' ekle." },
-          { text: "30 saniye boyunca slow motion hareket et." },
-          { text: "Birine sarıl ve 'beni bırakma' de, 20 sn öyle kal." },
-          { text: "Yabancı aksanıyla bir sonraki tura kadar konuş." },
-          { text: "Masadaki birine evlenme teklifi et, yüzük de bul." },
-          { text: "Bir dakika boyunca yerdeki görünmez bir şeyi temizle." },
-          { text: "Rastgele bir numarayı ara, 'pizzacı mısınız?' de." },
-          { text: "Solundaki kişiye 'ben senin en büyük hayranınım' de, ciddi ol." },
-          { text: "Bir şarkıyı işaret diliyle anlat, masanın bilmesi lazım." },
-          { text: "Instagram story'ne 'BU MASADA DELI GIBI EĞLENIYORUZ' yaz." },
-          { text: "Birine 1 dakika boyunca makyaj yap (varsa)." },
-          { text: "Sağındaki kişiyi 30 saniye boyunca överken asla gözünü kaçırma." },
-          { text: "Herkesin ayakkabısını karıştır, gözü kapalı eşleştir." },
-          { text: "Bir sonraki tura kadar sadece şarkı sözleriyle konuş." }
+          // SEVİYE 1 - LIGHT
+          { intensity: 1, text: "Masadaki en büyük bardağı kafana dik ve bitir." },
+          { intensity: 1, text: "Bir sonraki tura kadar her cümleyi 'Oldu o zaman' diyerek bitir." },
+          { intensity: 1, text: "Sağındaki kişinin saçını/sakalını istediği gibi tara veya şekil ver." },
+          { intensity: 1, text: "30 saniye boyunca sanki çok ciddi bir iş toplantısındaymış gibi konuş." },
+          { intensity: 1, text: "Ayakkabılarını çıkar ve ellerine giy, 1 tur böyle devam et." },
+          { intensity: 1, text: "Kendi seçeceğin bir tekerlemeyi hatasız söyle, hata yaparsan shot at." },
+          { intensity: 1, text: "Masadaki herkese birer takma isim tak, oyun boyu öyle hitap et." },
+          { intensity: 1, text: "60 saniye boyunca hiç göz kırpmadan karşındakine bak." },
+          { intensity: 1, text: "Masanın etrafında bir tur 'Sessiz olun, avlanıyorum' diyerek parmak uçlarında dön." },
+          { intensity: 1, text: "En sevdiğin çizgi film karakterinin taklidini yap." },
+
+          // SEVİYE 2 - SAMİMİ
+          { intensity: 2, text: "Solundaki kişinin kulak memesine 10 saniye boyunca üfle." },
+          { intensity: 2, text: "Telefonunu masaya koy, gelen ilk bildirimi yüksek sesle oku." },
+          { intensity: 2, text: "Masadaki birine en içten ama uydurma aşk şiirini oku." },
+          { intensity: 2, text: "1 tur boyunca her konuşmanı bir şarkı sözüyle bitir." },
+          { intensity: 2, text: "Karşındaki kişinin çoraplarını çıkar ve kendi ellerine giy." },
+          { intensity: 2, text: "Bir sonraki tura kadar sadece fısıldayarak konuş." },
+          { intensity: 2, text: "Masadaki en kısa boylu kişiyi kucağına al ve 10 saniye tut." },
+          { intensity: 2, text: "Rastgele birini ara ve ona 'Senin hakkında her şeyi biliyorum' deyip kapat." },
+          { intensity: 2, text: "Masadaki birine 1 dakika boyunca masaj yap." },
+          { intensity: 2, text: "Cüzdanını masaya koy ve herkesin içindekilere bakmasına izin ver." },
+
+          // SEVİYE 3 - ATEŞLİ
+          { intensity: 3, text: "Instagram'da gördüğün ilk hikayeye 'Benimle evlenir misin?' yazarak yanıt ver." },
+          { intensity: 3, text: "Masadaki birinin ayakkabısından bir shot iç ya da 2 shot doğrudan at." },
+          { intensity: 3, text: "Sosyal medyada en az 2 yıldır konuşmadığın birine 'Dün gece rüyamda seni gördüm, hayırdır?' yaz." },
+          { intensity: 3, text: "Bir sonraki tura kadar masadaki birinin evcil hayvanı gibi davran." },
+          { intensity: 3, text: "En son attığın 5 mesajı yüksek sesle oku, grup mesajları dahil." },
+          { intensity: 3, text: "Masadaki birinin kıyafetlerinden birini ödünç al ve giy." },
+          { intensity: 3, text: "Gözlerini bağla ve masadakilerin sana yedirdiği 3 şeyi tahmin et." },
+          { intensity: 3, text: "Herkesin önünde birine 'Senden nefret ediyorum çünkü çok güzelsin' de ve sarıl." },
+          { intensity: 3, text: "Bir sonraki tura kadar her içki içtiğinde bir hayvan sesi çıkar." },
+          { intensity: 3, text: "Telefonundaki en son fotoğrafı herkese göster ve hikayesini anlat." },
+          { intensity: 3, text: "30 saniye boyunca göbek at ve durma." },
+          { intensity: 3, text: "Masadaki birini taklit et, diğerleri tahmin etsin." },
+          { intensity: 3, text: "Catwalk yap ve en iddialı pozunu ver." },
+          { intensity: 3, text: "20 saniye robot dansı yap." },
+          { intensity: 3, text: "Bir hayvan seç ve 30 saniye onun gibi davran." },
+          { intensity: 3, text: "Masadaki birinin boynuna burnunla dokun ve kokusunu tahmin et." },
+          { intensity: 3, text: "30 saniye boyunca twerk yapmaya çalış." },
+          { intensity: 3, text: "Masadaki birinin üzerine oturarak 5 şınav çek." },
+          { intensity: 3, text: "Bir sonraki tura kadar masadaki biriyle el ele tutuş." },
+          { intensity: 3, text: "Masadaki birinin kulak memesini hafifçe ısır." },
+          { intensity: 3, text: "30 saniye boyunca tamamen boş gözlerle duvara bak, kimseyle konuşma." },
+          { intensity: 3, text: "Kendi kendine fısıldayarak dolaş, ne dediğin anlaşılmasın." },
+          { intensity: 3, text: "Aynada kendine konuşuyormuş gibi monolog yap." },
+
+          // SEVİYE 4 - HARDCORE
+          { intensity: 4, text: "Masadaki karşı cinsten birinin dizine yat ve 2 tur öyle kal." },
+          { intensity: 4, text: "Eski sevgilini ara ve sadece 'Özür dilerim' deyip kapat." },
+          { intensity: 4, text: "Masadaki birine 20 saniye boyunca French kiss yapıyormuş gibi hava öpücüğü at." },
+          { intensity: 4, text: "Tişörtünü çıkar ve oyunun geri kalanını böyle oyna." },
+          { intensity: 4, text: "Telefon rehberindeki 10. kişiye 'Senden çocuk yapmak istiyorum' mesajı at." },
+          { intensity: 4, text: "Masadaki birinin boynuna geçici bir hickey yapmasına izin ver." },
+          { intensity: 4, text: "1 dakika boyunca kucağında birini oturtarak oyuna devam et." },
+          { intensity: 4, text: "Birine 'Benimle 1 hafta sevgili olur musun?' diye ses kaydı at." },
+          { intensity: 4, text: "Masadaki en çekici bulduğun kişinin kulağına en büyük fantezini fısılda." },
+          { intensity: 4, text: "Bir sonraki tura kadar her konuştuğunda masadaki birinin elini tutmak zorundasın." },
+          { intensity: 4, text: "Masadan biriyle 10 saniye boyunca slow dance yap." },
+          { intensity: 4, text: "Diz çökerek dramatik bir aşk ilanı yap." },
+          { intensity: 4, text: "Birine sarıl ve 15 saniye bırakma." },
+          { intensity: 4, text: "En cringe flört hareketini canlandır." },
+          { intensity: 4, text: "Masadaki biriyle senkron dans yap." },
+          { intensity: 4, text: "Masadaki birinin tişörtünün içine buz küpü at." },
+          { intensity: 4, text: "Karşındaki kişiyle 30 saniye boyunca yakın temas dansı et." },
+          { intensity: 4, text: "Masadaki birinin göbeğinden shot iç." },
+          { intensity: 4, text: "Yanındaki kişinin bacağını 10 saniye boyunca okşa." },
+          { intensity: 4, text: "Masadaki birine lap dance yap, 30 saniye." },
+          { intensity: 4, text: "Birinin parmağını ağzına al ve 5 saniye tut." },
+          { intensity: 4, text: "Masadan birinin kulağına gidip 10 saniye boyunca anlamsız bir şeyler fısılda." },
+          { intensity: 4, text: "Birine yaklaş, dur ve hiçbir şey söylemeden geri çekil. 3 kez tekrarla." },
+          { intensity: 4, text: "Sahte bir sinir krizi geçir ama kontrol sende olsun." },
+          { intensity: 4, text: "Birini seç ve 15 saniye boyunca sadece ona bak. Gülmek yok." },
+
+          // SEVİYE 5 - LİMİT YOK
+          { intensity: 5, text: "Instagram story'ne 'Şu an çok fena azdım, dm?' yaz ve 5 dakika silme." },
+          { intensity: 5, text: "Masadaki birinin ayak parmaklarını em ya da pes et, 5 shot." },
+          { intensity: 5, text: "Pantolonunu/eteğini çıkar ve sadece iç çamaşırıyla 1 tur otur." },
+          { intensity: 5, text: "Masadaki birine 'Seninle yatmak için nelerimi vermezdim' de ve ciddiyetini koru." },
+          { intensity: 5, text: "Rehberindeki patronunu/hocanı ara ve 'Seni seviyorum' de." },
+          { intensity: 5, text: "Masadaki birinin kıyafetinin altına elini sok ve 10 saniye tut." },
+          { intensity: 5, text: "Yanındaki kişinin iç çamaşırının rengine bak ve herkese açıkla." },
+          { intensity: 5, text: "Bir sonraki tura kadar masadaki birinin kucağında otur." },
+          { intensity: 5, text: "Masadaki birinin vücudunun herhangi bir yerinden shot iç." },
+          { intensity: 5, text: "En büyük cinsel sırrını detaylarıyla anlat yoksa oyundan elenirsin." },
+          { intensity: 5, text: "Masadaki birinin boynunu emerek iz bırak." },
+          { intensity: 5, text: "Masadaki birinin pantolonunun/eteğinin fermuarını dişlerinle aç." },
+          { intensity: 5, text: "Masadaki birinin vücuduna krem/içki sür ve yalayarak temizle." },
+          { intensity: 5, text: "1 dakika boyunca birinin kucağında, yüz yüze gelecek şekilde otur." },
+          { intensity: 5, text: "Masadaki birinin kıyafetlerini seninle değiştirmesini sağla." },
+          { intensity: 5, text: "Birinin göğüs kafesine bir şeyler yaz kalemle." },
+          { intensity: 5, text: "En seksi pozunu ver ve herkesin fotoğraf çekmesine izin ver." },
+          { intensity: 5, text: "'Her şeyi biliyorum ama söylemiyorum' tavrıyla 30 saniye takıl." },
+          { intensity: 5, text: "Masadaki biriyle sahte bir geçmiş yarat ve tartışma başlat." },
+          { intensity: 5, text: "Birine yaklaş ve 'bunu hatırlıyor musun?' de, detay verme." },
+          { intensity: 5, text: "20 saniye boyunca kontrolsüz gül, sonra aniden kes." },
+          { intensity: 5, text: "Yere otur ve kimsenin anlamadığı bir pişmanlığı anlat." },
+          { intensity: 5, text: "Birini seç, 'senden korkuyorum' de ve sebep uydur." },
+          { intensity: 5, text: "Masada olmayan biriyle konuşuyormuş gibi davran." },
+          { intensity: 5, text: "Birine dokunmadan çok yakınına gir ve 10 saniye kal." },
+          { intensity: 5, text: "'Az önce bir şey oldu ama söyleyemem' diyerek gerilim yarat." },
+          { intensity: 5, text: "Kendi cenazeni anlatır gibi konuş." },
+          { intensity: 5, text: "Birine 'sen değiştin' de ve konuyu kapat." },
+          { intensity: 5, text: "30 saniye boyunca herkesin gözlerine tek tek bak." },
+          { intensity: 5, text: "Sahte bir sır ver, sonra 'şaka değil' de ve sus." },
+          { intensity: 5, text: "'Aşırı sarhoşsun' gibi davranarak odada dolaş, abartılı." },
+          { intensity: 5, text: "Masadaki birine romantik şiir uydur ve gözlerine bakarak oku." },
+          { intensity: 5, text: "'Eski sevgiliyle karşılaşma' sahnesi canlandır." },
+          { intensity: 5, text: "Masanın ortasında yere yat ve 'hayat çok zor' monoloğu yap." },
+          { intensity: 5, text: "Birine 'beni neden sevmiyorsun?' diye ağlayarak sor." },
+          { intensity: 5, text: "Aşırı özgüvenli influencer gibi konuşarak yürüyüş yap." },
+          { intensity: 5, text: "Masadan biriyle 15 saniyelik sahte romantik sahne oynayın." }
+        ],
+
+        // İTİRAF KARTLARI
+        itiraf: [
+          // SEVİYE 3
+          { intensity: 3, text: "Masadaki kimin sevgilisiyle gizlice flört etmek isterdin?" },
+          { intensity: 3, text: "Hiç yakın bir arkadaşının kardeşiyle bir şeyler yaşadın mı?" },
+          { intensity: 3, text: "Şu an masadaki kimin telefonunu 5 dakika karıştırmak sana en büyük zevki verirdi?" },
+          { intensity: 3, text: "İlk cinsel deneyimini 10 üzerinden puanla ve nedenini açıkla." },
+          { intensity: 3, text: "Hiç birini etkilemek için çok pahalı veya absürt bir yalan söyledin mi?" },
+          { intensity: 3, text: "Masadaki kimin yatakta en iyi olduğunu düşünüyorsun?" },
+          { intensity: 3, text: "En son ne zaman ve neden stalk yaparken yakalandın?" },
+          { intensity: 3, text: "Hiç bir arkadaşının sevgilisinden hoşlandın mı?" },
+          { intensity: 3, text: "Aldatıldığını bilsen ama seks harikaysa devam eder misin?" },
+          { intensity: 3, text: "Hiç halka açık bir yerde yakınlaştın mı? Neresiydi?" },
+
+          // SEVİYE 4
+          { intensity: 4, text: "En utanç verici yatak odası kazanı anlat." },
+          { intensity: 4, text: "Hiç birini sadece intikam almak için kullandın mı?" },
+          { intensity: 4, text: "Hayatında yaptığın en büyük ahlaksızlık neydi?" },
+          { intensity: 4, text: "Masadaki kiminle bir asansörde 24 saat mahsur kalmak istersin?" },
+          { intensity: 4, text: "Hiç çıplak fotoğrafını gönderdin mi? En son kime?" },
+          { intensity: 4, text: "Partnerini aldatmaya en çok yaklaştığın an hangisiydi?" },
+          { intensity: 4, text: "Masadaki hangi iki kişinin sevişmesini gizlice izlemek isterdin?" },
+          { intensity: 4, text: "Hiç aynı cinsiyetten birine karşı cinsel çekim hissettin mi?" },
+          { intensity: 4, text: "Birini ghostladığın en kötü hikayeyi anlat." },
+          { intensity: 4, text: "En garip fetişin nedir? Dürüst ol." },
+
+          // SEVİYE 5
+          { intensity: 5, text: "Hiç bir geceyi hatırlamadığın kadar sarhoş olup ertesi gün ne yaptığını öğrendiğinde utandın mı?" },
+          { intensity: 5, text: "Masadaki birine karşı duyduğun en karanlık/yasak düşünce nedir?" },
+          { intensity: 5, text: "Hiç üçlü veya daha kalabalık bir deneyim yaşadın mı? İster misin?" },
+          { intensity: 5, text: "Eski sevgilinin arkadaşıyla yattın mı?" },
+          { intensity: 5, text: "Şu an masadaki kiminle 'asla yapmam' dediğin bir şeyi yapmak istersin?" },
+          { intensity: 5, text: "Hiç para karşılığı bir şeyler yaşadın mı veya teklif aldın mı?" },
+          { intensity: 5, text: "Bir ilişkide yaptığın en büyük sadakatsizlik neydi?" },
+          { intensity: 5, text: "En son ne zaman birine 'seni seviyorum' dedin ama yalandı?" },
+          { intensity: 5, text: "Masadaki kimin kirli çamaşırlarını biliyorsun ama susuyorsun?" },
+          { intensity: 5, text: "Vücudunda en çok tahrik olduğun gizli nokta neresi?" }
+        ],
+
+        // TELEFON TEMELLİ GÖREVLER
+        telefon: [
+          { intensity: 2, text: "Son 5 WhatsApp konuşmanı aç, gruba rastgele birini seçip son attığın mesajı yüksek sesle oku." },
+          { intensity: 2, text: "Instagram DM'lerinden birini seç, o kişiye 'seni rüyamda gördüm' yaz." },
+          { intensity: 2, text: "Rehberinden rastgele birini ara ve 10 saniye boyunca sadece nefes al ver, kapat." },
+          { intensity: 2, text: "Google'da son arattığını açıkla ve nedenini savun." },
+          { intensity: 2, text: "Son çektiğin selfie'yi gruba göster ve hikayesini anlat." },
+          { intensity: 2, text: "YouTube geçmişinden en utanç verici videoyu aç ve 15 saniye izlet." },
+          { intensity: 2, text: "Telefonundaki en saçma uygulamayı göster ve neden indirdiğini açıkla." },
+          { intensity: 2, text: "Instagram'da son stalkladığın kişiyi itiraf et." },
+          { intensity: 2, text: "Rehberdeki birine 'Sana bir şey itiraf etmem lazım' yaz ve cevap gelene kadar bekle." },
+          { intensity: 2, text: "Alarm listeni aç, en garip alarm adını oku." },
+          { intensity: 2, text: "Spotify'da en son dinlediğin şarkıyı aç ve nakaratını söyle." },
+          { intensity: 2, text: "Notlar uygulamandaki en saçma notu göster." },
+          { intensity: 2, text: "Galerinden rastgele bir fotoğraf seçtir ve açıklamasını uydur." },
+          { intensity: 2, text: "Twitter/X'te son beğendiğin tweet'i yüksek sesle oku." },
+          { intensity: 2, text: "Telefonunun ekran süresini göster ve savunma yap." },
+          { intensity: 2, text: "Eski mesajlardan birine geri dön ve alakasız bir emoji gönder." },
+          { intensity: 2, text: "Son 3 aramanı sırayla açıkla, neden aradın." },
+          { intensity: 2, text: "Telefon dilini değiştir ve bir tur boyunca öyle kullan." },
+          { intensity: 2, text: "Instagram'da ilk çıkan kişiye kalp at." },
+          { intensity: 2, text: "Ses kaydı aç ve 10 saniyelik dramatik bir itiraf mesajı kaydet, gruba dinlet." },
+          { intensity: 3, text: "WhatsApp'ta 'Annem'e 'Ben evleniyorum, aday çok garip' mesajı at ve cevabı bekle." },
+          { intensity: 3, text: "Instagram keşfet sayfanın ilk 6 karesini herkese göster." },
+          { intensity: 3, text: "Rehberindeki 'A' harfiyle başlayan 3. kişiye 'Seni özledim' mesajı at." },
+          { intensity: 3, text: "Son gelen 3 WhatsApp mesajını, gönderen kişinin adıyla yüksek sesle oku." },
+          { intensity: 3, text: "Google arama geçmişini sonuna kadar kaydırarak herkese göster." },
+          { intensity: 3, text: "Rehberindeki birini rastgele seç, hoparlörü aç ve ona bir fıkra anlat." },
+          { intensity: 3, text: "Instagram DM kutundaki en üstteki 2. kişiyle olan son yazışmanı oku." },
+          { intensity: 3, text: "Telefonundaki Gizli/Kilitli klasörün olup olmadığını göster." },
+          { intensity: 3, text: "Son 24 saat içinde en çok süre geçirdiğin uygulamayı göster." },
+          { intensity: 3, text: "Eski sevgiline 'Hala o gömleğin bende, ne yapayım?' mesajı at." },
+          { intensity: 3, text: "Twitter/X'te 'Şu an çok sarhoşum, her şeyi itiraf edebilirim' tweeti at." },
+          { intensity: 3, text: "Galerindeki en eski selfie'yi bul ve herkese göster." },
+          { intensity: 3, text: "Bir arkadaşına 'Acil 5000 TL lazım, sorma nedenini' mesajı at." },
+          { intensity: 3, text: "Rehberindeki birinin adını 'Aşkım' olarak değiştir ve öyle kalsın." },
+          { intensity: 3, text: "Telefonunu sağındaki kişiye ver, 1 dakika boyunca istediği yere baksın." },
+          { intensity: 3, text: "Yemeksepeti/Getir son sipariş geçmişini göster." },
+          { intensity: 3, text: "Facebook'taki varsa en eski duvar paylaşımlarını oku." },
+          { intensity: 3, text: "Rehberindeki birine 'Seninle ilgili bir rüya gördüm, çok ayıptı' yaz." },
+          { intensity: 3, text: "Telefonundaki notlar kısmında yazan en saçma notu oku." },
+          { intensity: 3, text: "Birine yanlışlıkla atılmış gibi bir emoji dizisi gönder." },
+          { intensity: 4, text: "Rehberinden birini seç ve 'Sana uzun zamandır yalan söylüyorum' yaz. Açıklama yok." },
+          { intensity: 4, text: "Instagram'da en son stalkladığın kişiye sadece 'biliyorum' yaz." },
+          { intensity: 4, text: "Son 10 fotoğrafını hızlıca göster. Hiç açıklama yapma. Grup yorumlasın." },
+          { intensity: 4, text: "WhatsApp'ta birine 'beni hiç tanımamış olsaydın daha mutlu olur muydun?' yaz." },
+          { intensity: 4, text: "Telefonunda en çok konuştuğun kişiyi açıkla ve 'neden o?' sorusunu cevapla." },
+          { intensity: 4, text: "Eski bir konuşmayı aç ve oradan utanç verici bir mesajı yüksek sesle oku." },
+          { intensity: 4, text: "Galerinden silmeye kıyamadığın bir şeyi göster ve neden sakladığını anlat." },
+          { intensity: 4, text: "Spotify'da gizli kimliğini en iyi anlatan şarkıyı aç." },
+          { intensity: 4, text: "Birine 'şu an senin hakkında konuşuyoruz' yaz ve telefonu ortaya bırak." },
+          { intensity: 4, text: "Notlar uygulamandan kimsenin bilmemesi gereken bir cümleyi paylaş." },
+          { intensity: 4, text: "Arama geçmişinden birini seç ve 'yanlışlıkla aradım' diyerek ara." },
+          { intensity: 4, text: "Instagram keşfetini aç. 10 saniye kimse yorum yapmadan izlesin." },
+          { intensity: 4, text: "Telefonundaki en karanlık aramayı (gece 3-4 gibi) açıkla." },
+          { intensity: 4, text: "Birine ses kaydı at: 'Sana bir şey söyleyeceğim ama hazır değilsin.'" },
+          { intensity: 4, text: "En son kimi gizlice stalkladığını itiraf et." },
+          { intensity: 4, text: "Telefonundaki en cringe videoyu aç. Kapatmana izin yok." },
+          { intensity: 4, text: "Eski sevgiline ya da eşdeğerine tek bir emoji gönder." },
+          { intensity: 4, text: "Telefonunu 1 tur boyunca masaya kilitsiz bırak." },
+          { intensity: 4, text: "Birine 'seni rüyamda gördüm ve iyi değildi' yaz." },
+          { intensity: 4, text: "Son 3 mesajını bağlamından koparıp dramatik şekilde oku." }
+        ],
+
+        // GRUP KARTLARI
+        grup: [
+          { text: "Herkes gözlerini kapatsın; 3'e kadar sayınca masadaki 'en tehlikeli' kişiyi işaret edin. En çok oyu alan shot içer." },
+          { text: "Herkes telefonunu ortaya koysun; ilk mesaj gelen kişi masadaki herkese içki ısmarlar." },
+          { text: "'Ben hiç...' oyunu: Herkes yapmadığı bir şeyi söyler, yapanlar içer. 5 tur sürer." },
+          { text: "Herkes yanındakinin bardağından bir yudum alsın." },
+          { text: "Grupça bir TikTok dansı başlatın, en az uyum sağlayan 2 shot içer." },
+          { text: "Herkes hayatındaki en 'trash' flört hikayesini 1 cümleyle anlatsın. En kötüsüne grup karar verir." },
+          { text: "Masadaki herkes en sağındakine bir iltifat, en solundakine bir eleştiri yapsın." },
+          { text: "Herkes 10 saniye boyunca kahkaha atsın. İlk duran shot içer." },
+          { text: "Masadaki herkes cüzdanından en saçma şeyi çıkarsın." },
+          { text: "Şişe Çevirmece turu: Sadece öpücük veya tokat seçeneğiyle bir tur dönün." },
+          { text: "Herkes sırayla bir kelime söylesin, anlamlı bir cümle kurmaya çalışın. Batıran içer." },
+          { text: "Masadaki 'en güzel/yakışıklı' kişiyi seçin. O kişi bir kural koyar." },
+          { text: "Herkes telefonundan son aradığı kelimeyi göstersin." },
+          { text: "Grup olarak en sevilen Türkçe pop şarkısını bağırarak söyleyin." },
+          { text: "Herkes en son kime 'yürüdüğünü' açıklasın." },
+          { text: "Masadaki en güvenilmez kişiyi seç ve nedenini açıkla." },
+          { text: "En çok flörtöz olan kişiyi oylayın." },
+          { text: "'En gizli sır saklayamaz' ödülünü birine verin." },
+          { text: "Herkes sağındaki kişi hakkında tek bir kötü özellik söylesin." },
+          { text: "Masadaki en çekici 2 kişiyi seçin, oylama." },
+          { text: "Herkes 'en çok kiminle kavga ederim' diye birini işaret etsin." },
+          { text: "En çok dram çıkaracak kişiyi seçin." },
+          { text: "Masada en çok dedikodu yapan kişiyi belirleyin." },
+          { text: "Herkes gizlice en az güvendiği kişiyi yazsın, sonuçlar açıklansın." },
+          { text: "'En çok ghostlayan' kişiyi oylayın." },
+          { text: "Masadaki biri hakkında herkes tek kelime söylesin, aynı kişi." },
+          { text: "'En çok yalan söylemiş olabilir' ödülünü verin." },
+          { text: "İki kişi seçin: 'bunlar kesin sevgili olurdu' deyin ve nedenini tartışın." },
+          { text: "Herkes en son kime sinirlendiğini açıklasın, masadan biri varsa bonus." },
+          { text: "'En çok sır saklayan vs en çok sır ifşa eden' iki kişi seçin." },
+          { text: "Masadaki en 'sinsi' bulduğun kişiyi seç ve nedenini açıkla." },
+          { text: "Masadaki çiftlerden hangisinin ilk ayrılacağını düşünüyorsun?" },
+          { text: "Eğer masadan sadece bir kişiyi kurtarabilecek olsan, kimi ölüme terk ederdin?" },
+          { text: "Masadaki kimin aslında burada olmasından rahatsızsın? Dürüst ol." },
+          { text: "Masadaki birinin en büyük sırrını bildiğini iddia et ama söyleme; o kişi shot içsin." },
+          { text: "Masadaki 'en az güvenilir' kişiyi seç." },
+          { text: "Kimin yatakta en bencil olduğunu düşünüyorsun?" },
+          { text: "Masadaki birine 'Seninle ilgili bir şey biliyorum ama herkesin içinde söyleyemem' de." },
+          { text: "Masadaki en 'yapmacık' bulduğun kişiyi işaret et." },
+          { text: "'Eğer bir cinayet işlesem bana sadece BU kişi yardım ederdi' dediğin kişiyi seç." },
+          { text: "Masadaki birinin giyim tarzını acımasızca eleştir." },
+          { text: "Kimin daha fazla parası olduğunu ama cimri olduğunu düşünüyorsun?" },
+          { text: "Masadaki birine 'Sevgilin seni hak etmiyor' de, sevgilisi varsa." },
+          { text: "Masadaki en 'sıkıcı' kişiyi seç ve onu eğlendirmesi için bir görev ver." },
+          { text: "'Bu masada kiminle asla bir iş kurmazdım?' sorusuna yanıt ver." },
+          { text: "Masada en az güvendiğin kişiyi seç ve nedenini açıkla." },
+          { text: "Herkes gizlice 'en çok ikiyüzlü' bulduğu kişiyi yazsın. Açıklayın." },
+          { text: "'Bu masada biri yalan söylüyor' — herkes kimi düşündüğünü söylesin." },
+          { text: "En çok manipülatif olan kişiyi oylayın." },
+          { text: "'Bu kişi yokken hakkında konuşuluyor' dediğin kişiyi seç." },
+          { text: "Herkes en son kimi kıskandığını itiraf et, masadaysa daha iyi." },
+          { text: "Masada en çok rol yapan kişiyi belirleyin." },
+          { text: "İki kişi seçin: 'birbirine asla güvenmemeli' deyin." },
+          { text: "Herkes 'bunu yalnız bırakmam' dediği kişiyi açıklasın." },
+          { text: "Masadaki en tehlikeli kişiyi belirleyin, sosyal anlamda." },
+          { text: "Herkes en çok mesafe koymak istediği kişiyi söylesin." },
+          { text: "'Biriniz diğerini kullanıyor' — tahmin edin kim kimi." },
+          { text: "En çok kırılmış ama söylememiş kişiyi seçin." },
+          { text: "Herkes masadaki biri hakkında daha önce söyleyemediği bir şeyi söylesin." }
+        ],
+
+        // CEZA KARTLARI
+        ceza: [
+          { text: "Solundaki kişi senin için bir 'karışım' hazırlasın ve onu tek dikişte bitir." },
+          { text: "2 shot iç veya en büyük sırrını masaya anlat." },
+          { text: "Masanın belirlediği birinin ayağını öp." },
+          { text: "30 saniye boyunca 'Ben bir aptalım' diye bağırarak oda içinde gez." },
+          { text: "Bir sonraki tur gelene kadar masanın altında otur." },
+          { text: "Telefonundaki galeriden rastgele seçilen 3 fotoğrafı herkese göster." },
+          { text: "Masadaki en baskın kişi senin için bir ceza uydursun." },
+          { text: "Cebindeki tüm bozuk paraları en yakınındaki kişiye ver." },
+          { text: "Bir sonraki içkini ellerini kullanmadan iç." },
+          { text: "Masadaki birinin senin yüzüne bir şeyler çizmesine izin ver." },
+          { text: "10 saniye boyunca soğuk suyun altında dur veya 3 shot." },
+          { text: "Sosyal medyada en son beğendiğin fotoğrafın beğenisini geri çek." },
+          { text: "Herkese birer shot borçlan." },
+          { text: "1 dakika boyunca kimseyle konuşma, konuşursan ceza katlanır." },
+          { text: "Masadaki herkesin bardağına birer shot ekle." }
+        ],
+
+        // KURAL KARTLARI
+        kural: [
+          { text: "İsim Yasağı: Kimse birbirine ismiyle hitap edemez. Eden shot içer." },
+          { text: "Küfür Yasağı: Küfreden her kelime için bir yudum alır." },
+          { text: "Sol El Kuralı: Herkes içkisini sadece sol eliyle içebilir." },
+          { text: "Soruya Soru: Birine soru sorulduğunda sadece soruyla cevap verebilir." },
+          { text: "Telefon Yasağı: Telefona dokunan masadaki herkese shot ısmarlar." },
+          { text: "'Evet/Hayır' Yasağı: Bu kelimeleri kullanan shot içer." },
+          { text: "Gülme Yasağı: Bir sonraki kural kartına kadar kimse dişlerini göstererek gülemez." },
+          { text: "Eko Kuralı: Her cümleyi iki kez tekrar etmek zorundasınız." },
+          { text: "Kral/Kraliçe: Masadaki en genç kişi 'Kral' olur, her dediği o tur yapılır." },
+          { text: "Ayna Kuralı: Sağındaki kişi ne yaparsa aynısını yapmak zorundasın." }
+        ]
+      },
+          { intensity: 3, text: "Sosyal medyada en az 2 yıldır konuşmadığın birine 'Dün gece rüyamda seni gördüm, hayırdır?' yaz." },
+          { intensity: 3, text: "Bir sonraki tura kadar masadaki birinin 'evcil hayvanı' gibi davran." },
+          { intensity: 3, text: "En son attığın 5 mesajı yüksek sesle oku, grup mesajları dahil." },
+          { intensity: 3, text: "Masadaki birinin kıyafetlerinden birini ödünç al ve giy." },
+          { intensity: 3, text: "Gözlerini bağla ve masadakilerin sana yedirdiği 3 şeyi tahmin et." },
+          { intensity: 3, text: "Herkesin önünde birine 'Senden nefret ediyorum çünkü çok güzelsin' de ve sarıl." },
+          { intensity: 3, text: "Bir sonraki tura kadar her içki içtiğinde bir hayvan sesi çıkar." },
+          { intensity: 3, text: "Telefonundaki en son fotoğrafı herkese göster ve hikayesini anlat." },
+          { intensity: 3, text: "30 saniye boyunca göbek at ve durma." },
+          { intensity: 3, text: "Masadaki birini taklit et, diğerleri tahmin etsin." },
+          { intensity: 3, text: "Catwalk yap ve en iddialı pozunu ver." },
+          { intensity: 3, text: "20 saniye robot dansı yap." },
+          { intensity: 3, text: "Bir hayvan seç ve 30 saniye onun gibi davran." },
+          { intensity: 3, text: "30 saniye boyunca tamamen boş gözlerle duvara bak. Kimseyle konuşma." },
+          { intensity: 3, text: "Kendi kendine fısıldayarak dolaş, ne dediğin anlaşılmasın." },
+          { intensity: 3, text: "Aynada kendine konuşuyormuş gibi monolog yap." },
+          { intensity: 3, text: "Masadaki birinin boynuna burnunla dokun ve kokusunu tahmin et." },
+          { intensity: 3, text: "30 saniye boyunca twerk yapmaya çalış." },
+          { intensity: 3, text: "Masadaki birinin üzerine oturarak 5 şınav çek veya çekmeye çalış." },
+          { intensity: 3, text: "Bir sonraki tura kadar masadaki biriyle el ele tutuş." },
+          { intensity: 3, text: "Masadaki birinin kulak memesini hafifçe ısır." },
+
+          // SEVİYE 4 - HARDCORE
+          { intensity: 4, text: "Masadaki karşı cinsten birinin dizine yat ve 2 tur öyle kal." },
+          { intensity: 4, text: "Eski sevgilini ara ve sadece 'Özür dilerim' deyip kapat." },
+          { intensity: 4, text: "Masadaki birine 20 saniye boyunca French kiss yapıyormuş gibi hava öpücüğü at." },
+          { intensity: 4, text: "Tişörtünü çıkar ve oyunun geri kalanını böyle oyna." },
+          { intensity: 4, text: "Telefon rehberindeki 10. kişiye 'Senden çocuk yapmak istiyorum' mesajı at." },
+          { intensity: 4, text: "Masadaki birinin boynuna geçici bir hickey yapmasına izin ver." },
+          { intensity: 4, text: "1 dakika boyunca kucağında birini oturtarak oyuna devam et." },
+          { intensity: 4, text: "Birine 'Benimle 1 hafta sevgili olur musun?' diye ses kaydı at." },
+          { intensity: 4, text: "Masadaki en çekici bulduğun kişinin kulağına en büyük fantezini fısılda." },
+          { intensity: 4, text: "Bir sonraki tura kadar her konuştuğunda masadaki birinin elini tutmak zorundasın." },
+          { intensity: 4, text: "Masadan biriyle 10 saniye boyunca slow dance yap." },
+          { intensity: 4, text: "Diz çökerek dramatik bir aşk ilanı yap." },
+          { intensity: 4, text: "Birine sarıl ve 15 saniye bırakma." },
+          { intensity: 4, text: "En cringe flört hareketini canlandır." },
+          { intensity: 4, text: "Masadaki biriyle senkron dans yap." },
+          { intensity: 4, text: "Masadaki birinin kulağına gidip 10 saniye boyunca anlamsız bir şeyler fısılda." },
+          { intensity: 4, text: "Birine yaklaş, dur ve hiçbir şey söylemeden geri çekil. Bunu 3 kez yap." },
+          { intensity: 4, text: "Sahte bir sinir krizi geçir ama kontrol sende olsun." },
+          { intensity: 4, text: "Birini seç ve 15 saniye boyunca sadece ona bak. Gülmek yok." },
+          { intensity: 4, text: "Masadaki birinin tişörtünün içine buz küpü at." },
+          { intensity: 4, text: "Karşındaki kişiyle 30 saniye boyunca yakın temas dansı et." },
+          { intensity: 4, text: "Masadaki birinin göbeğinden shot iç." },
+          { intensity: 4, text: "Bir sonraki tura kadar sadece iç çamaşırıyla kal." },
+          { intensity: 4, text: "Yanındaki kişinin bacağını 10 saniye boyunca okşa." },
+          { intensity: 4, text: "Masadaki birine lap dance yap, 30 saniye." },
+          { intensity: 4, text: "Birinin parmağını ağzına al ve 5 saniye tut." },
+
+          // SEVİYE 5 - LİMİT YOK
+          { intensity: 5, text: "Instagram story'ne 'Şu an çok fena azdım, dm?' yaz ve 5 dakika silme." },
+          { intensity: 5, text: "Masadaki birinin ayak parmaklarını em ya da 4 shot iç." },
+          { intensity: 5, text: "Pantolonunu/eteğini çıkar ve sadece iç çamaşırıyla 1 tur otur." },
+          { intensity: 5, text: "Masadaki birine 'Seninle yatmak için nelerimi vermezdim' de ve ciddiyetini koru." },
+          { intensity: 5, text: "Rehberindeki patronunu/hocanı ara ve 'Seni seviyorum' de." },
+          { intensity: 5, text: "Masadaki birinin kıyafetinin altına elini sok ve 10 saniye tut." },
+          { intensity: 5, text: "Yanındaki kişinin iç çamaşırının rengine bak ve herkese açıkla." },
+          { intensity: 5, text: "Bir sonraki tura kadar masadaki birinin kucağında otur." },
+          { intensity: 5, text: "Masadaki birinin vücudunun herhangi bir yerinden shot iç." },
+          { intensity: 5, text: "En büyük cinsel sırrını detaylarıyla anlat yoksa oyundan elenirsin." },
+          { intensity: 5, text: "Masadaki birinin boynunu emerek iz bırak." },
+          { intensity: 5, text: "Masadaki birinin pantolonunun/eteğinin fermuarını dişlerinle aç." },
+          { intensity: 5, text: "Masadaki birinin vücuduna krem/içki sür ve yalayarak temizle." },
+          { intensity: 5, text: "1 dakika boyunca birinin kucağında, yüz yüze gelecek şekilde otur." },
+          { intensity: 5, text: "Masadaki birinin kıyafetlerini seninle değiştirmesini sağla." },
+          { intensity: 5, text: "Birinin göğüs kafesine kalemle bir şeyler yaz." },
+          { intensity: 5, text: "En seksi pozunu ver ve herkesin fotoğraf çekmesine izin ver." },
+          { intensity: 5, text: "Aşırı sarhoşsun gibi davranarak odada dolaş, abartılı ol." },
+          { intensity: 5, text: "Masadaki birine romantik şiir uydur ve gözlerine bakarak oku." },
+          { intensity: 5, text: "Birini seç ve onunla sahte tartışma başlat, dramatik ol." },
+          { intensity: 5, text: "Eski sevgiliyle karşılaşma sahnesi canlandır." },
+          { intensity: 5, text: "Masanın ortasında yere yat ve 'hayat çok zor' monoloğu yap." },
+          { intensity: 5, text: "Birine 'beni neden sevmiyorsun?' diye ağlayarak sor." },
+          { intensity: 5, text: "30 saniye boyunca herkesle göz teması kurarak yavaşça dön." },
+          { intensity: 5, text: "Aşırı özgüvenli influencer gibi konuşarak yürüyüş yap." },
+          { intensity: 5, text: "Masadan biriyle 15 saniyelik sahte romantik sahne oyna." },
+          { intensity: 5, text: "'Her şeyi biliyorum ama söylemiyorum' tavrıyla 30 saniye takıl." },
+          { intensity: 5, text: "Masadaki biriyle sahte bir geçmiş yarat ve tartışma başlat." },
+          { intensity: 5, text: "Birine yaklaş ve 'bunu hatırlıyor musun?' de, detay verme." },
+          { intensity: 5, text: "20 saniye boyunca kontrolsüz gül, sonra aniden kes." },
+          { intensity: 5, text: "Yere otur ve kimsenin anlamadığı bir pişmanlığı anlat." },
+          { intensity: 5, text: "Birini seç, 'senden korkuyorum' de ve sebep uydur." },
+          { intensity: 5, text: "Masada olmayan biriyle konuşuyormuş gibi davran." },
+          { intensity: 5, text: "Birine dokunmadan çok yakınına gir ve 10 saniye kal." },
+          { intensity: 5, text: "'Az önce bir şey oldu ama söyleyemem' diyerek gerilim yarat." },
+          { intensity: 5, text: "Kendi cenazeni anlatır gibi konuş." },
+          { intensity: 5, text: "Birine 'sen değiştin' de ve konuyu kapat." },
+          { intensity: 5, text: "30 saniye boyunca herkesin gözlerine tek tek bak." },
+          { intensity: 5, text: "Sahte bir sır ver, sonra 'şaka değil' de ve sus." }
+        ],
+
+        // İTİRAF KARTLARI
+        itiraf: [
+          // SEVİYE 3
+          { intensity: 3, text: "Masadaki kimin sevgilisiyle gizlice flört etmek isterdin?" },
+          { intensity: 3, text: "Hiç yakın bir arkadaşının kardeşiyle bir şeyler yaşadın mı?" },
+          { intensity: 3, text: "Şu an masadaki kimin telefonunu 5 dakika karıştırmak sana en büyük zevki verirdi?" },
+          { intensity: 3, text: "İlk cinsel deneyimini 10 üzerinden puanla ve nedenini açıkla." },
+          { intensity: 3, text: "Hiç birini etkilemek için çok pahalı veya absürt bir yalan söyledin mi?" },
+          { intensity: 3, text: "Masadaki kimin yatakta en iyi olduğunu düşünüyorsun?" },
+          { intensity: 3, text: "En son ne zaman ve neden stalk yaparken yakalandın?" },
+          { intensity: 3, text: "Hiç bir arkadaşının sevgilisinden hoşlandın mı?" },
+          { intensity: 3, text: "Aldatıldığını bilsen ama seks harikaysa devam eder misin?" },
+          { intensity: 3, text: "Hiç halka açık bir yerde yakınlaştın mı? Neresiydi?" },
+
+          // SEVİYE 4
+          { intensity: 4, text: "En utanç verici yatak odası kazanı anlat." },
+          { intensity: 4, text: "Hiç birini sadece intikam almak için kullandın mı?" },
+          { intensity: 4, text: "Hayatında yaptığın en büyük ahlaksızlık neydi?" },
+          { intensity: 4, text: "Masadaki kiminle bir asansörde 24 saat mahsur kalmak istersin?" },
+          { intensity: 4, text: "Hiç çıplak fotoğrafını gönderdin mi? En son kime?" },
+          { intensity: 4, text: "Partnerini aldatmaya en çok yaklaştığın an hangisiydi?" },
+          { intensity: 4, text: "Masadaki hangi iki kişinin sevişmesini gizlice izlemek isterdin?" },
+          { intensity: 4, text: "Hiç aynı cinsiyetten birine karşı cinsel çekim hissettin mi?" },
+          { intensity: 4, text: "Birini ghostladığın en kötü hikayeyi anlat." },
+          { intensity: 4, text: "En garip fetişin nedir? Dürüst ol." },
+
+          // SEVİYE 5
+          { intensity: 5, text: "Hiç bir geceyi hatırlamadığın kadar sarhoş olup ertesi gün ne yaptığını öğrendiğinde utandın mı?" },
+          { intensity: 5, text: "Masadaki birine karşı duyduğun en karanlık/yasak düşünce nedir?" },
+          { intensity: 5, text: "Hiç üçlü veya daha kalabalık bir deneyim yaşadın mı? İster misin?" },
+          { intensity: 5, text: "Eski sevgilinin arkadaşıyla yattın mı?" },
+          { intensity: 5, text: "Şu an masadaki kiminle 'asla yapmam' dediğin bir şeyi yapmak istersin?" },
+          { intensity: 5, text: "Hiç para karşılığı bir şeyler yaşadın mı veya teklif aldın mı?" },
+          { intensity: 5, text: "Bir ilişkide yaptığın en büyük sadakatsizlik neydi?" },
+          { intensity: 5, text: "En son ne zaman birine 'seni seviyorum' dedin ama yalandı?" },
+          { intensity: 5, text: "Masadaki kimin kirli çamaşırlarını biliyorsun ama susuyorsun?" },
+          { intensity: 5, text: "Vücudunda en çok tahrik olduğun gizli nokta neresi?" }
+        ],
+
+        // TELEFON TEMELLİ GÖREVLER
+        telefon: [
+          { intensity: 2, text: "Son 5 WhatsApp konuşmanı aç, gruba rastgele birini seçip son attığın mesajı yüksek sesle oku." },
+          { intensity: 2, text: "Instagram DM'lerinden birini seç, o kişiye 'seni rüyamda gördüm' yaz." },
+          { intensity: 2, text: "Rehberinden rastgele birini ara ve 10 saniye boyunca sadece nefes al ver, kapat." },
+          { intensity: 2, text: "Google'da son arattığını açıkla ve nedenini savun." },
+          { intensity: 2, text: "Son çektiğin selfie'yi gruba göster ve hikayesini anlat." },
+          { intensity: 2, text: "YouTube geçmişinden en utanç verici videoyu aç ve 15 saniye izlet." },
+          { intensity: 2, text: "Telefonundaki en saçma uygulamayı göster ve neden indirdiğini açıkla." },
+          { intensity: 2, text: "Instagram'da son stalkladığın kişiyi itiraf et." },
+          { intensity: 3, text: "Rehberdeki birine 'Sana bir şey itiraf etmem lazım' yaz ve cevap gelene kadar bekle." },
+          { intensity: 2, text: "Alarm listeni aç, en garip alarm adını oku." },
+          { intensity: 2, text: "Spotify'da en son dinlediğin şarkıyı aç ve nakaratını söyle." },
+          { intensity: 2, text: "Notlar uygulamandaki en saçma notu göster." },
+          { intensity: 2, text: "Galerinden rastgele bir fotoğraf seçtir ve açıklamasını uydur." },
+          { intensity: 2, text: "Twitter/X'te son beğendiğin tweet'i yüksek sesle oku." },
+          { intensity: 2, text: "Telefonunun ekran süresini göster ve savunma yap." },
+          { intensity: 3, text: "Eski mesajlardan birine geri dön ve alakasız bir emoji gönder." },
+          { intensity: 2, text: "Son 3 aramanı sırayla açıkla, neden aradın." },
+          { intensity: 2, text: "Telefon dilini değiştir ve bir tur boyunca öyle kullan." },
+          { intensity: 3, text: "Instagram'da ilk çıkan kişiye kalp at." },
+          { intensity: 3, text: "Ses kaydı aç ve 10 saniyelik dramatik bir itiraf mesajı kaydet, gruba dinlet." },
+          { intensity: 3, text: "WhatsApp'ta 'Annem'e 'Ben evleniyorum, aday çok garip' mesajı at ve cevabı bekle." },
+          { intensity: 3, text: "Instagram keşfet sayfanın ilk 6 karesini herkese göster." },
+          { intensity: 3, text: "Rehberindeki 'A' harfiyle başlayan 3. kişiye 'Seni özledim' mesajı at." },
+          { intensity: 3, text: "Son gelen 3 WhatsApp mesajını, gönderen kişinin adıyla yüksek sesle oku." },
+          { intensity: 3, text: "Google arama geçmişini sonuna kadar kaydırarak herkese göster." },
+          { intensity: 3, text: "Rehberindeki birini rastgele seç, hoparlörü aç ve ona bir fıkra anlat." },
+          { intensity: 3, text: "Instagram DM kutundaki en üstteki 2. kişiyle olan son yazışmanı oku." },
+          { intensity: 3, text: "Telefonundaki Gizli/Kilitli klasörün olup olmadığını göster." },
+          { intensity: 3, text: "Son 24 saat içinde en çok süre geçirdiğin uygulamayı göster." },
+          { intensity: 4, text: "Eski sevgiline 'Hala o gömleğin bende, ne yapayım?' mesajı at." },
+          { intensity: 4, text: "Twitter/X'te 'Şu an çok sarhoşum, her şeyi itiraf edebilirim' tweeti at." },
+          { intensity: 3, text: "Galerindeki en eski selfie'yi bul ve herkese göster." },
+          { intensity: 4, text: "Bir arkadaşına 'Acil 5000 TL lazım, sorma nedenini' mesajı at." },
+          { intensity: 3, text: "Rehberindeki birinin adını 'Aşkım' olarak değiştir ve öyle kalsın." },
+          { intensity: 4, text: "Telefonunu sağındaki kişiye ver, 1 dakika boyunca istediği yere baksın." },
+          { intensity: 2, text: "Yemeksepeti/Getir son sipariş geçmişini göster." },
+          { intensity: 3, text: "Facebook'taki en eski duvar paylaşımlarını oku." },
+          { intensity: 4, text: "Rehberindeki birine 'Seninle ilgili bir rüya gördüm, çok ayıptı' yaz." },
+          { intensity: 3, text: "Telefonundaki notlar kısmında yazan en saçma notu oku." },
+          { intensity: 3, text: "Birine yanlışlıkla atılmış gibi bir emoji dizisi gönder." },
+          // PREMIUM TELEFON
+          { intensity: 4, text: "Rehberinden birini seç ve 'Sana uzun zamandır yalan söylüyorum' yaz. Açıklama yok." },
+          { intensity: 4, text: "Instagram'da en son stalkladığın kişiye sadece 'biliyorum' yaz." },
+          { intensity: 4, text: "Son 10 fotoğrafını hızlıca göster. Hiç açıklama yapma. Grup yorumlasın." },
+          { intensity: 4, text: "WhatsApp'ta birine 'beni hiç tanımamış olsaydın daha mutlu olur muydun?' yaz." },
+          { intensity: 3, text: "Telefonunda en çok konuştuğun kişiyi açıkla ve 'neden o?' sorusunu cevapla." },
+          { intensity: 4, text: "Eski bir konuşmayı aç ve oradan utanç verici bir mesajı yüksek sesle oku." },
+          { intensity: 4, text: "Galerinden silmeye kıyamadığın bir şeyi göster ve neden sakladığını anlat." },
+          { intensity: 3, text: "Spotify'da gizli kimliğini en iyi anlatan şarkıyı aç." },
+          { intensity: 4, text: "Birine 'şu an senin hakkında konuşuyoruz' yaz ve telefonu ortaya bırak." },
+          { intensity: 4, text: "Notlar uygulamandan kimsenin bilmemesi gereken bir cümleyi paylaş." },
+          { intensity: 3, text: "Arama geçmişinden birini seç ve 'yanlışlıkla aradım' diyerek ara." },
+          { intensity: 3, text: "Instagram keşfetini aç. 10 saniye kimse yorum yapmadan izlesin." },
+          { intensity: 4, text: "Telefonundaki en karanlık aramayı (gece 3-4 gibi) açıkla." },
+          { intensity: 4, text: "Birine ses kaydı at: 'Sana bir şey söyleyeceğim ama hazır değilsin.'" },
+          { intensity: 4, text: "En son kimi gizlice stalkladığını itiraf et." },
+          { intensity: 4, text: "Telefonundaki en cringe videoyu aç. Kapatmana izin yok." },
+          { intensity: 4, text: "Eski sevgiline ya da eşdeğerine tek bir emoji gönder." },
+          { intensity: 5, text: "Telefonunu 1 tur boyunca masaya kilitsiz bırak." },
+          { intensity: 4, text: "Birine 'seni rüyamda gördüm ve iyi değildi' yaz." },
+          { intensity: 3, text: "Son 3 mesajını bağlamından koparıp dramatik şekilde oku." }
+        ],
+
+        // GRUP KARTLARI
+        grup: [
+          { text: "Herkes gözlerini kapatsın; 3'e kadar sayınca masadaki 'en tehlikeli' kişiyi işaret edin. En çok oyu alan shot içer." },
+          { text: "Herkes telefonunu ortaya koysun; ilk mesaj gelen kişi masadaki herkese içki ısmarlar veya shot içer." },
+          { text: "'Ben hiç...' oyunu: Herkes yapmadığı bir şeyi söyler, yapanlar içer. 5 tur sürer." },
+          { text: "Herkes yanındakinin bardağından bir yudum alsın." },
+          { text: "Grupça bir TikTok dansı başlatın, en az uyum sağlayan 2 shot içer." },
+          { text: "Herkes hayatındaki en 'trash' flört hikayesini 1 cümleyle anlatsın. En kötüsüne grup karar verir." },
+          { text: "Masadaki herkes en sağındakine bir iltifat, en solundakine bir eleştiri yapsın." },
+          { text: "Herkes 10 saniye boyunca kahkaha atsın. İlk duran shot içer." },
+          { text: "Masadaki herkes cüzdanından en saçma şeyi çıkarsın." },
+          { text: "Şişe Çevirmece turu: Sadece öpücük veya tokat seçeneğiyle bir tur dönün." },
+          { text: "Herkes sırayla bir kelime söylesin, anlamlı bir cümle kurmaya çalışın. Batıran içer." },
+          { text: "Masadaki 'en güzel/yakışıklı' kişiyi seçin. O kişi bir kural koyar." },
+          { text: "Herkes telefonundan son aradığı kelimeyi göstersin." },
+          { text: "Grup olarak en sevilen Türkçe pop şarkısını bağırarak söyleyin." },
+          { text: "Herkes en son kime yürüdüğünü açıklasın." },
+          { text: "Masadaki en güvenilmez kişiyi seç ve nedenini açıkla." },
+          { text: "En çok flörtöz olan kişiyi oylayın." },
+          { text: "'En gizli sır saklayamaz' ödülünü birine verin." },
+          { text: "Herkes sağındaki kişi hakkında tek bir kötü özellik söylesin." },
+          { text: "Masadaki en çekici 2 kişiyi seçin, oylama yapın." },
+          { text: "Herkes 'en çok kiminle kavga ederim' diye birini işaret etsin." },
+          { text: "En çok dram çıkaracak kişiyi seçin." },
+          { text: "Masada en çok dedikodu yapan kişiyi belirleyin." },
+          { text: "Herkes gizlice en az güvendiği kişiyi yazsın, sonuçlar açıklansın." },
+          { text: "'En çok ghostlayan' kişiyi oylayın." },
+          { text: "Masadaki biri hakkında herkes tek kelime söylesin, aynı kişi." },
+          { text: "'En çok yalan söylemiş olabilir' ödülünü verin." },
+          { text: "İki kişi seçin: 'bunlar kesin sevgili olurdu' deyin ve nedenini tartışın." },
+          { text: "Herkes en son kime sinirlendiğini açıklasın, masadan biri varsa bonus." },
+          { text: "'En çok sır saklayan vs en çok sır ifşa eden' iki kişi seçin." }
+        ],
+
+        // DİNAMİK BOZAN GÖREVLER
+        dinamik: [
+          { intensity: 3, text: "Masadaki 'en sinsi' bulduğun kişiyi seç ve nedenini açıkla." },
+          { intensity: 3, text: "Masadaki çiftlerden hangisinin ilk ayrılacağını düşünüyorsun?" },
+          { intensity: 4, text: "Eğer masadan sadece bir kişiyi kurtarabilecek olsan, kimi ölüme terk ederdin?" },
+          { intensity: 4, text: "Masadaki kimin aslında burada olmasından rahatsızsın? Dürüst ol." },
+          { intensity: 4, text: "Masadaki birinin en büyük sırrını bildiğini iddia et ama söyleme; o kişi shot içsin." },
+          { intensity: 3, text: "Masadaki 'en az güvenilir' kişiyi seç." },
+          { intensity: 4, text: "Kimin yatakta en bencil olduğunu düşünüyorsun?" },
+          { intensity: 4, text: "Masadaki birine 'Seninle ilgili bir şey biliyorum ama herkesin içinde söyleyemem' de." },
+          { intensity: 3, text: "Masadaki en 'yapmacık' bulduğun kişiyi işaret et." },
+          { intensity: 5, text: "'Eğer bir cinayet işlesem bana sadece BU kişi yardım ederdi' dediğin kişiyi seç." },
+          { intensity: 3, text: "Masadaki birinin giyim tarzını acımasızca eleştir." },
+          { intensity: 3, text: "Kimin daha fazla parası olduğunu ama cimri olduğunu düşünüyorsun?" },
+          { intensity: 4, text: "Masadaki birine 'Sevgilin seni hak etmiyor' de, sevgilisi varsa." },
+          { intensity: 3, text: "Masadaki en 'sıkıcı' kişiyi seç ve onu eğlendirmesi için bir görev ver." },
+          { intensity: 3, text: "'Bu masada kiminle asla bir iş kurmazdım?' sorusuna yanıt ver." },
+          // PREMIUM DİNAMİK
+          { intensity: 4, text: "Masada en az güvendiğin kişiyi seç ve nedenini açıkla." },
+          { intensity: 4, text: "Herkes gizlice 'en çok ikiyüzlü' bulduğu kişiyi yazsın. Açıklayın." },
+          { intensity: 4, text: "'Bu masada biri yalan söylüyor' — herkes kimi düşündüğünü söylesin." },
+          { intensity: 4, text: "En çok manipülatif olan kişiyi oylayın." },
+          { intensity: 4, text: "'Bu kişi yokken hakkında konuşuluyor' dediğin kişiyi seç." },
+          { intensity: 4, text: "Herkes en son kimi kıskandığını itiraf et, masadaysa daha iyi." },
+          { intensity: 4, text: "Masada en çok rol yapan kişiyi belirleyin." },
+          { intensity: 4, text: "İki kişi seçin: 'birbirine asla güvenmemeli' deyin." },
+          { intensity: 4, text: "Herkes 'bunu yalnız bırakmam' dediği kişiyi açıklasın." },
+          { intensity: 4, text: "'En çok sır saklayan vs en çok ifşa eden' iki kişi seçin." },
+          { intensity: 4, text: "Masadaki en tehlikeli kişiyi belirleyin, sosyal anlamda." },
+          { intensity: 4, text: "Herkes en çok mesafe koymak istediği kişiyi söylesin." },
+          { intensity: 5, text: "'Biriniz diğerini kullanıyor' — tahmin edin kim kimi." },
+          { intensity: 4, text: "En çok kırılmış ama söylememiş kişiyi seçin." },
+          { intensity: 5, text: "Herkes masadaki biri hakkında daha önce söyleyemediği bir şeyi söylesin." }
+        ],
+
+        // CEZA KARTLARI
+        ceza: [
+          { text: "Solundaki kişi senin için bir karışım hazırlasın ve onu tek dikişte bitir." },
+          { text: "2 shot iç veya en büyük sırrını masaya anlat." },
+          { text: "Masanın belirlediği birinin ayağını öp." },
+          { text: "30 saniye boyunca 'Ben bir aptalım' diye bağırarak oda içinde gez." },
+          { text: "Bir sonraki tur gelene kadar masanın altında otur." },
+          { text: "Telefonundaki galeriden rastgele seçilen 3 fotoğrafı herkese göster." },
+          { text: "Masadaki en baskın kişi senin için bir ceza uydursun." },
+          { text: "Cebindeki tüm bozuk paraları en yakınındaki kişiye ver." },
+          { text: "Bir sonraki içkini ellerini kullanmadan iç." },
+          { text: "Masadaki birinin senin yüzüne bir şeyler çizmesine izin ver." },
+          { text: "10 saniye boyunca soğuk suyun altında dur veya 3 shot." },
+          { text: "Sosyal medyada en son beğendiğin fotoğrafın beğenisini geri çek." },
+          { text: "Herkese birer shot borçlan." },
+          { text: "1 dakika boyunca kimseyle konuşma, konuşursan ceza katlanır." },
+          { text: "Masadaki herkesin bardağına birer shot ekle." }
+        ],
+
+        // KURAL KARTLARI
+        kural: [
+          { text: "İsim Yasağı: Kimse birbirine ismiyle hitap edemez. Eden shot içer." },
+          { text: "Küfür Yasağı: Küfreden her kelime için bir yudum alır." },
+          { text: "Sol El Kuralı: Herkes içkisini sadece sol eliyle içebilir." },
+          { text: "Soruya Soru: Birine soru sorulduğunda sadece soruyla cevap verebilir." },
+          { text: "Telefon Yasağı: Telefona dokunan masadaki herkese shot ısmarlar." },
+          { text: "'Evet/Hayır' Yasağı: Bu kelimeleri kullanan shot içer." },
+          { text: "Gülme Yasağı: Bir sonraki kural kartına kadar kimse dişlerini göstererek gülemez." },
+          { text: "Eko Kuralı: Her cümleyi iki kez tekrar etmek zorundasınız." },
+          { text: "Kral/Kraliçe: Masadaki en genç kişi 'Kral' olur, her dediği o tur yapılır." },
+          { text: "Ayna Kuralı: Sağındaki kişi ne yaparsa aynısını yapmak zorundasın." }
         ]
       }
     };
@@ -2384,8 +2981,62 @@
     }
 
     function drawHangoverCard() {
-      const gorevler = CARDS['hangover'].gorevler;
-      const available = gorevler.filter(g => !gameState.usedCardIds.includes(g.text));
+      const hangoverCards = CARDS['hangover'];
+      const selectedIntensities = gameState.settings.intensities || [1, 2, 3, 4, 5];
+      
+      // Tüm kart tiplerini birleştir
+      let allCards = [];
+      
+      // Görevler (intensity filtreleme)
+      if (hangoverCards.gorevler) {
+        allCards = allCards.concat(
+          hangoverCards.gorevler
+            .filter(c => selectedIntensities.includes(c.intensity))
+            .map(c => ({ ...c, type: 'gorev' }))
+        );
+      }
+      
+      // İtiraflar (intensity filtreleme)
+      if (hangoverCards.itiraf) {
+        allCards = allCards.concat(
+          hangoverCards.itiraf
+            .filter(c => selectedIntensities.includes(c.intensity))
+            .map(c => ({ ...c, type: 'itiraf' }))
+        );
+      }
+      
+      // Telefon görevleri (intensity filtreleme)
+      if (hangoverCards.telefon) {
+        allCards = allCards.concat(
+          hangoverCards.telefon
+            .filter(c => selectedIntensities.includes(c.intensity))
+            .map(c => ({ ...c, type: 'telefon' }))
+        );
+      }
+      
+      // Grup kartları (%30 şans)
+      if (hangoverCards.grup && Math.random() > 0.7) {
+        allCards = allCards.concat(
+          hangoverCards.grup.map(c => ({ ...c, type: 'grup' }))
+        );
+      }
+      
+      // Ceza kartları (%20 şans)
+      if (hangoverCards.ceza && Math.random() > 0.8) {
+        allCards = allCards.concat(
+          hangoverCards.ceza.map(c => ({ ...c, type: 'ceza' }))
+        );
+      }
+      
+      // Kural kartları (%15 şans)
+      if (hangoverCards.kural && Math.random() > 0.85) {
+        allCards = allCards.concat(
+          hangoverCards.kural.map(c => ({ ...c, type: 'kural' }))
+        );
+      }
+      
+      // Kullanılmış kartları filtrele
+      const available = allCards.filter(c => !gameState.usedCardIds.includes(c.text));
 
       if (available.length === 0) {
         endGame();
@@ -2393,15 +3044,100 @@
       }
 
       const card = available[Math.floor(Math.random() * available.length)];
-      card.type = 'gorev';
       gameState.currentCard = card;
       gameState.usedCardIds.push(card.text);
       gameState.currentRound++;
-      gameState.timer = 60;
+      gameState.timer = card.type === 'kural' ? 0 : 60; // Kural kartları için timer yok
 
       saveRoomToStorage();
-      showCard(card);
+      showHangoverCard(card);
       updateGameScreen();
+    }
+    
+    function showHangoverCard(card) {
+      const gameArea = document.getElementById('game-area');
+      const isMyTurn = gameState.players[gameState.currentPlayerIndex].id === gameState.playerId;
+      
+      const typeIcons = { 
+        gorev: '🎉', 
+        itiraf: '🗣️', 
+        telefon: '📱', 
+        grup: '👥', 
+        ceza: '💀', 
+        kural: '📜' 
+      };
+      const typeNames = { 
+        gorev: 'GÖREV', 
+        itiraf: 'İTİRAF', 
+        telefon: 'TELEFON', 
+        grup: 'GRUP', 
+        ceza: 'CEZA', 
+        kural: 'KURAL' 
+      };
+      const typeColors = {
+        gorev: '#c9a959',
+        itiraf: '#722f37',
+        telefon: '#4a90d9',
+        grup: '#2ecc71',
+        ceza: '#e74c3c',
+        kural: '#9b59b6'
+      };
+      
+      let timerHtml = card.type !== 'kural' ? `
+        <div class="timer-display">
+          <div class="timer-ring">
+            <svg width="60" height="60">
+              <circle cx="30" cy="30" r="26" fill="none" stroke="rgba(201,169,89,0.2)" stroke-width="4"/>
+              <circle id="timer-progress" cx="30" cy="30" r="26" fill="none" stroke="var(--gold)" stroke-width="4" 
+                      stroke-dasharray="163" stroke-dashoffset="0" transform="rotate(-90 30 30)"/>
+            </svg>
+            <div class="timer-text"><span id="timer-value">60</span> saniye</div>
+          </div>
+        </div>
+      ` : '';
+      
+      let actionsHtml = '';
+      
+      if (card.type === 'grup') {
+        actionsHtml = `
+          <div class="card-actions" style="margin-top: 16px;">
+            <button class="btn btn-done" onclick="completeCard()">Tamamlandı</button>
+          </div>
+        `;
+      } else if (card.type === 'kural') {
+        actionsHtml = `
+          <div class="card-actions" style="margin-top: 16px;">
+            <div style="color: var(--gold); font-size: 14px; margin-bottom: 12px;">Bu kural bir sonraki kural kartına kadar geçerli!</div>
+            <button class="btn btn-done" onclick="nextTurn()">Devam Et</button>
+          </div>
+        `;
+      } else if (isMyTurn) {
+        actionsHtml = `
+          <div class="card-actions" style="margin-top: 16px;">
+            <button class="btn btn-pass" onclick="skipCard()">Pas (Shot!)</button>
+            <button class="btn btn-done" onclick="completeCard()">Tamamladım</button>
+          </div>
+        `;
+      }
+      
+      gameArea.innerHTML = `
+        <div class="card-revealed hangover-card" style="border-color: ${typeColors[card.type]}">
+          <div class="card-type-badge" style="background: ${typeColors[card.type]}">
+            ${typeIcons[card.type]} ${typeNames[card.type]}
+          </div>
+          ${card.intensity ? `<div class="card-intensity">Seviye ${card.intensity}</div>` : ''}
+          <div class="card-text">${card.text}</div>
+          ${timerHtml}
+        </div>
+        ${actionsHtml}
+      `;
+      
+      document.getElementById('draw-btn').style.display = 'none';
+      document.getElementById('reactions-bar').style.display = 'flex';
+      
+      if (card.type !== 'kural') {
+        startTimer();
+      }
     }
 
     function drawWhoAmI() {
