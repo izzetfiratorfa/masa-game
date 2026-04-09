@@ -28,6 +28,14 @@
       --purple: #6b4c7a;
       --teal: #2d6a6a;
       
+      /* Yeni renkler - Timer & Joker */
+      --timer-green: #4ade80;
+      --timer-yellow: #fbbf24;
+      --timer-red: #ef4444;
+      --joker-blue: #3b82f6;
+      --joker-purple: #8b5cf6;
+      --joker-orange: #f97316;
+      
       --font-display: 'Playfair Display', Georgia, serif;
       --font-elegant: 'Cormorant Garamond', Georgia, serif;
       --font-body: 'Inter', -apple-system, sans-serif;
@@ -1575,9 +1583,474 @@
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--black-lighter); }
     ::-webkit-scrollbar-thumb { background: var(--gold-dark); }
+
+    /* ================================================ */
+    /* FASE 1 - YENİ STİLLER                            */
+    /* ================================================ */
+
+    /* İstatistikler Paneli */
+    .stats-panel {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .stats-panel.active { display: flex; }
+    .stats-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .stats-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--gold);
+    }
+    .stats-close {
+      background: none;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-box {
+      background: var(--black-lighter);
+      border: 1px solid rgba(201, 169, 89, 0.2);
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: rgba(245, 240, 232, 0.6);
+      text-transform: uppercase;
+    }
+    
+    /* High Score - Atari Tarzı */
+    .highscore-section {
+      background: linear-gradient(135deg, var(--black-lighter), var(--black));
+      border: 2px solid var(--gold);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .highscore-title {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      color: var(--gold);
+      text-align: center;
+      letter-spacing: 4px;
+      margin-bottom: 16px;
+    }
+    .highscore-list {
+      font-family: 'Courier New', monospace;
+    }
+    .highscore-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(201, 169, 89, 0.1);
+      color: var(--cream);
+    }
+    .highscore-row.gold-rank { color: #ffd700; }
+    .highscore-row.silver-rank { color: #c0c0c0; }
+    .highscore-row.bronze-rank { color: #cd7f32; }
+    .highscore-rank { width: 30px; }
+    .highscore-name { flex: 1; text-align: left; padding-left: 12px; }
+    .highscore-score { width: 80px; text-align: right; }
+
+    /* Joker Kartlar */
+    .joker-bar {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      padding: 12px;
+      background: var(--black-lighter);
+      border-bottom: 1px solid rgba(201, 169, 89, 0.2);
+    }
+    .joker-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 12px;
+      background: var(--black);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .joker-btn:hover:not(:disabled) {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .joker-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .joker-icon { font-size: 20px; }
+    .joker-name {
+      font-size: 9px;
+      letter-spacing: 0.5px;
+      color: rgba(245, 240, 232, 0.7);
+    }
+    .joker-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: var(--burgundy);
+      color: white;
+      font-size: 10px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+    .joker-btn.change { border-color: var(--joker-blue); }
+    .joker-btn.change .joker-icon { color: var(--joker-blue); }
+    .joker-btn.double { border-color: var(--joker-purple); }
+    .joker-btn.double .joker-icon { color: var(--joker-purple); }
+    .joker-btn.skip { border-color: var(--joker-orange); }
+    .joker-btn.skip .joker-icon { color: var(--joker-orange); }
+    .joker-btn.active {
+      background: rgba(201, 169, 89, 0.2);
+      border-color: var(--gold);
+      box-shadow: 0 0 15px rgba(201, 169, 89, 0.3);
+    }
+
+    /* Intensity Meter - Görsel */
+    .intensity-meter {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      margin: 12px 0;
+    }
+    .intensity-pip {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .intensity-pip.level-1 { background: #4ade80; }
+    .intensity-pip.level-2 { background: #facc15; }
+    .intensity-pip.level-3 { background: #f97316; }
+    .intensity-pip.level-4 { background: #ef4444; }
+    .intensity-pip.level-5 { background: #dc2626; }
+    .intensity-pip.inactive {
+      opacity: 0.2;
+      filter: grayscale(1);
+    }
+    .intensity-pip.selected {
+      border-color: white;
+      transform: scale(1.15);
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    /* Nasıl Oynanır Modal */
+    .rules-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .rules-modal.active { display: flex; }
+    .rules-content {
+      max-width: 400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .rules-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .rules-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--gold);
+    }
+    .rules-section {
+      margin-bottom: 20px;
+    }
+    .rules-section-title {
+      font-family: var(--font-elegant);
+      font-size: 16px;
+      color: var(--cream);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rules-text {
+      font-size: 13px;
+      color: rgba(245, 240, 232, 0.8);
+      line-height: 1.6;
+    }
+    .rules-list {
+      list-style: none;
+      padding: 0;
+    }
+    .rules-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(201, 169, 89, 0.1);
+      font-size: 13px;
+      color: rgba(245, 240, 232, 0.8);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .rules-list li::before {
+      content: '▸';
+      color: var(--gold);
+    }
+
+    /* Duraklatma Overlay */
+    .pause-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.98);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+    .pause-overlay.active { display: flex; }
+    .pause-icon { font-size: 64px; }
+    .pause-text {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--gold);
+    }
+    .pause-subtext {
+      font-size: 14px;
+      color: rgba(245, 240, 232, 0.6);
+    }
+    .pause-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    /* Circular Timer */
+    .circular-timer {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      margin: 12px auto;
+    }
+    .circular-timer svg {
+      transform: rotate(-90deg);
+      width: 60px;
+      height: 60px;
+    }
+    .circular-timer .timer-bg {
+      fill: none;
+      stroke: var(--black-lighter);
+      stroke-width: 4;
+    }
+    .circular-timer .timer-progress {
+      fill: none;
+      stroke: var(--timer-green);
+      stroke-width: 4;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear, stroke 0.5s;
+    }
+    .circular-timer .timer-progress.warning { stroke: var(--timer-yellow); }
+    .circular-timer .timer-progress.danger { stroke: var(--timer-red); }
+    .circular-timer .timer-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--cream);
+    }
+
+    /* Ses Kontrol */
+    .sound-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      background: var(--black-lighter);
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s;
+    }
+    .sound-toggle:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .sound-toggle.muted {
+      opacity: 0.5;
+      border-style: dashed;
+    }
+
+    /* Footer Nav - Stats & Rules */
+    .footer-nav {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .footer-btn {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid rgba(201, 169, 89, 0.3);
+      color: rgba(245, 240, 232, 0.6);
+      font-size: 11px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Double Points Active Indicator */
+    .double-points-active {
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--joker-purple), #a855f7);
+      color: white;
+      padding: 8px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      z-index: 50;
+      animation: pulse 1s infinite;
+      display: none;
+    }
+    .double-points-active.active { display: block; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* Sound feedback flash */
+    @keyframes soundFlash {
+      0% { box-shadow: 0 0 0 0 rgba(201, 169, 89, 0.4); }
+      100% { box-shadow: 0 0 0 20px rgba(201, 169, 89, 0); }
+    }
+    .sound-flash { animation: soundFlash 0.3s ease-out; }
   </style>
 </head>
 <body>
+  <!-- Global Overlays -->
+  
+  <!-- İstatistikler Paneli -->
+  <div class="stats-panel" id="stats-panel">
+    <div class="stats-header">
+      <h2 class="stats-title">📊 İstatistikler</h2>
+      <button class="stats-close" onclick="closeStats()">✕</button>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-value" id="stat-total-games">0</div>
+        <div class="stat-label">Toplam Oyun</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="stat-total-points">0</div>
+        <div class="stat-label">Toplam Puan</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="stat-total-time">0dk</div>
+        <div class="stat-label">Oynama Süresi</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="stat-fav-game">-</div>
+        <div class="stat-label">Favori Oyun</div>
+      </div>
+    </div>
+    <div class="highscore-section">
+      <div class="highscore-title">★ HIGH SCORES ★</div>
+      <div class="highscore-list" id="highscore-list">
+        <!-- Dinamik olarak doldurulacak -->
+      </div>
+    </div>
+    <button class="btn btn-secondary" onclick="resetStats()" style="margin-top: auto;">İstatistikleri Sıfırla</button>
+  </div>
+
+  <!-- Kurallar Modal -->
+  <div class="rules-modal" id="rules-modal">
+    <div class="rules-content">
+      <div class="rules-header">
+        <h2 class="rules-title">📖 Nasıl Oynanır?</h2>
+        <button class="stats-close" onclick="closeRules()">✕</button>
+      </div>
+      <div id="rules-body">
+        <!-- Dinamik olarak doldurulacak -->
+      </div>
+      <button class="btn btn-primary" onclick="closeRules()" style="margin-top: 24px;">Anladım!</button>
+    </div>
+  </div>
+
+  <!-- Duraklatma Overlay -->
+  <div class="pause-overlay" id="pause-overlay">
+    <div class="pause-icon">⏸️</div>
+    <div class="pause-text">Oyun Duraklatıldı</div>
+    <div class="pause-subtext">İstediğin zaman devam edebilirsin</div>
+    <div class="pause-buttons">
+      <button class="btn btn-primary" onclick="resumeGame()">▶️ Devam Et</button>
+      <button class="btn btn-secondary" onclick="quitPausedGame()">🚪 Oyundan Çık</button>
+    </div>
+  </div>
+
+  <!-- Ses Kontrol Butonu -->
+  <button class="sound-toggle" id="sound-toggle" onclick="toggleSound()">🔊</button>
+
+  <!-- 2x Puan Aktif Göstergesi -->
+  <div class="double-points-active" id="double-points-indicator">⚡ 2X PUAN AKTİF ⚡</div>
+
   <div class="container">
     
     <!-- ENTRANCE SCREEN -->
@@ -1598,6 +2071,10 @@
       <div class="entry-actions">
         <button class="btn btn-primary" onclick="showScreen('games-screen')">Masa Kur</button>
         <button class="btn btn-secondary" onclick="showScreen('join-screen')">Davetiye Gir</button>
+      </div>
+      
+      <div class="footer-nav">
+        <button class="footer-btn" onclick="openStats()">📊 İstatistikler</button>
       </div>
       
       <p class="footer-note">Sadece davetliler için</p>
@@ -1816,8 +2293,29 @@
     <div id="game-screen" class="screen">
       <div class="game-header">
         <button class="exit-btn" onclick="confirmExit()">✕ ÇIK</button>
+        <button class="pause-btn" onclick="pauseGame()" style="background: none; border: 1px solid var(--gold); color: var(--gold); padding: 6px 12px; font-size: 12px; cursor: pointer;">⏸️</button>
         <span class="round-indicator" id="round-indicator">Tur 1</span>
+        <button class="rules-btn" onclick="openGameRules()" style="background: none; border: 1px solid rgba(201,169,89,0.3); color: rgba(245,240,232,0.6); padding: 6px 10px; font-size: 11px; cursor: pointer;">❓</button>
         <button class="end-game-btn" id="end-game-btn" onclick="confirmEndGame()" style="display: none;">🏁 BİTİR</button>
+      </div>
+
+      <!-- Joker Bar -->
+      <div class="joker-bar" id="joker-bar">
+        <button class="joker-btn change" id="joker-change" onclick="useJoker('change')">
+          <span class="joker-icon">🔄</span>
+          <span class="joker-name">DEĞİŞTİR</span>
+          <span class="joker-count" id="joker-change-count">2</span>
+        </button>
+        <button class="joker-btn double" id="joker-double" onclick="useJoker('double')">
+          <span class="joker-icon">⚡</span>
+          <span class="joker-name">2X PUAN</span>
+          <span class="joker-count" id="joker-double-count">1</span>
+        </button>
+        <button class="joker-btn skip" id="joker-skip" onclick="useJoker('skip')">
+          <span class="joker-icon">⏭️</span>
+          <span class="joker-name">SIRA ATLA</span>
+          <span class="joker-count" id="joker-skip-count">1</span>
+        </button>
       </div>
 
       <!-- Sevgililer Modu Özel Butonları -->
@@ -3227,12 +3725,439 @@
       truthLieRevealed: false,
       actualTruthLie: null,
       // Sevgililer Modu Özel
-      couplesMode: 'normal', // 'normal', 'mutual', 'secret'
-      mutualAnswers: {}, // { playerId: 'cevap' }
-      secretAnswers: {}, // { playerId: 'cevap' }
-      secretBoxAccepted: {}, // { playerId: true/false }
-      compatibilityScore: 0
+      couplesMode: 'normal',
+      mutualAnswers: {},
+      secretAnswers: {},
+      secretBoxAccepted: {},
+      compatibilityScore: 0,
+      // FASE 1 - Yeni özellikler
+      jokers: { change: 2, double: 1, skip: 1 },
+      doublePointsActive: false,
+      isPaused: false,
+      gameStartTime: null
     };
+
+    // ==========================================
+    // SES SİSTEMİ
+    // ==========================================
+    const AudioSystem = {
+      enabled: true,
+      context: null,
+      
+      init() {
+        try {
+          this.context = new (window.AudioContext || window.webkitAudioContext)();
+          this.enabled = localStorage.getItem('masa_sound') !== 'false';
+          this.updateToggle();
+        } catch (e) {
+          console.log('Audio not supported');
+        }
+      },
+      
+      updateToggle() {
+        const btn = document.getElementById('sound-toggle');
+        if (btn) {
+          btn.textContent = this.enabled ? '🔊' : '🔇';
+          btn.classList.toggle('muted', !this.enabled);
+        }
+      },
+      
+      play(type) {
+        if (!this.enabled || !this.context) return;
+        
+        const osc = this.context.createOscillator();
+        const gain = this.context.createGain();
+        osc.connect(gain);
+        gain.connect(this.context.destination);
+        
+        const now = this.context.currentTime;
+        
+        switch(type) {
+          case 'draw':
+            // Kart çekme - kısa "swish"
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.exponentialRampToValueAtTime(400, now + 0.1);
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+            osc.start(now);
+            osc.stop(now + 0.1);
+            break;
+            
+          case 'score':
+            // Puan kazanma - arpej
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(523, now); // C5
+            osc.frequency.setValueAtTime(659, now + 0.1); // E5
+            osc.frequency.setValueAtTime(784, now + 0.2); // G5
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+            osc.start(now);
+            osc.stop(now + 0.3);
+            break;
+            
+          case 'penalty':
+            // Pas/Ceza - düşük ton
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(200, now);
+            osc.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+            osc.start(now);
+            osc.stop(now + 0.2);
+            break;
+            
+          case 'timer':
+            // Timer uyarısı - beep
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(880, now);
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.setValueAtTime(0, now + 0.05);
+            gain.gain.setValueAtTime(0.1, now + 0.1);
+            gain.gain.setValueAtTime(0, now + 0.15);
+            gain.gain.setValueAtTime(0.1, now + 0.2);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+            osc.start(now);
+            osc.stop(now + 0.3);
+            break;
+            
+          case 'joker':
+            // Joker kullanma - magic sound
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(400, now);
+            osc.frequency.exponentialRampToValueAtTime(1200, now + 0.15);
+            osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+            osc.start(now);
+            osc.stop(now + 0.3);
+            break;
+            
+          case 'victory':
+            // Oyun sonu - fanfar
+            [523, 659, 784, 1047].forEach((freq, i) => {
+              const o = this.context.createOscillator();
+              const g = this.context.createGain();
+              o.connect(g);
+              g.connect(this.context.destination);
+              o.type = 'sine';
+              o.frequency.value = freq;
+              g.gain.setValueAtTime(0.1, now + i * 0.15);
+              g.gain.exponentialRampToValueAtTime(0.01, now + i * 0.15 + 0.3);
+              o.start(now + i * 0.15);
+              o.stop(now + i * 0.15 + 0.3);
+            });
+            return;
+        }
+      }
+    };
+
+    function toggleSound() {
+      AudioSystem.enabled = !AudioSystem.enabled;
+      localStorage.setItem('masa_sound', AudioSystem.enabled);
+      AudioSystem.updateToggle();
+      if (AudioSystem.enabled) AudioSystem.play('draw');
+    }
+
+    // ==========================================
+    // İSTATİSTİKLER SİSTEMİ
+    // ==========================================
+    const StatsSystem = {
+      data: {
+        totalGames: 0,
+        totalPoints: 0,
+        totalTime: 0,
+        gameHistory: {},
+        highScores: []
+      },
+      
+      load() {
+        const saved = localStorage.getItem('masa_stats');
+        if (saved) {
+          try {
+            this.data = JSON.parse(saved);
+          } catch (e) {}
+        }
+      },
+      
+      save() {
+        localStorage.setItem('masa_stats', JSON.stringify(this.data));
+      },
+      
+      recordGame(gameName, score, playerName) {
+        this.data.totalGames++;
+        this.data.totalPoints += score;
+        
+        // Oyun geçmişi
+        if (!this.data.gameHistory[gameName]) {
+          this.data.gameHistory[gameName] = 0;
+        }
+        this.data.gameHistory[gameName]++;
+        
+        // High scores
+        this.data.highScores.push({
+          name: playerName,
+          score: score,
+          game: gameName,
+          date: new Date().toLocaleDateString('tr-TR')
+        });
+        
+        // En yüksek 10 skoru tut
+        this.data.highScores.sort((a, b) => b.score - a.score);
+        this.data.highScores = this.data.highScores.slice(0, 10);
+        
+        this.save();
+      },
+      
+      addTime(minutes) {
+        this.data.totalTime += minutes;
+        this.save();
+      },
+      
+      getFavoriteGame() {
+        let maxGame = '-';
+        let maxCount = 0;
+        for (const [game, count] of Object.entries(this.data.gameHistory)) {
+          if (count > maxCount) {
+            maxCount = count;
+            maxGame = game;
+          }
+        }
+        return maxGame;
+      },
+      
+      reset() {
+        this.data = {
+          totalGames: 0,
+          totalPoints: 0,
+          totalTime: 0,
+          gameHistory: {},
+          highScores: []
+        };
+        this.save();
+      }
+    };
+
+    function openStats() {
+      StatsSystem.load();
+      
+      document.getElementById('stat-total-games').textContent = StatsSystem.data.totalGames;
+      document.getElementById('stat-total-points').textContent = StatsSystem.data.totalPoints;
+      document.getElementById('stat-total-time').textContent = StatsSystem.data.totalTime + 'dk';
+      document.getElementById('stat-fav-game').textContent = StatsSystem.getFavoriteGame();
+      
+      // High scores
+      const list = document.getElementById('highscore-list');
+      if (StatsSystem.data.highScores.length === 0) {
+        list.innerHTML = '<div style="text-align: center; color: rgba(245,240,232,0.4); padding: 20px;">Henüz skor yok</div>';
+      } else {
+        list.innerHTML = StatsSystem.data.highScores.map((hs, i) => {
+          const rankClass = i === 0 ? 'gold-rank' : i === 1 ? 'silver-rank' : i === 2 ? 'bronze-rank' : '';
+          return `
+            <div class="highscore-row ${rankClass}">
+              <span class="highscore-rank">${i + 1}.</span>
+              <span class="highscore-name">${hs.name}</span>
+              <span class="highscore-score">${hs.score}</span>
+            </div>
+          `;
+        }).join('');
+      }
+      
+      document.getElementById('stats-panel').classList.add('active');
+    }
+
+    function closeStats() {
+      document.getElementById('stats-panel').classList.remove('active');
+    }
+
+    function resetStats() {
+      if (confirm('Tüm istatistikler silinecek. Emin misin?')) {
+        StatsSystem.reset();
+        openStats();
+      }
+    }
+
+    // ==========================================
+    // KURALLAR SİSTEMİ
+    // ==========================================
+    const GAME_RULES = {
+      'ifsa-z': {
+        title: 'İfşa Z',
+        icon: '📱',
+        sections: [
+          { title: '🎯 Amaç', text: 'Gen Z tarzı sorulara dürüstçe cevap vermek ve en yüksek puanı toplamak.' },
+          { title: '🎮 Nasıl Oynanır?', list: ['Sıran geldiğinde "Kart Çek" butonuna bas', 'Gelen soruyu sesli oku ve cevapla', 'Cevapladıysan "Tamamladım" butonuna bas', 'Pas geçersen puan kaybedersin'] },
+          { title: '💯 Puanlama', text: 'Seviye 1: +5 puan, Seviye 2: +10 puan, Seviye 3: +15 puan. Pas: yarı puan ceza.' }
+        ]
+      },
+      'ifsa-klasik': {
+        title: 'İfşa Klasik',
+        icon: '🎭',
+        sections: [
+          { title: '🎯 Amaç', text: 'Klasik itiraf sorularını cevaplayarak puan toplamak.' },
+          { title: '🎮 Nasıl Oynanır?', list: ['Sıran geldiğinde kart çek', 'Soruyu dürüstçe cevapla', '5 seviye zorluk var - seçtiğin seviyelere göre sorular gelir'] },
+          { title: '💯 Puanlama', text: 'Seviye arttıkça puan artar. Seviye 5 = +40 puan!' }
+        ]
+      },
+      'itiraf': {
+        title: 'İtiraf Et!',
+        icon: '🗣️',
+        sections: [
+          { title: '🎯 Amaç', text: 'Cesur itiraflar yapmak ve diğerlerinin tahminlerini geçmek.' },
+          { title: '🎮 Nasıl Oynanır?', list: ['Kart çek ve itirafı oku', 'Cevapladıktan sonra diğerleri "Doğru" veya "Yalan" oyu verir', 'Sonuçlar açıklandığında gerçeği söyle'] },
+          { title: '🗳️ Oylama', text: 'Diğer oyuncular senin doğru mu yalan mı söylediğini tahmin eder.' }
+        ]
+      },
+      'itiraf-sevgililer': {
+        title: 'Sevgililer Modu',
+        icon: '💑',
+        sections: [
+          { title: '🎯 Amaç', text: '2 kişilik romantik/cesur sorularla birbirinizi daha iyi tanımak.' },
+          { title: '🎮 Modlar', list: ['Normal: Klasik sırayla kart çekme', 'Karşılıklı: Aynı soruyu iki kişi de cevaplar', 'Gizli Cevap: Gizlice yazılır, sonra karşılaştırılır'] },
+          { title: '🃏 Kart Tipleri', text: 'İtiraf, Senaryo, İkilem, Rol Yapma, Sır Kutusu, Övgü kartları var.' }
+        ]
+      },
+      'hangover': {
+        title: 'Hangover',
+        icon: '🍻',
+        sections: [
+          { title: '🎯 Amaç', text: 'Görevleri tamamlamak, cezalardan kaçmak!' },
+          { title: '🃏 Kart Tipleri', list: ['Görev: Yapılması gereken aktiviteler', 'İtiraf: Cesur sorular', 'Telefon: Birine mesaj/arama görevleri', 'Grup: Herkesin katıldığı aktiviteler', 'Kural: Oyun boyunca geçerli kurallar', 'Ceza: İçki cezaları'] }
+        ]
+      },
+      'benkimim': {
+        title: 'Ben Kimim?',
+        icon: '🤔',
+        sections: [
+          { title: '🎯 Amaç', text: '20 soru hakkıyla kafandaki karakteri bulmak.' },
+          { title: '🎮 Nasıl Oynanır?', list: ['Sistem sana gizli bir karakter atar', 'Evet/Hayır soruları sorarak karakteri tahmin et', '20 soru hakkın var', 'Ne kadar az soruda bulursan o kadar çok puan'] }
+        ]
+      }
+    };
+
+    function openGameRules() {
+      const gameId = gameState.selectedGame?.id;
+      const rules = GAME_RULES[gameId] || GAME_RULES['ifsa-klasik'];
+      
+      const rulesBody = document.getElementById('rules-body');
+      rulesBody.innerHTML = rules.sections.map(section => `
+        <div class="rules-section">
+          <div class="rules-section-title">${section.title}</div>
+          ${section.text ? `<p class="rules-text">${section.text}</p>` : ''}
+          ${section.list ? `<ul class="rules-list">${section.list.map(item => `<li>${item}</li>`).join('')}</ul>` : ''}
+        </div>
+      `).join('');
+      
+      document.getElementById('rules-modal').classList.add('active');
+    }
+
+    function closeRules() {
+      document.getElementById('rules-modal').classList.remove('active');
+    }
+
+    // ==========================================
+    // JOKER SİSTEMİ
+    // ==========================================
+    function initJokers() {
+      gameState.jokers = { change: 2, double: 1, skip: 1 };
+      gameState.doublePointsActive = false;
+      updateJokerUI();
+    }
+
+    function updateJokerUI() {
+      ['change', 'double', 'skip'].forEach(type => {
+        const btn = document.getElementById(`joker-${type}`);
+        const count = document.getElementById(`joker-${type}-count`);
+        if (btn && count) {
+          count.textContent = gameState.jokers[type];
+          btn.disabled = gameState.jokers[type] <= 0;
+          btn.classList.toggle('active', type === 'double' && gameState.doublePointsActive);
+        }
+      });
+      
+      document.getElementById('double-points-indicator').classList.toggle('active', gameState.doublePointsActive);
+    }
+
+    function useJoker(type) {
+      if (gameState.jokers[type] <= 0) return;
+      
+      const current = gameState.players[gameState.currentPlayerIndex];
+      const isMyTurn = current?.id === gameState.playerId;
+      
+      AudioSystem.play('joker');
+      
+      switch(type) {
+        case 'change':
+          // Mevcut kartı değiştir
+          if (!gameState.currentCard) {
+            alert('Önce bir kart çekmelisin!');
+            return;
+          }
+          gameState.jokers.change--;
+          gameState.currentCard = null;
+          drawCard();
+          break;
+          
+        case 'double':
+          // Sonraki tamamlama 2x puan
+          if (!isMyTurn) {
+            alert('Bu joker sadece kendi sıran geldiğinde kullanılabilir!');
+            return;
+          }
+          gameState.jokers.double--;
+          gameState.doublePointsActive = true;
+          break;
+          
+        case 'skip':
+          // Sırayı atla
+          if (!isMyTurn) {
+            alert('Bu joker sadece kendi sıran geldiğinde kullanılabilir!');
+            return;
+          }
+          gameState.jokers.skip--;
+          nextTurn();
+          break;
+      }
+      
+      updateJokerUI();
+      saveRoomToStorage();
+    }
+
+    // ==========================================
+    // DURAKLAMA SİSTEMİ
+    // ==========================================
+    function pauseGame() {
+      if (gameState.timerInterval) {
+        clearInterval(gameState.timerInterval);
+      }
+      gameState.isPaused = true;
+      document.getElementById('pause-overlay').classList.add('active');
+      
+      // Oyun süresini kaydet
+      if (gameState.gameStartTime) {
+        const elapsed = Math.round((Date.now() - gameState.gameStartTime) / 60000);
+        StatsSystem.addTime(elapsed);
+      }
+      
+      saveRoomToStorage();
+    }
+
+    function resumeGame() {
+      gameState.isPaused = false;
+      document.getElementById('pause-overlay').classList.remove('active');
+      gameState.gameStartTime = Date.now();
+      
+      // Timer'ı devam ettir
+      if (gameState.currentCard && gameState.timer > 0) {
+        startTimer();
+      }
+    }
+
+    function quitPausedGame() {
+      document.getElementById('pause-overlay').classList.remove('active');
+      gameState.isPaused = false;
+      exitGame();
+    }
 
     // ==========================================
     // EKRAN YÖNETİMİ
@@ -3534,6 +4459,12 @@
       gameState.currentPlayerIndex = 0;
       gameState.currentRound = 0;
       gameState.usedCardIds = [];
+      gameState.gameStartTime = Date.now();
+
+      // Fase 1 sistemleri başlat
+      initJokers();
+      AudioSystem.init();
+      StatsSystem.load();
 
       saveRoomToStorage();
       showScreen('game-screen');
@@ -3549,6 +4480,9 @@
     function updateGameScreen() {
       // Tur sayısını göster (sınırsız mod)
       document.getElementById('round-indicator').textContent = `Tur ${gameState.currentRound}`;
+
+      // Joker UI güncelle
+      updateJokerUI();
 
       // Sevgililer Modu için özel butonları göster
       const couplesModeSelector = document.getElementById('couples-mode-selector');
@@ -4114,6 +5048,9 @@
     // KART ÇEK
     // ==========================================
     function drawCard() {
+      // Ses çal
+      AudioSystem.play('draw');
+      
       const game = gameState.selectedGame;
       const gameCards = CARDS[game.id];
 
@@ -4648,6 +5585,11 @@
           fill.style.width = (gameState.timer / maxTime * 100) + '%';
           fill.classList.toggle('warning', gameState.timer <= 10);
           value.textContent = gameState.timer;
+          
+          // Timer uyarı sesi (son 5 saniye)
+          if (gameState.timer === 5) {
+            AudioSystem.play('timer');
+          }
         }
 
         if (gameState.timer <= 0) {
@@ -4662,8 +5604,19 @@
       clearInterval(gameState.timerInterval);
 
       const player = gameState.players[gameState.currentPlayerIndex];
-      const cardScore = getCardScore(gameState.currentCard);
+      let cardScore = getCardScore(gameState.currentCard);
+      
+      // 2X Puan aktifse çift puan
+      if (gameState.doublePointsActive) {
+        cardScore *= 2;
+        gameState.doublePointsActive = false;
+        updateJokerUI();
+      }
+      
       player.score += cardScore;
+      
+      // Ses çal
+      AudioSystem.play('score');
       
       // Kazanılan puanı göster
       showScorePopup(`+${cardScore}`, 'positive');
@@ -4679,6 +5632,15 @@
       const player = gameState.players[gameState.currentPlayerIndex];
       const penalty = getSkipPenalty(gameState.currentCard || { intensity: 3 });
       player.score = Math.max(0, player.score - penalty);
+      
+      // 2X Puan aktifse iptal et
+      if (gameState.doublePointsActive) {
+        gameState.doublePointsActive = false;
+        updateJokerUI();
+      }
+      
+      // Ses çal
+      AudioSystem.play('penalty');
       
       // Kaybedilen puanı göster
       showScorePopup(`-${penalty}`, 'negative');
@@ -4734,6 +5696,23 @@
       gameState.gameStarted = false;
 
       const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
+      
+      // Zafer sesi
+      AudioSystem.play('victory');
+      
+      // İstatistikleri kaydet
+      if (gameState.gameStartTime) {
+        const elapsed = Math.round((Date.now() - gameState.gameStartTime) / 60000);
+        StatsSystem.addTime(elapsed);
+      }
+      
+      // Her oyuncu için high score kaydet
+      const gameName = gameState.selectedGame?.name || 'Bilinmeyen';
+      sorted.forEach(player => {
+        if (player.id === gameState.playerId) {
+          StatsSystem.recordGame(gameName, player.score, player.name);
+        }
+      });
 
       const confetti = document.getElementById('confetti');
       const confettiEmojis = ['✦', '✧', '◆', '◇', '○'];
