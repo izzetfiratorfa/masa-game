@@ -375,6 +375,92 @@
       letter-spacing: 1px;
       margin-top: 6px;
     }
+    
+    /* Sevgililer Modu - Özel Stil */
+    .game-card.couples-mode {
+      border-color: #e91e63;
+      background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), transparent);
+    }
+    .game-card.couples-mode:hover {
+      border-color: #f06292;
+      box-shadow: 0 0 20px rgba(233, 30, 99, 0.2);
+    }
+    
+    /* 18+ Modu - Özel Stil */
+    .game-card.adult-mode {
+      border-color: #9c27b0;
+      background: linear-gradient(135deg, rgba(156, 39, 176, 0.1), transparent);
+    }
+    .game-card.adult-mode:hover {
+      border-color: #ba68c8;
+      box-shadow: 0 0 20px rgba(156, 39, 176, 0.2);
+    }
+    .age-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #9c27b0;
+      color: white;
+      font-size: 8px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .game-card {
+      position: relative;
+    }
+    
+    /* Score Popup */
+    .score-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: bold;
+      z-index: 9999;
+      animation: scorePopup 1.5s ease-out forwards;
+      text-shadow: 0 0 20px currentColor;
+    }
+    .score-popup.positive {
+      color: #4caf50;
+    }
+    .score-popup.negative {
+      color: #f44336;
+    }
+    @keyframes scorePopup {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+      40% { transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -80%) scale(0.8); }
+    }
+    
+    /* End Game Button (Host Only) */
+    .btn-end-game {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-light));
+      color: var(--cream);
+      border: 1px solid var(--gold-dark);
+      padding: 12px 20px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s var(--ease-smooth);
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(114, 47, 55, 0.3);
+    }
+    .btn-end-game:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(114, 47, 55, 0.5);
+    }
+    .btn-end-game:active {
+      transform: translateY(0);
+    }
 
     /* ===================== */
     /* GAME SETUP SCREEN */
@@ -632,6 +718,20 @@
       color: var(--gold);
       letter-spacing: 2px;
     }
+    .end-game-btn {
+      font-size: 10px;
+      color: var(--cream);
+      background: var(--burgundy);
+      border: 1px solid var(--burgundy-light);
+      padding: 6px 12px;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+    .end-game-btn:hover {
+      background: var(--burgundy-light);
+      transform: scale(1.05);
+    }
 
     .scores-bar {
       display: flex;
@@ -658,6 +758,353 @@
       font-family: var(--font-display);
       font-size: 14px;
       color: var(--gold);
+    }
+    
+    /* Genişletilmiş Oyuncu Listesi */
+    .players-panel {
+      background: var(--black-lighter);
+      border: 1px solid rgba(201, 169, 89, 0.2);
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    .players-panel-header {
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .players-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .player-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--black);
+      border-left: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    .player-row.current-turn {
+      border-left-color: var(--gold);
+      background: rgba(201, 169, 89, 0.05);
+    }
+    .player-row.is-host::after {
+      content: '👑';
+      font-size: 10px;
+      margin-left: 4px;
+    }
+    .player-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .player-avatar-lg { font-size: 20px; }
+    .player-name {
+      font-family: var(--font-elegant);
+      font-size: 14px;
+      color: var(--cream);
+    }
+    .player-score {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--gold);
+      min-width: 40px;
+      text-align: right;
+    }
+    .player-vote-status {
+      font-size: 12px;
+      margin-left: 8px;
+    }
+    .player-vote-status.voted { color: var(--gold); }
+    .player-vote-status.waiting { color: rgba(245, 240, 232, 0.3); }
+    
+    /* Oylama Sonuç Paneli */
+    .voting-results-panel {
+      background: var(--black-lighter);
+      border: 1px solid var(--gold);
+      padding: 16px;
+      margin-top: 16px;
+      animation: fadeIn 0.4s ease;
+    }
+    .voting-results-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .voting-results-grid {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 12px;
+    }
+    .voting-result-group {
+      text-align: center;
+    }
+    .voting-result-label {
+      font-size: 11px;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .voting-result-label.truth { color: #4ade80; }
+    .voting-result-label.lie { color: #f87171; }
+    .voting-result-avatars {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .vote-avatar {
+      font-size: 18px;
+      padding: 4px;
+      background: var(--black);
+      border-radius: 4px;
+    }
+    .voting-verdict {
+      text-align: center;
+      font-family: var(--font-elegant);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--cream);
+      padding-top: 12px;
+      border-top: 1px solid rgba(201, 169, 89, 0.2);
+    }
+    .waiting-votes {
+      text-align: center;
+      padding: 12px;
+      color: rgba(245, 240, 232, 0.5);
+      font-size: 13px;
+    }
+    .waiting-votes .spinner {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===================== */
+    /* SEVGİLİLER MODU ÖZEL */
+    /* ===================== */
+    
+    /* Mod Seçim Butonları */
+    .couples-mode-selector {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: var(--black-lighter);
+      border: 1px solid rgba(201, 169, 89, 0.2);
+    }
+    .mode-btn {
+      padding: 10px 16px;
+      background: var(--black);
+      border: 1px solid rgba(201, 169, 89, 0.3);
+      color: var(--cream);
+      font-size: 11px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .mode-btn:hover {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.1);
+    }
+    .mode-btn.active {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.15);
+      color: var(--gold);
+    }
+    .mode-btn-icon { font-size: 14px; }
+    
+    /* Karşılıklı Soru Paneli */
+    .mutual-question-panel {
+      background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1));
+      border: 1px solid #e91e63;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .mutual-question-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      color: #f06292;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .mutual-answers {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .mutual-answer-box {
+      flex: 1;
+      max-width: 150px;
+      text-align: center;
+      padding: 12px;
+      background: var(--black);
+      border: 1px solid rgba(245, 240, 232, 0.1);
+    }
+    .mutual-avatar { font-size: 28px; margin-bottom: 8px; }
+    .mutual-status {
+      font-size: 10px;
+      color: rgba(245, 240, 232, 0.5);
+      letter-spacing: 1px;
+    }
+    .mutual-status.answered { color: #4ade80; }
+    .mutual-answer-text {
+      font-family: var(--font-elegant);
+      font-size: 13px;
+      color: var(--cream);
+      margin-top: 8px;
+      font-style: italic;
+      min-height: 40px;
+    }
+    .mutual-answer-hidden {
+      color: var(--gold);
+      font-size: 20px;
+    }
+    
+    /* Gizli Cevap Input */
+    .secret-answer-section {
+      background: var(--black-lighter);
+      border: 1px solid rgba(201, 169, 89, 0.3);
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .secret-input {
+      width: 100%;
+      padding: 12px;
+      background: var(--black);
+      border: 1px solid rgba(201, 169, 89, 0.3);
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-size: 14px;
+      margin-bottom: 12px;
+      resize: none;
+    }
+    .secret-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    .secret-input::placeholder {
+      color: rgba(245, 240, 232, 0.3);
+    }
+    .secret-submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--gold);
+      border: none;
+      color: var(--black);
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+    .secret-submit-btn:hover {
+      background: var(--gold-light);
+    }
+    .secret-submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* Uyum Sonucu */
+    .compatibility-result {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(156, 39, 176, 0.1));
+      border: 1px solid var(--gold);
+      margin-top: 16px;
+    }
+    .compatibility-score {
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: var(--gold);
+    }
+    .compatibility-label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: rgba(245, 240, 232, 0.6);
+      margin-bottom: 12px;
+    }
+    .compatibility-verdict {
+      font-family: var(--font-elegant);
+      font-size: 16px;
+      color: var(--cream);
+      font-style: italic;
+    }
+    
+    /* Sır Kutusu Onay */
+    .secret-box-confirm {
+      background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(75, 0, 75, 0.2));
+      border: 2px solid #8b0000;
+      padding: 20px;
+      text-align: center;
+    }
+    .secret-box-warning {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    .secret-box-text {
+      font-family: var(--font-elegant);
+      font-size: 14px;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+    .secret-box-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .secret-box-btn {
+      padding: 10px 24px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s;
+    }
+    .secret-box-btn.accept {
+      background: #8b0000;
+      color: white;
+    }
+    .secret-box-btn.decline {
+      background: transparent;
+      border: 1px solid rgba(245, 240, 232, 0.3);
+      color: var(--cream);
+    }
+    
+    /* Kart Tipi Rozetleri */
+    .card-type-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 20px;
+      background: var(--black);
+      padding: 4px 8px;
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+    }
+    
+    /* Övgü Kartı */
+    .praise-card {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 182, 193, 0.1));
+      border-color: #ffd700;
+    }
+    .praise-card .card-text {
+      color: #ffd700;
     }
 
     .turn-indicator {
@@ -765,6 +1212,40 @@
       background: var(--gold);
       margin: 0 auto 20px;
     }
+    
+    /* Card Level Badge */
+    .card-level-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 8px 16px;
+      background: rgba(201, 169, 89, 0.15);
+      border-radius: 20px;
+      border: 1px solid rgba(201, 169, 89, 0.3);
+    }
+    .level-icon {
+      font-size: 18px;
+    }
+    .level-name {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .level-points {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      color: #4caf50;
+      background: rgba(76, 175, 80, 0.15);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    
     .card-text {
       font-family: var(--font-elegant);
       font-size: 20px;
@@ -804,6 +1285,20 @@
       flex: 1;
       padding: 12px;
       font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .score-hint {
+      font-size: 10px;
+      color: #4caf50;
+      font-weight: 600;
+    }
+    .penalty-hint {
+      font-size: 10px;
+      color: #f44336;
+      font-weight: 600;
     }
     .btn-pass {
       background: transparent;
@@ -1148,7 +1643,36 @@
         </div>
       </div>
 
-      <!-- Category 2: Tahmin & Blöf -->
+      <!-- Category 2: Özel Modlar (Sevgililer, Bekarlık, 18+) -->
+      <div class="category-section">
+        <div class="category-header">
+          <span class="category-icon">💑</span>
+          <span class="category-name">Özel Modlar</span>
+        </div>
+        <div class="game-grid">
+          <div class="game-card couples-mode" onclick="selectGame('itiraf-sevgililer')" data-game="itiraf-sevgililer">
+            <div class="game-card-icon">💑</div>
+            <div class="game-card-name">Sevgililer Modu</div>
+            <div class="game-card-desc">İki kişilik romantik itiraflar</div>
+            <div class="game-card-players">2 oyuncu</div>
+          </div>
+          <div class="game-card" onclick="selectGame('itiraf-bekarlik')" data-game="itiraf-bekarlik">
+            <div class="game-card-icon">🎊</div>
+            <div class="game-card-name">Bekarlığa Veda</div>
+            <div class="game-card-desc">Bekarlık partileri için özel</div>
+            <div class="game-card-players">4-15 oyuncu</div>
+          </div>
+          <div class="game-card adult-mode" onclick="selectGame('itiraf-gecegec')" data-game="itiraf-gecegec">
+            <div class="game-card-icon">🌙</div>
+            <div class="game-card-name">Gece Geç Modu</div>
+            <div class="game-card-desc">18+ çok samimi sorular</div>
+            <div class="game-card-players">3-10 oyuncu</div>
+            <div class="age-badge">18+</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 3: Tahmin & Blöf -->
       <div class="category-section">
         <div class="category-header">
           <span class="category-icon">🎭</span>
@@ -1292,10 +1816,28 @@
     <div id="game-screen" class="screen">
       <div class="game-header">
         <button class="exit-btn" onclick="confirmExit()">✕ ÇIK</button>
-        <span class="round-indicator" id="round-indicator">I / V</span>
+        <span class="round-indicator" id="round-indicator">Tur 1</span>
+        <button class="end-game-btn" id="end-game-btn" onclick="confirmEndGame()" style="display: none;">🏁 BİTİR</button>
       </div>
 
-      <div class="scores-bar" id="scoreboard"></div>
+      <!-- Sevgililer Modu Özel Butonları -->
+      <div class="couples-mode-selector" id="couples-mode-selector" style="display: none;">
+        <button class="mode-btn active" onclick="setCouplesMode('normal')" id="mode-normal">
+          <span class="mode-btn-icon">🎴</span> Normal
+        </button>
+        <button class="mode-btn" onclick="setCouplesMode('mutual')" id="mode-mutual">
+          <span class="mode-btn-icon">🔄</span> Karşılıklı
+        </button>
+        <button class="mode-btn" onclick="setCouplesMode('secret')" id="mode-secret">
+          <span class="mode-btn-icon">🤫</span> Gizli Cevap
+        </button>
+      </div>
+
+      <!-- Genişletilmiş Oyuncu Paneli -->
+      <div class="players-panel" id="players-panel">
+        <div class="players-panel-header">OYUNCULAR</div>
+        <div class="players-list" id="players-list"></div>
+      </div>
 
       <div class="turn-indicator" id="turn-indicator">
         <div class="turn-avatar">🦊</div>
@@ -1374,6 +1916,40 @@
         desc: 'Direkt ve acımasız',
         category: 'itiraf',
         hasIntensity: true,
+        hasTruthLie: true,
+        hasVoting: false
+      },
+      'itiraf-sevgililer': {
+        id: 'itiraf-sevgililer',
+        name: 'Sevgililer Modu',
+        icon: '💑',
+        desc: 'İki kişilik romantik itiraflar',
+        category: 'itiraf',
+        hasIntensity: true,
+        maxIntensity: 5,
+        hasTruthLie: true,
+        hasVoting: false,
+        couplesMode: true
+      },
+      'itiraf-bekarlik': {
+        id: 'itiraf-bekarlik',
+        name: 'Bekarlığa Veda',
+        icon: '🎊',
+        desc: 'Bekarlık partileri için özel',
+        category: 'itiraf',
+        hasIntensity: true,
+        maxIntensity: 5,
+        hasTruthLie: true,
+        hasVoting: false
+      },
+      'itiraf-gecegec': {
+        id: 'itiraf-gecegec',
+        name: 'Gece Geç Modu',
+        icon: '🌙',
+        desc: '18+ çok samimi sorular',
+        category: 'itiraf',
+        hasIntensity: true,
+        maxIntensity: 5,
         hasTruthLie: true,
         hasVoting: false
       },
@@ -1799,6 +2375,554 @@
         ]
       },
 
+      // SEVGİLİLER MODU - 2 KİŞİLİK ROMANTİK İTİRAFLAR
+      'itiraf-sevgililer': {
+        itiraf: [
+          // SEVİYE 1 - TANIŞMA (Yeni Çiftler)
+          { intensity: 1, text: "Bende seni ilk çeken şey neydi?" },
+          { intensity: 1, text: "İlk buluşmamızda ne düşünmüştün?" },
+          { intensity: 1, text: "Hangi anımızı tekrar yaşamak isterdin?" },
+          { intensity: 1, text: "Beni nasıl tarif edersin arkadaşlarına?" },
+          { intensity: 1, text: "İlk öpüşmemizi hatırlıyor musun? Ne hissettin?" },
+          { intensity: 1, text: "Bende en çok neyi seviyorsun?" },
+          { intensity: 1, text: "Beraber yaptığımız en güzel aktivite hangisiydi?" },
+          { intensity: 1, text: "İlk tanıştığımızda benden hoşlanacağını düşünmüş müydün?" },
+          { intensity: 1, text: "Bensiz bir günün nasıl geçiyor?" },
+          { intensity: 1, text: "Bana aşık olduğunu ne zaman anladın?" },
+          { intensity: 1, text: "Benim hangi özelliğim seni güldürüyor?" },
+          { intensity: 1, text: "Birlikte izlediğimiz en iyi film/dizi hangisiydi?" },
+          { intensity: 1, text: "Benim için yaptığın en romantik şey neydi?" },
+          { intensity: 1, text: "Sana göre mükemmel bir randevu nasıl olurdu?" },
+          { intensity: 1, text: "İlişkimizde en çok neye minnettarsın?" },
+          { intensity: 1, text: "Beni ilk gördüğünde aklından ne geçti, dürüst ol?" },
+          { intensity: 1, text: "Benimle olmak seni nasıl değiştirdi?" },
+          { intensity: 1, text: "Hangi şarkı sana beni hatırlatıyor?" },
+          { intensity: 1, text: "Benim kokum sana ne hissettiriyor?" },
+          { intensity: 1, text: "Sana en son ne zaman kelebek hissettirdim?" },
+
+          // SEVİYE 2 - DERİNLEŞME (Orta Süreli Çiftler)
+          { intensity: 2, text: "Benden sakladığın ama söylemen gereken bir şey var mı?" },
+          { intensity: 2, text: "İlişkimizde en çok neyi değiştirmek isterdin?" },
+          { intensity: 2, text: "Benimle ilgili seni en çok ne korkutuyor?" },
+          { intensity: 2, text: "Hiç benden utandığın bir an oldu mu?" },
+          { intensity: 2, text: "Ailene beni nasıl anlattın ilk başta?" },
+          { intensity: 2, text: "Kavga ettiğimizde aslında ne düşünüyorsun?" },
+          { intensity: 2, text: "Benim hangi alışkanlığım seni deli ediyor?" },
+          { intensity: 2, text: "Hiç beni kıskanıp söylemediğin oldu mu?" },
+          { intensity: 2, text: "Gelecekte bizi nasıl görüyorsun?" },
+          { intensity: 2, text: "Benim arkadaşlarım hakkında gerçekten ne düşünüyorsun?" },
+          { intensity: 2, text: "Hiç benden ayrılmayı düşündüğün bir an oldu mu? Neden?" },
+          { intensity: 2, text: "İlişkimizde en zorlandığın dönem hangisiydi?" },
+          { intensity: 2, text: "Benim ailem hakkında gerçekten ne düşünüyorsun?" },
+          { intensity: 2, text: "Hiç bana yalan söyledin mi? Hangisi?" },
+          { intensity: 2, text: "Bensiz yapamayacağın şey ne?" },
+          { intensity: 2, text: "Benim hangi davranışım seni incitti ama söylemedin?" },
+          { intensity: 2, text: "İlişkimizin en güçlü yanı ne sence?" },
+          { intensity: 2, text: "Beni kaybetmekten korkuyor musun?" },
+          { intensity: 2, text: "Hiç başka biriyle beni kıyasladın mı?" },
+          { intensity: 2, text: "Sana göre aşk nedir? Ben o tanıma uyuyor muyum?" },
+          { intensity: 2, text: "Benim hangi sözüm seni en çok yaraladı?" },
+          { intensity: 2, text: "Beni en çok ne zaman itici buldun?" },
+          { intensity: 2, text: "Arkadaşlarına söyleyip bana söylemediğin ne var?" },
+          { intensity: 2, text: "Beni tanımadan önceki haline dönmek ister miydin?" },
+          { intensity: 2, text: "İlişkimiz yüzünden vazgeçtiğin bir hayalin var mı?" },
+
+          // SEVİYE 3 - ATEŞ (Romantik/Cinsel)
+          { intensity: 3, text: "Benimle yapmak isteyip hiç söyleyemediğin fantezin ne?" },
+          { intensity: 3, text: "Seni en çok tahrik eden hareketim hangisi?" },
+          { intensity: 3, text: "Yatakta benden daha fazla ne istiyorsun?" },
+          { intensity: 3, text: "En iyi seksimiz hangisiydi? Neden?" },
+          { intensity: 3, text: "Beni baştan çıkarmak için ne yapardın?" },
+          { intensity: 3, text: "Vücudumda en çok neremi seviyorsun?" },
+          { intensity: 3, text: "Hiç başkasını düşünerek benimle birlikte oldun mu?" },
+          { intensity: 3, text: "Seks hayatımızı 10 üzerinden kaç puan verirsin?" },
+          { intensity: 3, text: "Benim hangi kıyafetim seni çıldırtıyor?" },
+          { intensity: 3, text: "Hiç denemek isteyip cesaret edemediğin bir şey var mı yatakta?" },
+          { intensity: 3, text: "En çok hangi dokunuşum seni tahrik ediyor?" },
+          { intensity: 3, text: "Sabah mı gece mi daha çok istiyorsun beni?" },
+          { intensity: 3, text: "Role-play denemek ister misin? Ne tür?" },
+          { intensity: 3, text: "Bensiz kendinle en son ne zaman ilgilendin? Beni mi düşündün?" },
+          { intensity: 3, text: "Seks sırasında en çok ne hoşuna gidiyor?" },
+          { intensity: 3, text: "Hiç seks oyuncağı denemek ister misin benimle?" },
+          { intensity: 3, text: "Halka açık bir yerde seviştik mi? İster misin?" },
+          { intensity: 3, text: "En uzun kaç saat boyunca sevişmek istersin?" },
+          { intensity: 3, text: "Bana hiç söylemediğin bir fetişin var mı?" },
+          { intensity: 3, text: "Seks hayatımızda neleri değiştirmek istersin?" },
+          // YENİ CESUR SORULAR - SEVİYE 3
+          { intensity: 3, text: "Beni en çok hangi halim tahrik ediyor - uyanık mı, uykulu mu, sarhoş mu?" },
+          { intensity: 3, text: "Hangi vücut parçamı en çok ağzına almak istiyorsun?" },
+          { intensity: 3, text: "Seks sırasında kulağıma ne fısıldamamı istersin?" },
+          { intensity: 3, text: "Beni izlerken kendinle oynamak ister misin?" },
+          { intensity: 3, text: "Hangi pozisyonda bana en çok hakim olmak istiyorsun?" },
+          { intensity: 3, text: "Sana dominant davranmamı mı yoksa sana itaat etmemi mi istersin?" },
+          { intensity: 3, text: "Beni bağlamak mı yoksa bağlanmak mı seni daha çok heyecanlandırır?" },
+          { intensity: 3, text: "Vücudumun neresine boşalmamı/boşalmanı istersin?" },
+          { intensity: 3, text: "Oral seks mi yoksa penetrasyon mu daha çok zevk veriyor sana?" },
+          { intensity: 3, text: "Seks sırasında bana nasıl hitap edilmesini istersin?" },
+          { intensity: 3, text: "Hiç beni uyandırıp seks istedin mi ama cesaret edemedin?" },
+          { intensity: 3, text: "Telefonunda benim kaç tane çıplak fotoğrafım var?" },
+          { intensity: 3, text: "Benimle en son ne zaman seks yapmak istedin ama olmadı?" },
+          { intensity: 3, text: "Yatakta en çok hangi sesimi duymak istiyorsun?" },
+          { intensity: 3, text: "Beni ne kadar sert istiyorsun?" },
+          { intensity: 3, text: "Daha önce hiç anal denedin mi? Benimle denemek ister misin?" },
+          { intensity: 3, text: "Seks öncesi foreplay ne kadar sürmeli sana göre?" },
+          { intensity: 3, text: "Hangi porno kategorisini izlerken beni düşünüyorsun?" },
+          { intensity: 3, text: "69 pozisyonunu sever misin?" },
+          { intensity: 3, text: "Seks sırasında ayna kullanmak ister misin?" },
+          { intensity: 3, text: "Beni en çok nerede becermek istiyorsun - yatak dışında?" },
+          { intensity: 3, text: "Bana sakso çekerken/yalarken ne düşünüyorsun?" },
+          { intensity: 3, text: "Orgazm taklidi yaptın mı hiç benimle?" },
+          { intensity: 3, text: "Benimle sexting yaparken ne kadar ıslandın/sertleştin?" },
+          { intensity: 3, text: "Hangi iç çamaşırım seni en çok delirtiyor?" },
+
+          // SEVİYE 4 - KRİZ TESTİ (İlişkiyi Test Eden)
+          { intensity: 4, text: "Beni aldatmaya en çok yaklaştığın an hangisiydi?" },
+          { intensity: 4, text: "İlişkimizi bitirmeyi ciddi ciddi düşündüğün oldu mu?" },
+          { intensity: 4, text: "Eski sevgilinle beni kıyaslıyor musun? Kim kazanıyor?" },
+          { intensity: 4, text: "Beni hiç başkasıyla aldattın mı? Düşündün mü?" },
+          { intensity: 4, text: "Eğer ayrılsak, ne kadar sürede başkasıyla olursun?" },
+          { intensity: 4, text: "Benim hangi davranışım seni ilişkiden soğutuyor?" },
+          { intensity: 4, text: "Hiç pişman olduğun, bana söylediğin bir şey var mı?" },
+          { intensity: 4, text: "Benden gizli tuttuğun en büyük sır ne?" },
+          { intensity: 4, text: "Beni gerçekten seviyor musun, yoksa alışkanlık mı?" },
+          { intensity: 4, text: "Arkadaşların benim hakkımda ne diyor? Kötü bir şey?" },
+          { intensity: 4, text: "Hiç benim arkamdan başkasıyla flört ettin mi?" },
+          { intensity: 4, text: "Benimle evlenir misin? Gerçekten?" },
+          { intensity: 4, text: "Çocuk istiyor musun benimle? Kaç tane?" },
+          { intensity: 4, text: "İlişkimizde en çok neyden pişmansın?" },
+          { intensity: 4, text: "Beni terk edecek olsan, nedeni ne olurdu?" },
+          { intensity: 4, text: "Başkasına aşık olsan bana söyler misin?" },
+          { intensity: 4, text: "Seks hayatımız biter mi diye korkuyor musun?" },
+          { intensity: 4, text: "Beni hala ilk günkü kadar istiyor musun?" },
+          { intensity: 4, text: "Benim için vazgeçtiğin en büyük şey neydi?" },
+          { intensity: 4, text: "Bu ilişki son ilişkin olacak mı sence?" },
+          // YENİ CESUR SORULAR - SEVİYE 4
+          { intensity: 4, text: "Eski sevgilin yatakta benden iyi miydi? Dürüst ol." },
+          { intensity: 4, text: "Benden gizli porno izliyor musun? Ne tür?" },
+          { intensity: 4, text: "Hiç beni düşünmeden mastürbasyon yaptın mı son zamanlarda?" },
+          { intensity: 4, text: "Arkadaşlarımdan birini çekici buluyor musun? Kim?" },
+          { intensity: 4, text: "Üçlü yapmayı hiç hayal ettin mi? Kiminle?" },
+          { intensity: 4, text: "Benimle ilk seks nasıldı, gerçeği söyle - hayal kırıklığı mı?" },
+          { intensity: 4, text: "Benim cinsel performansımı arkadaşlarına anlattın mı?" },
+          { intensity: 4, text: "Seks sırasında hiç sıkıldın mı?" },
+          { intensity: 4, text: "Benimle seks yapmak istemediğin ama yaptığın oldu mu?" },
+          { intensity: 4, text: "Vücudumda değiştirmemi istediğin bir şey var mı?" },
+          { intensity: 4, text: "Eski sevgilinle hala cinsel içerikli mesajlaşıyor musun?" },
+          { intensity: 4, text: "Benim boyutum/sıkılığım seni tatmin ediyor mu?" },
+          { intensity: 4, text: "Seks sırasında başka birini hayal ettiğin oldu mu? Kim?" },
+          { intensity: 4, text: "Benden önce en iyi seks deneyimin kimle oldu? Detay ver." },
+          { intensity: 4, text: "Benimle olan seksten sonra tatmin olmayıp kendin mi hallettin?" },
+          { intensity: 4, text: "Eğer izin versem başkasıyla yatar mısın?" },
+          { intensity: 4, text: "Swinger partisine gitmek ister misin benimle?" },
+          { intensity: 4, text: "Beni arkadaşlarının yanında cinsel obje gibi hissettiğin oldu mu?" },
+          { intensity: 4, text: "Hiç benden izinsiz çıplak fotoğrafımı gösterdin mi birine?" },
+          { intensity: 4, text: "Telefonda kiminle sexting yaptın benden habersiz?" },
+          { intensity: 4, text: "Beni yatakta ne kadar beğeniyorsun, 1-10?" },
+          { intensity: 4, text: "Cinsel hayatımızı bir kelimeyle tanımla." },
+          { intensity: 4, text: "Benimle seks yapmak zorunda hissediyor musun bazen?" },
+          { intensity: 4, text: "Kaç gün seks yapmazsak sorun olur sence?" },
+          { intensity: 4, text: "Benim yanımda başka birine baktığında ne düşünüyorsun?" },
+
+          // SEVİYE 5 - SINIR YOK (En Derin İtiraflar)
+          { intensity: 5, text: "Hayatında benimle yaptığın en büyük hata neydi?" },
+          { intensity: 5, text: "Beni kaybetsen gerçekten üzülür müsün, yoksa rahatlar mısın?" },
+          { intensity: 5, text: "Hiç benimle birlikteyken başkasıyla mesajlaştın mı?" },
+          { intensity: 5, text: "Şu an başka birini seviyor musun veya çekici buluyor musun?" },
+          { intensity: 5, text: "Cinsel olarak seni tatmin edemiyor muyum? Dürüst ol." },
+          { intensity: 5, text: "Bana karşı söylediğin en büyük yalan hangisiydi?" },
+          { intensity: 5, text: "İlişkimizde hiç escort veya başka biriyle olmayı düşündün mü?" },
+          { intensity: 5, text: "Eski sevgilinle hala görüşüyor musun gizlice?" },
+          { intensity: 5, text: "Benim paramı/statümü mü seviyorsun, beni mi?" },
+          { intensity: 5, text: "Seks hayatımız sıfırsa bu ilişki biter mi?" },
+          { intensity: 5, text: "Bana sadakatsizlik yaptın mı? Şimdi itiraf et." },
+          { intensity: 5, text: "Pornodan etkilenip benden farklı şeyler mi bekliyorsun?" },
+          { intensity: 5, text: "Bir günlüğüne başka biriyle olma hakkın olsa, kullanır mısın?" },
+          { intensity: 5, text: "Benim en büyük eksikliğim ne sence? Fiziksel ve karakter olarak." },
+          { intensity: 5, text: "Bu ilişkide mutsuz musun? Gerçeği söyle." },
+          // YENİ CESUR SORULAR - SEVİYE 5
+          { intensity: 5, text: "Beni aldattın mı? Şimdi ve burada itiraf et." },
+          { intensity: 5, text: "Başka biriyle seks yapmayı ne sıklıkla hayal ediyorsun?" },
+          { intensity: 5, text: "Benden saklamak için sildiğin mesajlar var mı?" },
+          { intensity: 5, text: "Cinsel anlamda senden daha mı tecrübeliyim yoksa sen mi benimden?" },
+          { intensity: 5, text: "Benimle yaptığın en kötü seks hangisiydi? Neden kötüydü?" },
+          { intensity: 5, text: "Açık ilişki teklif etsem ne dersin?" },
+          { intensity: 5, text: "Seks videomuzu çekip saklasam ne hissedersin?" },
+          { intensity: 5, text: "Başka biriyle yaşamak istediğin bir fantezi var mı?" },
+          { intensity: 5, text: "Beni yatakta sıkıcı buluyor musun? Gerçeği söyle." },
+          { intensity: 5, text: "En vahşi cinsel fantezini şimdi ve detaylı anlat." },
+          { intensity: 5, text: "Kardeşimin/arkadaşımın karşısında seks yapabilir misin?" },
+          { intensity: 5, text: "Benimle çektiğin/çekeceğin seks videosunu kime gösterirdin?" },
+          { intensity: 5, text: "Para için başkasıyla yatar mısın benim izinimle?" },
+          { intensity: 5, text: "Benim sana yapamadığım ne var yatakta?" },
+          { intensity: 5, text: "Şu an tam olarak ne yapmamı istiyorsun bedenine?" },
+          { intensity: 5, text: "Ölmeden önce benimle yapmak istediğin cinsel şey ne?" },
+          { intensity: 5, text: "Bana hiç iğrenç gelen bir şey yaptırdım mı?" },
+          { intensity: 5, text: "En büyük cinsel kompleksin ne?" },
+          { intensity: 5, text: "Partnerini değiş tokuş yapmak ister misin?" },
+          { intensity: 5, text: "Benimle olan ilişkinde cinsel açıdan tatmin oluyor musun, dürüstçe?" },
+          { intensity: 5, text: "Benim bedenimde nefret ettiğin bir şey var mı?" },
+          { intensity: 5, text: "Bu ilişkide en çok neyi özlüyorsun - geçmişten?" },
+          { intensity: 5, text: "Eski sevgilinle tekrar yatmak ister misin?" },
+          { intensity: 5, text: "Hayatında benimle paylaşmadığın cinsel bir deneyim var mı?" },
+          { intensity: 5, text: "Şu an gözlerimin içine bak ve beni hala isteyip istemediğini söyle." },
+
+          // =============================================
+          // EK 100 YENİ SORU - HER SEVİYEYE 25 SORU
+          // =============================================
+
+          // EK SEVİYE 1 - TANIŞMA & BAĞLANMA (25 yeni soru)
+          { intensity: 1, text: "Beni rüyanda gördüğün oldu mu? Ne oluyordu?" },
+          { intensity: 1, text: "Benimle evliliği hayal ettiğin oldu mu?" },
+          { intensity: 1, text: "Benim gülüşüm sana ne hissettiriyor?" },
+          { intensity: 1, text: "Bana söylemekten çekindiğin bir iltifat var mı?" },
+          { intensity: 1, text: "Benimle yaşlanmayı düşünüyor musun?" },
+          { intensity: 1, text: "Benim sesim seni sakinleştiriyor mu?" },
+          { intensity: 1, text: "Benimle tanışmasaydın şu an nerede olurdun?" },
+          { intensity: 1, text: "Bana en çok hangi anımızda aşık oldun?" },
+          { intensity: 1, text: "Benim dokunuşum seni nasıl hissettiriyor?" },
+          { intensity: 1, text: "Benimle ilk öpüştüğünde ne düşündün gerçekten?" },
+          { intensity: 1, text: "Sana yazdığım en güzel mesaj hangisiydi?" },
+          { intensity: 1, text: "Benim hangi yönüm seni şaşırttı tanıdıkça?" },
+          { intensity: 1, text: "Beni ne zaman en çok özlüyorsun?" },
+          { intensity: 1, text: "Benimle paylaştığın en özel anı hangisi?" },
+          { intensity: 1, text: "Benim için ağladığın oldu mu?" },
+          { intensity: 1, text: "Benden hoşlandığını ilk kime söyledin?" },
+          { intensity: 1, text: "Benim hangi kıyafetimde en çekici buluyorsun?" },
+          { intensity: 1, text: "Beraber yapmak istediğin bir bucket list var mı?" },
+          { intensity: 1, text: "Benim en sevimli halim hangisi?" },
+          { intensity: 1, text: "Bana nasıl bir sürpriz yapmak isterdin?" },
+          { intensity: 1, text: "Beni tanımadan önce hayalindeki partner nasıldı?" },
+          { intensity: 1, text: "Benimle dans etmek seni mutlu ediyor mu?" },
+          { intensity: 1, text: "Bana en çok ne zaman minnettar hissettin?" },
+          { intensity: 1, text: "Benim varlığım hayatını nasıl değiştirdi?" },
+          { intensity: 1, text: "Bana söylemek isteyip de söyleyemediğin ne var?" },
+
+          // EK SEVİYE 2 - DUYGUSAL DERİNLİK (25 yeni soru)
+          { intensity: 2, text: "Beni en çok ne zaman kırdım farkında olmadan?" },
+          { intensity: 2, text: "Benimle ilgili arkadaşlarına şikayet ettiğin ne var?" },
+          { intensity: 2, text: "Benim hangi davranışım güvensizlik yaratıyor sende?" },
+          { intensity: 2, text: "Bana söylemeye korktuğun bir eleştirin var mı?" },
+          { intensity: 2, text: "Benim eksik bulduğun yanlarım neler?" },
+          { intensity: 2, text: "Benimle tartışırken içinden ne geçiyor gerçekten?" },
+          { intensity: 2, text: "Bana bağırmak istediğin ama kendini tuttuğun oldu mu?" },
+          { intensity: 2, text: "Benim hangi yalanıma inanmış gibi yaptın?" },
+          { intensity: 2, text: "Benden soğuduğun bir dönem oldu mu?" },
+          { intensity: 2, text: "Benim ailemle ilgili seni rahatsız eden ne var?" },
+          { intensity: 2, text: "Benimle ilgili değiştirmek istediğin 3 şey söyle." },
+          { intensity: 2, text: "Bana karşı hissettiğin öfkeyi nasıl yönetiyorsun?" },
+          { intensity: 2, text: "Benim hangi sırrımı bilmek isterdin?" },
+          { intensity: 2, text: "Benimle ilgili endişelendiğin ne var?" },
+          { intensity: 2, text: "Bana söyleyemediğin korkuların neler?" },
+          { intensity: 2, text: "Benim ilgisizliğim seni incitti mi hiç?" },
+          { intensity: 2, text: "Benimle konuşmak istemediğin konular var mı?" },
+          { intensity: 2, text: "Benden şüphelendiğin oldu mu? Ne konuda?" },
+          { intensity: 2, text: "Benim için fedakarlık yapmaktan yorulduğun oldu mu?" },
+          { intensity: 2, text: "Benimle ilgili kabullenmekte zorlandığın ne var?" },
+          { intensity: 2, text: "Bana kızdığında ne yapıyorsun genelde?" },
+          { intensity: 2, text: "Benim hangi davranışım seni hayal kırıklığına uğrattı?" },
+          { intensity: 2, text: "Benimle ilgili anlamadığın ne var?" },
+          { intensity: 2, text: "Bana karşı duvarlar ördüğün oldu mu?" },
+          { intensity: 2, text: "Benden uzaklaşmak istediğin anlar oluyor mu?" },
+
+          // EK SEVİYE 3 - ATEŞ & TUTKU (25 yeni soru)
+          { intensity: 3, text: "Beni en çok tahrik eden parfümüm hangisi?" },
+          { intensity: 3, text: "Benimle fantezi kurarken neler hayal ediyorsun?" },
+          { intensity: 3, text: "Seks sırasında benden duymak istediğin kelimeler neler?" },
+          { intensity: 3, text: "Beni görür görmez arzuladığın bir an oldu mu? Anlat." },
+          { intensity: 3, text: "Vücudumda keşfetmek istediğin gizli bir yer var mı?" },
+          { intensity: 3, text: "Benimle spontan seks yapacak olsak nerede isterdin?" },
+          { intensity: 3, text: "Dirty talk yaparken ne duymak istiyorsun?" },
+          { intensity: 3, text: "Benim hangi hareketim seni anında ıslatıyor/sertleştiriyor?" },
+          { intensity: 3, text: "Seks öncesi atmosferi nasıl kurarsın benimle?" },
+          { intensity: 3, text: "Beni kıyafetle mi kıyafetsiz mi daha çekici buluyorsun?" },
+          { intensity: 3, text: "Hangi pozisyonda gözlerimin içine bakmak istiyorsun?" },
+          { intensity: 3, text: "Bana emretmek mi yoksa benim emirlerime uymak mı?" },
+          { intensity: 3, text: "Seks sırasında kullanılmasını istediğin bir aksesuar var mı?" },
+          { intensity: 3, text: "Benim hangi vücut sıvım seni tahrik ediyor?" },
+          { intensity: 3, text: "Oral seks sırasında ne yapmamı istiyorsun tam olarak?" },
+          { intensity: 3, text: "Seks sonrası benden ne bekliyorsun?" },
+          { intensity: 3, text: "Benimle quickie mi yoksa uzun seans mı tercih edersin?" },
+          { intensity: 3, text: "Hangi müzik eşliğinde benimle sevişmek istersin?" },
+          { intensity: 3, text: "Benim sesim seks sırasında seni etkiliyor mu? Nasıl?" },
+          { intensity: 3, text: "Seks sırasında gözlerimi kapatmamı mı açık tutmamı mı istersin?" },
+          { intensity: 3, text: "Bana tokat atmak veya atılmasını ister misin?" },
+          { intensity: 3, text: "Seks sırasında saçlarımı çekmeni ister misin?" },
+          { intensity: 3, text: "Beni uyandırıp seks başlatabilir misin?" },
+          { intensity: 3, text: "Telefonda seks yapmayı denedin mi benimle? Denemek ister misin?" },
+          { intensity: 3, text: "Benim hangi vücut parçamı yalamaktan en çok hoşlanıyorsun?" },
+
+          // EK SEVİYE 4 - KARANLIK & TEST (25 yeni soru)
+          { intensity: 4, text: "Beni izlerken mastürbasyon yaptın mı hiç habersiz?" },
+          { intensity: 4, text: "Seks sırasında bana acı vermek ister misin?" },
+          { intensity: 4, text: "Benim bir arkadaşımla flört ettiğin oldu mu?" },
+          { intensity: 4, text: "Yatakta beni sessiz kalmaya zorlar mısın?" },
+          { intensity: 4, text: "Benim boyutum/şeklim seni tatmin ediyor mu dürüstçe?" },
+          { intensity: 4, text: "Seks sırasında gördüğün en kötü halim nasıldı?" },
+          { intensity: 4, text: "Benden gizli izlediğin porno türleri neler?" },
+          { intensity: 4, text: "Birimiz diğerini domine etse kim kimi istersin?" },
+          { intensity: 4, text: "Seks hayatımız monotonlaştı mı sence?" },
+          { intensity: 4, text: "Benim yataktaki performansım hakkında arkadaşlarınla konuştun mu?" },
+          { intensity: 4, text: "Bensiz cinsel tatmin arıyor musun? Nasıl?" },
+          { intensity: 4, text: "Seks sırasında hiç canımı yaktın mı bilerek?" },
+          { intensity: 4, text: "Anal seks hakkında gerçek düşüncelerin neler?" },
+          { intensity: 4, text: "Beni yatakta ağlatır mısın?" },
+          { intensity: 4, text: "Seks sırasında kameraya çekilmek ister misin?" },
+          { intensity: 4, text: "Başkasının bizi seks yaparken görmesini ister misin?" },
+          { intensity: 4, text: "Benimle en kirli, en yasak ne yapmak istiyorsun?" },
+          { intensity: 4, text: "Seks sırasında küfür etmemi ister misin?" },
+          { intensity: 4, text: "Benim en hassas yerimi bilmeden acıttın mı hiç?" },
+          { intensity: 4, text: "Yatakta köle/efendi dinamiği kurmak ister misin?" },
+          { intensity: 4, text: "Bir BDSM oturumu planlasak neler olsun?" },
+          { intensity: 4, text: "Seks sırasında bana boğulma hissi vermemi ister misin?" },
+          { intensity: 4, text: "Benimle olan seksi arkadaşlarına detaylı anlattın mı?" },
+          { intensity: 4, text: "Seks sırasında ne tür bir acı seni tahrik eder?" },
+          { intensity: 4, text: "Yatakta bana itaat etmekten hoşlanır mısın?" },
+
+          // EK SEVİYE 5 - LİMİTSİZ & MUTLAK DÜRÜSTLÜK (25 yeni soru)
+          { intensity: 5, text: "Benden gizli bir cinsel macera yaşadın mı?" },
+          { intensity: 5, text: "Hayatında hiç birini seks için kullandın mı?" },
+          { intensity: 5, text: "Benimle olan ilişkide cinsel olarak neleri feda ediyorsun?" },
+          { intensity: 5, text: "Başka biriyle açık ilişki yaşamak ister misin?" },
+          { intensity: 5, text: "Benimle yaptığın en utanç verici cinsel şey ne?" },
+          { intensity: 5, text: "Seks işçisi olmayı hiç düşündün mü?" },
+          { intensity: 5, text: "Grup seksi denemek ister misin? Kimlerle?" },
+          { intensity: 5, text: "Benim bilmediğim cinsel bir geçmişin var mı?" },
+          { intensity: 5, text: "Biriyle takaslanmak ister misin?" },
+          { intensity: 5, text: "Cinsel anlamda sınırlarını aşmamı ister misin?" },
+          { intensity: 5, text: "Benim bedenimde ameliyatla değiştirmemi istediğin bir yer var mı?" },
+          { intensity: 5, text: "Cinsel hayatımızda tamamen kaybolmuş hissediyor musun?" },
+          { intensity: 5, text: "Başka birini düşünerek orgazm olduğun oldu mu?" },
+          { intensity: 5, text: "En sapkın fantezini şu an gerçekleştirsek nasıl olur?" },
+          { intensity: 5, text: "Benimle olmak yerine tek gecelik ilişkiler mi tercih ederdin?" },
+          { intensity: 5, text: "Cinsel yaşantımızı bir yabancıyla paylaşır mısın?" },
+          { intensity: 5, text: "Beni başkasıyla izlemek seni tahrik eder mi?" },
+          { intensity: 5, text: "Bana hiç söylemediğin en karanlık cinsel sırrın ne?" },
+          { intensity: 5, text: "Swinger kulübe gitmek ister misin benimle?" },
+          { intensity: 5, text: "Sekste asla yapmayacağın şey ne? Benim için yapar mısın?" },
+          { intensity: 5, text: "Biri sana para verse benimle seksi anlatır mısın detaylı?" },
+          { intensity: 5, text: "Benim bedenimle başka birinin bedenini karşılaştırdın mı?" },
+          { intensity: 5, text: "Cinsel hayatımızın biteceğinden korkuyor musun?" },
+          { intensity: 5, text: "Aşk olmadan seks mi, seks olmadan aşk mı? Benimle hangisi?" },
+          { intensity: 5, text: "Şu an aklından geçen en yasak düşünce ne benim hakkımda?" }
+        ],
+        cesaret: [
+          // SEVİYE 1
+          { intensity: 1, text: "Partnerine 1 dakika boyunca gözlerinin içine bakarak ne kadar sevdiğini anlat." },
+          { intensity: 1, text: "Partnerine en sevdiğin yerinden öpücük ver." },
+          { intensity: 1, text: "Partnerinin elini tut ve 30 saniye boyunca parmak uçlarını öp." },
+          { intensity: 1, text: "Partnerine bugün ne kadar güzel/yakışıklı olduğunu fısılda." },
+          // SEVİYE 2
+          { intensity: 2, text: "Partnerinle 30 saniye boyunca sarılın, hiç konuşmadan." },
+          { intensity: 2, text: "Partnerine telefonda en romantik şiirini/sözünü oku." },
+          { intensity: 2, text: "Partnerinin boynunu 30 saniye boyunca yavaşça öp." },
+          { intensity: 2, text: "Partnerine kucağına oturmasını söyle ve 1 dakika öyle kal." },
+          { intensity: 2, text: "Partnerine kulak memesini ısır ve ne hissettirdiğini sor." },
+          // SEVİYE 3
+          { intensity: 3, text: "Partnerine 2 dakika boyunca masaj yap." },
+          { intensity: 3, text: "Partnerinle 1 dakika boyunca tutkulu öpüşün." },
+          { intensity: 3, text: "Partnerinin tişörtünü çıkar ve göğsünü/sırtını öp." },
+          { intensity: 3, text: "Partnerine lap dance yap, müzik olmadan." },
+          { intensity: 3, text: "Partnerinin kulağına en kirli fantezini fısılda." },
+          { intensity: 3, text: "Partnerinin belinin altını ama kıyafet üstünden okşa." },
+          { intensity: 3, text: "Partnerine en sevdiğin erotik anınızı anlat, detaylı." },
+          { intensity: 3, text: "Partnerinle 30 saniye boyunca sadece dil kullanarak öpüşün." },
+          // SEVİYE 4
+          { intensity: 4, text: "Partnerine striptiz yap, en az bir parça kıyafet çıkar." },
+          { intensity: 4, text: "Partnerinin vücudunda en sevdiğin 3 yeri öp." },
+          { intensity: 4, text: "Partnerinin iç çamaşırının rengini göster herkese." },
+          { intensity: 4, text: "Partnerine 1 dakika boyunca boyun ve omuz bölgesini öp/ısır." },
+          { intensity: 4, text: "Partnerinin kalçasına şaplak at." },
+          { intensity: 4, text: "Partnerinle en yakın yüzeyde 2 dakika öpüşün - duvar, masa vb." },
+          { intensity: 4, text: "Partnerinin kulaklarından dizlerine kadar bir çizgi çizerek öp." },
+          { intensity: 4, text: "Partnerine beni şu an al demesini söyle, gözlerinin içine bakarak." },
+          // SEVİYE 5
+          { intensity: 5, text: "Partnerinle birlikte selfie çekin, çok samimi bir poz olsun." },
+          { intensity: 5, text: "Partnerine en büyük fantezini canlandırarak anlat." },
+          { intensity: 5, text: "Partnerinin kıyafetlerini tamamen çıkarmadan mümkün olduğunca dokunarak tahrik et." },
+          { intensity: 5, text: "Partnerine 2 dakika boyunca gözleri kapalı beden keşfi yap." },
+          { intensity: 5, text: "Partnerinin vücudunda daha önce öpmediğin bir yeri öp." },
+          { intensity: 5, text: "Partnerine en vahşi gecemizi planla, şu an ve sesli." },
+          { intensity: 5, text: "Partnerinle 3 dakika boyunca sadece dokunarak, konuşmadan iletişim kur." },
+          { intensity: 5, text: "Partnerine şu an sana ne yapmamı istiyorsun diye sor ve yap." }
+        ],
+        
+        // 🔮 SENARYO - "Eğer X olsa ne yapardın?"
+        senaryo: [
+          { intensity: 2, text: "Eğer bir günlüğüne görünmez olsaydın, benimle ne yapardın?" },
+          { intensity: 2, text: "Eğer zamanda geriye gidebilseydin, ilişkimizde neyi değiştirirdin?" },
+          { intensity: 3, text: "Eğer bu gece istediğin her şeyi yapabilseydin, plan ne olurdu?" },
+          { intensity: 3, text: "Eğer başka bir ülkede kimsenin bizi tanımadığı bir yerde olsaydık, ne yapardın?" },
+          { intensity: 3, text: "Eğer bir gece boyunca rol yapacak olsak, sen kim ben kim olurdum?" },
+          { intensity: 4, text: "Eğer açık ilişkiye geçseydik, ilk kimi seçerdin?" },
+          { intensity: 4, text: "Eğer üçlü yapmayı kabul etseydim, üçüncü kişi kim olurdu?" },
+          { intensity: 4, text: "Eğer bir gece boyunca tam kontrol sende olsaydı, bana ne yaptırırdın?" },
+          { intensity: 5, text: "Eğer sonuçları olmayan bir gece yaşasaydık, en yasak ne yapardın?" },
+          { intensity: 5, text: "Eğer seks hayatımızı sıfırdan tasarlasaydık, nasıl olurdu?" },
+          { intensity: 3, text: "Eğer biri bize 1 milyon verse ama 1 yıl seks yapamayacaksak, kabul eder misin?" },
+          { intensity: 4, text: "Eğer eskort tutabilseydik, nasıl birini seçerdin?" },
+          { intensity: 3, text: "Eğer sadece bir pozisyonda yapabilseydik ömür boyu, hangisi olurdu?" },
+          { intensity: 4, text: "Eğer beni bir geceliğine başkasına ödünç verecek olsan, kime verirdin?" },
+          { intensity: 5, text: "Eğer fantezilerimi gerçekleştirmek için sınırsız bütçen olsaydı, ne planlardın?" }
+        ],
+        
+        // ⚖️ İKİLEM - "A mı B mi?" zor tercihler
+        ikilem: [
+          { intensity: 1, text: "Sabah seksi mi gece seksi mi?" },
+          { intensity: 1, text: "Uzun öpüşme mi yoksa kısa ama tutkulu mu?" },
+          { intensity: 2, text: "Dominant partner mi submissive partner mi?" },
+          { intensity: 2, text: "Yavaş ve romantik mi yoksa sert ve hızlı mı?" },
+          { intensity: 2, text: "Işıklar açık mı kapalı mı?" },
+          { intensity: 3, text: "Oral vermek mi almak mı?" },
+          { intensity: 3, text: "Yatakta sessizlik mi yoksa sesli mi?" },
+          { intensity: 3, text: "Sürpriz seks mi planlı seks mi?" },
+          { intensity: 3, text: "Foreplay uzun mu kısa mı?" },
+          { intensity: 4, text: "Bağlamak mı bağlanmak mı?" },
+          { intensity: 4, text: "Gözetlemek mi gözetlenmek mi?" },
+          { intensity: 4, text: "Acı vermek mi acı almak mı?" },
+          { intensity: 4, text: "Kıskançlık mı özgürlük mü?" },
+          { intensity: 5, text: "Sadakat mi özgürlük mü?" },
+          { intensity: 5, text: "Cinsel uyum mu duygusal uyum mu - birini seçmek zorundaysan?" },
+          { intensity: 3, text: "Küçük sık seks mi yoksa nadir ama uzun seanslar mı?" },
+          { intensity: 4, text: "Porno izlemek mi birlikte çekmek mi?" },
+          { intensity: 4, text: "Seks oyuncağı mı yoksa sadece beden mi?" },
+          { intensity: 5, text: "Her gün ortalama seks mi ayda bir mükemmel seks mi?" },
+          { intensity: 5, text: "Partner değişimi mi yoksa sadece izleme mi?" }
+        ],
+        
+        // 🎭 ROL YAPMA - "30 saniye boyunca X gibi davran"
+        rolyapma: [
+          { intensity: 1, text: "30 saniye boyunca ilk tanıştığınız gibi davranın ve tekrar tanışın." },
+          { intensity: 2, text: "1 dakika boyunca birbirinize aşık olduğunuzu ilk kez itiraf edin, sanki daha önce olmamış gibi." },
+          { intensity: 2, text: "Partnerine evlenme teklifi et, gerçekmiş gibi, diz çökerek." },
+          { intensity: 3, text: "30 saniye boyunca birbirinizi baştan çıkarmaya çalışan yabancılar gibi flört edin." },
+          { intensity: 3, text: "1 dakika boyunca patron-sekreter senaryosu oynayın." },
+          { intensity: 3, text: "Otel odasında ilk gece senaryosu - 1 dakika boyunca." },
+          { intensity: 4, text: "Yasak aşk senaryosu - gizlice buluşan iki kişi gibi 1 dakika." },
+          { intensity: 4, text: "Dominant/submissive rolleri deneyin - 1 dakika boyunca." },
+          { intensity: 4, text: "Striptizcı ve müşteri senaryosu - 1 dakika." },
+          { intensity: 5, text: "Yabancılar olarak tanışın ve bir gecelik ilişki teklif edin." },
+          { intensity: 5, text: "Tabu bir senaryo canlandırın - öğretmen/öğrenci veya benzer - 1 dakika." },
+          { intensity: 3, text: "Kavga edip barışma seksi senaryosu - dramatik ol." },
+          { intensity: 4, text: "Sarhoş gibi davranarak birbirinize açılın." },
+          { intensity: 4, text: "Birbirinizi kıskandıran bir senaryo oynayın." },
+          { intensity: 5, text: "En vahşi fantezinizi sanki gerçekmiş gibi anlatın ve oynayın." }
+        ],
+        
+        // 🔒 SIR KUTUSU - En ağır sorular (ikisi de kabul ederse açılır)
+        sirkutusu: [
+          { intensity: 5, text: "Şu ana kadar benden sakladığın en büyük cinsel sırrın ne?" },
+          { intensity: 5, text: "Beni aldattın mı? Gerçeği söyle, bu oda Vegas." },
+          { intensity: 5, text: "Benimle ilgili en kötü cinsel düşüncen neydi?" },
+          { intensity: 5, text: "İlişkimizde en büyük pişmanlığın - hiç söylemediğin - ne?" },
+          { intensity: 5, text: "Başka birine aşık oldun mu benimle birlikteyken?" },
+          { intensity: 5, text: "Benden nefret ettiğin bir an oldu mu? Detaylı anlat." },
+          { intensity: 5, text: "Benimle ilgili arkadaşlarına söylediğin en kötü şey ne?" },
+          { intensity: 5, text: "Bu ilişkiden ayrılmayı ciddi düşündün mü? Neden kaldın?" },
+          { intensity: 5, text: "Cinsel hayatımızda gerçekten tatmin oluyor musun? Dürüst ol." },
+          { intensity: 5, text: "Benim bedenimde hoşlanmadığın ne var? Acımasız ol." },
+          { intensity: 5, text: "Geçmişindeki en utanç verici cinsel deneyim ne?" },
+          { intensity: 5, text: "Hayatında benden sakladığın ve mezara götürecektin ama şimdi söyleyeceğin ne?" },
+          { intensity: 5, text: "Bu ilişkide en büyük yalanın hangisiydi?" },
+          { intensity: 5, text: "Benimle ilgili değiştirmek istediğin 5 şey - filtresiz." },
+          { intensity: 5, text: "Eski sevgilinle beni karşılaştır - her konuda - acımasızca." }
+        ],
+        
+        // ❤️ ÖVGÜ - Pozitif, sevgi dolu anlar
+        ovgu: [
+          { intensity: 1, text: "Partnerine 3 fiziksel özelliğini öv, gözlerinin içine bakarak." },
+          { intensity: 1, text: "Partnerine neden aşık olduğunu 5 cümleyle anlat." },
+          { intensity: 1, text: "Partnerinle ilgili en çok gurur duyduğun 3 şeyi söyle." },
+          { intensity: 2, text: "Partnerine hayatına kattığı 3 güzel değişikliği anlat." },
+          { intensity: 2, text: "Partnerine onu neden seçtiğini detaylı açıkla." },
+          { intensity: 2, text: "Partnerine onunla geçirdiğin en mutlu 3 anı anlat." },
+          { intensity: 3, text: "Partnerine yatakta en çok sevdiğin 3 özelliğini söyle." },
+          { intensity: 3, text: "Partnerine onu ne zaman en çekici bulduğunu anlat, detaylı." },
+          { intensity: 3, text: "Partnerine vücudunun en çok hangi 3 yerini sevdiğini söyle ve neden." },
+          { intensity: 4, text: "Partnerine en tutkulu anınızı anlat ve neden unutamadığını söyle." },
+          { intensity: 4, text: "Partnerine cinsel anlamda seni en çok tatmin eden özelliğini itiraf et." },
+          { intensity: 4, text: "Partnerine onunla yaşlanmak istediğini ve nedenini romantik şekilde anlat." },
+          { intensity: 5, text: "Partnerine hayatının aşkı olduğunu söyle ve bunu kanıtla." },
+          { intensity: 5, text: "Partnerine sensiz hayatı düşünemediğini anlat, dürüstçe." },
+          { intensity: 5, text: "Partnerine ona karşı hissettiğin en derin duyguyu kelimelerle ifade et." }
+        ],
+        
+        // 🔄 KARŞILIKLI - İki kişinin de cevapladığı sorular
+        karsilikli: [
+          { intensity: 2, text: "En son ne zaman birbirinizi çok özlediniz?" },
+          { intensity: 2, text: "Birbirinizde en çok neyi değiştirmek isterdiniz?" },
+          { intensity: 3, text: "Birbirinizle en iyi seksiniz ne zamandı?" },
+          { intensity: 3, text: "Birbirinizin hangi kıyafetinden nefret ediyorsunuz?" },
+          { intensity: 3, text: "Birbirinizi en çok ne zaman kıskandınız?" },
+          { intensity: 4, text: "Birbirinize söylemediğiniz bir yalan var mı?" },
+          { intensity: 4, text: "Birbirinizin arkadaş grubundan birini çekici buluyor musunuz?" },
+          { intensity: 4, text: "Birbirinize 10 üzerinden cinsel performans puanı verin." },
+          { intensity: 5, text: "Birbirinizi aldatmayı düşündüğünüz oldu mu?" },
+          { intensity: 5, text: "Birbirinizin en kötü cinsel özelliği ne?" }
+        ]
+      },
+
+      // BEKARLIĞA VEDA MODU
+      'itiraf-bekarlik': {
+        itiraf: [
+          { intensity: 1, text: "Evlenmeden önce son kez yapmak istediğin çılgınlık ne?" },
+          { intensity: 1, text: "Bekarlığında en çok neyi özleyeceksin?" },
+          { intensity: 2, text: "Eşin senden önce kaç kişiyle birlikte olmuş biliyor musun?" },
+          { intensity: 2, text: "Evlilik korkutuyor mu seni?" },
+          { intensity: 2, text: "Nişanlından gizli en büyük sırrın ne?" },
+          { intensity: 3, text: "Hiç nişanlını aldatmaya yaklaştın mı?" },
+          { intensity: 3, text: "En son ne zaman nişanlın dışında birine bakıp heyecanlandın?" },
+          { intensity: 3, text: "Bekarlık partinde neler olmalı sence?" },
+          { intensity: 3, text: "Striptizci gelirse ne yaparsın?" },
+          { intensity: 4, text: "Bu gece son gecen olsa, nasıl geçirmek istersin?" },
+          { intensity: 4, text: "Nişanlın bu partiyi görse ne der?" },
+          { intensity: 4, text: "Evlenmeden önce denemek istediğin ama cesaret edemediğin şey?" },
+          { intensity: 5, text: "Eşine asla söyleyemeyeceğin, bu partide söyleyebileceğin şey ne?" },
+          { intensity: 5, text: "Son bir kez özgür olsan ne yapardın?" },
+          { intensity: 5, text: "Evlilik hayatının gerçekten istediğin şey mi?" }
+        ],
+        cesaret: [
+          { intensity: 2, text: "Yabancı birine sarıl ve evleniyorum de!" },
+          { intensity: 3, text: "Barmenle selfie çek ve 'son gecem' yaz." },
+          { intensity: 3, text: "Eski sevgiline 'yarın evleniyorum' mesajı at." },
+          { intensity: 4, text: "Masadaki herkese birer öpücük ver." },
+          { intensity: 5, text: "En cesur dansını ortada yap." }
+        ]
+      },
+
+      // GECE GEÇ MODU (18+)
+      'itiraf-gecegec': {
+        itiraf: [
+          { intensity: 3, text: "Bu odadaki en çekici kişi kim ve neden?" },
+          { intensity: 3, text: "En garip fantezin nedir?" },
+          { intensity: 3, text: "Kaç kişiyle birlikte oldun? Dürüst ol." },
+          { intensity: 3, text: "En kötü öpüşme deneyimini anlat." },
+          { intensity: 3, text: "Hiç birine platonik aşık oldun mu? Kim?" },
+          { intensity: 4, text: "Bu odada kiminle bir gece geçirmek isterdin?" },
+          { intensity: 4, text: "En utanç verici cinsel deneyimin neydi?" },
+          { intensity: 4, text: "Üçlü denedin mi? Denemek ister misin?" },
+          { intensity: 4, text: "Hiç para karşılığı bir şeyler teklif edildi mi?" },
+          { intensity: 4, text: "En tuhaf yerde birlikte olduğun yer neresi?" },
+          { intensity: 4, text: "Hiç tanımadığın biriyle bir şeyler yaşadın mı?" },
+          { intensity: 4, text: "Seks sırasında yanlışlıkla yanlış isim söyledin mi?" },
+          { intensity: 5, text: "En sapkın fantezin nedir? Detaylı anlat." },
+          { intensity: 5, text: "Hiç kameraya çekildin mi veya çektin mi?" },
+          { intensity: 5, text: "Bu odada kimi en çok tahrik edici buluyorsun?" },
+          { intensity: 5, text: "Cinsel hayatında asla yapmam dediğin ama yaptığın şey?" },
+          { intensity: 5, text: "Eğer bu gece son gecen olsa, kiminle ve ne yapardın?" },
+          { intensity: 5, text: "Hiç aynı anda iki kişiyle ilişkin oldu mu?" },
+          { intensity: 5, text: "Buradaki birinin partnerini/eşini çekici buluyor musun?" },
+          { intensity: 5, text: "En büyük cinsel sırrını şimdi söyle." }
+        ],
+        cesaret: [
+          { intensity: 3, text: "Birine 30 saniye boyunca bakarak flört et." },
+          { intensity: 3, text: "En seksi yürüyüşünü yap." },
+          { intensity: 4, text: "Birinin boynunu öp." },
+          { intensity: 4, text: "Birinin kulağına en kirli fantezini fısılda." },
+          { intensity: 5, text: "Birinin kucağına otur ve 1 dakika kal." },
+          { intensity: 5, text: "İç çamaşırının rengini göster." }
+        ]
+      },
+
       // İTİRAF HANGOVER
       'itiraf-hangover': {
         itiraf: [
@@ -2049,13 +3173,32 @@
     const avatars = ['🦊', '🦉', '🐺', '🦅', '🐆', '🦇', '🐍', '🦚', '🦢', '🐉', '🦁', '🐼'];
     const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 
+    // SEVİYE BAZLI PUAN SİSTEMİ
+    const scoreByIntensity = {
+      1: 5,   // Seviye 1: 5 puan
+      2: 10,  // Seviye 2: 10 puan
+      3: 15,  // Seviye 3: 15 puan
+      4: 25,  // Seviye 4: 25 puan
+      5: 40   // Seviye 5: 40 puan
+    };
+
     const scoreRules = {
-      complete: 5,
-      skip: -2,
       voteWinner: 15,
       truthLieCorrect: 3,
       whoamiGuess: 20
     };
+    
+    // Kartın puanını hesapla
+    function getCardScore(card) {
+      const intensity = card.intensity || 3; // varsayılan seviye 3
+      return scoreByIntensity[intensity] || 15;
+    }
+    
+    // Pas geçme cezası (kartın puanının yarısı kadar düşür)
+    function getSkipPenalty(card) {
+      const cardScore = getCardScore(card);
+      return Math.floor(cardScore / 2);
+    }
 
     // ==========================================
     // OYUN DURUMU
@@ -2075,11 +3218,20 @@
       timerInterval: null,
       isReady: false,
       gameStarted: false,
-      totalRounds: 5,
       currentRound: 0,
       // Ben Kimim özel
       whoamiCharacter: null,
-      whoamiQuestions: 0
+      whoamiQuestions: 0,
+      // Doğru/Yalan oylama
+      truthLieVotes: {},
+      truthLieRevealed: false,
+      actualTruthLie: null,
+      // Sevgililer Modu Özel
+      couplesMode: 'normal', // 'normal', 'mutual', 'secret'
+      mutualAnswers: {}, // { playerId: 'cevap' }
+      secretAnswers: {}, // { playerId: 'cevap' }
+      secretBoxAccepted: {}, // { playerId: true/false }
+      compatibilityScore: 0
     };
 
     // ==========================================
@@ -2395,24 +3547,67 @@
     }
 
     function updateGameScreen() {
-      const roundNum = Math.min(gameState.currentRound + 1, gameState.totalRounds);
-      document.getElementById('round-indicator').textContent =
-        `${romanNumerals[roundNum - 1] || roundNum} / ${romanNumerals[gameState.totalRounds - 1]}`;
+      // Tur sayısını göster (sınırsız mod)
+      document.getElementById('round-indicator').textContent = `Tur ${gameState.currentRound}`;
 
-      const scoreboard = document.getElementById('scoreboard');
-      scoreboard.innerHTML = gameState.players.map((p, i) => `
-        <div class="score-chip ${i === gameState.currentPlayerIndex ? 'active' : ''}">
-          <span class="score-avatar">${p.avatar}</span>
-          <span class="score-points">${p.score}</span>
-        </div>
-      `).join('');
+      // Sevgililer Modu için özel butonları göster
+      const couplesModeSelector = document.getElementById('couples-mode-selector');
+      if (couplesModeSelector) {
+        const isCouplesGame = gameState.selectedGame?.id === 'itiraf-sevgililer';
+        couplesModeSelector.style.display = isCouplesGame ? 'flex' : 'none';
+      }
+
+      // Oyuncu listesini güncelle
+      const playersList = document.getElementById('players-list');
+      const currentPlayerId = gameState.players[gameState.currentPlayerIndex]?.id;
+      const game = gameState.selectedGame;
+      const showVoteStatus = game?.hasTruthLie && gameState.currentCard?.type === 'itiraf';
+      
+      // Karşılıklı veya Gizli Cevap modunda cevap durumunu göster
+      const showAnswerStatus = (gameState.couplesMode === 'mutual' || gameState.couplesMode === 'secret') && gameState.currentCard;
+      
+      playersList.innerHTML = gameState.players.map((p, i) => {
+        const isCurrentTurn = i === gameState.currentPlayerIndex;
+        const isHostPlayer = i === 0;
+        const hasVoted = gameState.truthLieVotes && gameState.truthLieVotes[p.id];
+        const isCardHolder = p.id === currentPlayerId && gameState.currentCard;
+        
+        let statusHtml = '';
+        if (showVoteStatus && !isCardHolder) {
+          if (hasVoted) {
+            statusHtml = '<span class="player-vote-status voted">✓ Oy verdi</span>';
+          } else if (gameState.currentCard) {
+            statusHtml = '<span class="player-vote-status waiting">⏳ Bekliyor</span>';
+          }
+        } else if (showAnswerStatus) {
+          const hasAnswered = gameState.couplesMode === 'mutual' 
+            ? gameState.mutualAnswers[p.id] 
+            : gameState.secretAnswers[p.id];
+          if (hasAnswered) {
+            statusHtml = '<span class="player-vote-status voted">✓ Cevapladı</span>';
+          } else {
+            statusHtml = '<span class="player-vote-status waiting">⏳ Yazıyor</span>';
+          }
+        }
+        
+        return `
+          <div class="player-row ${isCurrentTurn ? 'current-turn' : ''} ${isHostPlayer ? 'is-host' : ''}">
+            <div class="player-info">
+              <span class="player-avatar-lg">${p.avatar}</span>
+              <span class="player-name">${p.name}${p.id === gameState.playerId ? ' (Sen)' : ''}</span>
+              ${statusHtml}
+            </div>
+            <span class="player-score">${p.score}</span>
+          </div>
+        `;
+      }).join('');
 
       const current = gameState.players[gameState.currentPlayerIndex];
-      const isMyTurn = current.id === gameState.playerId;
+      const isMyTurn = current?.id === gameState.playerId;
 
       document.getElementById('turn-indicator').innerHTML = `
-        <div class="turn-avatar">${current.avatar}</div>
-        <div class="turn-text">${isMyTurn ? 'Senin sıran' : current.name + ' oynuyor'}</div>
+        <div class="turn-avatar">${current?.avatar || '🎭'}</div>
+        <div class="turn-text">${isMyTurn ? 'Senin sıran' : (current?.name || '') + ' oynuyor'}</div>
       `;
 
       const drawBtn = document.getElementById('draw-btn');
@@ -2422,6 +3617,497 @@
       }
 
       document.getElementById('reactions-bar').style.display = gameState.currentCard ? 'flex' : 'none';
+      
+      // Host için "Oyunu Bitir" butonu
+      updateEndGameButton();
+    }
+    
+    function updateEndGameButton() {
+      const endBtn = document.getElementById('end-game-btn');
+      
+      if (endBtn) {
+        // Host ise butonu göster, değilse gizle
+        endBtn.style.display = gameState.isHost ? 'block' : 'none';
+      }
+    }
+    
+    function confirmEndGame() {
+      if (confirm('Oyunu bitirmek istediğine emin misin? Tüm oyuncular sonuç ekranına yönlendirilecek.')) {
+        endGame();
+      }
+    }
+
+    // ==========================================
+    // SEVGİLİLER MODU FONKSİYONLARI
+    // ==========================================
+    
+    function setCouplesMode(mode) {
+      gameState.couplesMode = mode;
+      
+      // Butonları güncelle
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`mode-${mode}`)?.classList.add('active');
+      
+      saveRoomToStorage();
+    }
+    
+    function drawCouplesCard() {
+      const cards = CARDS['itiraf-sevgililer'];
+      const selectedIntensities = gameState.settings.intensities || [1, 2, 3, 4, 5];
+      
+      // Kart tiplerini belirle
+      const cardTypes = ['itiraf', 'cesaret', 'senaryo', 'ikilem', 'rolyapma', 'sirkutusu', 'ovgu', 'karsilikli'];
+      
+      // Moda göre uygun tipi seç
+      let availableTypes = ['itiraf', 'cesaret', 'senaryo', 'ikilem', 'rolyapma', 'ovgu'];
+      
+      // Karşılıklı modda karsilikli kartları da ekle
+      if (gameState.couplesMode === 'mutual') {
+        availableTypes.push('karsilikli');
+      }
+      
+      // %15 ihtimalle sır kutusu
+      if (Math.random() < 0.15) {
+        availableTypes = ['sirkutusu'];
+      }
+      
+      // Rastgele tip seç
+      const selectedType = availableTypes[Math.floor(Math.random() * availableTypes.length)];
+      const typeCards = cards[selectedType] || [];
+      
+      // Seviyeye göre filtrele
+      let filteredCards = typeCards.filter(c => {
+        const cardIntensity = c.intensity || 3;
+        return selectedIntensities.includes(cardIntensity);
+      });
+      
+      // Kullanılmamış kartları filtrele
+      filteredCards = filteredCards.filter(c => !gameState.usedCardIds.includes(c.text));
+      
+      if (filteredCards.length === 0) {
+        // Fallback to itiraf
+        filteredCards = cards.itiraf.filter(c => 
+          selectedIntensities.includes(c.intensity || 3) && 
+          !gameState.usedCardIds.includes(c.text)
+        );
+      }
+      
+      if (filteredCards.length === 0) {
+        endGame();
+        return null;
+      }
+      
+      const card = { ...filteredCards[Math.floor(Math.random() * filteredCards.length)] };
+      card.type = selectedType;
+      
+      return card;
+    }
+    
+    function showCouplesCard(card) {
+      const gameArea = document.getElementById('game-area');
+      const cardScore = getCardScore(card);
+      const skipPenalty = getSkipPenalty(card);
+      
+      const typeIcons = {
+        itiraf: '💬', cesaret: '💋', senaryo: '🔮', ikilem: '⚖️',
+        rolyapma: '🎭', sirkutusu: '🔒', ovgu: '❤️', karsilikli: '🔄'
+      };
+      const typeNames = {
+        itiraf: 'İTİRAF', cesaret: 'GÖREV', senaryo: 'SENARYO', ikilem: 'İKİLEM',
+        rolyapma: 'ROL YAPMA', sirkutusu: 'SIR KUTUSU', ovgu: 'ÖVGÜ', karsilikli: 'KARŞILIKLI'
+      };
+      
+      const intensityIcons = { 1: '☕', 2: '🍷', 3: '🔥', 4: '💀', 5: '🚨' };
+      const intensity = card.intensity || 3;
+      
+      // Sır Kutusu için özel onay ekranı
+      if (card.type === 'sirkutusu' && !gameState.secretBoxAccepted[gameState.playerId]) {
+        showSecretBoxConfirm(card);
+        return;
+      }
+      
+      // Karşılıklı mod veya karsilikli kart tipi
+      if (gameState.couplesMode === 'mutual' || card.type === 'karsilikli') {
+        showMutualQuestion(card);
+        return;
+      }
+      
+      // Gizli cevap modu
+      if (gameState.couplesMode === 'secret') {
+        showSecretAnswerCard(card);
+        return;
+      }
+      
+      // Normal mod - standart kart gösterimi
+      const isPraiseCard = card.type === 'ovgu';
+      const cardClass = isPraiseCard ? 'card praise-card' : 'card';
+      
+      gameArea.innerHTML = `
+        <div class="${cardClass}" style="position: relative;">
+          <span class="card-type-badge">${typeIcons[card.type] || '🎴'}</span>
+          <div class="card-category">
+            <div class="card-category-icon">${typeIcons[card.type] || '🎴'}</div>
+            <div class="card-category-name">${typeNames[card.type] || 'KART'}</div>
+          </div>
+          <div class="card-level-badge">
+            <span class="level-icon">${intensityIcons[intensity]}</span>
+            <span class="level-name">Seviye ${intensity}</span>
+            <span class="level-points">+${cardScore} puan</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-text">${card.text}</div>
+          <div class="card-timer">
+            <div class="timer-bar">
+              <div class="timer-fill" id="timer-fill" style="width: 100%"></div>
+            </div>
+            <div class="timer-text"><span id="timer-value">60</span> saniye</div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-pass" onclick="skipCard()">Pas <span class="penalty-hint">(-${skipPenalty})</span></button>
+          <button class="btn btn-done" onclick="completeCard()">Tamamladım <span class="score-hint">(+${cardScore})</span></button>
+        </div>
+      `;
+      
+      document.getElementById('draw-btn').style.display = 'none';
+      startTimer();
+    }
+    
+    function showSecretBoxConfirm(card) {
+      const gameArea = document.getElementById('game-area');
+      
+      gameArea.innerHTML = `
+        <div class="secret-box-confirm">
+          <div class="secret-box-warning">🔒⚠️🔒</div>
+          <div class="secret-box-text">
+            <strong>SIR KUTUSU</strong><br><br>
+            Bu kart çok ağır sorular içeriyor.<br>
+            Sadece ikiniz de kabul ederseniz açılacak.<br><br>
+            <em>Hazır mısın?</em>
+          </div>
+          <div class="secret-box-buttons">
+            <button class="secret-box-btn accept" onclick="acceptSecretBox()">🔓 Kabul Et</button>
+            <button class="secret-box-btn decline" onclick="declineSecretBox()">🚫 Reddet</button>
+          </div>
+        </div>
+      `;
+    }
+    
+    function acceptSecretBox() {
+      gameState.secretBoxAccepted[gameState.playerId] = true;
+      saveRoomToStorage();
+      
+      // İki kişi de kabul etti mi kontrol et
+      const allAccepted = gameState.players.every(p => gameState.secretBoxAccepted[p.id]);
+      
+      if (allAccepted) {
+        showCouplesCard(gameState.currentCard);
+      } else {
+        const gameArea = document.getElementById('game-area');
+        gameArea.innerHTML = `
+          <div class="waiting-votes">
+            <span class="spinner">⏳</span> Partnerinin kararını bekliyorsun...
+          </div>
+        `;
+      }
+      updateGameScreen();
+    }
+    
+    function declineSecretBox() {
+      // Sır kutusu reddedildi, normal kart çek
+      gameState.secretBoxAccepted = {};
+      gameState.currentCard = null;
+      
+      const gameArea = document.getElementById('game-area');
+      gameArea.innerHTML = `
+        <div style="text-align: center; padding: 20px; color: var(--cream);">
+          <div style="font-size: 24px; margin-bottom: 12px;">🔒</div>
+          <div>Sır Kutusu reddedildi.</div>
+          <button class="btn btn-primary" style="margin-top: 16px;" onclick="drawCard()">Başka Kart Çek</button>
+        </div>
+      `;
+    }
+    
+    function showMutualQuestion(card) {
+      const gameArea = document.getElementById('game-area');
+      const cardScore = getCardScore(card);
+      
+      // Cevapları sıfırla
+      gameState.mutualAnswers = {};
+      
+      const typeIcons = { itiraf: '💬', karsilikli: '🔄' };
+      const intensity = card.intensity || 3;
+      const intensityIcons = { 1: '☕', 2: '🍷', 3: '🔥', 4: '💀', 5: '🚨' };
+      
+      gameArea.innerHTML = `
+        <div class="card" style="position: relative;">
+          <span class="card-type-badge">🔄</span>
+          <div class="card-category">
+            <div class="card-category-icon">🔄</div>
+            <div class="card-category-name">KARŞILIKLI SORU</div>
+          </div>
+          <div class="card-level-badge">
+            <span class="level-icon">${intensityIcons[intensity]}</span>
+            <span class="level-name">Seviye ${intensity}</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-text">${card.text}</div>
+        </div>
+        
+        <div class="mutual-question-panel">
+          <div class="mutual-question-title">İKİNİZ DE CEVAPLAYIN</div>
+          <div class="mutual-answers" id="mutual-answers">
+            ${gameState.players.map(p => `
+              <div class="mutual-answer-box" id="answer-box-${p.id}">
+                <div class="mutual-avatar">${p.avatar}</div>
+                <div class="mutual-status" id="status-${p.id}">Bekliyor...</div>
+                <div class="mutual-answer-text" id="answer-${p.id}">
+                  <span class="mutual-answer-hidden">?</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        
+        <div class="secret-answer-section">
+          <textarea class="secret-input" id="mutual-input" placeholder="Cevabını yaz..." rows="2"></textarea>
+          <button class="secret-submit-btn" onclick="submitMutualAnswer()">Gönder</button>
+        </div>
+      `;
+      
+      document.getElementById('draw-btn').style.display = 'none';
+    }
+    
+    function submitMutualAnswer() {
+      const input = document.getElementById('mutual-input');
+      const answer = input.value.trim();
+      
+      if (!answer) {
+        alert('Lütfen bir cevap yaz!');
+        return;
+      }
+      
+      gameState.mutualAnswers[gameState.playerId] = answer;
+      
+      // UI'ı güncelle
+      const statusEl = document.getElementById(`status-${gameState.playerId}`);
+      if (statusEl) {
+        statusEl.textContent = '✓ Cevapladı';
+        statusEl.classList.add('answered');
+      }
+      
+      // Input'u devre dışı bırak
+      input.disabled = true;
+      document.querySelector('.secret-submit-btn').disabled = true;
+      
+      saveRoomToStorage();
+      
+      // Tüm cevaplar geldi mi kontrol et
+      checkMutualAnswers();
+    }
+    
+    function checkMutualAnswers() {
+      const allAnswered = gameState.players.every(p => gameState.mutualAnswers[p.id]);
+      
+      if (allAnswered) {
+        revealMutualAnswers();
+      }
+    }
+    
+    function revealMutualAnswers() {
+      // Cevapları göster
+      gameState.players.forEach(p => {
+        const answerEl = document.getElementById(`answer-${p.id}`);
+        if (answerEl) {
+          answerEl.innerHTML = `<em>"${gameState.mutualAnswers[p.id]}"</em>`;
+        }
+      });
+      
+      // Uyum hesapla (basit kelime eşleşmesi)
+      const answers = Object.values(gameState.mutualAnswers);
+      if (answers.length >= 2) {
+        const words1 = answers[0].toLowerCase().split(/\s+/);
+        const words2 = answers[1].toLowerCase().split(/\s+/);
+        const commonWords = words1.filter(w => words2.includes(w) && w.length > 2);
+        const compatibility = Math.min(100, Math.round((commonWords.length / Math.max(words1.length, words2.length)) * 100) + 30);
+        
+        setTimeout(() => {
+          const gameArea = document.getElementById('game-area');
+          gameArea.innerHTML += `
+            <div class="compatibility-result">
+              <div class="compatibility-label">UYUM SKORU</div>
+              <div class="compatibility-score">${compatibility}%</div>
+              <div class="compatibility-verdict">
+                ${compatibility >= 70 ? '💕 Mükemmel uyum!' : compatibility >= 40 ? '💛 Farklı bakış açıları' : '🤔 İlginç farklılıklar'}
+              </div>
+              <button class="btn btn-primary" style="margin-top: 16px;" onclick="finishMutualRound()">Devam Et</button>
+            </div>
+          `;
+        }, 1000);
+      }
+    }
+    
+    function finishMutualRound() {
+      // Her iki oyuncuya da puan ver
+      const cardScore = getCardScore(gameState.currentCard);
+      gameState.players.forEach(p => {
+        p.score += Math.floor(cardScore / 2);
+      });
+      
+      showScorePopup(`+${Math.floor(cardScore / 2)}`, 'positive');
+      
+      gameState.mutualAnswers = {};
+      saveRoomToStorage();
+      nextTurn();
+    }
+    
+    function showSecretAnswerCard(card) {
+      const gameArea = document.getElementById('game-area');
+      const cardScore = getCardScore(card);
+      
+      // Cevapları sıfırla
+      gameState.secretAnswers = {};
+      
+      const intensity = card.intensity || 3;
+      const intensityIcons = { 1: '☕', 2: '🍷', 3: '🔥', 4: '💀', 5: '🚨' };
+      const typeIcons = { itiraf: '💬', cesaret: '💋', senaryo: '🔮', ikilem: '⚖️', rolyapma: '🎭', ovgu: '❤️' };
+      
+      gameArea.innerHTML = `
+        <div class="card" style="position: relative;">
+          <span class="card-type-badge">🤫</span>
+          <div class="card-category">
+            <div class="card-category-icon">🤫</div>
+            <div class="card-category-name">GİZLİ CEVAP</div>
+          </div>
+          <div class="card-level-badge">
+            <span class="level-icon">${intensityIcons[intensity]}</span>
+            <span class="level-name">Seviye ${intensity}</span>
+          </div>
+          <div class="card-divider"></div>
+          <div class="card-text">${card.text}</div>
+        </div>
+        
+        <div class="mutual-question-panel">
+          <div class="mutual-question-title">GİZLİCE CEVAPLAYIN - SONRA KARŞILAŞTIRIN</div>
+          <div class="mutual-answers" id="secret-answers">
+            ${gameState.players.map(p => `
+              <div class="mutual-answer-box" id="secret-box-${p.id}">
+                <div class="mutual-avatar">${p.avatar}</div>
+                <div class="mutual-status" id="secret-status-${p.id}">Yazıyor...</div>
+                <div class="mutual-answer-text" id="secret-answer-${p.id}">
+                  <span class="mutual-answer-hidden">🔒</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        
+        <div class="secret-answer-section">
+          <textarea class="secret-input" id="secret-input" placeholder="Cevabını gizlice yaz..." rows="2"></textarea>
+          <button class="secret-submit-btn" onclick="submitSecretAnswer()">🔒 Gizlice Gönder</button>
+        </div>
+      `;
+      
+      document.getElementById('draw-btn').style.display = 'none';
+    }
+    
+    function submitSecretAnswer() {
+      const input = document.getElementById('secret-input');
+      const answer = input.value.trim();
+      
+      if (!answer) {
+        alert('Lütfen bir cevap yaz!');
+        return;
+      }
+      
+      gameState.secretAnswers[gameState.playerId] = answer;
+      
+      // UI'ı güncelle
+      const statusEl = document.getElementById(`secret-status-${gameState.playerId}`);
+      if (statusEl) {
+        statusEl.textContent = '✓ Gönderildi';
+        statusEl.classList.add('answered');
+      }
+      
+      // Input'u devre dışı bırak
+      input.disabled = true;
+      document.querySelector('.secret-submit-btn').disabled = true;
+      document.querySelector('.secret-submit-btn').textContent = '✓ Gönderildi';
+      
+      saveRoomToStorage();
+      
+      // Tüm cevaplar geldi mi kontrol et
+      checkSecretAnswers();
+    }
+    
+    function checkSecretAnswers() {
+      const allAnswered = gameState.players.every(p => gameState.secretAnswers[p.id]);
+      
+      if (allAnswered) {
+        revealSecretAnswers();
+      }
+    }
+    
+    function revealSecretAnswers() {
+      // Dramatik reveal
+      let delay = 0;
+      gameState.players.forEach(p => {
+        setTimeout(() => {
+          const answerEl = document.getElementById(`secret-answer-${p.id}`);
+          if (answerEl) {
+            answerEl.innerHTML = `<em>"${gameState.secretAnswers[p.id]}"</em>`;
+            answerEl.style.animation = 'fadeIn 0.5s ease';
+          }
+        }, delay);
+        delay += 800;
+      });
+      
+      // Uyum hesapla
+      setTimeout(() => {
+        const answers = Object.values(gameState.secretAnswers);
+        if (answers.length >= 2) {
+          // Benzerlik analizi
+          const a1 = answers[0].toLowerCase();
+          const a2 = answers[1].toLowerCase();
+          
+          // Basit benzerlik - aynı kelimeleri say
+          const words1 = a1.split(/\s+/).filter(w => w.length > 2);
+          const words2 = a2.split(/\s+/).filter(w => w.length > 2);
+          const commonWords = words1.filter(w => words2.includes(w));
+          
+          let compatibility = Math.round((commonWords.length / Math.max(words1.length, words2.length, 1)) * 100);
+          compatibility = Math.min(100, compatibility + 25); // Base bonus
+          
+          const gameArea = document.getElementById('game-area');
+          gameArea.innerHTML += `
+            <div class="compatibility-result">
+              <div class="compatibility-label">UYUM TESTİ SONUCU</div>
+              <div class="compatibility-score">${compatibility}%</div>
+              <div class="compatibility-verdict">
+                ${compatibility >= 80 ? '🔥 İnanılmaz uyum! Aynı kafadasınız!' : 
+                  compatibility >= 60 ? '💕 Güzel uyum! Birbirinizi anlıyorsunuz.' : 
+                  compatibility >= 40 ? '💛 Farklı düşünceler, ama bu da güzel!' : 
+                  '🤔 Çok farklı cevaplar - tartışmaya açık!'}
+              </div>
+              <button class="btn btn-primary" style="margin-top: 16px;" onclick="finishSecretRound()">Devam Et</button>
+            </div>
+          `;
+        }
+      }, delay + 500);
+    }
+    
+    function finishSecretRound() {
+      // Her iki oyuncuya da puan ver
+      const cardScore = getCardScore(gameState.currentCard);
+      gameState.players.forEach(p => {
+        p.score += Math.floor(cardScore / 2);
+      });
+      
+      showScorePopup(`+${Math.floor(cardScore / 2)}`, 'positive');
+      
+      gameState.secretAnswers = {};
+      saveRoomToStorage();
+      nextTurn();
     }
 
     // ==========================================
@@ -2438,6 +4124,23 @@
 
       if (game.id === 'hangover') {
         drawHangoverCard();
+        return;
+      }
+
+      // Sevgililer Modu - özel kart çekme
+      if (game.id === 'itiraf-sevgililer') {
+        const card = drawCouplesCard();
+        if (!card) return;
+        
+        gameState.currentCard = card;
+        gameState.usedCardIds.push(card.text);
+        gameState.currentRound++;
+        gameState.timer = 60;
+        gameState.secretBoxAccepted = {};
+        
+        saveRoomToStorage();
+        showCouplesCard(card);
+        updateGameScreen();
         return;
       }
 
@@ -2488,11 +4191,23 @@
 
     function showCard(card) {
       const gameArea = document.getElementById('game-area');
-      const isMyTurn = gameState.players[gameState.currentPlayerIndex].id === gameState.playerId;
+      const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+      const isMyTurn = currentPlayer.id === gameState.playerId;
       const game = gameState.selectedGame;
+      
+      // Yeni kart çekildiğinde oylamaları sıfırla
+      gameState.truthLieVotes = {};
+      gameState.truthLieRevealed = false;
+      gameState.actualTruthLie = null;
+      
+      const cardScore = getCardScore(card);
+      const skipPenalty = getSkipPenalty(card);
 
-      const typeIcons = { itiraf: '🗣️', cesaret: '🎭', oylama: '🗳️', gorev: '🎉' };
-      const typeNames = { itiraf: 'İTİRAF', cesaret: 'CESARET', oylama: 'OYLAMA', gorev: 'GÖREV' };
+      const typeIcons = { itiraf: '🗣️', cesaret: '🎭', oylama: '🗳️', gorev: '🎉', telefon: '📱', grup: '👥', ceza: '💀', kural: '📜' };
+      const typeNames = { itiraf: 'İTİRAF', cesaret: 'CESARET', oylama: 'OYLAMA', gorev: 'GÖREV', telefon: 'TELEFON', grup: 'GRUP', ceza: 'CEZA', kural: 'KURAL' };
+      
+      const intensityIcons = { 1: '☕', 2: '🍷', 3: '🔥', 4: '💀', 5: '🚨' };
+      const intensityNames = { 1: 'Light', 2: 'Samimi', 3: 'Ateşli', 4: 'Hardcore', 5: 'Limit Yok' };
 
       let actionsHtml = '';
 
@@ -2510,31 +4225,42 @@
             </div>
           </div>
         `;
-      } else if (game.hasTruthLie && isMyTurn && card.type === 'itiraf') {
-        actionsHtml = `
-          <div class="card-actions">
-            <button class="btn btn-pass" onclick="skipCard()">Pas</button>
-            <button class="btn btn-done" onclick="completeCard()">Cevapladım</button>
-          </div>
-          <div class="truth-lie-section" style="margin-top: 16px;">
-            <div class="truth-lie-title">Diğerleri: Bu doğru mu yalan mı?</div>
-            <div class="truth-lie-buttons">
-              <div class="truth-lie-btn" onclick="voteTruthLie('truth')">
-                <div class="truth-lie-icon">✓</div>
-                <div class="truth-lie-label">Doğru</div>
-              </div>
-              <div class="truth-lie-btn" onclick="voteTruthLie('lie')">
-                <div class="truth-lie-icon">✗</div>
-                <div class="truth-lie-label">Yalan</div>
+      } else if (game.hasTruthLie && card.type === 'itiraf') {
+        // İtiraf kartı - Doğru/Yalan oylaması aktif
+        if (isMyTurn) {
+          // Kartı çeken kişi - sadece cevaplama/pas butonları
+          actionsHtml = `
+            <div class="card-actions">
+              <button class="btn btn-pass" onclick="skipCard()">Pas <span class="penalty-hint">(-${skipPenalty})</span></button>
+              <button class="btn btn-done" onclick="completeCard()">Cevapladım <span class="score-hint">(+${cardScore})</span></button>
+            </div>
+            <div class="waiting-votes" id="waiting-votes-info">
+              <span class="spinner">⏳</span> Diğer oyuncular oy veriyor...
+            </div>
+          `;
+        } else {
+          // Diğer oyuncular - Doğru/Yalan butonları
+          actionsHtml = `
+            <div class="truth-lie-section">
+              <div class="truth-lie-title">Bu doğru mu yalan mı?</div>
+              <div class="truth-lie-buttons">
+                <div class="truth-lie-btn" onclick="voteTruthLie('truth')">
+                  <div class="truth-lie-icon">✓</div>
+                  <div class="truth-lie-label">Doğru</div>
+                </div>
+                <div class="truth-lie-btn" onclick="voteTruthLie('lie')">
+                  <div class="truth-lie-icon">✗</div>
+                  <div class="truth-lie-label">Yalan</div>
+                </div>
               </div>
             </div>
-          </div>
-        `;
+          `;
+        }
       } else if (isMyTurn) {
         actionsHtml = `
           <div class="card-actions">
-            <button class="btn btn-pass" onclick="skipCard()">Pas</button>
-            <button class="btn btn-done" onclick="completeCard()">Tamamladım</button>
+            <button class="btn btn-pass" onclick="skipCard()">Pas <span class="penalty-hint">(-${skipPenalty})</span></button>
+            <button class="btn btn-done" onclick="completeCard()">Tamamladım <span class="score-hint">(+${cardScore})</span></button>
           </div>
         `;
       }
@@ -2544,6 +4270,16 @@
       if ((game.id === 'ifsa-z' || game.id === 'ifsa-klasik') && isMyTurn) {
         randomRevealHtml = `<button class="random-reveal-btn" onclick="randomReveal()">💣 Rastgele İfşa Patlat</button>`;
       }
+      
+      // Seviye göstergesi
+      const intensity = card.intensity || 3;
+      const levelBadgeHtml = `
+        <div class="card-level-badge">
+          <span class="level-icon">${intensityIcons[intensity]}</span>
+          <span class="level-name">Seviye ${intensity}</span>
+          <span class="level-points">+${cardScore} puan</span>
+        </div>
+      `;
 
       gameArea.innerHTML = `
         <div class="card">
@@ -2551,6 +4287,7 @@
             <div class="card-category-icon">${typeIcons[card.type] || '🎴'}</div>
             <div class="card-category-name">${typeNames[card.type] || 'KART'}</div>
           </div>
+          ${levelBadgeHtml}
           <div class="card-divider"></div>
           <div class="card-text">${card.text}</div>
           <div class="card-timer">
@@ -2564,8 +4301,12 @@
         ${randomRevealHtml}
       `;
 
-      document.getElementById('draw-btn').style.display = 'none';
+      const drawBtn = document.getElementById('draw-btn');
+      if (drawBtn) drawBtn.style.display = 'none';
       document.getElementById('reactions-bar').style.display = 'flex';
+      
+      // Oyuncu listesini güncelle (oy durumlarını göstermek için)
+      updateGameScreen();
 
       startTimer();
     }
@@ -2769,9 +4510,125 @@
     }
 
     function voteTruthLie(vote) {
+      // Kartı çeken kişi oy veremez
+      const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+      if (currentPlayer.id === gameState.playerId) return;
+      
+      // Zaten oy verdiyse işleme
+      if (gameState.truthLieVotes[gameState.playerId]) return;
+      
+      // Oyu kaydet
+      gameState.truthLieVotes[gameState.playerId] = vote;
+      
+      // Butonları güncelle
       document.querySelectorAll('.truth-lie-btn').forEach(btn => {
-        btn.classList.toggle('selected', btn.onclick.toString().includes(vote));
+        const isSelected = btn.onclick.toString().includes(vote);
+        btn.classList.toggle('selected', isSelected);
+        btn.style.pointerEvents = 'none'; // Tekrar oy vermeyi engelle
+        btn.style.opacity = isSelected ? '1' : '0.4';
       });
+      
+      saveRoomToStorage();
+      updateGameScreen();
+      
+      // Tüm oylar toplandı mı kontrol et
+      checkAllVotesCollected();
+    }
+    
+    function checkAllVotesCollected() {
+      const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+      const votersNeeded = gameState.players.filter(p => p.id !== currentPlayer.id);
+      const votesCollected = Object.keys(gameState.truthLieVotes).length;
+      
+      if (votesCollected >= votersNeeded.length && votersNeeded.length > 0) {
+        // Tüm oylar toplandı - sonuçları göster
+        showVotingResults();
+      }
+    }
+    
+    function showVotingResults() {
+      const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+      const truthVoters = [];
+      const lieVoters = [];
+      
+      // Oyları kategorize et
+      for (const [playerId, vote] of Object.entries(gameState.truthLieVotes)) {
+        const player = gameState.players.find(p => p.id === playerId);
+        if (player) {
+          if (vote === 'truth') {
+            truthVoters.push(player);
+          } else {
+            lieVoters.push(player);
+          }
+        }
+      }
+      
+      // Sonuç panelini oluştur
+      const resultsHtml = `
+        <div class="voting-results-panel">
+          <div class="voting-results-title">📊 Oylama Sonuçları</div>
+          <div class="voting-results-grid">
+            <div class="voting-result-group">
+              <div class="voting-result-label truth">✓ DOĞRU (${truthVoters.length})</div>
+              <div class="voting-result-avatars">
+                ${truthVoters.map(p => `<span class="vote-avatar" title="${p.name}">${p.avatar}</span>`).join('')}
+                ${truthVoters.length === 0 ? '<span style="color: rgba(255,255,255,0.3)">-</span>' : ''}
+              </div>
+            </div>
+            <div class="voting-result-group">
+              <div class="voting-result-label lie">✗ YALAN (${lieVoters.length})</div>
+              <div class="voting-result-avatars">
+                ${lieVoters.map(p => `<span class="vote-avatar" title="${p.name}">${p.avatar}</span>`).join('')}
+                ${lieVoters.length === 0 ? '<span style="color: rgba(255,255,255,0.3)">-</span>' : ''}
+              </div>
+            </div>
+          </div>
+          <div class="voting-verdict">
+            ${truthVoters.length > lieVoters.length ? '🤔 Çoğunluk DOĞRU diyor!' : 
+              lieVoters.length > truthVoters.length ? '🧐 Çoğunluk YALAN diyor!' : 
+              '⚖️ Oylar eşit!'}
+          </div>
+          <div style="text-align: center; margin-top: 16px;">
+            <button class="btn btn-primary" onclick="finishTruthLieRound()">Devam Et</button>
+          </div>
+        </div>
+      `;
+      
+      // Mevcut kart aksiyonlarının altına ekle
+      const gameArea = document.getElementById('game-area');
+      const existingResults = gameArea.querySelector('.voting-results-panel');
+      if (existingResults) existingResults.remove();
+      
+      gameArea.insertAdjacentHTML('beforeend', resultsHtml);
+      
+      // Timer'ı durdur
+      clearInterval(gameState.timerInterval);
+    }
+    
+    function finishTruthLieRound() {
+      // Kartı çeken oyuncuya puan ver
+      const player = gameState.players[gameState.currentPlayerIndex];
+      const cardScore = getCardScore(gameState.currentCard);
+      player.score += cardScore;
+      
+      showScorePopup(`+${cardScore}`, 'positive');
+      
+      // Doğru tahmin edenlere bonus puan (opsiyonel - şimdilik kapalı)
+      // const correctVote = gameState.actualTruthLie;
+      // for (const [playerId, vote] of Object.entries(gameState.truthLieVotes)) {
+      //   if (vote === correctVote) {
+      //     const voter = gameState.players.find(p => p.id === playerId);
+      //     if (voter) voter.score += scoreRules.truthLieCorrect;
+      //   }
+      // }
+      
+      // Oylamayı sıfırla
+      gameState.truthLieVotes = {};
+      gameState.truthLieRevealed = false;
+      gameState.actualTruthLie = null;
+      
+      saveRoomToStorage();
+      nextTurn();
     }
 
     // ==========================================
@@ -2805,7 +4662,11 @@
       clearInterval(gameState.timerInterval);
 
       const player = gameState.players[gameState.currentPlayerIndex];
-      player.score += scoreRules.complete;
+      const cardScore = getCardScore(gameState.currentCard);
+      player.score += cardScore;
+      
+      // Kazanılan puanı göster
+      showScorePopup(`+${cardScore}`, 'positive');
 
       saveRoomToStorage();
       nextTurn();
@@ -2816,10 +4677,22 @@
       clearInterval(gameState.timerInterval);
 
       const player = gameState.players[gameState.currentPlayerIndex];
-      player.score = Math.max(0, player.score + scoreRules.skip);
+      const penalty = getSkipPenalty(gameState.currentCard || { intensity: 3 });
+      player.score = Math.max(0, player.score - penalty);
+      
+      // Kaybedilen puanı göster
+      showScorePopup(`-${penalty}`, 'negative');
 
       saveRoomToStorage();
       nextTurn();
+    }
+    
+    function showScorePopup(text, type) {
+      const popup = document.createElement('div');
+      popup.className = `score-popup ${type}`;
+      popup.textContent = text;
+      document.body.appendChild(popup);
+      setTimeout(() => popup.remove(), 1500);
     }
 
     function nextTurn() {
@@ -2829,11 +4702,8 @@
 
       saveRoomToStorage();
 
-      if (gameState.currentRound >= gameState.totalRounds * gameState.players.length) {
-        endGame();
-        return;
-      }
-
+      // Oyun bitiş kontrolünü kaldırdık - artık host karar verecek
+      
       document.getElementById('game-area').innerHTML = `
         <button class="draw-button" id="draw-btn" onclick="drawCard()">
           <div class="draw-content">
