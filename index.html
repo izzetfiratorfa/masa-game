@@ -2404,92 +2404,44 @@
     /* AUTH SYSTEM */
     /* ===================== */
     /* ═══════════════════════════════════════════════════════════ */
-    /* AUTH SİSTEMİ - MODERN TASARIM                              */
+    /* AUTH SİSTEMİ - MİNİMAL                                     */
     /* ═══════════════════════════════════════════════════════════ */
     
     .auth-container {
       width: 100%;
-      max-width: 360px;
+      max-width: 280px;
       margin: 0 auto;
       padding: 0 20px;
     }
     
-    .auth-form {
-      animation: fadeIn 0.4s var(--ease-smooth);
-    }
-    
-    .auth-title {
-      font-family: var(--font-display);
-      font-size: calc(28px * var(--font-scale));
-      color: var(--gold);
-      text-align: center;
-      margin-bottom: 8px;
-    }
-    
-    .auth-subtitle {
-      font-size: 13px;
-      color: rgba(245, 240, 232, 0.5);
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    
-    /* Form grup */
     .auth-field {
-      margin-bottom: 20px;
-    }
-    
-    .auth-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
     }
     
     .auth-input {
       width: 100%;
-      padding: 14px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(201, 169, 89, 0.2);
-      border-radius: 8px;
+      padding: 14px 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(201, 169, 89, 0.3);
       color: var(--cream);
       font-family: var(--font-body);
-      font-size: 15px;
-      transition: all 0.2s;
+      font-size: 16px;
+      text-align: center;
+      transition: border-color 0.2s;
       box-sizing: border-box;
     }
     
     .auth-input:focus {
       outline: none;
-      border-color: var(--gold);
-      background: rgba(201, 169, 89, 0.08);
-      box-shadow: 0 0 0 3px rgba(201, 169, 89, 0.1);
+      border-bottom-color: var(--gold);
     }
     
     .auth-input::placeholder {
       color: rgba(245, 240, 232, 0.3);
     }
     
-    .auth-input.error {
-      border-color: #ef4444;
-      animation: shake 0.4s ease-out;
-    }
-    
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-6px); }
-      40%, 80% { transform: translateX(6px); }
-    }
-    
-    .auth-hint {
-      font-size: 11px;
-      color: rgba(245, 240, 232, 0.4);
-      margin-top: 6px;
-    }
-    
-    /* PIN girişi */
+    /* PIN */
     .pin-container {
       display: flex;
       gap: 12px;
@@ -2497,15 +2449,14 @@
     }
     
     .pin-input {
-      width: 56px;
-      height: 64px;
+      width: 48px;
+      height: 56px;
       text-align: center;
-      font-size: 24px;
-      font-weight: 700;
-      font-family: var(--font-body);
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(201, 169, 89, 0.2);
-      border-radius: 12px;
+      font-size: 20px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(201, 169, 89, 0.2);
+      border-radius: 8px;
       color: var(--gold);
       transition: all 0.2s;
     }
@@ -2514,87 +2465,59 @@
       outline: none;
       border-color: var(--gold);
       background: rgba(201, 169, 89, 0.1);
-      transform: scale(1.05);
     }
     
     .pin-input.filled {
       border-color: var(--gold);
-      background: rgba(201, 169, 89, 0.15);
+      background: rgba(201, 169, 89, 0.1);
     }
     
-    /* Avatar seçici - kaydırılabilir */
-    .avatar-scroll-container {
-      position: relative;
-      margin: 12px -20px 0;
-      padding: 0 20px;
+    .pin-input::placeholder {
+      color: rgba(201, 169, 89, 0.3);
     }
     
-    .avatar-scroll {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 12px 4px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    
-    .avatar-scroll::-webkit-scrollbar {
-      display: none;
-    }
-    
-    .avatar-option {
-      flex-shrink: 0;
-      width: 52px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      background: var(--black-lighter);
-      border: 2px solid rgba(201, 169, 89, 0.15);
-      border-radius: 50%;
+    /* Buton */
+    .auth-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--gold);
+      border: none;
+      color: var(--black);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
-      scroll-snap-align: center;
+      margin-top: 8px;
     }
     
-    .avatar-option:hover {
-      border-color: rgba(201, 169, 89, 0.5);
-      transform: scale(1.08);
+    .auth-btn:active {
+      transform: scale(0.98);
     }
     
-    .avatar-option.selected {
-      border-color: var(--gold);
-      background: rgba(201, 169, 89, 0.2);
-      transform: scale(1.15);
-      box-shadow: 0 0 20px rgba(201, 169, 89, 0.3);
-    }
-    
-    .avatar-selected-preview {
+    /* Link */
+    .auth-switch {
       text-align: center;
-      margin-bottom: 8px;
+      margin-top: 24px;
     }
     
-    .avatar-selected-preview .preview-avatar {
-      font-size: 56px;
-      display: block;
-      margin-bottom: 4px;
-    }
-    
-    .avatar-selected-preview .preview-label {
-      font-size: 11px;
+    .auth-switch a {
       color: rgba(245, 240, 232, 0.5);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
     }
     
-    /* Error mesajı */
+    .auth-switch a:hover {
+      color: var(--gold);
+    }
+    
+    /* Error */
     .auth-error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.4);
-      border-radius: 8px;
+      background: rgba(239, 68, 68, 0.1);
       color: #f87171;
-      padding: 12px 14px;
-      font-size: 13px;
+      padding: 10px;
+      font-size: 12px;
       text-align: center;
       margin-bottom: 16px;
       display: none;
@@ -2602,117 +2525,128 @@
     
     .auth-error.visible {
       display: block;
-      animation: fadeIn 0.3s ease-out;
     }
     
-    /* Ana buton */
-    .auth-btn {
+    /* ═══════════════════════════════════════════════════════════ */
+    /* REGISTER MODAL                                              */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .auth-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .auth-modal.active {
+      display: flex;
+    }
+    
+    .auth-modal-content {
       width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      max-width: 300px;
+      position: relative;
+      animation: modalSlideUp 0.3s ease-out;
+    }
+    
+    @keyframes modalSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .auth-modal-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
       border: none;
-      border-radius: 10px;
-      color: var(--black);
-      font-family: var(--font-body);
-      font-size: 15px;
-      font-weight: 700;
+      color: rgba(245, 240, 232, 0.5);
+      font-size: 24px;
       cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 8px;
+      padding: 8px;
     }
     
-    .auth-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(201, 169, 89, 0.3);
-    }
-    
-    .auth-btn:active {
-      transform: translateY(0);
-    }
-    
-    .auth-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-    
-    /* Form geçişi */
-    .auth-switch {
-      text-align: center;
-      margin-top: 24px;
-      font-size: 14px;
-      color: rgba(245, 240, 232, 0.6);
-    }
-    
-    .auth-switch a {
+    .auth-modal-title {
+      font-family: var(--font-display);
+      font-size: 24px;
       color: var(--gold);
-      text-decoration: none;
-      font-weight: 600;
-      margin-left: 4px;
+      text-align: center;
+      margin-bottom: 28px;
     }
     
-    .auth-switch a:hover {
-      text-decoration: underline;
+    /* Avatar row - tek satır */
+    .avatar-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 8px 0;
     }
     
-    /* Divider */
-    .auth-divider {
+    .avatar-option {
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
-      margin: 24px 0;
+      justify-content: center;
+      font-size: 22px;
+      background: transparent;
+      border: 2px solid rgba(201, 169, 89, 0.15);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.15s;
     }
     
-    .auth-divider::before,
-    .auth-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(201, 169, 89, 0.2);
+    .avatar-option:hover {
+      border-color: rgba(201, 169, 89, 0.4);
     }
     
-    .auth-divider span {
-      padding: 0 16px;
-      font-size: 12px;
-      color: rgba(245, 240, 232, 0.4);
+    .avatar-option.selected {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.15);
+      transform: scale(1.15);
     }
     
-    /* Kullanıcı hoş geldin */
+    /* User welcome */
     .user-welcome {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
       margin-bottom: 24px;
-      padding: 14px 20px;
+      padding: 12px 20px;
       background: rgba(201, 169, 89, 0.08);
-      border: 1px solid rgba(201, 169, 89, 0.2);
-      border-radius: 12px;
+      border: 1px solid rgba(201, 169, 89, 0.15);
     }
     
     .user-avatar {
-      font-size: 32px;
+      font-size: 28px;
     }
     
     .user-name {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--cream);
-      font-weight: 500;
     }
     
     .logout-btn {
       background: transparent;
-      border: 1px solid rgba(239, 68, 68, 0.4);
+      border: 1px solid rgba(239, 68, 68, 0.3);
       color: #f87171;
-      padding: 6px 12px;
-      font-size: 11px;
-      font-weight: 600;
-      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 10px;
       cursor: pointer;
       transition: all 0.2s;
     }
     
     .logout-btn:hover {
-      background: rgba(239, 68, 68, 0.15);
+      background: rgba(239, 68, 68, 0.1);
     }
 
     /* ═══════════════════════════════════════════════════════════ */
@@ -5174,7 +5108,7 @@
       <p class="footer-note">Sadece davetliler için</p>
     </div>
 
-    <!-- AUTH SCREEN - Giriş/Kayıt -->
+    <!-- AUTH SCREEN - Sadece Giriş -->
     <div id="auth-screen" class="screen entrance active">
       <div class="emblem">
         <div class="emblem-ring"></div>
@@ -5189,83 +5123,60 @@
         <p class="brand-tagline">İç Çember Oyunları</p>
       </div>
       
-      <!-- Auth Form Container -->
-      <div class="auth-container" id="auth-container">
-        <!-- Login Form -->
-        <div class="auth-form" id="login-form">
-          <h2 class="auth-title">Hoş Geldin</h2>
-          <p class="auth-subtitle">Hesabınla giriş yap</p>
-          
-          <div class="auth-error" id="login-error"></div>
-          
-          <div class="auth-field">
-            <label class="auth-label">Kullanıcı Adı</label>
-            <input type="text" id="login-username" class="auth-input" placeholder="kullaniciadi" maxlength="20" autocomplete="username">
-          </div>
-          
-          <div class="auth-field">
-            <label class="auth-label">PIN</label>
-            <div class="pin-container">
-              <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="0" autocomplete="off">
-              <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="1" autocomplete="off">
-              <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="2" autocomplete="off">
-              <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="3" autocomplete="off">
-            </div>
-          </div>
-          
-          <button class="auth-btn" onclick="AuthSystem.login()">Giriş Yap</button>
-          
-          <div class="auth-switch">
-            Hesabın yok mu?<a href="#" onclick="AuthSystem.showRegister(); return false;">Kayıt Ol</a>
+      <div class="auth-container">
+        <div class="auth-error" id="login-error"></div>
+        
+        <div class="auth-field">
+          <input type="text" id="login-username" class="auth-input" placeholder="Kullanıcı adı" maxlength="20" autocomplete="username">
+        </div>
+        
+        <div class="auth-field">
+          <div class="pin-container">
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="0" placeholder="•">
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="1" placeholder="•">
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="2" placeholder="•">
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="3" placeholder="•">
           </div>
         </div>
         
-        <!-- Register Form -->
-        <div class="auth-form" id="register-form" style="display: none;">
-          <h2 class="auth-title">Aramıza Katıl</h2>
-          <p class="auth-subtitle">Hızlıca hesap oluştur</p>
-          
-          <div class="auth-error" id="register-error"></div>
-          
-          <div class="auth-field">
-            <label class="auth-label">Kullanıcı Adı</label>
-            <input type="text" id="register-username" class="auth-input" placeholder="takmaadin" maxlength="20" autocomplete="username">
-            <div class="auth-hint">3-20 karakter, harf, rakam ve alt çizgi</div>
-          </div>
-          
-          <div class="auth-field">
-            <label class="auth-label">4 Haneli PIN</label>
-            <div class="pin-container" id="register-pin-container">
-              <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="0" autocomplete="off">
-              <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="1" autocomplete="off">
-              <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="2" autocomplete="off">
-              <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-pin="3" autocomplete="off">
-            </div>
-            <div class="auth-hint">Kolay hatırlayacağın bir PIN seç</div>
-          </div>
-          
-          <div class="auth-field">
-            <label class="auth-label">Avatar</label>
-            <div class="avatar-selected-preview" id="avatar-preview">
-              <span class="preview-avatar" id="preview-emoji">😊</span>
-              <span class="preview-label">Kaydırarak seç</span>
-            </div>
-            <div class="avatar-scroll-container">
-              <div class="avatar-scroll" id="register-avatar-picker">
-                <!-- Dinamik -->
-              </div>
-            </div>
-          </div>
-          
-          <button class="auth-btn" onclick="AuthSystem.register()">Hesap Oluştur</button>
-          
-          <div class="auth-switch">
-            Zaten hesabın var mı?<a href="#" onclick="AuthSystem.showLogin(); return false;">Giriş Yap</a>
-          </div>
+        <button class="auth-btn" onclick="AuthSystem.login()">Giriş</button>
+        
+        <div class="auth-switch">
+          <a href="#" onclick="AuthSystem.showRegister(); return false;">Hesap Oluştur</a>
         </div>
       </div>
       
       <p class="footer-note">Veriler cihazında saklanır</p>
+    </div>
+    
+    <!-- REGISTER MODAL -->
+    <div id="register-modal" class="auth-modal">
+      <div class="auth-modal-content">
+        <button class="auth-modal-close" onclick="AuthSystem.closeRegister()">✕</button>
+        
+        <h2 class="auth-modal-title">Hesap Oluştur</h2>
+        
+        <div class="auth-error" id="register-error"></div>
+        
+        <div class="auth-field">
+          <input type="text" id="register-username" class="auth-input" placeholder="Kullanıcı adı" maxlength="20" autocomplete="off">
+        </div>
+        
+        <div class="auth-field">
+          <div class="pin-container" id="register-pin-container">
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-input" placeholder="•">
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-input" placeholder="•">
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-input" placeholder="•">
+            <input type="password" inputmode="numeric" maxlength="1" class="pin-input" placeholder="•">
+          </div>
+        </div>
+        
+        <div class="auth-field">
+          <div class="avatar-row" id="register-avatar-picker"></div>
+        </div>
+        
+        <button class="auth-btn" onclick="AuthSystem.register()">Oluştur</button>
+      </div>
     </div>
 
     <!-- GAME SELECTION SCREEN -->
@@ -8521,10 +8432,8 @@
       selectedAvatar: '😊',
       
       init() {
-        // PIN input handlers
         this.initPinInputs();
         
-        // Mevcut oturumu kontrol et
         const session = localStorage.getItem('masa_session');
         if (session) {
           try {
@@ -8540,13 +8449,10 @@
       },
 
       initPinInputs() {
-        // Tüm PIN inputları için event listener
         document.querySelectorAll('.pin-input').forEach(input => {
           input.addEventListener('input', (e) => {
-            const value = e.target.value;
-            if (value.length === 1) {
+            if (e.target.value.length === 1) {
               e.target.classList.add('filled');
-              // Sonraki input'a geç
               const next = e.target.nextElementSibling;
               if (next && next.classList.contains('pin-input')) {
                 next.focus();
@@ -8557,7 +8463,6 @@
           input.addEventListener('keydown', (e) => {
             if (e.key === 'Backspace' && !e.target.value) {
               e.target.classList.remove('filled');
-              // Önceki input'a geç
               const prev = e.target.previousElementSibling;
               if (prev && prev.classList.contains('pin-input')) {
                 prev.focus();
@@ -8567,92 +8472,72 @@
             }
           });
           
-          // Sadece rakam
           input.addEventListener('keypress', (e) => {
-            if (!/[0-9]/.test(e.key)) {
-              e.preventDefault();
-            }
+            if (!/[0-9]/.test(e.key)) e.preventDefault();
           });
         });
       },
 
-      showLogin() {
-        document.getElementById('login-form').style.display = 'block';
-        document.getElementById('register-form').style.display = 'none';
-        // PIN'leri temizle
-        document.querySelectorAll('#login-form .pin-input').forEach(input => {
-          input.value = '';
-          input.classList.remove('filled');
-        });
-        document.getElementById('login-username').focus();
+      showRegister() {
+        const modal = document.getElementById('register-modal');
+        modal.classList.add('active');
+        this.initAvatarPicker();
+        this.clearPins('register-pin-container');
+        document.getElementById('register-username').value = '';
+        document.getElementById('register-username').focus();
+        HapticFeedback.light();
       },
 
-      showRegister() {
-        document.getElementById('login-form').style.display = 'none';
-        document.getElementById('register-form').style.display = 'block';
-        this.initAvatarPicker();
-        // PIN'leri temizle
-        document.querySelectorAll('#register-form .pin-input').forEach(input => {
-          input.value = '';
-          input.classList.remove('filled');
-        });
-        document.getElementById('register-username').focus();
+      closeRegister() {
+        document.getElementById('register-modal').classList.remove('active');
       },
 
       initAvatarPicker() {
-        const avatars = ['😊', '😎', '🤩', '😈', '🥳', '🤓', '🧐', '🤠', '👻', '🦊', '🐱', '🦁', '🐯', '🐼', '🐨', '🐵', '🎭', '🌟', '💎', '🔥', '⚡', '🌈', '🎮', '🎲'];
+        const avatars = ['😊', '😎', '🤩', '🥳', '🤓', '🦊', '🐱', '🦁', '🔥', '⚡', '💎', '🎮'];
         const picker = document.getElementById('register-avatar-picker');
         if (!picker) return;
         
         picker.innerHTML = avatars.map((a, i) => `
-          <div class="avatar-option ${i === 0 ? 'selected' : ''}" data-avatar="${a}" onclick="AuthSystem.selectAvatar(this, '${a}')">
-            ${a}
-          </div>
+          <div class="avatar-option ${i === 0 ? 'selected' : ''}" onclick="AuthSystem.selectAvatar(this, '${a}')">${a}</div>
         `).join('');
         
         this.selectedAvatar = avatars[0];
-        this.updateAvatarPreview(avatars[0]);
       },
 
       selectAvatar(el, avatar) {
         document.querySelectorAll('#register-avatar-picker .avatar-option').forEach(opt => opt.classList.remove('selected'));
         el.classList.add('selected');
         this.selectedAvatar = avatar;
-        this.updateAvatarPreview(avatar);
         HapticFeedback.light();
-        
-        // Scroll to center
-        el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
       },
 
-      updateAvatarPreview(avatar) {
-        const preview = document.getElementById('preview-emoji');
-        if (preview) {
-          preview.textContent = avatar;
-        }
-      },
-
-      getPin(formId) {
-        const pins = document.querySelectorAll(`#${formId} .pin-input`);
+      getPin(containerId) {
+        const container = document.getElementById(containerId) || document.querySelector(`#auth-screen .pin-container`);
+        const pins = container ? container.querySelectorAll('.pin-input') : document.querySelectorAll('#auth-screen .pin-input');
         return Array.from(pins).map(p => p.value).join('');
+      },
+
+      clearPins(containerId) {
+        const container = document.getElementById(containerId);
+        if (container) {
+          container.querySelectorAll('.pin-input').forEach(input => {
+            input.value = '';
+            input.classList.remove('filled');
+          });
+        }
       },
 
       register() {
         const username = document.getElementById('register-username').value.trim().toLowerCase();
-        const pin = this.getPin('register-form');
+        const pin = this.getPin('register-pin-container');
         const errorEl = document.getElementById('register-error');
         
-        // Validasyon
-        if (username.length < 3) {
-          this.showError(errorEl, 'Kullanıcı adı en az 3 karakter olmalı');
-          return;
-        }
-        if (username.length > 20) {
-          this.showError(errorEl, 'Kullanıcı adı en fazla 20 karakter olabilir');
+        if (username.length < 3 || username.length > 20) {
+          this.showError(errorEl, '3-20 karakter kullanıcı adı gir');
           return;
         }
         if (!/^[a-z0-9_]+$/.test(username)) {
-          this.showError(errorEl, 'Sadece harf, rakam ve alt çizgi kullanılabilir');
+          this.showError(errorEl, 'Sadece harf, rakam, alt çizgi');
           return;
         }
         if (pin.length !== 4) {
@@ -8660,18 +8545,16 @@
           return;
         }
         
-        // Kullanıcı var mı kontrol et
         const users = this.getUsers();
         if (users[username]) {
-          this.showError(errorEl, 'Bu kullanıcı adı zaten alınmış');
+          this.showError(errorEl, 'Bu isim alınmış');
           return;
         }
         
-        // Yeni kullanıcı oluştur
         const newUser = {
-          username: username,
+          username,
           password: this.hashPassword(pin),
-          avatar: this.selectedAvatar || '😊',
+          avatar: this.selectedAvatar,
           createdAt: Date.now(),
           id: 'user_' + Math.random().toString(36).substr(2, 9)
         };
@@ -8679,8 +8562,8 @@
         users[username] = newUser;
         localStorage.setItem('masa_users', JSON.stringify(users));
         
-        // Oturum aç
         this.createSession(newUser);
+        this.closeRegister();
         this.onLoginSuccess();
         
         HapticFeedback.success();
@@ -8689,7 +8572,7 @@
 
       login() {
         const username = document.getElementById('login-username').value.trim().toLowerCase();
-        const pin = this.getPin('login-form');
+        const pin = this.getPin('auth-screen');
         const errorEl = document.getElementById('login-error');
         
         if (!username) {
@@ -8712,19 +8595,16 @@
         if (user.password !== this.hashPassword(pin)) {
           this.showError(errorEl, 'PIN yanlış');
           HapticFeedback.error();
-          // PIN'leri temizle
-          document.querySelectorAll('#login-form .pin-input').forEach(input => {
+          document.querySelectorAll('#auth-screen .pin-input').forEach(input => {
             input.value = '';
             input.classList.remove('filled');
           });
-          document.querySelector('#login-form .pin-input').focus();
+          document.querySelector('#auth-screen .pin-input').focus();
           return;
         }
         
-        // Oturum aç
         this.createSession(user);
         this.onLoginSuccess();
-        
         HapticFeedback.success();
       },
 
@@ -8732,18 +8612,15 @@
         localStorage.removeItem('masa_session');
         this.currentUser = null;
         
-        // Auth ekranına dön
         document.getElementById('entrance-screen').classList.remove('active');
         document.getElementById('auth-screen').classList.add('active');
         document.getElementById('user-welcome').style.display = 'none';
         
-        // Formu temizle
         document.getElementById('login-username').value = '';
-        document.querySelectorAll('.pin-input').forEach(input => {
+        document.querySelectorAll('#auth-screen .pin-input').forEach(input => {
           input.value = '';
           input.classList.remove('filled');
         });
-        this.showLogin();
         
         HapticFeedback.medium();
       },
@@ -8752,7 +8629,6 @@
         this.currentUser = user;
         localStorage.setItem('masa_session', JSON.stringify(user));
         
-        // UserProfile'ı güncelle
         UserProfile.data.id = user.id;
         UserProfile.data.name = user.username;
         UserProfile.data.avatar = user.avatar;
@@ -8760,11 +8636,9 @@
       },
 
       onLoginSuccess() {
-        // Auth ekranını gizle, ana ekranı göster
         document.getElementById('auth-screen').classList.remove('active');
         document.getElementById('entrance-screen').classList.add('active');
         
-        // Hoş geldin mesajı
         const welcomeEl = document.getElementById('user-welcome');
         if (welcomeEl && this.currentUser) {
           document.getElementById('welcome-avatar').textContent = this.currentUser.avatar;
@@ -8772,11 +8646,9 @@
           welcomeEl.style.display = 'flex';
         }
         
-        // UserProfile'ı yükle
         UserProfile.data.name = this.currentUser.username;
         UserProfile.data.avatar = this.currentUser.avatar;
         
-        // Onboarding'i göster (ilk kez girişse)
         setTimeout(() => Onboarding.show(), 500);
       },
 
