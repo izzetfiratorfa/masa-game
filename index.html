@@ -2401,6 +2401,924 @@
     }
 
     /* ===================== */
+    /* AUTH SYSTEM */
+    /* ===================== */
+    .auth-container {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .auth-form {
+      animation: fadeIn 0.4s var(--ease-smooth);
+    }
+    .auth-title {
+      font-family: var(--font-display);
+      font-size: calc(24px * var(--font-scale));
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .auth-error {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #ef4444;
+      padding: 12px;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 12px;
+    }
+    .auth-switch {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: rgba(245, 240, 232, 0.6);
+    }
+    .auth-switch a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .auth-switch a:hover {
+      text-decoration: underline;
+    }
+    .form-hint {
+      font-size: 10px;
+      color: rgba(245, 240, 232, 0.4);
+      margin-top: 4px;
+    }
+    .avatar-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .avatar-option {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: var(--black-lighter);
+      border: 2px solid transparent;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .avatar-option:hover {
+      border-color: rgba(201, 169, 89, 0.5);
+      transform: scale(1.1);
+    }
+    .avatar-option.selected {
+      border-color: var(--gold);
+      background: rgba(201, 169, 89, 0.2);
+      transform: scale(1.15);
+    }
+    .user-welcome {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 12px 20px;
+      background: rgba(201, 169, 89, 0.1);
+      border: 1px solid rgba(201, 169, 89, 0.2);
+    }
+    .user-avatar {
+      font-size: 28px;
+    }
+    .user-name {
+      font-size: 14px;
+      color: var(--cream);
+    }
+    .logout-btn {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #ef4444;
+      padding: 4px 10px;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .logout-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    /* ═══════════════════════════════════════════════════════════ */
+    /* UX İYİLEŞTİRMELERİ - KART ANİMASYONLARI                    */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    /* Kart Giriş Animasyonu - Masadan Uçarak Gelsin */
+    @keyframes cardFlyIn {
+      0% { 
+        transform: translateY(200px) rotateX(45deg) scale(0.5); 
+        opacity: 0;
+      }
+      60% { 
+        transform: translateY(-20px) rotateX(-5deg) scale(1.05); 
+      }
+      100% { 
+        transform: translateY(0) rotateX(0) scale(1); 
+        opacity: 1;
+      }
+    }
+    .card-fly-in {
+      animation: cardFlyIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    
+    /* Seviye 5 Kart - Ateş Efekti */
+    @keyframes fireEntrance {
+      0% { 
+        transform: translateY(300px) scale(0.3); 
+        opacity: 0;
+        filter: brightness(3) saturate(2);
+      }
+      30% {
+        filter: brightness(2) saturate(1.5);
+      }
+      60% { 
+        transform: translateY(-30px) scale(1.1); 
+        filter: brightness(1.5);
+      }
+      100% { 
+        transform: translateY(0) scale(1); 
+        opacity: 1;
+        filter: brightness(1);
+      }
+    }
+    .card-fire-entrance {
+      animation: fireEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    .card-fire-entrance::before {
+      content: '';
+      position: absolute;
+      top: -20px; left: -20px; right: -20px; bottom: -20px;
+      background: radial-gradient(ellipse at center, rgba(255,107,53,0.4) 0%, transparent 70%);
+      animation: fireGlow 0.5s ease-out forwards;
+      pointer-events: none;
+      z-index: -1;
+    }
+    @keyframes fireGlow {
+      0% { opacity: 1; transform: scale(1.5); }
+      100% { opacity: 0; transform: scale(1); }
+    }
+    
+    /* Pas Geçince - Buruşup Düşsün */
+    @keyframes cardCrumple {
+      0% { transform: scale(1) rotate(0deg); opacity: 1; }
+      30% { transform: scale(0.9) rotate(-5deg) translateY(10px); }
+      60% { transform: scale(0.7) rotate(15deg) translateY(50px); opacity: 0.6; }
+      100% { transform: scale(0.3) rotate(45deg) translateY(200px); opacity: 0; }
+    }
+    .card-crumple {
+      animation: cardCrumple 0.5s ease-in forwards;
+    }
+    
+    /* Tamamlayınca - Parıldayıp Kaybolsun */
+    @keyframes cardComplete {
+      0% { transform: scale(1); filter: brightness(1); }
+      30% { transform: scale(1.1); filter: brightness(1.5); box-shadow: 0 0 40px var(--gold); }
+      60% { transform: scale(1.05) translateY(-20px); filter: brightness(2); }
+      100% { transform: scale(0.8) translateY(-100px); opacity: 0; filter: brightness(3); }
+    }
+    .card-complete {
+      animation: cardComplete 0.6s ease-out forwards;
+    }
+    
+    /* Streak Kırılınca - Cam Kırılma */
+    @keyframes streakBreak {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    .streak-break {
+      animation: streakBreak 0.4s ease-out;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* KART OKUNABİLİRLİĞİ                                        */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .card-text-auto {
+      font-size: clamp(16px, 4vw, 22px);
+      line-height: 1.5;
+    }
+    .card-text-auto.long-text {
+      font-size: clamp(14px, 3.5vw, 18px);
+    }
+    .card-text-auto.very-long-text {
+      font-size: clamp(12px, 3vw, 16px);
+    }
+    
+    /* Kritik kelimeler vurgulama */
+    .highlight-name {
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .highlight-time {
+      color: var(--timer-yellow);
+      font-weight: 700;
+      background: rgba(251, 191, 36, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .highlight-number {
+      color: var(--joker-purple);
+      font-weight: 700;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* OYUNCU SIRASI GÖRSELİ                                      */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .player-queue {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 16px 0;
+      perspective: 500px;
+    }
+    
+    .player-queue-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .player-queue-item.current {
+      transform: scale(1.3);
+      z-index: 10;
+    }
+    .player-queue-item.current .player-queue-avatar {
+      border-color: var(--gold);
+      box-shadow: 0 0 20px rgba(201, 169, 89, 0.5);
+      animation: currentPlayerPulse 2s ease-in-out infinite;
+    }
+    @keyframes currentPlayerPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(201, 169, 89, 0.5); }
+      50% { box-shadow: 0 0 35px rgba(201, 169, 89, 0.8); }
+    }
+    
+    .player-queue-item.next {
+      transform: scale(0.85);
+      opacity: 0.6;
+    }
+    .player-queue-item.far {
+      transform: scale(0.7);
+      opacity: 0.3;
+    }
+    
+    .player-queue-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--black-lighter);
+      border: 2px solid rgba(201, 169, 89, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: all 0.3s;
+    }
+    
+    .player-queue-name {
+      font-size: 10px;
+      margin-top: 4px;
+      color: rgba(245, 240, 232, 0.7);
+      max-width: 60px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .player-queue-item.current .player-queue-name {
+      color: var(--gold);
+      font-weight: 600;
+    }
+    
+    /* Sıra Sende Pulse */
+    .your-turn-indicator {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--black);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 14px;
+      animation: yourTurnPulse 1s ease-in-out infinite;
+      margin-bottom: 16px;
+    }
+    @keyframes yourTurnPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(201, 169, 89, 0.5); }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(201, 169, 89, 0.8); }
+    }
+    
+    /* Bekleyenler için bilgi */
+    .waiting-info {
+      text-align: center;
+      padding: 12px;
+      background: rgba(201, 169, 89, 0.1);
+      border: 1px solid rgba(201, 169, 89, 0.2);
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+    .waiting-info-count {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* CANLI PUAN TAHTASI                                         */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .mini-leaderboard {
+      position: fixed;
+      top: 70px;
+      right: 10px;
+      background: var(--black-light);
+      border: 1px solid rgba(201, 169, 89, 0.3);
+      border-radius: 12px;
+      padding: 0;
+      z-index: 100;
+      min-width: 140px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .mini-leaderboard.collapsed {
+      width: 44px;
+      min-width: 44px;
+      border-radius: 22px;
+    }
+    .mini-leaderboard.collapsed .mini-lb-content {
+      display: none;
+    }
+    
+    .mini-lb-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: rgba(201, 169, 89, 0.1);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .mini-lb-toggle {
+      font-size: 14px;
+      transition: transform 0.3s;
+    }
+    .mini-leaderboard.collapsed .mini-lb-toggle {
+      transform: rotate(180deg);
+    }
+    
+    .mini-lb-content {
+      padding: 8px;
+    }
+    
+    .mini-lb-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      margin-bottom: 4px;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+    .mini-lb-item:last-child { margin-bottom: 0; }
+    .mini-lb-item.first {
+      background: rgba(255, 215, 0, 0.15);
+    }
+    .mini-lb-item.last {
+      background: rgba(255, 107, 53, 0.15);
+    }
+    .mini-lb-item.score-change {
+      animation: scoreFlash 0.5s ease-out;
+    }
+    @keyframes scoreFlash {
+      0% { background: rgba(201, 169, 89, 0.4); }
+      100% { background: transparent; }
+    }
+    
+    .mini-lb-rank {
+      width: 18px;
+      font-weight: 700;
+    }
+    .mini-lb-rank.crown::before { content: '👑'; }
+    .mini-lb-rank.fire::before { content: '🔥'; }
+    
+    .mini-lb-avatar { font-size: 16px; }
+    .mini-lb-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mini-lb-score { font-weight: 700; color: var(--gold); }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* STREAK GÖRSELLİĞİ                                          */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .streak-frame {
+      position: relative;
+    }
+    .streak-frame.bronze { 
+      box-shadow: 0 0 0 3px var(--streak-bronze), 0 0 20px rgba(205, 127, 50, 0.3); 
+    }
+    .streak-frame.silver { 
+      box-shadow: 0 0 0 3px var(--streak-silver), 0 0 25px rgba(192, 192, 192, 0.4); 
+    }
+    .streak-frame.gold { 
+      box-shadow: 0 0 0 4px var(--streak-gold), 0 0 30px rgba(255, 215, 0, 0.5); 
+      animation: goldGlow 1.5s ease-in-out infinite;
+    }
+    @keyframes goldGlow {
+      0%, 100% { box-shadow: 0 0 0 4px var(--streak-gold), 0 0 30px rgba(255, 215, 0, 0.5); }
+      50% { box-shadow: 0 0 0 4px var(--streak-gold), 0 0 50px rgba(255, 215, 0, 0.8); }
+    }
+    
+    /* Ateş Partikülleri (5+ streak) */
+    .fire-particles {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .fire-particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #ff6b35 0%, #f7931e 50%, transparent 100%);
+      border-radius: 50%;
+      animation: fireFloat 1.5s ease-out infinite;
+    }
+    @keyframes fireFloat {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-60px) scale(0); opacity: 0; }
+    }
+    
+    /* Gökkuşağı Efekt (10+ streak) */
+    .rainbow-border {
+      position: relative;
+    }
+    .rainbow-border::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px; right: -4px; bottom: -4px;
+      background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff, #ff0000);
+      background-size: 400% 400%;
+      animation: rainbowMove 2s linear infinite;
+      z-index: -1;
+      border-radius: inherit;
+    }
+    @keyframes rainbowMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* CIRCULAR TIMER                                             */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .circular-timer {
+      position: relative;
+      width: 70px;
+      height: 70px;
+    }
+    .circular-timer svg {
+      transform: rotate(-90deg);
+      width: 100%;
+      height: 100%;
+    }
+    .circular-timer-bg {
+      fill: none;
+      stroke: var(--black-lighter);
+      stroke-width: 6;
+    }
+    .circular-timer-progress {
+      fill: none;
+      stroke: var(--timer-green);
+      stroke-width: 6;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear, stroke 0.3s;
+    }
+    .circular-timer.warning .circular-timer-progress {
+      stroke: var(--timer-yellow);
+    }
+    .circular-timer.danger .circular-timer-progress {
+      stroke: var(--timer-red);
+      animation: timerPulse 0.5s ease-in-out infinite;
+    }
+    @keyframes timerPulse {
+      0%, 100% { stroke-width: 6; }
+      50% { stroke-width: 8; }
+    }
+    .circular-timer.critical .circular-timer-progress {
+      stroke: var(--timer-red);
+      animation: timerCritical 0.3s ease-in-out infinite;
+    }
+    @keyframes timerCritical {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .circular-timer-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream);
+    }
+    .circular-timer.danger .circular-timer-text {
+      color: var(--timer-red);
+    }
+    
+    /* Süre Bitince Kırmızı Flash */
+    .time-up-flash {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(239, 68, 68, 0.3);
+      pointer-events: none;
+      animation: timeUpFlash 0.3s ease-out forwards;
+      z-index: 9999;
+    }
+    @keyframes timeUpFlash {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* BAŞLANGIÇ SEREMONİSİ                                       */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .game-start-ceremony {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+    
+    .countdown-number {
+      font-family: var(--font-display);
+      font-size: 120px;
+      font-weight: 700;
+      color: var(--gold);
+      text-shadow: 0 0 50px rgba(201, 169, 89, 0.5);
+      animation: countdownPop 0.8s ease-out;
+    }
+    @keyframes countdownPop {
+      0% { transform: scale(3); opacity: 0; }
+      50% { transform: scale(0.9); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .countdown-text {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 8px;
+      animation: countdownSlide 0.5s ease-out;
+    }
+    @keyframes countdownSlide {
+      0% { transform: translateY(50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    
+    .player-reveal {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .player-reveal-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: playerReveal 0.5s ease-out backwards;
+    }
+    .player-reveal-item:nth-child(1) { animation-delay: 0.1s; }
+    .player-reveal-item:nth-child(2) { animation-delay: 0.2s; }
+    .player-reveal-item:nth-child(3) { animation-delay: 0.3s; }
+    .player-reveal-item:nth-child(4) { animation-delay: 0.4s; }
+    .player-reveal-item:nth-child(5) { animation-delay: 0.5s; }
+    .player-reveal-item:nth-child(6) { animation-delay: 0.6s; }
+    @keyframes playerReveal {
+      0% { transform: translateY(30px) scale(0); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+    
+    .player-reveal-avatar {
+      font-size: 40px;
+      margin-bottom: 8px;
+    }
+    .player-reveal-name {
+      font-size: 12px;
+      color: var(--cream);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* BİTİŞ SEREMONİSİ                                           */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .game-end-ceremony {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(20,20,20,0.98) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      padding: 20px;
+    }
+    
+    .podium-3d {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 8px;
+      margin: 30px 0;
+    }
+    
+    .podium-place-3d {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: podiumRise 0.8s ease-out backwards;
+    }
+    .podium-place-3d:nth-child(1) { animation-delay: 0.4s; } /* 2. */
+    .podium-place-3d:nth-child(2) { animation-delay: 0.6s; } /* 1. */
+    .podium-place-3d:nth-child(3) { animation-delay: 0.2s; } /* 3. */
+    
+    @keyframes podiumRise {
+      0% { transform: translateY(100px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    
+    .podium-player-3d {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .podium-avatar-3d {
+      font-size: 40px;
+      margin-bottom: 8px;
+    }
+    .podium-name-3d {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cream);
+    }
+    .podium-score-3d {
+      font-size: 12px;
+      color: var(--gold);
+    }
+    
+    .podium-block-3d {
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--black);
+      border-radius: 8px 8px 0 0;
+    }
+    .podium-block-3d.first {
+      height: 100px;
+      background: linear-gradient(180deg, #ffd700 0%, #b8860b 100%);
+    }
+    .podium-block-3d.second {
+      height: 70px;
+      background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
+    }
+    .podium-block-3d.third {
+      height: 50px;
+      background: linear-gradient(180deg, #cd7f32 0%, #8b4513 100%);
+    }
+    
+    /* Özel Rozetler */
+    .special-badges {
+      display: flex;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .special-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(201, 169, 89, 0.1);
+      border: 1px solid rgba(201, 169, 89, 0.3);
+      border-radius: 12px;
+      animation: badgeAppear 0.5s ease-out backwards;
+    }
+    .special-badge:nth-child(1) { animation-delay: 1s; }
+    .special-badge:nth-child(2) { animation-delay: 1.2s; }
+    @keyframes badgeAppear {
+      0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+    
+    .special-badge-icon { font-size: 28px; margin-bottom: 4px; }
+    .special-badge-title { font-size: 10px; color: var(--gold); font-weight: 600; }
+    .special-badge-name { font-size: 11px; color: var(--cream); }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* LOBİ İYİLEŞTİRMELERİ                                       */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .lobby-player-item {
+      animation: playerPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    }
+    @keyframes playerPop {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .lobby-avatar-idle {
+      animation: avatarIdle 3s ease-in-out infinite;
+    }
+    @keyframes avatarIdle {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-3px) rotate(-2deg); }
+      75% { transform: translateY(-3px) rotate(2deg); }
+    }
+    
+    .lobby-ready {
+      border: 2px solid var(--timer-green) !important;
+      position: relative;
+    }
+    .lobby-ready::after {
+      content: '✓';
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 20px;
+      height: 20px;
+      background: var(--timer-green);
+      color: var(--black);
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    
+    .lobby-waiting {
+      opacity: 0.6;
+    }
+    .lobby-waiting::after {
+      content: '⏳';
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      font-size: 16px;
+    }
+    
+    .start-btn-pulse {
+      animation: startPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes startPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(201, 169, 89, 0.5); }
+      50% { box-shadow: 0 0 0 15px rgba(201, 169, 89, 0); }
+    }
+    
+    /* "2 kişi daha gel!" mesajı */
+    .waiting-message {
+      text-align: center;
+      padding: 16px;
+      background: rgba(201, 169, 89, 0.1);
+      border: 1px dashed rgba(201, 169, 89, 0.3);
+      margin: 16px 0;
+      border-radius: 12px;
+    }
+    .waiting-message-emoji {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .waiting-message-text {
+      font-size: 14px;
+      color: var(--gold);
+    }
+    
+    /* Otomatik Geri Sayım */
+    .auto-start-countdown {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-size: 80px;
+      color: var(--gold);
+      text-shadow: 0 0 40px rgba(201, 169, 89, 0.5);
+      z-index: 1000;
+      animation: countdownPop 0.8s ease-out;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* KART BİTTİ EKRANI                                          */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .cards-finished {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .cards-finished-icon {
+      font-size: 80px;
+      margin-bottom: 16px;
+      animation: bounce 1s ease-in-out infinite;
+    }
+    .cards-finished-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .cards-finished-text {
+      font-size: 14px;
+      color: rgba(245, 240, 232, 0.7);
+      margin-bottom: 24px;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* BAĞLANTI DURUMU BANNER                                     */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .connection-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 10001;
+      transform: translateY(-100%);
+      transition: transform 0.3s;
+    }
+    .connection-banner.visible {
+      transform: translateY(0);
+    }
+    .connection-banner.disconnected {
+      background: var(--timer-red);
+      color: white;
+    }
+    .connection-banner.reconnecting {
+      background: var(--timer-yellow);
+      color: var(--black);
+    }
+    .connection-banner.connected {
+      background: var(--timer-green);
+      color: var(--black);
+      animation: bannerFadeOut 2s ease-out 1s forwards;
+    }
+    @keyframes bannerFadeOut {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100%); }
+    }
+    
+    .connection-spinner {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* ERİŞİLEBİLİRLİK - RENK KÖRLÜĞÜ                             */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    /* İkonlu durumlar */
+    .status-success::before { content: '✓ '; }
+    .status-error::before { content: '✗ '; }
+    .status-warning::before { content: '⚠ '; }
+    
+    /* Yüksek kontrast modunda ek göstergeler */
+    body.high-contrast .lobby-ready::after {
+      content: '✓ HAZIR';
+      width: auto;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+    }
+
+    /* ===================== */
     /* FEEDBACK & REPORTING */
     /* ===================== */
     .feedback-modal {
@@ -4011,7 +4929,7 @@
   <div class="container">
     
     <!-- ENTRANCE SCREEN -->
-    <div id="entrance-screen" class="screen entrance active">
+    <div id="entrance-screen" class="screen entrance">
       <div class="emblem">
         <div class="emblem-ring"></div>
         <div class="emblem-inner">
@@ -4023,6 +4941,13 @@
         <h1 class="brand-name">MASA</h1>
         <div class="brand-line"></div>
         <p class="brand-tagline">İç Çember Oyunları</p>
+      </div>
+      
+      <!-- Kullanıcı bilgisi göster -->
+      <div class="user-welcome" id="user-welcome" style="display: none;">
+        <span class="user-avatar" id="welcome-avatar">😊</span>
+        <span class="user-name" id="welcome-name">Hoş geldin!</span>
+        <button class="logout-btn" onclick="AuthSystem.logout()">Çıkış</button>
       </div>
       
       <div class="entry-actions">
@@ -4037,6 +4962,86 @@
       </div>
       
       <p class="footer-note">Sadece davetliler için</p>
+    </div>
+
+    <!-- AUTH SCREEN - Giriş/Kayıt -->
+    <div id="auth-screen" class="screen entrance active">
+      <div class="emblem">
+        <div class="emblem-ring"></div>
+        <div class="emblem-inner">
+          <span class="emblem-symbol">M</span>
+        </div>
+      </div>
+      
+      <div class="brand">
+        <h1 class="brand-name">MASA</h1>
+        <div class="brand-line"></div>
+        <p class="brand-tagline">İç Çember Oyunları</p>
+      </div>
+      
+      <!-- Auth Form Container -->
+      <div class="auth-container" id="auth-container">
+        <!-- Login Form -->
+        <div class="auth-form" id="login-form">
+          <h2 class="auth-title">Giriş Yap</h2>
+          
+          <div class="form-section">
+            <label class="form-label">Kullanıcı Adı</label>
+            <input type="text" id="login-username" class="form-input" placeholder="kullaniciadi" maxlength="20" autocomplete="username">
+          </div>
+          
+          <div class="form-section">
+            <label class="form-label">Şifre</label>
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••" maxlength="30" autocomplete="current-password">
+          </div>
+          
+          <div class="auth-error" id="login-error" style="display: none;"></div>
+          
+          <button class="btn btn-primary" onclick="AuthSystem.login()" style="width: 100%; margin-top: 16px;">Giriş Yap</button>
+          
+          <div class="auth-switch">
+            Hesabın yok mu? <a href="#" onclick="AuthSystem.showRegister()">Kayıt Ol</a>
+          </div>
+        </div>
+        
+        <!-- Register Form -->
+        <div class="auth-form" id="register-form" style="display: none;">
+          <h2 class="auth-title">Kayıt Ol</h2>
+          
+          <div class="form-section">
+            <label class="form-label">Kullanıcı Adı</label>
+            <input type="text" id="register-username" class="form-input" placeholder="en az 3 karakter" maxlength="20" autocomplete="username">
+            <div class="form-hint">Arkadaşların seni bu isimle görecek</div>
+          </div>
+          
+          <div class="form-section">
+            <label class="form-label">Şifre</label>
+            <input type="password" id="register-password" class="form-input" placeholder="en az 4 karakter" maxlength="30" autocomplete="new-password">
+          </div>
+          
+          <div class="form-section">
+            <label class="form-label">Şifre Tekrar</label>
+            <input type="password" id="register-password2" class="form-input" placeholder="şifreyi tekrar gir" maxlength="30" autocomplete="new-password">
+          </div>
+          
+          <div class="form-section">
+            <label class="form-label">Avatar Seç</label>
+            <div class="avatar-picker" id="register-avatar-picker">
+              <!-- Dinamik olarak doldurulacak -->
+            </div>
+          </div>
+          
+          <div class="auth-error" id="register-error" style="display: none;"></div>
+          
+          <button class="btn btn-primary" onclick="AuthSystem.register()" style="width: 100%; margin-top: 16px;">Kayıt Ol</button>
+          
+          <div class="auth-switch">
+            Zaten hesabın var mı? <a href="#" onclick="AuthSystem.showLogin()">Giriş Yap</a>
+          </div>
+        </div>
+      </div>
+      
+      <p class="footer-note">Veriler cihazında saklanır</p>
     </div>
 
     <!-- GAME SELECTION SCREEN -->
@@ -7285,14 +8290,269 @@
     };
 
     // ═══════════════════════════════════════════
+    // AUTH SİSTEMİ (Basit LocalStorage)
+    // ═══════════════════════════════════════════
+    const AuthSystem = {
+      currentUser: null,
+      
+      init() {
+        // Mevcut oturumu kontrol et
+        const session = localStorage.getItem('masa_session');
+        if (session) {
+          try {
+            const user = JSON.parse(session);
+            this.currentUser = user;
+            this.onLoginSuccess();
+            return true;
+          } catch (e) {
+            localStorage.removeItem('masa_session');
+          }
+        }
+        return false;
+      },
+
+      showLogin() {
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('login-username').focus();
+      },
+
+      showRegister() {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('register-form').style.display = 'block';
+        this.initAvatarPicker();
+        document.getElementById('register-username').focus();
+      },
+
+      initAvatarPicker() {
+        const avatars = ['😊', '😎', '🤩', '😈', '🥳', '🤓', '🧐', '🤠', '👻', '🦊', '🐱', '🦁', '🐯', '🐼', '🎭', '🌟', '💎', '🔥', '⚡', '🌈'];
+        const picker = document.getElementById('register-avatar-picker');
+        if (!picker) return;
+        
+        picker.innerHTML = avatars.map((a, i) => `
+          <div class="avatar-option ${i === 0 ? 'selected' : ''}" data-avatar="${a}" onclick="AuthSystem.selectAvatar(this, '${a}')">
+            ${a}
+          </div>
+        `).join('');
+        
+        this.selectedAvatar = avatars[0];
+      },
+
+      selectAvatar(el, avatar) {
+        document.querySelectorAll('.avatar-option').forEach(opt => opt.classList.remove('selected'));
+        el.classList.add('selected');
+        this.selectedAvatar = avatar;
+        HapticFeedback.light();
+      },
+
+      register() {
+        const username = document.getElementById('register-username').value.trim().toLowerCase();
+        const password = document.getElementById('register-password').value;
+        const password2 = document.getElementById('register-password2').value;
+        const errorEl = document.getElementById('register-error');
+        
+        // Validasyon
+        if (username.length < 3) {
+          this.showError(errorEl, 'Kullanıcı adı en az 3 karakter olmalı');
+          return;
+        }
+        if (!/^[a-z0-9_]+$/.test(username)) {
+          this.showError(errorEl, 'Sadece harf, rakam ve alt çizgi kullanılabilir');
+          return;
+        }
+        if (password.length < 4) {
+          this.showError(errorEl, 'Şifre en az 4 karakter olmalı');
+          return;
+        }
+        if (password !== password2) {
+          this.showError(errorEl, 'Şifreler eşleşmiyor');
+          return;
+        }
+        
+        // Kullanıcı var mı kontrol et
+        const users = this.getUsers();
+        if (users[username]) {
+          this.showError(errorEl, 'Bu kullanıcı adı zaten alınmış');
+          return;
+        }
+        
+        // Yeni kullanıcı oluştur
+        const newUser = {
+          username: username,
+          password: this.hashPassword(password),
+          avatar: this.selectedAvatar || '😊',
+          createdAt: Date.now(),
+          id: 'user_' + Math.random().toString(36).substr(2, 9)
+        };
+        
+        users[username] = newUser;
+        localStorage.setItem('masa_users', JSON.stringify(users));
+        
+        // Oturum aç
+        this.createSession(newUser);
+        this.onLoginSuccess();
+        
+        HapticFeedback.success();
+        AudioSystem.play('achievement');
+      },
+
+      login() {
+        const username = document.getElementById('login-username').value.trim().toLowerCase();
+        const password = document.getElementById('login-password').value;
+        const errorEl = document.getElementById('login-error');
+        
+        if (!username || !password) {
+          this.showError(errorEl, 'Kullanıcı adı ve şifre gerekli');
+          return;
+        }
+        
+        const users = this.getUsers();
+        const user = users[username];
+        
+        if (!user) {
+          this.showError(errorEl, 'Kullanıcı bulunamadı');
+          return;
+        }
+        
+        if (user.password !== this.hashPassword(password)) {
+          this.showError(errorEl, 'Şifre yanlış');
+          HapticFeedback.error();
+          return;
+        }
+        
+        // Oturum aç
+        this.createSession(user);
+        this.onLoginSuccess();
+        
+        HapticFeedback.success();
+      },
+
+      logout() {
+        localStorage.removeItem('masa_session');
+        this.currentUser = null;
+        
+        // Auth ekranına dön
+        document.getElementById('entrance-screen').classList.remove('active');
+        document.getElementById('auth-screen').classList.add('active');
+        document.getElementById('user-welcome').style.display = 'none';
+        
+        // Formu temizle
+        document.getElementById('login-username').value = '';
+        document.getElementById('login-password').value = '';
+        this.showLogin();
+        
+        HapticFeedback.medium();
+      },
+
+      createSession(user) {
+        this.currentUser = user;
+        localStorage.setItem('masa_session', JSON.stringify(user));
+        
+        // UserProfile'ı güncelle
+        UserProfile.data.id = user.id;
+        UserProfile.data.name = user.username;
+        UserProfile.data.avatar = user.avatar;
+        UserProfile.save();
+      },
+
+      onLoginSuccess() {
+        // Auth ekranını gizle, ana ekranı göster
+        document.getElementById('auth-screen').classList.remove('active');
+        document.getElementById('entrance-screen').classList.add('active');
+        
+        // Hoş geldin mesajı
+        const welcomeEl = document.getElementById('user-welcome');
+        if (welcomeEl && this.currentUser) {
+          document.getElementById('welcome-avatar').textContent = this.currentUser.avatar;
+          document.getElementById('welcome-name').textContent = `Hoş geldin, ${this.currentUser.username}!`;
+          welcomeEl.style.display = 'flex';
+        }
+        
+        // UserProfile'ı yükle
+        UserProfile.data.name = this.currentUser.username;
+        UserProfile.data.avatar = this.currentUser.avatar;
+        
+        // Onboarding'i göster (ilk kez girişse)
+        setTimeout(() => Onboarding.show(), 500);
+      },
+
+      getUsers() {
+        try {
+          return JSON.parse(localStorage.getItem('masa_users') || '{}');
+        } catch (e) {
+          return {};
+        }
+      },
+
+      hashPassword(password) {
+        // Basit hash (production'da daha güvenli bir yöntem kullanılmalı)
+        let hash = 0;
+        for (let i = 0; i < password.length; i++) {
+          const char = password.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash;
+        }
+        return 'h_' + Math.abs(hash).toString(36);
+      },
+
+      showError(el, message) {
+        el.textContent = message;
+        el.style.display = 'block';
+        HapticFeedback.warning();
+        
+        setTimeout(() => {
+          el.style.display = 'none';
+        }, 4000);
+      },
+
+      // Şifre değiştirme
+      changePassword(oldPassword, newPassword) {
+        if (!this.currentUser) return false;
+        
+        const users = this.getUsers();
+        const user = users[this.currentUser.username];
+        
+        if (!user || user.password !== this.hashPassword(oldPassword)) {
+          return { success: false, error: 'Mevcut şifre yanlış' };
+        }
+        
+        user.password = this.hashPassword(newPassword);
+        users[this.currentUser.username] = user;
+        localStorage.setItem('masa_users', JSON.stringify(users));
+        
+        return { success: true };
+      },
+
+      // Avatar değiştirme
+      changeAvatar(newAvatar) {
+        if (!this.currentUser) return;
+        
+        const users = this.getUsers();
+        users[this.currentUser.username].avatar = newAvatar;
+        localStorage.setItem('masa_users', JSON.stringify(users));
+        
+        this.currentUser.avatar = newAvatar;
+        localStorage.setItem('masa_session', JSON.stringify(this.currentUser));
+        
+        UserProfile.data.avatar = newAvatar;
+        UserProfile.save();
+        
+        // UI güncelle
+        document.getElementById('welcome-avatar').textContent = newAvatar;
+      }
+    };
+
+    // ═══════════════════════════════════════════
     // KULLANICI PROFİLİ & VERİ YÖNETİMİ
     // ═══════════════════════════════════════════
     const UserProfile = {
       data: {
         id: null,
+        username: '',
+        pin: null, // 4 haneli PIN (hashlenmiş)
         name: '',
         avatar: '😊',
-        gender: null, // 'male', 'female', 'other'
+        gender: null,
         createdAt: null,
         // İstatistikler
         totalGames: 0,
@@ -7305,7 +8565,7 @@
         favoriteGame: null,
         gamesPlayed: {},
         // Arkadaşlar
-        friends: [], // { id, name, avatar, gamesPlayedTogether }
+        friends: [],
         recentPlayers: [],
         // Başarımlar
         achievements: {},
@@ -7319,7 +8579,9 @@
         },
         // Onboarding
         onboardingCompleted: false,
-        tutorialsSeen: []
+        tutorialsSeen: [],
+        // Session
+        isLoggedIn: false
       },
 
       init() {
@@ -7332,22 +8594,279 @@
             console.error('Profile load error');
           }
         }
-        if (!this.data.id) {
-          this.data.id = 'user_' + Math.random().toString(36).substr(2, 9);
-          this.data.createdAt = Date.now();
-        }
         this.applySettings();
+        
+        // Kayıtlı kullanıcı yoksa veya giriş yapılmamışsa kayıt/giriş göster
+        if (!this.data.username || !this.data.isLoggedIn) {
+          setTimeout(() => this.showAuthModal(), 600);
+        }
       },
 
       save() {
         localStorage.setItem('masa_profile', JSON.stringify(this.data));
       },
 
+      // Basit hash fonksiyonu (PIN için)
+      hashPin(pin) {
+        let hash = 0;
+        const str = pin + 'masa_salt_2024';
+        for (let i = 0; i < str.length; i++) {
+          const char = str.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash;
+        }
+        return hash.toString();
+      },
+
+      // Kayıt/Giriş Modal
+      showAuthModal() {
+        // Mevcut kullanıcı var mı kontrol et
+        const hasAccount = this.data.username && this.data.pin;
+        
+        const modal = document.createElement('div');
+        modal.className = 'auth-modal';
+        modal.id = 'auth-modal';
+        
+        if (hasAccount) {
+          // Giriş ekranı
+          modal.innerHTML = `
+            <div class="auth-content">
+              <div class="auth-avatar">${this.data.avatar}</div>
+              <div class="auth-title">Tekrar Hoş Geldin!</div>
+              <div class="auth-username">@${this.data.username}</div>
+              
+              <div class="auth-section">
+                <label class="auth-label">PIN Kodun</label>
+                <div class="pin-inputs" id="login-pin-inputs">
+                  <input type="tel" maxlength="1" class="pin-input" data-index="0" inputmode="numeric">
+                  <input type="tel" maxlength="1" class="pin-input" data-index="1" inputmode="numeric">
+                  <input type="tel" maxlength="1" class="pin-input" data-index="2" inputmode="numeric">
+                  <input type="tel" maxlength="1" class="pin-input" data-index="3" inputmode="numeric">
+                </div>
+                <div class="auth-error" id="login-error"></div>
+              </div>
+              
+              <button class="btn btn-primary auth-btn" onclick="UserProfile.login()">Giriş Yap</button>
+              <button class="auth-switch" onclick="UserProfile.showRegisterForm()">Farklı hesap kullan</button>
+            </div>
+          `;
+        } else {
+          // Kayıt ekranı
+          modal.innerHTML = this.getRegisterFormHTML();
+        }
+        
+        document.body.appendChild(modal);
+        this.initPinInputs();
+        
+        // İlk input'a focus
+        setTimeout(() => {
+          const firstInput = modal.querySelector('.pin-input, .auth-input');
+          if (firstInput) firstInput.focus();
+        }, 100);
+      },
+
+      getRegisterFormHTML() {
+        return `
+          <div class="auth-content">
+            <div class="auth-icon">🎲</div>
+            <div class="auth-title">MASA'ya Katıl</div>
+            <div class="auth-subtitle">Hesap oluştur ve ilerlemeni kaydet</div>
+            
+            <div class="auth-section">
+              <label class="auth-label">Kullanıcı Adı</label>
+              <input type="text" class="auth-input" id="reg-username" placeholder="ornek_kullanici" maxlength="20" autocomplete="off">
+              <div class="auth-hint">3-20 karakter, harf, rakam ve alt çizgi</div>
+            </div>
+            
+            <div class="auth-section">
+              <label class="auth-label">Görünen İsim</label>
+              <input type="text" class="auth-input" id="reg-displayname" placeholder="Adın veya takma adın" maxlength="20" autocomplete="off">
+            </div>
+            
+            <div class="auth-section">
+              <label class="auth-label">4 Haneli PIN</label>
+              <div class="pin-inputs" id="reg-pin-inputs">
+                <input type="tel" maxlength="1" class="pin-input" data-index="0" inputmode="numeric">
+                <input type="tel" maxlength="1" class="pin-input" data-index="1" inputmode="numeric">
+                <input type="tel" maxlength="1" class="pin-input" data-index="2" inputmode="numeric">
+                <input type="tel" maxlength="1" class="pin-input" data-index="3" inputmode="numeric">
+              </div>
+              <div class="auth-hint">Başka cihazdan giriş için kullanılacak</div>
+            </div>
+            
+            <div class="auth-section">
+              <label class="auth-label">Avatar Seç</label>
+              <div class="avatar-picker" id="avatar-picker">
+                ${['😊', '😎', '🤩', '😈', '🥳', '🤓', '🧐', '🤠', '👻', '🦊', '🐱', '🦁'].map(a => `
+                  <div class="avatar-option ${a === '😊' ? 'selected' : ''}" onclick="UserProfile.selectAvatar('${a}')">${a}</div>
+                `).join('')}
+              </div>
+            </div>
+            
+            <div class="auth-error" id="reg-error"></div>
+            
+            <button class="btn btn-primary auth-btn" onclick="UserProfile.register()">Hesap Oluştur</button>
+            
+            ${this.data.username ? `<button class="auth-switch" onclick="UserProfile.showLoginForm()">Mevcut hesaba giriş yap</button>` : ''}
+          </div>
+        `;
+      },
+
+      showRegisterForm() {
+        const modal = document.getElementById('auth-modal');
+        if (modal) {
+          modal.querySelector('.auth-content').outerHTML = this.getRegisterFormHTML().match(/<div class="auth-content">[\s\S]*<\/div>/)[0];
+          this.initPinInputs();
+        }
+      },
+
+      showLoginForm() {
+        const modal = document.getElementById('auth-modal');
+        if (modal) {
+          modal.remove();
+          this.showAuthModal();
+        }
+      },
+
+      initPinInputs() {
+        document.querySelectorAll('.pin-input').forEach(input => {
+          input.addEventListener('input', (e) => {
+            const value = e.target.value.replace(/\D/g, '');
+            e.target.value = value;
+            
+            if (value && e.target.dataset.index < 3) {
+              const next = e.target.parentElement.children[parseInt(e.target.dataset.index) + 1];
+              if (next) next.focus();
+            }
+          });
+          
+          input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !e.target.value && e.target.dataset.index > 0) {
+              const prev = e.target.parentElement.children[parseInt(e.target.dataset.index) - 1];
+              if (prev) {
+                prev.focus();
+                prev.value = '';
+              }
+            }
+          });
+        });
+      },
+
+      selectAvatar(emoji) {
+        document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
+        event.target.classList.add('selected');
+        this.selectedAvatar = emoji;
+      },
+
+      getPin(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return '';
+        return Array.from(container.querySelectorAll('.pin-input')).map(i => i.value).join('');
+      },
+
+      register() {
+        const username = document.getElementById('reg-username')?.value?.trim().toLowerCase();
+        const displayName = document.getElementById('reg-displayname')?.value?.trim();
+        const pin = this.getPin('reg-pin-inputs');
+        const avatar = this.selectedAvatar || '😊';
+        const errorEl = document.getElementById('reg-error');
+        
+        // Validasyon
+        if (!username || username.length < 3) {
+          errorEl.textContent = 'Kullanıcı adı en az 3 karakter olmalı';
+          return;
+        }
+        if (!/^[a-z0-9_]+$/.test(username)) {
+          errorEl.textContent = 'Sadece harf, rakam ve alt çizgi kullanın';
+          return;
+        }
+        if (!displayName || displayName.length < 2) {
+          errorEl.textContent = 'Görünen isim en az 2 karakter olmalı';
+          return;
+        }
+        if (pin.length !== 4) {
+          errorEl.textContent = '4 haneli PIN girin';
+          return;
+        }
+        
+        // Kaydet
+        this.data.id = 'user_' + Math.random().toString(36).substr(2, 9);
+        this.data.username = username;
+        this.data.name = displayName;
+        this.data.pin = this.hashPin(pin);
+        this.data.avatar = avatar;
+        this.data.createdAt = Date.now();
+        this.data.isLoggedIn = true;
+        this.data.onboardingCompleted = false;
+        
+        this.save();
+        
+        // Modal kapat
+        document.getElementById('auth-modal')?.remove();
+        
+        // Başarı mesajı
+        showNotification('🎉 Hoş geldin, ' + displayName + '!');
+        HapticFeedback.success();
+        
+        // Onboarding başlat
+        setTimeout(() => Onboarding.show(), 500);
+      },
+
+      login() {
+        const pin = this.getPin('login-pin-inputs');
+        const errorEl = document.getElementById('login-error');
+        
+        if (pin.length !== 4) {
+          errorEl.textContent = '4 haneli PIN girin';
+          return;
+        }
+        
+        if (this.hashPin(pin) !== this.data.pin) {
+          errorEl.textContent = 'Yanlış PIN!';
+          HapticFeedback.error();
+          // PIN inputları temizle
+          document.querySelectorAll('#login-pin-inputs .pin-input').forEach(i => i.value = '');
+          document.querySelector('#login-pin-inputs .pin-input')?.focus();
+          return;
+        }
+        
+        // Giriş başarılı
+        this.data.isLoggedIn = true;
+        this.save();
+        
+        document.getElementById('auth-modal')?.remove();
+        showNotification('👋 Tekrar hoş geldin, ' + this.data.name + '!');
+        HapticFeedback.success();
+      },
+
+      logout() {
+        this.data.isLoggedIn = false;
+        this.save();
+        showNotification('Çıkış yapıldı');
+        setTimeout(() => this.showAuthModal(), 500);
+      },
+
+      deleteAccount() {
+        if (!confirm('Hesabını silmek istediğine emin misin? Bu işlem geri alınamaz!')) return;
+        if (!confirm('Tüm veriler silinecek. Gerçekten emin misin?')) return;
+        
+        localStorage.removeItem('masa_profile');
+        this.data = {
+          id: null, username: '', pin: null, name: '', avatar: '😊',
+          gender: null, createdAt: null, totalGames: 0, totalRounds: 0,
+          totalPoints: 0, highestStreak: 0, level5Cards: 0, whoami5Questions: 0,
+          favoriteGame: null, gamesPlayed: {}, friends: [], recentPlayers: [],
+          achievements: {}, badges: [], settings: { fontSize: 'normal', highContrast: false, hapticFeedback: true, soundEnabled: true },
+          onboardingCompleted: false, tutorialsSeen: [], isLoggedIn: false
+        };
+        
+        showNotification('Hesap silindi');
+        setTimeout(() => this.showAuthModal(), 500);
+      },
+
       applySettings() {
-        // Font size
         document.body.classList.remove('font-small', 'font-normal', 'font-large', 'font-xlarge');
         document.body.classList.add('font-' + this.data.settings.fontSize);
-        // High contrast
         document.body.classList.toggle('high-contrast', this.data.settings.highContrast);
       },
 
@@ -7609,6 +9128,7 @@
         }
         
         this.updateIndicator();
+        this.updateCardFrame();
         
         // Combo kontrol
         if (gameState.streak === 3) {
@@ -7617,9 +9137,11 @@
         } else if (gameState.streak === 5) {
           this.showCombo(5, 'ATEŞTE! 2X Puan!', 0);
           gameState.comboMultiplier = 2;
+          this.addFireParticles();
         } else if (gameState.streak === 10) {
           this.showCombo(10, 'EFSANE! 3X Puan!', 50);
           gameState.comboMultiplier = 3;
+          this.addRainbowEffect();
         }
         
         HapticFeedback.light();
@@ -7631,9 +9153,18 @@
           this.showMessage('❄️ Freeze kullanıldı! Streak korundu.');
           return;
         }
+        
+        // Streak kırılma efekti
+        if (gameState.streak >= 3) {
+          AudioSystem.play('streakBreak');
+          document.body.classList.add('streak-break');
+          setTimeout(() => document.body.classList.remove('streak-break'), 400);
+        }
+        
         gameState.streak = 0;
         gameState.comboMultiplier = 1;
         this.updateIndicator();
+        this.removeEffects();
       },
 
       showCombo(level, text, bonus) {
@@ -7693,8 +9224,452 @@
           <span class="streak-count">${gameState.streak}</span>
           <span class="streak-label">SERİ</span>
         `;
+      },
+
+      updateCardFrame() {
+        const card = document.querySelector('.card');
+        if (!card) return;
+        
+        card.classList.remove('streak-frame', 'bronze', 'silver', 'gold', 'rainbow-border');
+        
+        if (gameState.streak >= 10) {
+          card.classList.add('streak-frame', 'gold', 'rainbow-border');
+        } else if (gameState.streak >= 5) {
+          card.classList.add('streak-frame', 'silver');
+        } else if (gameState.streak >= 3) {
+          card.classList.add('streak-frame', 'bronze');
+        }
+      },
+
+      addFireParticles() {
+        const card = document.querySelector('.card');
+        if (!card) return;
+        
+        let container = card.querySelector('.fire-particles');
+        if (!container) {
+          container = document.createElement('div');
+          container.className = 'fire-particles';
+          card.appendChild(container);
+        }
+        
+        // 8 ateş partikülleri oluştur
+        for (let i = 0; i < 8; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'fire-particle';
+          particle.style.left = (10 + Math.random() * 80) + '%';
+          particle.style.bottom = '0';
+          particle.style.animationDelay = (Math.random() * 1) + 's';
+          container.appendChild(particle);
+        }
+      },
+
+      addRainbowEffect() {
+        const card = document.querySelector('.card');
+        if (card) {
+          card.classList.add('rainbow-border');
+        }
+      },
+
+      removeEffects() {
+        const particles = document.querySelector('.fire-particles');
+        if (particles) particles.remove();
+        
+        const card = document.querySelector('.card');
+        if (card) {
+          card.classList.remove('streak-frame', 'bronze', 'silver', 'gold', 'rainbow-border');
+        }
       }
     };
+
+    // ═══════════════════════════════════════════
+    // UX SİSTEMLERİ
+    // ═══════════════════════════════════════════
+
+    // Circular Timer
+    const CircularTimer = {
+      element: null,
+      maxTime: 30,
+      
+      create(container, maxTime = 30) {
+        this.maxTime = maxTime;
+        const circumference = 2 * Math.PI * 28;
+        
+        this.element = document.createElement('div');
+        this.element.className = 'circular-timer';
+        this.element.innerHTML = `
+          <svg viewBox="0 0 64 64">
+            <circle class="circular-timer-bg" cx="32" cy="32" r="28"></circle>
+            <circle class="circular-timer-progress" cx="32" cy="32" r="28" 
+                    stroke-dasharray="${circumference}" 
+                    stroke-dashoffset="0"></circle>
+          </svg>
+          <div class="circular-timer-text">${maxTime}</div>
+        `;
+        
+        if (container) {
+          container.innerHTML = '';
+          container.appendChild(this.element);
+        }
+        
+        return this.element;
+      },
+      
+      update(remaining) {
+        if (!this.element) return;
+        
+        const progress = this.element.querySelector('.circular-timer-progress');
+        const text = this.element.querySelector('.circular-timer-text');
+        const circumference = 2 * Math.PI * 28;
+        
+        const percent = remaining / this.maxTime;
+        const offset = circumference * (1 - percent);
+        
+        progress.style.strokeDashoffset = offset;
+        text.textContent = remaining;
+        
+        // Renk değişimi
+        this.element.classList.remove('warning', 'danger', 'critical');
+        if (remaining <= 5) {
+          this.element.classList.add('critical');
+          HapticFeedback.light();
+        } else if (remaining <= 10) {
+          this.element.classList.add('danger');
+        } else if (remaining <= 15) {
+          this.element.classList.add('warning');
+        }
+      },
+      
+      timeUp() {
+        // Kırmızı flash
+        const flash = document.createElement('div');
+        flash.className = 'time-up-flash';
+        document.body.appendChild(flash);
+        setTimeout(() => flash.remove(), 300);
+        
+        HapticFeedback.error();
+      }
+    };
+
+    // Mini Leaderboard
+    const MiniLeaderboard = {
+      element: null,
+      collapsed: false,
+      
+      create() {
+        if (this.element) this.element.remove();
+        
+        this.element = document.createElement('div');
+        this.element.className = 'mini-leaderboard';
+        this.element.innerHTML = `
+          <div class="mini-lb-header" onclick="MiniLeaderboard.toggle()">
+            <span>🏆 SKOR</span>
+            <span class="mini-lb-toggle">▼</span>
+          </div>
+          <div class="mini-lb-content"></div>
+        `;
+        
+        document.body.appendChild(this.element);
+        this.update();
+      },
+      
+      toggle() {
+        this.collapsed = !this.collapsed;
+        this.element.classList.toggle('collapsed', this.collapsed);
+      },
+      
+      update() {
+        if (!this.element) return;
+        
+        const content = this.element.querySelector('.mini-lb-content');
+        const sorted = [...gameState.players].sort((a, b) => (b.score || 0) - (a.score || 0));
+        
+        content.innerHTML = sorted.slice(0, 5).map((p, i) => {
+          const isFirst = i === 0;
+          const isLast = i === sorted.length - 1 && sorted.length > 1;
+          return `
+            <div class="mini-lb-item ${isFirst ? 'first' : ''} ${isLast ? 'last' : ''}" data-player="${p.id}">
+              <span class="mini-lb-rank ${isFirst ? 'crown' : ''} ${isLast ? 'fire' : ''}">${!isFirst && !isLast ? (i + 1) : ''}</span>
+              <span class="mini-lb-avatar">${p.avatar || '😊'}</span>
+              <span class="mini-lb-name">${p.name}</span>
+              <span class="mini-lb-score">${p.score || 0}</span>
+            </div>
+          `;
+        }).join('');
+      },
+      
+      animateScoreChange(playerId) {
+        const item = this.element?.querySelector(`[data-player="${playerId}"]`);
+        if (item) {
+          item.classList.add('score-change');
+          setTimeout(() => item.classList.remove('score-change'), 500);
+        }
+      },
+      
+      remove() {
+        if (this.element) {
+          this.element.remove();
+          this.element = null;
+        }
+      }
+    };
+
+    // Player Queue Display
+    const PlayerQueue = {
+      create(container) {
+        const players = gameState.players;
+        const currentIdx = gameState.currentPlayerIndex;
+        const myId = gameState.playerId;
+        
+        let html = '<div class="player-queue">';
+        
+        // Şu anki + sonraki 2 oyuncu
+        for (let offset = 0; offset < Math.min(5, players.length); offset++) {
+          const idx = (currentIdx + offset) % players.length;
+          const player = players[idx];
+          const isCurrent = offset === 0;
+          const isNext = offset === 1 || offset === 2;
+          const isFar = offset > 2;
+          
+          html += `
+            <div class="player-queue-item ${isCurrent ? 'current' : ''} ${isNext ? 'next' : ''} ${isFar ? 'far' : ''}">
+              <div class="player-queue-avatar">${player.avatar || '😊'}</div>
+              <div class="player-queue-name">${player.name}</div>
+            </div>
+          `;
+        }
+        
+        html += '</div>';
+        
+        // Sıra bende mi?
+        const currentPlayer = players[currentIdx];
+        const isMyTurn = currentPlayer?.id === myId;
+        
+        if (isMyTurn) {
+          html = '<div class="your-turn-indicator">🎯 SIRA SENDE!</div>' + html;
+        } else {
+          // Kaç kişi sonra?
+          let turnsUntilMe = 0;
+          for (let i = 1; i < players.length; i++) {
+            const idx = (currentIdx + i) % players.length;
+            if (players[idx].id === myId) {
+              turnsUntilMe = i;
+              break;
+            }
+          }
+          
+          if (turnsUntilMe > 0) {
+            html = `
+              <div class="waiting-info">
+                <div class="waiting-info-count">${turnsUntilMe}</div>
+                <div>kişi sonra sıra sende</div>
+              </div>
+            ` + html;
+          }
+        }
+        
+        if (container) {
+          container.innerHTML = html;
+        }
+        
+        return html;
+      }
+    };
+
+    // Game Start Ceremony
+    const GameCeremony = {
+      async showStart() {
+        return new Promise(resolve => {
+          const ceremony = document.createElement('div');
+          ceremony.className = 'game-start-ceremony';
+          document.body.appendChild(ceremony);
+          
+          const countdown = async () => {
+            // 3
+            ceremony.innerHTML = '<div class="countdown-number">3</div>';
+            AudioSystem.play('timer');
+            HapticFeedback.medium();
+            await this.wait(800);
+            
+            // 2
+            ceremony.innerHTML = '<div class="countdown-number">2</div>';
+            AudioSystem.play('timer');
+            HapticFeedback.medium();
+            await this.wait(800);
+            
+            // 1
+            ceremony.innerHTML = '<div class="countdown-number">1</div>';
+            AudioSystem.play('timer');
+            HapticFeedback.medium();
+            await this.wait(800);
+            
+            // BAŞLA!
+            ceremony.innerHTML = '<div class="countdown-text">BAŞLA!</div>';
+            AudioSystem.play('victory');
+            HapticFeedback.heavy();
+            
+            // Oyuncuları göster
+            await this.wait(500);
+            ceremony.innerHTML += `
+              <div class="player-reveal">
+                ${gameState.players.map(p => `
+                  <div class="player-reveal-item">
+                    <div class="player-reveal-avatar">${p.avatar || '😊'}</div>
+                    <div class="player-reveal-name">${p.name}</div>
+                  </div>
+                `).join('')}
+              </div>
+            `;
+            
+            await this.wait(1500);
+            ceremony.remove();
+            resolve();
+          };
+          
+          countdown();
+        });
+      },
+      
+      async showEnd(results) {
+        return new Promise(resolve => {
+          const ceremony = document.createElement('div');
+          ceremony.className = 'game-end-ceremony';
+          document.body.appendChild(ceremony);
+          
+          const sorted = [...gameState.players].sort((a, b) => (b.score || 0) - (a.score || 0));
+          const top3 = sorted.slice(0, 3);
+          
+          // Podyum sıralaması: 2, 1, 3
+          const podiumOrder = [top3[1], top3[0], top3[2]].filter(Boolean);
+          
+          // MVP ve Cesur hesapla
+          const mvp = sorted.reduce((max, p) => (p.maxStreak || 0) > (max.maxStreak || 0) ? p : max, sorted[0]);
+          const brave = sorted.reduce((max, p) => (p.level5Count || 0) > (max.level5Count || 0) ? p : max, sorted[0]);
+          
+          ceremony.innerHTML = `
+            <div class="countdown-text" style="margin-bottom: 20px;">🏆 OYUN BİTTİ!</div>
+            
+            <div class="podium-3d">
+              ${podiumOrder.map((p, i) => {
+                const actualRank = sorted.indexOf(p);
+                const blockClass = actualRank === 0 ? 'first' : actualRank === 1 ? 'second' : 'third';
+                return `
+                  <div class="podium-place-3d">
+                    <div class="podium-player-3d">
+                      <div class="podium-avatar-3d">${p.avatar || '😊'}</div>
+                      <div class="podium-name-3d">${p.name}</div>
+                      <div class="podium-score-3d">${p.score || 0} puan</div>
+                    </div>
+                    <div class="podium-block-3d ${blockClass}">${actualRank + 1}</div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+            
+            <div class="special-badges">
+              ${mvp && mvp.maxStreak > 0 ? `
+                <div class="special-badge">
+                  <div class="special-badge-icon">🔥</div>
+                  <div class="special-badge-title">MVP</div>
+                  <div class="special-badge-name">${mvp.name}</div>
+                </div>
+              ` : ''}
+              ${brave && brave.level5Count > 0 ? `
+                <div class="special-badge">
+                  <div class="special-badge-icon">💪</div>
+                  <div class="special-badge-title">CESUR</div>
+                  <div class="special-badge-name">${brave.name}</div>
+                </div>
+              ` : ''}
+            </div>
+            
+            <button class="btn btn-primary" onclick="this.closest('.game-end-ceremony').remove()" style="margin-top: 30px;">Devam</button>
+          `;
+          
+          AudioSystem.play('victory');
+          createConfettiBurst();
+          
+          ceremony.querySelector('.btn').onclick = () => {
+            ceremony.remove();
+            resolve();
+          };
+        });
+      },
+      
+      wait(ms) {
+        return new Promise(r => setTimeout(r, ms));
+      }
+    };
+
+    // Card Text Processor - Okunabilirlik
+    const CardTextProcessor = {
+      process(text) {
+        // Uzunluğa göre class belirle
+        let sizeClass = 'card-text-auto';
+        if (text.length > 150) sizeClass += ' very-long-text';
+        else if (text.length > 80) sizeClass += ' long-text';
+        
+        // Kritik kelimeleri vurgula
+        let processed = text
+          // Süreleri vurgula
+          .replace(/(\d+)\s*(saniye|dakika|sn|dk|saat)/gi, '<span class="highlight-time">$1 $2</span>')
+          // Sayıları vurgula
+          .replace(/\b(\d+)\b(?!\s*(saniye|dakika|sn|dk|saat|puan|kişi))/gi, '<span class="highlight-number">$1</span>')
+          // İsimleri vurgula (placeholder'dan sonra)
+          .replace(/\{(\w+)\}/g, '<span class="highlight-name">$1</span>');
+        
+        return { text: processed, class: sizeClass };
+      }
+    };
+
+    // Connection Status Banner
+    const ConnectionBanner = {
+      element: null,
+      
+      show(status) {
+        if (!this.element) {
+          this.element = document.createElement('div');
+          this.element.className = 'connection-banner';
+          document.body.appendChild(this.element);
+        }
+        
+        this.element.classList.remove('disconnected', 'reconnecting', 'connected', 'visible');
+        
+        if (status === 'disconnected') {
+          this.element.innerHTML = '❌ Bağlantı koptu';
+          this.element.classList.add('disconnected', 'visible');
+        } else if (status === 'reconnecting') {
+          this.element.innerHTML = '<span class="connection-spinner"></span> Yeniden bağlanılıyor...';
+          this.element.classList.add('reconnecting', 'visible');
+        } else if (status === 'connected') {
+          this.element.innerHTML = '✅ Bağlandı!';
+          this.element.classList.add('connected', 'visible');
+        }
+      },
+      
+      hide() {
+        if (this.element) {
+          this.element.classList.remove('visible');
+        }
+      }
+    };
+
+    // Cards Finished Screen
+    function showCardsFinished() {
+      const gameArea = document.getElementById('game-area');
+      if (!gameArea) return;
+      
+      createConfettiBurst();
+      
+      gameArea.innerHTML = `
+        <div class="cards-finished">
+          <div class="cards-finished-icon">🎉</div>
+          <div class="cards-finished-title">Tüm Kartları Gördün!</div>
+          <div class="cards-finished-text">Bu kategorideki tüm kartlar bitti. Yeni kartlar yakında eklenecek!</div>
+          <button class="btn btn-primary" onclick="endGame()">Sonuçları Gör</button>
+          <button class="btn btn-secondary" onclick="showScreen('games-screen')" style="margin-top: 12px;">Başka Oyun Dene</button>
+        </div>
+      `;
+    }
 
     // ═══════════════════════════════════════════
     // HAPTIC FEEDBACK
@@ -8056,6 +10031,7 @@
     function showProfile() {
       const profile = UserProfile.data;
       const level = UserProfile.getLevel();
+      const user = AuthSystem.currentUser;
       
       const modal = document.createElement('div');
       modal.className = 'profile-modal';
@@ -8070,7 +10046,7 @@
             ${profile.avatar}
             <div class="profile-avatar-edit" onclick="showAvatarPicker()">✏️</div>
           </div>
-          <div class="profile-name">${profile.name || 'İsimsiz Oyuncu'}</div>
+          <div class="profile-name">@${user?.username || profile.name || 'İsimsiz'}</div>
           <div class="profile-level">SEVİYE ${level.level} • ${level.name.toUpperCase()}</div>
         </div>
         
@@ -8140,10 +10116,89 @@
           </div>
         </div>
         
-        <button class="btn btn-secondary" onclick="this.closest('.profile-modal').remove()" style="width: 100%; margin-top: 20px;">Kapat</button>
+        <div class="profile-section">
+          <div class="profile-section-title">🔐 HESAP</div>
+          <button class="btn btn-secondary" onclick="showChangePassword()" style="width: 100%; margin-bottom: 8px;">🔑 Şifre Değiştir</button>
+          <button class="btn btn-secondary" onclick="if(confirm('Çıkış yapmak istediğine emin misin?')) { this.closest('.profile-modal').remove(); AuthSystem.logout(); }" style="width: 100%; border-color: rgba(239,68,68,0.5); color: #ef4444;">🚪 Çıkış Yap</button>
+        </div>
+        
+        <button class="btn btn-primary" onclick="this.closest('.profile-modal').remove()" style="width: 100%; margin-top: 20px;">Kapat</button>
       `;
       
       document.body.appendChild(modal);
+    }
+
+    function showChangePassword() {
+      const modal = document.createElement('div');
+      modal.className = 'feedback-modal';
+      modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+      
+      modal.innerHTML = `
+        <div class="feedback-content">
+          <div class="feedback-title">🔑 Şifre Değiştir</div>
+          
+          <div class="form-section" style="margin-bottom: 12px;">
+            <label class="form-label">Mevcut Şifre</label>
+            <input type="password" id="old-password" class="form-input" placeholder="••••••••">
+          </div>
+          
+          <div class="form-section" style="margin-bottom: 12px;">
+            <label class="form-label">Yeni Şifre</label>
+            <input type="password" id="new-password" class="form-input" placeholder="en az 4 karakter">
+          </div>
+          
+          <div class="form-section" style="margin-bottom: 16px;">
+            <label class="form-label">Yeni Şifre Tekrar</label>
+            <input type="password" id="new-password2" class="form-input" placeholder="yeni şifreyi tekrar gir">
+          </div>
+          
+          <div id="password-error" style="display: none; background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.5); color: #ef4444; padding: 10px; font-size: 12px; margin-bottom: 12px;"></div>
+          
+          <button class="btn btn-primary" onclick="submitPasswordChange()" style="width: 100%;">Şifreyi Değiştir</button>
+          <button class="btn btn-secondary" onclick="this.closest('.feedback-modal').remove()" style="width: 100%; margin-top: 8px;">İptal</button>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+    }
+
+    function submitPasswordChange() {
+      const oldPw = document.getElementById('old-password').value;
+      const newPw = document.getElementById('new-password').value;
+      const newPw2 = document.getElementById('new-password2').value;
+      const errorEl = document.getElementById('password-error');
+      
+      if (!oldPw || !newPw || !newPw2) {
+        errorEl.textContent = 'Tüm alanları doldur';
+        errorEl.style.display = 'block';
+        return;
+      }
+      
+      if (newPw.length < 4) {
+        errorEl.textContent = 'Yeni şifre en az 4 karakter olmalı';
+        errorEl.style.display = 'block';
+        return;
+      }
+      
+      if (newPw !== newPw2) {
+        errorEl.textContent = 'Yeni şifreler eşleşmiyor';
+        errorEl.style.display = 'block';
+        return;
+      }
+      
+      const result = AuthSystem.changePassword(oldPw, newPw);
+      
+      if (!result.success) {
+        errorEl.textContent = result.error;
+        errorEl.style.display = 'block';
+        HapticFeedback.error();
+        return;
+      }
+      
+      // Başarılı
+      document.querySelector('.feedback-modal').remove();
+      showNotification('✅ Şifren değiştirildi!');
+      HapticFeedback.success();
     }
 
     function showAvatarPicker() {
@@ -8159,7 +10214,7 @@
           <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 20px 0;">
             ${avatars.map(a => `
               <div style="font-size: 32px; cursor: pointer; padding: 8px; border-radius: 8px; transition: all 0.2s; ${UserProfile.data.avatar === a ? 'background: var(--gold); transform: scale(1.1);' : ''}" 
-                   onclick="UserProfile.data.avatar = '${a}'; UserProfile.save(); this.closest('.feedback-modal').remove(); showProfile();">
+                   onclick="changeAvatarAndSync('${a}'); this.closest('.feedback-modal').remove(); document.querySelector('.profile-modal')?.remove(); showProfile();">
                 ${a}
               </div>
             `).join('')}
@@ -8169,6 +10224,12 @@
       `;
       
       document.body.appendChild(modal);
+    }
+
+    function changeAvatarAndSync(avatar) {
+      UserProfile.data.avatar = avatar;
+      UserProfile.save();
+      AuthSystem.changeAvatar(avatar);
     }
 
     function formatTimeAgo(timestamp) {
@@ -8331,6 +10392,30 @@
               o.start(now + i * 0.12);
               o.stop(now + i * 0.12 + 0.2);
             });
+            return;
+          
+          case 'streakBreak':
+            // Streak kırılma - cam kırılma efekti
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(800, now);
+            osc.frequency.exponentialRampToValueAtTime(100, now + 0.3);
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+            osc.start(now);
+            osc.stop(now + 0.3);
+            
+            // İkinci katman - noise benzeri
+            const osc2 = this.context.createOscillator();
+            const gain2 = this.context.createGain();
+            osc2.connect(gain2);
+            gain2.connect(this.context.destination);
+            osc2.type = 'square';
+            osc2.frequency.setValueAtTime(200, now);
+            osc2.frequency.exponentialRampToValueAtTime(50, now + 0.2);
+            gain2.gain.setValueAtTime(0.08, now);
+            gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+            osc2.start(now);
+            osc2.stop(now + 0.2);
             return;
             
           case 'victory':
@@ -9425,26 +11510,51 @@
       document.getElementById('player-count').textContent = gameState.players.length + ' kişi';
 
       const list = document.getElementById('players-list');
-      list.innerHTML = gameState.players.map(p => `
-        <div class="member-card ${p.isHost ? 'host' : ''}">
-          <div class="member-avatar">${p.avatar}</div>
+      const minPlayers = 2;
+      const neededPlayers = Math.max(0, minPlayers - gameState.players.length);
+      
+      // Oyuncu kartları
+      list.innerHTML = gameState.players.map((p, i) => `
+        <div class="member-card lobby-player-item ${p.isHost ? 'host' : ''} ${p.isReady ? 'lobby-ready' : 'lobby-waiting'}" style="animation-delay: ${i * 0.1}s">
+          <div class="member-avatar lobby-avatar-idle">${p.avatar}</div>
           <div class="member-info">
             <div class="member-name">${p.name}</div>
-            <div class="member-status ${p.isReady ? 'ready' : ''}">
-              ${p.isHost ? 'Ev sahibi' : (p.isReady ? '✓ Hazır' : 'Bekliyor')}
+            <div class="member-status ${p.isReady ? 'ready status-success' : ''}">
+              ${p.isHost ? 'Ev sahibi' : (p.isReady ? '✓ Hazır' : '⏳ Bekliyor')}
             </div>
           </div>
           ${p.isHost ? '<span class="host-mark">HOST</span>' : ''}
         </div>
       `).join('');
+      
+      // Bekleme mesajı
+      if (neededPlayers > 0) {
+        list.innerHTML += `
+          <div class="waiting-message">
+            <div class="waiting-message-emoji">👋</div>
+            <div class="waiting-message-text">${neededPlayers} kişi daha gel!</div>
+          </div>
+        `;
+      }
 
       const startBtn = document.getElementById('start-btn');
       const readyBtn = document.getElementById('ready-btn');
+      
+      // Herkes hazır mı kontrol et
+      const allReady = gameState.players.length >= minPlayers && 
+                       gameState.players.every(p => p.isHost || p.isReady);
 
       if (gameState.isHost) {
         startBtn.style.display = 'block';
         readyBtn.style.display = 'none';
-        startBtn.disabled = gameState.players.length < 1;
+        startBtn.disabled = gameState.players.length < minPlayers;
+        
+        // Herkes hazırsa pulse efekti
+        if (allReady && gameState.players.length >= minPlayers) {
+          startBtn.classList.add('start-btn-pulse');
+        } else {
+          startBtn.classList.remove('start-btn-pulse');
+        }
       } else {
         startBtn.style.display = 'none';
         readyBtn.style.display = 'block';
@@ -9457,6 +11567,9 @@
       gameState.isReady = !gameState.isReady;
       const player = gameState.players.find(p => p.id === gameState.playerId);
       if (player) player.isReady = gameState.isReady;
+      
+      HapticFeedback.light();
+      
       saveRoomToStorage();
       updateLobbyUI();
     }
@@ -9468,11 +11581,12 @@
         navigator.share({ title: 'MASA Daveti', text: text });
       } else {
         navigator.clipboard.writeText(text);
-        alert('Davetiye kopyalandı');
+        showNotification('📋 Davetiye kopyalandı!');
       }
     }
 
     function leaveRoom() {
+      MiniLeaderboard.remove();
       gameState.players = gameState.players.filter(p => p.id !== gameState.playerId);
       saveRoomToStorage();
       gameState = { ...gameState, roomCode: null, playerId: null, playerName: '', isHost: false, players: [], gameStarted: false };
@@ -9482,7 +11596,7 @@
     // ==========================================
     // OYUN BAŞLAT
     // ==========================================
-    function startGame() {
+    async function startGame() {
       gameState.gameStarted = true;
       gameState.currentPlayerIndex = 0;
       gameState.currentRound = 0;
@@ -9498,12 +11612,20 @@
       applyStoredSettings();
 
       saveRoomToStorage();
+      
+      // Başlangıç Seremonisi
+      await GameCeremony.showStart();
+      
       showScreen('game-screen');
       updateGameScreen();
+      
+      // Mini Leaderboard oluştur
+      MiniLeaderboard.create();
     }
 
     function confirmExit() {
       if (confirm('Oyundan çıkmak istediğine emin misin?')) {
+        MiniLeaderboard.remove();
         leaveRoom();
       }
     }
@@ -10269,24 +12391,39 @@
       `;
 
       gameArea.innerHTML = `
-        <div class="card">
+        <div class="player-queue-container" id="player-queue-container"></div>
+        <div class="card ${intensity >= 5 ? 'card-fire-entrance' : 'card-fly-in'}" id="game-card">
+          ${special ? `<div class="card-type-badge ${special.class}">${special.text}</div>` : ''}
           <div class="card-category">
             <div class="card-category-icon">${typeIcons[card.type] || '🎴'}</div>
             <div class="card-category-name">${typeNames[card.type] || 'KART'}</div>
           </div>
           ${levelBadgeHtml}
           <div class="card-divider"></div>
-          <div class="card-text">${card.text}</div>
-          <div class="card-timer">
-            <div class="timer-bar">
-              <div class="timer-fill" id="timer-fill" style="width: 100%"></div>
-            </div>
-            <div class="timer-text"><span id="timer-value">30</span> saniye</div>
-          </div>
+          <div class="card-text ${CardTextProcessor.process(card.text).class}">${CardTextProcessor.process(card.text).text}</div>
+          <div class="card-timer-circular" id="timer-container"></div>
         </div>
         ${actionsHtml}
         ${randomRevealHtml}
       `;
+
+      // Player Queue göster
+      const queueContainer = document.getElementById('player-queue-container');
+      if (queueContainer) {
+        PlayerQueue.create(queueContainer);
+      }
+
+      // Circular Timer oluştur
+      const timerContainer = document.getElementById('timer-container');
+      if (timerContainer) {
+        CircularTimer.create(timerContainer, 30);
+      }
+
+      // Mini Leaderboard oluştur
+      MiniLeaderboard.create();
+
+      // Streak frame güncelle
+      StreakSystem.updateCardFrame();
 
       const drawBtn = document.getElementById('draw-btn');
       if (drawBtn) drawBtn.style.display = 'none';
@@ -10294,6 +12431,10 @@
       
       // Oyuncu listesini güncelle (oy durumlarını göstermek için)
       updateGameScreen();
+
+      // Ses ve haptic
+      AudioSystem.play('draw');
+      HapticFeedback.light();
 
       startTimer();
     }
@@ -10997,32 +13138,39 @@
     // ==========================================
     function startTimer() {
       if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+      
+      const maxTime = gameState.selectedGame.id === 'hangover' ? 60 : 30;
+      gameState.timer = maxTime;
 
       gameState.timerInterval = setInterval(() => {
         gameState.timer--;
 
-        const fill = document.getElementById('timer-fill');
-        const value = document.getElementById('timer-value');
-
-        if (fill && value) {
-          const maxTime = gameState.selectedGame.id === 'hangover' ? 60 : 30;
-          fill.style.width = (gameState.timer / maxTime * 100) + '%';
-          fill.classList.toggle('warning', gameState.timer <= 10);
-          value.textContent = gameState.timer;
-          
-          // Timer uyarı sesi ve shake (son 5 saniye)
-          if (gameState.timer === 5) {
-            AudioSystem.play('timer');
-            startTimerShake();
-          }
-          
-          // Circular timer güncelle (varsa)
-          updateCircularTimer(gameState.timer, maxTime);
+        // Circular Timer güncelle
+        CircularTimer.update(gameState.timer);
+        
+        // Timer uyarı sesi ve shake (son 5 saniye)
+        if (gameState.timer === 5) {
+          AudioSystem.play('timer');
+          startTimerShake();
+        }
+        
+        // Son 10 saniye titreşim
+        if (gameState.timer <= 10 && gameState.timer > 5) {
+          HapticFeedback.light();
+        }
+        
+        // Son 5 saniye daha güçlü titreşim
+        if (gameState.timer <= 5 && gameState.timer > 0) {
+          HapticFeedback.medium();
         }
 
         if (gameState.timer <= 0) {
           clearInterval(gameState.timerInterval);
           stopTimerShake();
+          
+          // Süre bitti flash efekti
+          CircularTimer.timeUp();
+          
           skipCard();
         }
       }, 1000);
@@ -11035,9 +13183,21 @@
       const player = gameState.players[gameState.currentPlayerIndex];
       let cardScore = getCardScore(gameState.currentCard);
       
+      // Kart parıldayıp kaybolma animasyonu
+      const card = document.getElementById('game-card');
+      if (card) {
+        card.classList.remove('card-fly-in', 'card-fire-entrance');
+        card.classList.add('card-complete');
+      }
+      
       // Streak bonus
       StreakSystem.increment();
       cardScore = Math.round(cardScore * gameState.comboMultiplier);
+      
+      // Seviye 5 sayacı
+      if (gameState.currentCard.intensity >= 5) {
+        player.level5Count = (player.level5Count || 0) + 1;
+      }
       
       // 2X Puan aktifse çift puan
       if (gameState.doublePointsActive) {
@@ -11050,13 +13210,22 @@
       
       player.score += cardScore;
       
+      // Max streak takibi
+      if (gameState.streak > (player.maxStreak || 0)) {
+        player.maxStreak = gameState.streak;
+      }
+      
+      // Mini Leaderboard güncelle
+      MiniLeaderboard.animateScoreChange(player.id);
+      setTimeout(() => MiniLeaderboard.update(), 300);
+      
       // Profil güncelle
       UserProfile.recordRound(true, gameState.currentCard.intensity);
       Achievements.check();
       
       // Ses çal
       AudioSystem.play('score');
-      HapticFeedback.light();
+      HapticFeedback.success();
       
       // Confetti burst (yüksek puanlarda)
       if (cardScore >= 15) {
@@ -11067,28 +13236,42 @@
       showScorePopup(`+${cardScore}`, 'positive');
 
       saveRoomToStorage();
-      nextTurn();
+      
+      // Animasyon bittikten sonra sıradaki tura geç
+      setTimeout(() => nextTurn(), 500);
     }
 
     function skipCard() {
       if (!gameState.currentCard && !gameState.whoamiCharacter) return;
       clearInterval(gameState.timerInterval);
 
+      // Kart buruşup düşme animasyonu
+      const card = document.getElementById('game-card');
+      if (card) {
+        card.classList.remove('card-fly-in', 'card-fire-entrance');
+        card.classList.add('card-crumple');
+      }
+
       const player = gameState.players[gameState.currentPlayerIndex];
       const penalty = getSkipPenalty(gameState.currentCard || { intensity: 3 });
-      player.score = Math.max(0, player.score - penalty);
       
       // Shield joker kontrolü
       if (gameState.shieldActive) {
         gameState.shieldActive = false;
         showNotification('🛡️ Kalkan! Ceza yok!');
         saveRoomToStorage();
-        nextTurn();
+        setTimeout(() => nextTurn(), 400);
         return;
       }
       
+      player.score = Math.max(0, player.score - penalty);
+      
       // Streak kır
       StreakSystem.reset();
+      
+      // Mini Leaderboard güncelle
+      MiniLeaderboard.animateScoreChange(player.id);
+      setTimeout(() => MiniLeaderboard.update(), 300);
       
       // 2X Puan aktifse iptal et
       if (gameState.doublePointsActive) {
@@ -11104,7 +13287,9 @@
       showScorePopup(`-${penalty}`, 'negative');
 
       saveRoomToStorage();
-      nextTurn();
+      
+      // Animasyon bittikten sonra sıradaki tura geç
+      setTimeout(() => nextTurn(), 400);
     }
     
     function showScorePopup(text, type) {
@@ -11168,11 +13353,18 @@
     // ==========================================
     // SONUÇLAR
     // ==========================================
-    function endGame() {
+    async function endGame() {
       clearInterval(gameState.timerInterval);
       gameState.gameStarted = false;
+      
+      // Mini Leaderboard kaldır
+      MiniLeaderboard.remove();
+      StreakSystem.removeEffects();
 
       const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
+      
+      // Bitiş Seremonisi
+      await GameCeremony.showEnd(sorted);
       
       // Zafer sesi
       AudioSystem.play('victory');
@@ -11185,6 +13377,10 @@
         const elapsed = Math.round((Date.now() - gameState.gameStartTime) / 60000);
         StatsSystem.addTime(elapsed);
       }
+      
+      // Profil güncelle - oyun tamamlandı
+      UserProfile.recordGame(gameState.selectedGame?.id);
+      Achievements.check();
       
       // Her oyuncu için high score kaydet
       const gameName = gameState.selectedGame?.name || 'Bilinmeyen';
@@ -11240,10 +13436,17 @@
     }
 
     function playAgain() {
-      gameState.players.forEach(p => p.score = 0);
+      gameState.players.forEach(p => {
+        p.score = 0;
+        p.maxStreak = 0;
+        p.level5Count = 0;
+      });
       gameState.currentRound = 0;
       gameState.usedCardIds = [];
       gameState.currentPlayerIndex = 0;
+      gameState.streak = 0;
+      gameState.maxStreak = 0;
+      gameState.comboMultiplier = 1;
 
       saveRoomToStorage();
       showScreen('lobby-screen');
@@ -11254,6 +13457,9 @@
     // BAŞLANGIÇ
     // ==========================================
     document.addEventListener('DOMContentLoaded', () => {
+      // Auth sistemi init - ilk olarak
+      const isLoggedIn = AuthSystem.init();
+      
       // Yeni sistemler init
       UserProfile.init();
       HapticFeedback.init();
@@ -11283,13 +13489,15 @@
       helpBtn.onclick = () => FeedbackSystem.show();
       document.body.appendChild(helpBtn);
       
-      // Onboarding göster
-      setTimeout(() => Onboarding.show(), 500);
+      // Onboarding göster (giriş yapıldıysa)
+      if (isLoggedIn) {
+        setTimeout(() => Onboarding.show(), 500);
+      }
       
       const urlParams = new URLSearchParams(window.location.search);
       const roomCode = urlParams.get('room');
 
-      if (roomCode) {
+      if (roomCode && isLoggedIn) {
         document.querySelectorAll('.code-input').forEach((input, i) => {
           input.value = roomCode[i] || '';
           if (roomCode[i]) input.classList.add('filled');
