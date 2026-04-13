@@ -28,6 +28,11 @@
       --purple: #6b4c7a;
       --teal: #2d6a6a;
       
+      /* Gece Geç Modu */
+      --night-purple: #2d1f3d;
+      --night-cherry: #3d1f2d;
+      --night-glow: rgba(139, 92, 246, 0.3);
+      
       /* Timer & Joker */
       --timer-green: #4ade80;
       --timer-yellow: #fbbf24;
@@ -59,6 +64,181 @@
     body.font-normal { --font-scale: 1; }
     body.font-large { --font-scale: 1.15; }
     body.font-xlarge { --font-scale: 1.3; }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* GECE GEÇ MODU ATMOSFERİ                                    */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    body.night-mode {
+      --black: #1a0a1a;
+      --black-light: #2d1f3d;
+      --black-lighter: #3d2f4d;
+    }
+    
+    body.night-mode::before {
+      background: linear-gradient(135deg, var(--night-purple) 0%, var(--night-cherry) 100%);
+    }
+    
+    body.night-mode .particles {
+      filter: hue-rotate(280deg) saturate(1.5);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* SIRA SENDE - EKRAN GLOW EFEKTİ                             */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .my-turn-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 9998;
+      box-shadow: inset 0 0 100px 20px rgba(201, 169, 89, 0.4);
+      animation: turnGlowPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes turnGlowPulse {
+      0%, 100% { 
+        box-shadow: inset 0 0 80px 15px rgba(201, 169, 89, 0.3);
+      }
+      50% { 
+        box-shadow: inset 0 0 120px 30px rgba(201, 169, 89, 0.5);
+      }
+    }
+    
+    /* Gece modunda mor glow */
+    body.night-mode .my-turn-glow {
+      box-shadow: inset 0 0 100px 20px rgba(139, 92, 246, 0.4);
+      animation: turnGlowPulseNight 2s ease-in-out infinite;
+    }
+    
+    @keyframes turnGlowPulseNight {
+      0%, 100% { 
+        box-shadow: inset 0 0 80px 15px rgba(139, 92, 246, 0.3);
+      }
+      50% { 
+        box-shadow: inset 0 0 120px 30px rgba(139, 92, 246, 0.5);
+      }
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* 3D KART - GYROSCOPE PARALAKS                               */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .card-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+      will-change: transform;
+    }
+    
+    .card-3d-inner {
+      transform: translateZ(20px);
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* TİPOGRAFİ - OKUNAKLI KART METNİ                            */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .card-text {
+      font-family: var(--font-body);
+      font-size: calc(17px * var(--font-scale));
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+    }
+    
+    .card-text.long-text {
+      font-size: calc(15px * var(--font-scale));
+    }
+    
+    .card-text.very-long-text {
+      font-size: calc(13px * var(--font-scale));
+      line-height: 1.5;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* OYUNCU BAĞLANTI DURUMU                                     */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .player-disconnected {
+      opacity: 0.4;
+      position: relative;
+    }
+    
+    .player-disconnected::after {
+      content: '📴 Masadan kalktı';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(239, 68, 68, 0.9);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+    
+    .player-reconnecting::after {
+      content: '🔄';
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      animation: spin 1s linear infinite;
+    }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* DESTE KARIŞTIRMA ANİMASYONU                                */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    .deck-shuffle-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+    
+    .shuffle-cards {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+    
+    .shuffle-card {
+      width: 40px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      border-radius: 4px;
+      animation: shuffleCard 0.6s ease-in-out infinite;
+    }
+    
+    .shuffle-card:nth-child(1) { animation-delay: 0s; }
+    .shuffle-card:nth-child(2) { animation-delay: 0.1s; }
+    .shuffle-card:nth-child(3) { animation-delay: 0.2s; }
+    .shuffle-card:nth-child(4) { animation-delay: 0.3s; }
+    .shuffle-card:nth-child(5) { animation-delay: 0.4s; }
+    
+    @keyframes shuffleCard {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-20px) rotate(-10deg); }
+      50% { transform: translateY(0) rotate(0deg); }
+      75% { transform: translateY(-15px) rotate(10deg); }
+    }
+    
+    .shuffle-text {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--gold);
+    }
     
     /* High Contrast Mode */
     body.high-contrast {
@@ -899,6 +1079,8 @@
     }
     .player-vote-status.voted { color: var(--gold); }
     .player-vote-status.waiting { color: rgba(245, 240, 232, 0.3); }
+    .player-vote-status.disconnected { color: #ef4444; }
+    .player-vote-status.away { color: #fbbf24; }
     
     /* Oylama Sonuç Paneli */
     .voting-results-panel {
@@ -9461,6 +9643,191 @@
     // UX SİSTEMLERİ
     // ═══════════════════════════════════════════
 
+    // Sıra Sende - Ekran Glow Efekti
+    const TurnGlow = {
+      element: null,
+      
+      show() {
+        if (this.element) return;
+        this.element = document.createElement('div');
+        this.element.className = 'my-turn-glow';
+        document.body.appendChild(this.element);
+        HapticFeedback.heavy();
+      },
+      
+      hide() {
+        if (this.element) {
+          this.element.remove();
+          this.element = null;
+        }
+      }
+    };
+
+    // 3D Kart - Gyroscope Paralaks
+    const Card3D = {
+      card: null,
+      enabled: true,
+      
+      init(cardElement) {
+        this.card = cardElement;
+        if (!this.card) return;
+        
+        this.card.classList.add('card-3d');
+        
+        if (window.DeviceOrientationEvent && this.enabled) {
+          window.addEventListener('deviceorientation', this.handleOrientation.bind(this));
+        }
+      },
+      
+      handleOrientation(e) {
+        if (!this.card) return;
+        
+        const tiltX = Math.max(-15, Math.min(15, e.beta - 45)); // -15 to 15 derece
+        const tiltY = Math.max(-15, Math.min(15, e.gamma));
+        
+        this.card.style.transform = `perspective(1000px) rotateX(${tiltX * 0.3}deg) rotateY(${tiltY * 0.3}deg)`;
+      },
+      
+      destroy() {
+        window.removeEventListener('deviceorientation', this.handleOrientation);
+        if (this.card) {
+          this.card.style.transform = '';
+          this.card.classList.remove('card-3d');
+        }
+        this.card = null;
+      }
+    };
+
+    // Gece Modu Atmosferi
+    const NightMode = {
+      active: false,
+      
+      enable() {
+        this.active = true;
+        document.body.classList.add('night-mode');
+      },
+      
+      disable() {
+        this.active = false;
+        document.body.classList.remove('night-mode');
+      },
+      
+      check(gameId) {
+        // Gece Geç oyunları için otomatik aktifleştir
+        const nightGames = ['gece-itiraf', 'gece-sicak', 'gece-paranoya', 'gece-telefon', 'gece-yalan', 'gece-cesaret', 'gece-mix', 'itiraf-gecegec'];
+        if (nightGames.includes(gameId)) {
+          this.enable();
+        } else {
+          this.disable();
+        }
+      }
+    };
+
+    // Deste Karıştırma Animasyonu
+    const DeckShuffle = {
+      async show() {
+        return new Promise(resolve => {
+          const overlay = document.createElement('div');
+          overlay.className = 'deck-shuffle-overlay';
+          overlay.innerHTML = `
+            <div class="shuffle-cards">
+              <div class="shuffle-card"></div>
+              <div class="shuffle-card"></div>
+              <div class="shuffle-card"></div>
+              <div class="shuffle-card"></div>
+              <div class="shuffle-card"></div>
+            </div>
+            <div class="shuffle-text">Deste karıştırılıyor...</div>
+          `;
+          document.body.appendChild(overlay);
+          
+          AudioSystem.play('draw');
+          HapticFeedback.medium();
+          
+          setTimeout(() => {
+            overlay.remove();
+            resolve();
+          }, 2000);
+        });
+      }
+    };
+
+    // Oyuncu Bağlantı Yönetimi
+    const PlayerConnection = {
+      heartbeatInterval: null,
+      lastSeen: {},
+      
+      start() {
+        // Her 5 saniyede heartbeat gönder
+        this.heartbeatInterval = setInterval(() => {
+          this.sendHeartbeat();
+          this.checkDisconnected();
+        }, 5000);
+        
+        // Sayfa kapanınca disconnect
+        window.addEventListener('beforeunload', () => this.disconnect());
+        window.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            this.markAway();
+          } else {
+            this.sendHeartbeat();
+          }
+        });
+      },
+      
+      sendHeartbeat() {
+        if (!gameState.playerId || !gameState.roomCode) return;
+        
+        const player = gameState.players.find(p => p.id === gameState.playerId);
+        if (player) {
+          player.lastSeen = Date.now();
+          player.status = 'online';
+          saveRoomToStorage();
+        }
+      },
+      
+      markAway() {
+        if (!gameState.playerId) return;
+        const player = gameState.players.find(p => p.id === gameState.playerId);
+        if (player) {
+          player.status = 'away';
+          saveRoomToStorage();
+        }
+      },
+      
+      disconnect() {
+        if (!gameState.playerId) return;
+        const player = gameState.players.find(p => p.id === gameState.playerId);
+        if (player) {
+          player.status = 'disconnected';
+          player.disconnectedAt = Date.now();
+          saveRoomToStorage();
+        }
+      },
+      
+      checkDisconnected() {
+        const now = Date.now();
+        const timeout = 15000; // 15 saniye
+        
+        gameState.players.forEach(player => {
+          if (player.id === gameState.playerId) return;
+          
+          if (player.lastSeen && (now - player.lastSeen > timeout)) {
+            player.status = 'disconnected';
+          }
+        });
+        
+        updateGameScreen();
+      },
+      
+      stop() {
+        if (this.heartbeatInterval) {
+          clearInterval(this.heartbeatInterval);
+          this.heartbeatInterval = null;
+        }
+      }
+    };
+
     // Circular Timer
     const CircularTimer = {
       element: null,
@@ -11786,6 +12153,12 @@
       
       // Fase 2 - Ayarları uygula
       applyStoredSettings();
+      
+      // Gece Modu kontrolü
+      NightMode.check(gameState.selectedGame?.id);
+      
+      // Bağlantı yönetimi başlat
+      PlayerConnection.start();
 
       saveRoomToStorage();
       
@@ -11802,6 +12175,10 @@
     function confirmExit() {
       if (confirm('Oyundan çıkmak istediğine emin misin?')) {
         MiniLeaderboard.remove();
+        TurnGlow.hide();
+        Card3D.destroy();
+        NightMode.disable();
+        PlayerConnection.stop();
         leaveRoom();
       }
     }
@@ -11833,10 +12210,16 @@
         const isCurrentTurn = i === gameState.currentPlayerIndex;
         const isHostPlayer = i === 0;
         const hasVoted = gameState.truthLieVotes && gameState.truthLieVotes[p.id];
+        const isDisconnected = p.status === 'disconnected';
+        const isAway = p.status === 'away';
         const isCardHolder = p.id === currentPlayerId && gameState.currentCard;
         
         let statusHtml = '';
-        if (showVoteStatus && !isCardHolder) {
+        if (isDisconnected) {
+          statusHtml = '<span class="player-vote-status disconnected">📴 Masadan kalktı</span>';
+        } else if (isAway) {
+          statusHtml = '<span class="player-vote-status away">💤 Uzakta</span>';
+        } else if (showVoteStatus && !isCardHolder) {
           if (hasVoted) {
             statusHtml = '<span class="player-vote-status voted">✓ Oy verdi</span>';
           } else if (gameState.currentCard) {
@@ -11854,7 +12237,7 @@
         }
         
         return `
-          <div class="player-row ${isCurrentTurn ? 'current-turn' : ''} ${isHostPlayer ? 'is-host' : ''}">
+          <div class="player-row ${isCurrentTurn ? 'current-turn' : ''} ${isHostPlayer ? 'is-host' : ''} ${isDisconnected ? 'player-disconnected' : ''}">
             <div class="player-info">
               <span class="player-avatar-lg">${p.avatar}</span>
               <span class="player-name">${p.name}${p.id === gameState.playerId ? ' (Sen)' : ''}</span>
@@ -12376,7 +12759,7 @@
     // ==========================================
     // KART ÇEK
     // ==========================================
-    function drawCard() {
+    async function drawCard() {
       // Ses çal
       AudioSystem.play('draw');
       
@@ -12437,14 +12820,22 @@
       }
 
       // Filter used
-      allCards = allCards.filter(c => !gameState.usedCardIds.includes(c.text));
+      let availableCards = allCards.filter(c => !gameState.usedCardIds.includes(c.text));
 
-      if (allCards.length === 0) {
-        endGame();
-        return;
+      // Kart kalmadıysa desteyi karıştır
+      if (availableCards.length === 0) {
+        await DeckShuffle.show();
+        gameState.usedCardIds = []; // Belleği temizle
+        availableCards = allCards; // Tüm kartları tekrar kullanılabilir yap
+        
+        // Hala kart yoksa oyunu bitir
+        if (availableCards.length === 0) {
+          endGame();
+          return;
+        }
       }
 
-      const card = allCards[Math.floor(Math.random() * allCards.length)];
+      const card = availableCards[Math.floor(Math.random() * availableCards.length)];
       
       // Dinamik kart işleme - placeholder'ları değiştir
       card.text = DynamicCards.processCard(card.text);
@@ -12600,6 +12991,19 @@
 
       // Streak frame güncelle
       StreakSystem.updateCardFrame();
+      
+      // Sıra sende ise ekran glow
+      if (isMyTurn) {
+        TurnGlow.show();
+      } else {
+        TurnGlow.hide();
+      }
+      
+      // 3D Kart efekti
+      const cardEl = document.getElementById('game-card');
+      if (cardEl) {
+        Card3D.init(cardEl);
+      }
 
       const drawBtn = document.getElementById('draw-btn');
       if (drawBtn) drawBtn.style.display = 'none';
@@ -13359,6 +13763,10 @@
       const player = gameState.players[gameState.currentPlayerIndex];
       let cardScore = getCardScore(gameState.currentCard);
       
+      // UX cleanup
+      TurnGlow.hide();
+      Card3D.destroy();
+      
       // Kart parıldayıp kaybolma animasyonu
       const card = document.getElementById('game-card');
       if (card) {
@@ -13420,6 +13828,10 @@
     function skipCard() {
       if (!gameState.currentCard && !gameState.whoamiCharacter) return;
       clearInterval(gameState.timerInterval);
+
+      // UX cleanup
+      TurnGlow.hide();
+      Card3D.destroy();
 
       // Kart buruşup düşme animasyonu
       const card = document.getElementById('game-card');
@@ -13533,9 +13945,13 @@
       clearInterval(gameState.timerInterval);
       gameState.gameStarted = false;
       
-      // Mini Leaderboard kaldır
+      // UX Sistemleri cleanup
       MiniLeaderboard.remove();
       StreakSystem.removeEffects();
+      TurnGlow.hide();
+      Card3D.destroy();
+      NightMode.disable();
+      PlayerConnection.stop();
 
       const sorted = [...gameState.players].sort((a, b) => b.score - a.score);
       
