@@ -3538,6 +3538,334 @@
       background: linear-gradient(180deg, #cd7f32 0%, #8b4513 100%);
     }
     
+    /* ═══════════════════════════════════════════════════════════ */
+    /* YENİ OYUN MEKANİKLERİ                                       */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    /* Screenshot Challenge Timer */
+    .screenshot-challenge {
+      text-align: center;
+      padding: var(--space-3);
+    }
+    .screenshot-timer {
+      font-family: var(--font-display);
+      font-size: 64px;
+      color: var(--gold);
+      margin-bottom: var(--space-2);
+    }
+    .screenshot-timer.urgent {
+      color: var(--danger);
+      animation: pulse 0.5s ease-in-out infinite;
+    }
+    .screenshot-task {
+      font-size: var(--text-base);
+      color: var(--cream);
+      margin-bottom: var(--space-2);
+    }
+    .screenshot-hint {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+    
+    /* Jüri Oylama Sistemi */
+    .jury-panel {
+      width: 100%;
+      max-width: 320px;
+      margin-top: var(--space-3);
+    }
+    .jury-question {
+      text-align: center;
+      font-size: var(--text-sm);
+      color: var(--cream-dark);
+      margin-bottom: var(--space-2);
+    }
+    .jury-votes {
+      display: flex;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+    .jury-vote-btn {
+      flex: 1;
+      padding: var(--space-2);
+      border-radius: var(--radius-sm);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .jury-vote-btn.approve {
+      background: transparent;
+      border: 1.5px solid var(--timer-green);
+      color: var(--timer-green);
+    }
+    .jury-vote-btn.approve:hover {
+      background: var(--timer-green);
+      color: var(--black);
+    }
+    .jury-vote-btn.reject {
+      background: transparent;
+      border: 1.5px solid var(--danger);
+      color: var(--danger);
+    }
+    .jury-vote-btn.reject:hover {
+      background: var(--danger);
+      color: var(--cream);
+    }
+    .jury-result {
+      text-align: center;
+      margin-top: var(--space-2);
+      padding: var(--space-2);
+      border-radius: var(--radius-sm);
+    }
+    .jury-result.approved {
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid var(--timer-green);
+      color: var(--timer-green);
+    }
+    .jury-result.rejected {
+      background: rgba(178, 58, 58, 0.1);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+    
+    /* Shot Ruleti */
+    .shot-roulette {
+      text-align: center;
+      padding: var(--space-2);
+      background: rgba(198, 161, 91, 0.1);
+      border: 1px solid rgba(198, 161, 91, 0.2);
+      border-radius: var(--radius-md);
+      margin-top: var(--space-2);
+    }
+    .shot-roulette-icon {
+      font-size: 32px;
+      margin-bottom: var(--space-1);
+    }
+    .shot-roulette-text {
+      font-size: var(--text-sm);
+      color: var(--gold);
+      font-weight: 600;
+    }
+    
+    /* Cesaret Çağrısı */
+    .dare-call {
+      text-align: center;
+      padding: var(--space-3);
+      background: linear-gradient(135deg, rgba(178, 58, 58, 0.1) 0%, rgba(198, 161, 91, 0.1) 100%);
+      border: 1px solid var(--danger);
+      border-radius: var(--radius-md);
+      margin-top: var(--space-2);
+    }
+    .dare-call-icon {
+      font-size: 48px;
+      margin-bottom: var(--space-1);
+      animation: shake 0.5s ease-in-out infinite;
+    }
+    .dare-call-text {
+      font-size: var(--text-base);
+      color: var(--cream);
+      font-weight: 600;
+    }
+    .dare-call-number {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      margin-top: var(--space-1);
+    }
+    
+    /* Zar Sistemi */
+    .dice-container {
+      text-align: center;
+      margin: var(--space-3) 0;
+    }
+    .dice {
+      width: 80px;
+      height: 80px;
+      background: var(--surface);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-md);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dice:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px var(--gold-glow);
+    }
+    .dice.rolling {
+      animation: diceRoll 0.5s ease-in-out;
+    }
+    @keyframes diceRoll {
+      0% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(90deg) scale(1.2); }
+      50% { transform: rotate(180deg) scale(1); }
+      75% { transform: rotate(270deg) scale(1.2); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+    .dice-result {
+      margin-top: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--cream-dark);
+    }
+    
+    /* Zincir Görevi */
+    .chain-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-1);
+      padding: var(--space-1) var(--space-2);
+      background: rgba(247, 147, 26, 0.1);
+      border: 1px solid rgba(247, 147, 26, 0.3);
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-2);
+    }
+    .chain-icon {
+      font-size: 16px;
+    }
+    .chain-text {
+      font-size: var(--text-xs);
+      color: var(--joker-orange);
+      font-weight: 600;
+    }
+    
+    /* Kral Kartı */
+    .king-card {
+      position: relative;
+      border: 2px solid var(--gold) !important;
+      box-shadow: 0 0 40px var(--gold-glow) !important;
+    }
+    .king-card::before {
+      content: '👑';
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 30px;
+      z-index: 10;
+    }
+    .king-rule-input {
+      width: 100%;
+      padding: var(--space-2);
+      background: var(--surface);
+      border: 1px solid rgba(198, 161, 91, 0.3);
+      border-radius: var(--radius-sm);
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      margin-top: var(--space-2);
+    }
+    .king-rule-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+    
+    /* Combo Göstergesi */
+    .combo-indicator {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      padding: var(--space-1) var(--space-2);
+      background: linear-gradient(135deg, var(--joker-orange) 0%, var(--danger) 100%);
+      border-radius: var(--radius-full);
+      z-index: 100;
+      animation: comboPulse 0.5s ease-out;
+    }
+    .combo-text {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--cream);
+    }
+    @keyframes comboPulse {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    /* Speed Round */
+    .speed-round {
+      text-align: center;
+    }
+    .speed-timer {
+      font-family: var(--font-display);
+      font-size: 72px;
+      color: var(--danger);
+      margin-bottom: var(--space-1);
+    }
+    .speed-score {
+      font-size: var(--text-xl);
+      color: var(--gold);
+      margin-bottom: var(--space-2);
+    }
+    .speed-character {
+      font-size: 48px;
+      margin-bottom: var(--space-2);
+      animation: speedPop 0.3s ease-out;
+    }
+    @keyframes speedPop {
+      0% { transform: scale(0); }
+      70% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Taklit Modu */
+    .mimic-mode {
+      text-align: center;
+      padding: var(--space-3);
+    }
+    .mimic-character {
+      font-size: 64px;
+      margin-bottom: var(--space-2);
+    }
+    .mimic-hint {
+      font-size: var(--text-sm);
+      color: var(--cream-dark);
+      margin-bottom: var(--space-2);
+      font-style: italic;
+    }
+    .mimic-actions {
+      display: flex;
+      gap: var(--space-2);
+      justify-content: center;
+    }
+    
+    /* Utanç Sıralaması */
+    .shame-rank {
+      width: 100%;
+      max-width: 320px;
+      margin-top: var(--space-3);
+    }
+    .shame-rank-title {
+      text-align: center;
+      font-size: var(--text-sm);
+      color: var(--danger);
+      margin-bottom: var(--space-2);
+    }
+    .shame-rank-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    .shame-rank-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2);
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .shame-rank-item:hover {
+      background: var(--surface-light);
+    }
+    .shame-rank-item.selected {
+      border: 1px solid var(--danger);
+      background: rgba(178, 58, 58, 0.1);
+    }
+    
     /* Özel Rozetler */
     .special-badges {
       display: flex;
@@ -5860,22 +6188,24 @@
         id: 'ifsa-z',
         name: 'İfşa Z',
         icon: '📱',
-        desc: 'Gen Z versiyonu. DM, story, ghost...',
+        desc: 'Dijital Dedektif - Telefon görevleri',
         category: 'ifsa',
         hasIntensity: true,
         hasTruthLie: false,
-        hasVoting: true
+        hasVoting: true,
+        mechanics: ['screenshot', 'phone_task'] // Yeni mekanikler
       },
       'ifsa-klasik': {
         id: 'ifsa-klasik',
         name: 'İfşa Klasik',
-        icon: '🎭',
-        desc: '5 seviyeli itiraf sistemi - hafiften ağıra',
+        icon: '🕵️',
+        desc: 'Soruşturma modu - Jüri oylaması',
         category: 'ifsa',
         hasIntensity: true,
         maxIntensity: 5,
         hasTruthLie: false,
-        hasVoting: true
+        hasVoting: true,
+        mechanics: ['interrogation', 'jury'] // Sorgu + Jüri
       },
       'itiraf-klasik': {
         id: 'itiraf-klasik',
@@ -5903,12 +6233,13 @@
         id: 'itiraf-bekarlik',
         name: 'Bekarlığa Veda',
         icon: '🎊',
-        desc: 'Bekarlık partileri için özel',
+        desc: 'Challenge modu - Shot ruleti & Cesaret çağrısı',
         category: 'itiraf',
         hasIntensity: true,
         maxIntensity: 5,
         hasTruthLie: true,
-        hasVoting: false
+        hasVoting: false,
+        mechanics: ['bride_groom', 'shot_roulette', 'dare_call', 'shame_rank'] // Yeni mekanikler
       },
       'itiraf-gecegec': {
         id: 'itiraf-gecegec',
@@ -5936,19 +6267,21 @@
         id: 'benkimim',
         name: 'Ben Kimim?',
         icon: '❓',
-        desc: 'Alnındaki ismi tahmin et',
+        desc: 'Speed Round & Taklit modu',
         category: 'tahmin',
         hasIntensity: false,
-        special: true
+        special: true,
+        mechanics: ['speed_round', 'mimic'] // Yeni modlar
       },
       'hangover': {
         id: 'hangover',
         name: 'Hangover',
-        icon: '🎉',
-        desc: 'Absürt görevler, sosyal kaos',
+        icon: '🎲',
+        desc: 'Kaos Motoru - Zar, Zincir, Kral',
         category: 'gorev',
         hasIntensity: true,
-        maxIntensity: 5
+        maxIntensity: 5,
+        mechanics: ['dice', 'chain', 'king', 'combo'] // Kaos mekanikleri
       },
       // ═══════════════════════════════════════════
       // GECE GEÇ MODU - YENİ OYUNLAR
@@ -6061,6 +6394,38 @@
           { text: "Kimin dating app profili en cringe?" },
           { text: "Kim en hızlı unfollowlar?" },
           { text: "Kim en fazla ekran görüntüsü alır?" }
+        ],
+        // 📸 SCREENSHOT CHALLENGE - 30sn'de bul ve göster!
+        screenshot: [
+          { text: "Ex'inle son mesajlaşmanı bul ve göster!" },
+          { text: "Galeri'nin en eski selfiesini bul!" },
+          { text: "En çok beğeni alan fotoğrafını bul!" },
+          { text: "Utanç verici bir TikTok beğenisini bul!" },
+          { text: "Birinin hikayesini screenshotladığın bir anı bul!" },
+          { text: "En son indirdiğin uygulamayı göster!" },
+          { text: "Spotify'da en çok dinlediğin şarkıyı bul!" },
+          { text: "YouTube geçmişinde cringe bir video bul!" },
+          { text: "En son sildiğin bir fotoğrafı bul!" },
+          { text: "Birinden gelen en garip DM'i bul!" },
+          { text: "Not defterinde en garip notu bul!" },
+          { text: "En son kaydedilen konum nerede, bul!" },
+          { text: "Dating app profil fotoğrafını göster!" },
+          { text: "En çok aradığın kişiyi bul ve göster!" }
+        ],
+        // 📱 TELEFON GÖREVLERİ - Gerçek ekran paylaşımı
+        telefon: [
+          { intensity: 2, text: "Instagram 'Beğendiklerin'in ilk 5 fotoğrafını göster." },
+          { intensity: 2, text: "Son 3 Google aramanı göster." },
+          { intensity: 2, text: "Fotoğraf galerisinin son 10 karesini göster." },
+          { intensity: 2, text: "Not defterindeki en son 3 notu oku." },
+          { intensity: 3, text: "Son 5 sesli mesajını dinlet." },
+          { intensity: 3, text: "Engellediğin kişilerin listesini göster." },
+          { intensity: 3, text: "Close Friends listeni göster." },
+          { intensity: 3, text: "Son 3 WhatsApp grubunun isimlerini oku." },
+          { intensity: 4, text: "Silinen mesajlar klasörünü göster." },
+          { intensity: 4, text: "Instagram algoritmanın sana önerdiği ilk 5 Reel'i göster." },
+          { intensity: 4, text: "En son indirdiğin 3 uygulamayı göster." },
+          { intensity: 4, text: "Son kaydedilen 5 Instagram hikayesini göster." }
         ]
       },
 
@@ -6926,6 +7291,27 @@
           { intensity: 3, text: "Eski sevgiline 'yarın evleniyorum' mesajı at." },
           { intensity: 4, text: "Masadaki herkese birer öpücük ver." },
           { intensity: 5, text: "En cesur dansını ortada yap." }
+        ],
+        // 👰 GELİN/DAMAT ÖZEL KARTLARI
+        gelin_damat: [
+          { intensity: 3, text: "Gelin/Damat: Nişanlının en sevdiğin 3 özelliğini say!" },
+          { intensity: 3, text: "Gelin/Damat: Düğününüzden en çok korktuğun şey ne?" },
+          { intensity: 3, text: "Gelin/Damat: İlk dans şarkınız ne olacak?" },
+          { intensity: 4, text: "Gelin/Damat: Nişanlına bu gece bir mesaj yolla: 'Seni çok seviyorum'" },
+          { intensity: 4, text: "Gelin/Damat: Evlilik yemini gibi 3 söz ver, herkes şahit!" },
+          { intensity: 4, text: "Gelin/Damat: Nişanlınla tanıştığınız anı anlat!" },
+          { intensity: 5, text: "Gelin/Damat: Evlilikten sonra en çok neyi değiştirmek istiyorsun?" },
+          { intensity: 5, text: "Gelin/Damat: Nişanlının ailesine söyleyemediğin şey ne?" },
+          { intensity: 5, text: "Gelin/Damat: Düğün masraflarını düşününce ne hissediyorsun?" }
+        ],
+        // 📞 CESARET ÇAĞRISI - Gerçekten ara!
+        cesaret_cagri: [
+          { intensity: 4, text: "Ex sevgiline ara ve 'Yarın evleniyorum, son bir şey söylemek istedim' de!" },
+          { intensity: 4, text: "Anneni/babani ara ve 'Evlilik hakkında bir itirafım var' de!" },
+          { intensity: 4, text: "Nişanlını ara ve 30 saniye sadece 'seni seviyorum' tekrarla!" },
+          { intensity: 5, text: "Rastgele bir rehber numarası ara ve 'Bekarlığıma veda ediyorum!' de!" },
+          { intensity: 5, text: "En yakın arkadaşını ara ve 'Bu gece sana ihtiyacım var' de, sonra kapat!" },
+          { intensity: 5, text: "Nişanlının en yakın arkadaşını ara ve 'Sırrımızı saklıyorsun değil mi?' de!" }
         ]
       },
 
@@ -8408,7 +8794,9 @@
           classic: { name: 'Klasik', icon: '👤', description: '20 soru hakkı', questionLimit: 20 },
           speed: { name: 'Hız', icon: '⚡', description: '60 saniye limit', timeLimit: 60 },
           hard: { name: 'Zor', icon: '🔥', description: '10 soru hakkı', questionLimit: 10 },
-          infinite: { name: 'Sınırsız', icon: '♾️', description: 'Soru limiti yok', questionLimit: 999 }
+          infinite: { name: 'Sınırsız', icon: '♾️', description: 'Soru limiti yok', questionLimit: 999 },
+          speedRound: { name: 'Speed Round', icon: '⏱️', description: '60sn - kaç karakter?', mechanic: 'speed_round' },
+          mimic: { name: 'Taklit', icon: '🎭', description: 'Karakteri taklit et!', mechanic: 'mimic' }
         },
         
         // İPUÇLARI
@@ -9937,6 +10325,638 @@
           clearInterval(this.heartbeatInterval);
           this.heartbeatInterval = null;
         }
+      }
+    };
+
+    // ═══════════════════════════════════════════════════════════
+    // YENİ OYUN MEKANİKLERİ
+    // ═══════════════════════════════════════════════════════════
+
+    // 📱 Screenshot Challenge (İfşa Z)
+    const ScreenshotChallenge = {
+      timer: null,
+      timeLeft: 30,
+      
+      start(task) {
+        this.timeLeft = 30;
+        const gameArea = document.getElementById('game-area');
+        
+        gameArea.innerHTML = `
+          <div class="screenshot-challenge">
+            <div class="screenshot-timer" id="screenshot-timer">30</div>
+            <div class="screenshot-task">📱 ${task}</div>
+            <div class="screenshot-hint">Telefonunda bul ve herkese göster!</div>
+            <div class="card-actions" style="margin-top: 24px;">
+              <button class="btn btn-pass" onclick="ScreenshotChallenge.fail()">Bulamadım 😅</button>
+              <button class="btn btn-done" onclick="ScreenshotChallenge.success()">Gösterdim! ✅</button>
+            </div>
+          </div>
+        `;
+        
+        this.timer = setInterval(() => {
+          this.timeLeft--;
+          const timerEl = document.getElementById('screenshot-timer');
+          if (timerEl) {
+            timerEl.textContent = this.timeLeft;
+            if (this.timeLeft <= 10) {
+              timerEl.classList.add('urgent');
+            }
+          }
+          
+          if (this.timeLeft <= 0) {
+            this.fail();
+          }
+        }, 1000);
+        
+        AudioSystem.play('timer');
+      },
+      
+      success() {
+        clearInterval(this.timer);
+        const player = gameState.players[gameState.currentPlayerIndex];
+        const bonus = Math.max(5, this.timeLeft); // Kalan süre kadar bonus
+        player.score += 20 + bonus;
+        showScorePopup(`+${20 + bonus}`, 'positive');
+        AudioSystem.play('score');
+        HapticFeedback.success();
+        setTimeout(() => nextTurn(), 500);
+      },
+      
+      fail() {
+        clearInterval(this.timer);
+        const player = gameState.players[gameState.currentPlayerIndex];
+        player.score = Math.max(0, player.score - 15);
+        showScorePopup('-15', 'negative');
+        AudioSystem.play('penalty');
+        HapticFeedback.error();
+        setTimeout(() => nextTurn(), 500);
+      }
+    };
+
+    // ⚖️ Jüri Sistemi (İfşa Klasik)
+    const JurySystem = {
+      votes: {},
+      cardHolder: null,
+      
+      init(playerId) {
+        this.votes = {};
+        this.cardHolder = playerId;
+      },
+      
+      showVoting() {
+        const juryHtml = `
+          <div class="jury-panel">
+            <div class="jury-question">Cevap yeterli miydi?</div>
+            <div class="jury-votes">
+              <button class="jury-vote-btn approve" onclick="JurySystem.vote('approve')">✓ Yeterli</button>
+              <button class="jury-vote-btn reject" onclick="JurySystem.vote('reject')">✗ Yetersiz</button>
+            </div>
+            <div id="jury-status" style="margin-top: 12px; text-align: center; font-size: 12px; color: var(--text-muted);">
+              Jüri oylarını bekliyor...
+            </div>
+          </div>
+        `;
+        return juryHtml;
+      },
+      
+      vote(decision) {
+        const playerId = gameState.playerId;
+        if (playerId === this.cardHolder) return; // Kartı çeken oy veremez
+        
+        this.votes[playerId] = decision;
+        HapticFeedback.light();
+        
+        // Oy durumunu göster
+        document.querySelectorAll('.jury-vote-btn').forEach(btn => {
+          btn.style.opacity = '0.5';
+          btn.style.pointerEvents = 'none';
+        });
+        
+        this.checkVotes();
+      },
+      
+      checkVotes() {
+        const totalVoters = gameState.players.length - 1; // Kartı çeken hariç
+        const voteCount = Object.keys(this.votes).length;
+        
+        if (voteCount >= totalVoters) {
+          this.showResult();
+        }
+      },
+      
+      showResult() {
+        const approves = Object.values(this.votes).filter(v => v === 'approve').length;
+        const rejects = Object.values(this.votes).filter(v => v === 'reject').length;
+        const approved = approves > rejects;
+        
+        const player = gameState.players.find(p => p.id === this.cardHolder);
+        
+        if (approved) {
+          player.score += 25;
+          showScorePopup('+25 (Jüri Onayı)', 'positive');
+          AudioSystem.play('score');
+        } else {
+          player.score = Math.max(0, player.score - 10);
+          showScorePopup('-10 (Jüri Red)', 'negative');
+          AudioSystem.play('penalty');
+        }
+        
+        const statusEl = document.getElementById('jury-status');
+        if (statusEl) {
+          statusEl.innerHTML = `
+            <div class="jury-result ${approved ? 'approved' : 'rejected'}">
+              ${approved ? '✓ Jüri Onayladı!' : '✗ Jüri Reddetti!'}
+              <br><small>${approves} Onay / ${rejects} Red</small>
+            </div>
+          `;
+        }
+        
+        setTimeout(() => nextTurn(), 2000);
+      }
+    };
+
+    // 🍾 Shot Ruleti (Bekarlığa Veda)
+    const ShotRoulette = {
+      getShotTask() {
+        const shots = [
+          { count: 1, text: '🥃 1 Shot!' },
+          { count: 2, text: '🥃🥃 2 Shot!' },
+          { count: 0, text: '🍀 Kurtuldun!' },
+          { count: 1, text: '🥃 Shot + Dans!' },
+          { count: 0, text: '👉 Sağındakine shot ısmarla!' },
+          { count: 1, text: '🥃 Shot + Selfie!' },
+          { count: 3, text: '🔥🔥🔥 3 SHOT!' },
+          { count: 0, text: '🎉 Herkes içer!' }
+        ];
+        return shots[Math.floor(Math.random() * shots.length)];
+      },
+      
+      render() {
+        const shot = this.getShotTask();
+        return `
+          <div class="shot-roulette">
+            <div class="shot-roulette-icon">🎰</div>
+            <div class="shot-roulette-text">${shot.text}</div>
+          </div>
+        `;
+      }
+    };
+
+    // 📞 Cesaret Çağrısı (Bekarlığa Veda)
+    const DareCall = {
+      targets: [
+        'Ex sevgiline',
+        'Annene/Babana',
+        'En son konuştuğun kişiye',
+        'Rastgele bir kişiye',
+        'Crush\'ına',
+        'En yakın arkadaşına',
+        'İş arkadaşına',
+        'Komşuna'
+      ],
+      
+      messages: [
+        '"Seni çok özledim" de',
+        '"Bu gece rüyama girdin" de',
+        '30 saniye sadece gül',
+        '"Seninle konuşmam lazım, acil" de',
+        'Şarkı söyle',
+        '"Sana bir itirafım var" de ve kapat',
+        'Yabancı bir dilde konuş',
+        '"Yanlış numara, pardon" de ve kapat'
+      ],
+      
+      generate() {
+        const target = this.targets[Math.floor(Math.random() * this.targets.length)];
+        const message = this.messages[Math.floor(Math.random() * this.messages.length)];
+        return { target, message };
+      },
+      
+      render() {
+        const dare = this.generate();
+        return `
+          <div class="dare-call">
+            <div class="dare-call-icon">📞</div>
+            <div class="dare-call-text">${dare.target} ara!</div>
+            <div class="dare-call-number">${dare.message}</div>
+          </div>
+        `;
+      }
+    };
+
+    // 🎲 Zar Sistemi (Hangover)
+    const DiceSystem = {
+      faces: ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'],
+      multipliers: [0.5, 1, 1.5, 2, 2.5, 3],
+      
+      roll() {
+        const result = Math.floor(Math.random() * 6);
+        return {
+          face: this.faces[result],
+          value: result + 1,
+          multiplier: this.multipliers[result]
+        };
+      },
+      
+      render(callback) {
+        return `
+          <div class="dice-container">
+            <div class="dice" id="dice" onclick="DiceSystem.animate(${callback})">
+              🎲
+            </div>
+            <div class="dice-result" id="dice-result">Zara dokun!</div>
+          </div>
+        `;
+      },
+      
+      animate(callback) {
+        const dice = document.getElementById('dice');
+        dice.classList.add('rolling');
+        AudioSystem.play('draw');
+        
+        let rollCount = 0;
+        const rollInterval = setInterval(() => {
+          dice.textContent = this.faces[Math.floor(Math.random() * 6)];
+          rollCount++;
+          
+          if (rollCount >= 10) {
+            clearInterval(rollInterval);
+            const result = this.roll();
+            dice.textContent = result.face;
+            dice.classList.remove('rolling');
+            
+            document.getElementById('dice-result').innerHTML = `
+              <strong>${result.value}</strong> geldi! 
+              <span style="color: var(--gold)">x${result.multiplier} çarpan</span>
+            `;
+            
+            HapticFeedback.medium();
+            
+            // Çarpanı gameState'e kaydet
+            gameState.diceMultiplier = result.multiplier;
+            
+            if (callback) setTimeout(callback, 1000);
+          }
+        }, 100);
+      }
+    };
+
+    // ⛓️ Zincir Görevi (Hangover)
+    const ChainTask = {
+      active: false,
+      chainCount: 0,
+      originalTask: null,
+      
+      start(task) {
+        this.active = true;
+        this.chainCount = 1;
+        this.originalTask = task;
+      },
+      
+      pass() {
+        this.chainCount++;
+        if (this.chainCount > gameState.players.length) {
+          // Herkes pas geçti, büyük ceza
+          this.endWithPenalty();
+          return;
+        }
+        showNotification(`⛓️ Zincir! ${this.chainCount}. kişiye geçti!`);
+      },
+      
+      complete() {
+        const player = gameState.players[gameState.currentPlayerIndex];
+        const bonus = this.chainCount * 10; // Her zincir +10 bonus
+        player.score += bonus;
+        showScorePopup(`+${bonus} (Zincir Bonus!)`, 'positive');
+        this.reset();
+      },
+      
+      endWithPenalty() {
+        // Herkes -5 puan
+        gameState.players.forEach(p => {
+          p.score = Math.max(0, p.score - 5);
+        });
+        showNotification('💀 Herkes kaçtı! -5 puan');
+        this.reset();
+      },
+      
+      reset() {
+        this.active = false;
+        this.chainCount = 0;
+        this.originalTask = null;
+      },
+      
+      render() {
+        if (!this.active) return '';
+        return `
+          <div class="chain-indicator">
+            <span class="chain-icon">⛓️</span>
+            <span class="chain-text">Zincir x${this.chainCount}</span>
+          </div>
+        `;
+      }
+    };
+
+    // 👑 Kral Kartı (Hangover)
+    const KingCard = {
+      active: false,
+      rule: '',
+      
+      show() {
+        this.active = true;
+        return `
+          <div style="text-align: center; margin-top: 16px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">👑</div>
+            <div style="color: var(--gold); font-weight: 600; margin-bottom: 12px;">KRAL KARTI!</div>
+            <div style="font-size: 13px; color: var(--cream-dark); margin-bottom: 16px;">
+              Bir kural koy, oyun bitene kadar geçerli!
+            </div>
+            <input type="text" class="king-rule-input" id="king-rule" placeholder="Kuralını yaz..." maxlength="100">
+            <button class="btn btn-primary" style="margin-top: 12px;" onclick="KingCard.setRule()">
+              Kuralı Koy! 👑
+            </button>
+          </div>
+        `;
+      },
+      
+      setRule() {
+        const input = document.getElementById('king-rule');
+        if (!input || !input.value.trim()) {
+          showNotification('Bir kural yazmalısın!');
+          return;
+        }
+        
+        this.rule = input.value.trim();
+        const player = gameState.players[gameState.currentPlayerIndex];
+        
+        showNotification(`👑 ${player.name}: "${this.rule}"`);
+        AudioSystem.play('achievement');
+        HapticFeedback.success();
+        
+        // Kuralı kaydet
+        gameState.activeKingRule = {
+          rule: this.rule,
+          by: player.name
+        };
+        
+        setTimeout(() => nextTurn(), 1000);
+      }
+    };
+
+    // 🔥 Combo Sistemi (Hangover)
+    const ComboSystem = {
+      count: 0,
+      
+      increment() {
+        this.count++;
+        if (this.count >= 3) {
+          this.showCombo();
+        }
+      },
+      
+      reset() {
+        this.count = 0;
+        this.removeIndicator();
+      },
+      
+      showCombo() {
+        this.removeIndicator();
+        
+        const indicator = document.createElement('div');
+        indicator.className = 'combo-indicator';
+        indicator.id = 'combo-indicator';
+        indicator.innerHTML = `<span class="combo-text">🔥 COMBO x${this.count}!</span>`;
+        document.body.appendChild(indicator);
+        
+        AudioSystem.play('combo');
+      },
+      
+      removeIndicator() {
+        const existing = document.getElementById('combo-indicator');
+        if (existing) existing.remove();
+      },
+      
+      getBonus() {
+        if (this.count < 3) return 1;
+        if (this.count < 5) return 1.5;
+        if (this.count < 7) return 2;
+        return 2.5;
+      }
+    };
+
+    // ⏱️ Speed Round (Ben Kimim)
+    const SpeedRound = {
+      timer: null,
+      timeLeft: 60,
+      score: 0,
+      characters: [],
+      currentIndex: 0,
+      
+      start(characters) {
+        this.characters = [...characters].sort(() => Math.random() - 0.5);
+        this.currentIndex = 0;
+        this.score = 0;
+        this.timeLeft = 60;
+        
+        this.render();
+        this.startTimer();
+      },
+      
+      render() {
+        const gameArea = document.getElementById('game-area');
+        const char = this.characters[this.currentIndex];
+        
+        gameArea.innerHTML = `
+          <div class="speed-round">
+            <div class="speed-timer" id="speed-timer">${this.timeLeft}</div>
+            <div class="speed-score">Puan: ${this.score}</div>
+            <div class="speed-character" id="speed-char">${char?.name || '?'}</div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+              Tahmin et ve hızlıca geç!
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-pass" onclick="SpeedRound.skip()">Pas ⏭️</button>
+              <button class="btn btn-done" onclick="SpeedRound.correct()">Bildim! ✅</button>
+            </div>
+          </div>
+        `;
+      },
+      
+      startTimer() {
+        this.timer = setInterval(() => {
+          this.timeLeft--;
+          const timerEl = document.getElementById('speed-timer');
+          if (timerEl) timerEl.textContent = this.timeLeft;
+          
+          if (this.timeLeft <= 0) {
+            this.end();
+          }
+        }, 1000);
+      },
+      
+      correct() {
+        this.score += 5;
+        this.next();
+        AudioSystem.play('score');
+        HapticFeedback.light();
+      },
+      
+      skip() {
+        this.next();
+      },
+      
+      next() {
+        this.currentIndex++;
+        if (this.currentIndex >= this.characters.length) {
+          this.end();
+          return;
+        }
+        
+        // Animasyonlu geçiş
+        const charEl = document.getElementById('speed-char');
+        if (charEl) {
+          charEl.style.animation = 'none';
+          charEl.offsetHeight; // Reflow
+          charEl.style.animation = 'speedPop 0.3s ease-out';
+          charEl.textContent = this.characters[this.currentIndex].name;
+        }
+        
+        document.querySelector('.speed-score').textContent = `Puan: ${this.score}`;
+      },
+      
+      end() {
+        clearInterval(this.timer);
+        
+        const player = gameState.players[gameState.currentPlayerIndex];
+        player.score += this.score;
+        
+        showNotification(`⚡ Speed Round: ${this.score} puan!`);
+        AudioSystem.play('victory');
+        
+        setTimeout(() => nextTurn(), 2000);
+      }
+    };
+
+    // 🎭 Taklit Modu (Ben Kimim)
+    const MimicMode = {
+      character: null,
+      hints: [],
+      
+      start(character) {
+        this.character = character;
+        this.hints = this.generateHints(character);
+        this.render();
+      },
+      
+      generateHints(char) {
+        // Karaktere göre taklit ipuçları
+        return [
+          `${char.name} gibi konuş`,
+          `${char.name}'in en bilinen hareketini yap`,
+          `${char.name}'in meşhur bir repliğini söyle`
+        ];
+      },
+      
+      render() {
+        const gameArea = document.getElementById('game-area');
+        
+        gameArea.innerHTML = `
+          <div class="mimic-mode">
+            <div class="mimic-character">🎭</div>
+            <div style="color: var(--gold); font-size: 20px; margin-bottom: 8px;">TAKLİT MODU</div>
+            <div class="mimic-hint">"${this.hints[0]}"</div>
+            <div style="margin: 24px 0; padding: 16px; background: var(--surface); border-radius: 12px;">
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Diğerleri tahmin etsin:</div>
+              <div style="font-size: 11px; color: var(--cream-dark);">Bu kişi kim?</div>
+            </div>
+            <div class="mimic-actions">
+              <button class="btn btn-pass" onclick="MimicMode.reveal(false)">Bilemediler 😔</button>
+              <button class="btn btn-done" onclick="MimicMode.reveal(true)">Bildiler! 🎉</button>
+            </div>
+          </div>
+        `;
+      },
+      
+      reveal(guessed) {
+        const player = gameState.players[gameState.currentPlayerIndex];
+        
+        if (guessed) {
+          player.score += 30;
+          showScorePopup('+30 (Taklit Ustası!)', 'positive');
+          AudioSystem.play('score');
+        } else {
+          showNotification(`Cevap: ${this.character.name}`);
+        }
+        
+        setTimeout(() => nextTurn(), 1500);
+      }
+    };
+
+    // 🎭 Utanç Sıralaması (Bekarlığa Veda)
+    const ShameRank = {
+      votes: {},
+      stories: [],
+      
+      init(players) {
+        this.votes = {};
+        this.stories = [];
+        players.forEach(p => {
+          this.stories.push({ playerId: p.id, playerName: p.name, avatar: p.avatar });
+        });
+      },
+      
+      render() {
+        return `
+          <div class="shame-rank">
+            <div class="shame-rank-title">🎭 En utanç verici hikaye kime ait?</div>
+            <div class="shame-rank-list">
+              ${this.stories.map(s => `
+                <div class="shame-rank-item" onclick="ShameRank.vote('${s.playerId}')">
+                  <span style="font-size: 24px;">${s.avatar}</span>
+                  <span style="flex: 1;">${s.playerName}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      },
+      
+      vote(playerId) {
+        this.votes[gameState.playerId] = playerId;
+        
+        document.querySelectorAll('.shame-rank-item').forEach(item => {
+          item.classList.remove('selected');
+          if (item.onclick.toString().includes(playerId)) {
+            item.classList.add('selected');
+          }
+        });
+        
+        HapticFeedback.light();
+        this.checkVotes();
+      },
+      
+      checkVotes() {
+        if (Object.keys(this.votes).length >= gameState.players.length) {
+          this.showResult();
+        }
+      },
+      
+      showResult() {
+        // En çok oy alan
+        const counts = {};
+        Object.values(this.votes).forEach(v => {
+          counts[v] = (counts[v] || 0) + 1;
+        });
+        
+        const winnerId = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+        const winner = gameState.players.find(p => p.id === winnerId);
+        
+        if (winner) {
+          winner.score += 20;
+          showNotification(`🎭 ${winner.name} kazandı! +20 puan`);
+        }
+        
+        setTimeout(() => nextTurn(), 2000);
       }
     };
 
@@ -12930,6 +13950,44 @@
           gameCards.oylama.map(c => ({ ...c, type: 'oylama' }))
         );
       }
+      
+      // 📱 İfşa Z - Telefon görevleri (%25)
+      if (game.id === 'ifsa-z' && gameCards.telefon && Math.random() > 0.75) {
+        allCards = allCards.concat(
+          gameCards.telefon
+            .filter(c => selectedIntensities.includes(c.intensity))
+            .map(c => ({ ...c, type: 'telefon', mechanic: 'phone_task' }))
+        );
+      }
+      
+      // 📸 İfşa Z - Screenshot Challenge (%20)
+      if (game.id === 'ifsa-z' && gameCards.screenshot && Math.random() > 0.80) {
+        allCards = allCards.concat(
+          gameCards.screenshot.map(c => ({ ...c, type: 'screenshot', mechanic: 'screenshot' }))
+        );
+      }
+      
+      // 👰 Bekarlığa Veda - Özel mekanikler
+      if (game.id === 'itiraf-bekarlik') {
+        // Gelin/Damat kartları (%25)
+        if (gameCards.gelin_damat && Math.random() > 0.75) {
+          allCards = allCards.concat(
+            gameCards.gelin_damat.map(c => ({ ...c, type: 'gelin_damat', mechanic: 'bride_groom' }))
+          );
+        }
+        // Shot Ruleti (%30)
+        if (Math.random() > 0.70) {
+          allCards.forEach(c => {
+            if (Math.random() > 0.5) c.mechanic = 'shot_roulette';
+          });
+        }
+        // Cesaret Çağrısı (%15)
+        if (gameCards.cesaret_cagri && Math.random() > 0.85) {
+          allCards = allCards.concat(
+            gameCards.cesaret_cagri.map(c => ({ ...c, type: 'dare_call', mechanic: 'dare_call' }))
+          );
+        }
+      }
 
       // Filter used
       let availableCards = allCards.filter(c => !gameState.usedCardIds.includes(c.text));
@@ -12962,8 +14020,71 @@
       gameState.timer = 30;
 
       saveRoomToStorage();
+      
+      // 📸 Screenshot Challenge özel akış
+      if (card.mechanic === 'screenshot') {
+        ScreenshotChallenge.start(card.text);
+        return;
+      }
+      
+      // 📞 Cesaret Çağrısı özel akış
+      if (card.mechanic === 'dare_call') {
+        showDareCallCard(card);
+        return;
+      }
+      
       showCard(card);
       updateGameScreen();
+    }
+
+    // 📞 Cesaret Çağrısı Kartı
+    function showDareCallCard(card) {
+      const gameArea = document.getElementById('game-area');
+      const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+      const isMyTurn = currentPlayer.id === gameState.playerId;
+      const dare = DareCall.generate();
+      
+      gameArea.innerHTML = `
+        <div class="card king-card">
+          <div class="card-category">
+            <div class="card-category-icon">📞</div>
+            <div class="card-category-name">CESARET ÇAĞRISI</div>
+          </div>
+          <div class="card-divider"></div>
+          <div class="dare-call">
+            <div class="dare-call-icon">📱</div>
+            <div class="dare-call-text">${dare.target} ara!</div>
+            <div class="dare-call-number">${dare.message}</div>
+          </div>
+        </div>
+        ${isMyTurn ? `
+          <div class="card-actions">
+            <button class="btn btn-pass" onclick="skipDareCall()">Korktum 😱 <span class="penalty-hint">(-25)</span></button>
+            <button class="btn btn-done" onclick="completeDareCall()">Aradım! 📞 <span class="score-hint">(+40)</span></button>
+          </div>
+        ` : '<div style="text-align: center; color: var(--text-muted); margin-top: 16px;">Arayacak mı izle...</div>'}
+      `;
+      
+      document.getElementById('draw-btn').style.display = 'none';
+    }
+    
+    function skipDareCall() {
+      const player = gameState.players[gameState.currentPlayerIndex];
+      player.score = Math.max(0, player.score - 25);
+      showScorePopup('-25', 'negative');
+      AudioSystem.play('penalty');
+      ComboSystem.reset();
+      nextTurn();
+    }
+    
+    function completeDareCall() {
+      const player = gameState.players[gameState.currentPlayerIndex];
+      player.score += 40;
+      showScorePopup('+40 (Cesaret!)', 'positive');
+      AudioSystem.play('achievement');
+      HapticFeedback.success();
+      ComboSystem.increment();
+      nextTurn();
     }
 
     function showCard(card) {
@@ -12987,12 +14108,16 @@
         revenge: { text: '🔄 RÖVANŞ', class: 'card-revenge' },
         gift: { text: '🎁 HEDİYE', class: 'card-gift' },
         target: { text: '🎯 HEDEF', class: 'card-target' },
-        stage: { text: '🎪 SAHNE', class: 'card-stage' }
+        stage: { text: '🎪 SAHNE', class: 'card-stage' },
+        screenshot: { text: '📸 SCREENSHOT', class: 'card-screenshot' },
+        phone_task: { text: '📱 TELEFON', class: 'card-phone' },
+        bride_groom: { text: '👰 ÖZEL', class: 'card-bride' },
+        shot_roulette: { text: '🍾 SHOT', class: 'card-shot' }
       };
-      const special = specialBadges[card.specialType];
+      const special = specialBadges[card.specialType] || specialBadges[card.mechanic];
 
-      const typeIcons = { itiraf: '🗣️', cesaret: '🎭', oylama: '🗳️', gorev: '🎉', telefon: '📱', grup: '👥', ceza: '💀', kural: '📜' };
-      const typeNames = { itiraf: 'İTİRAF', cesaret: 'CESARET', oylama: 'OYLAMA', gorev: 'GÖREV', telefon: 'TELEFON', grup: 'GRUP', ceza: 'CEZA', kural: 'KURAL' };
+      const typeIcons = { itiraf: '🗣️', cesaret: '🎭', oylama: '🗳️', gorev: '🎉', telefon: '📱', grup: '👥', ceza: '💀', kural: '📜', screenshot: '📸', gelin_damat: '👰', dare_call: '📞' };
+      const typeNames = { itiraf: 'İTİRAF', cesaret: 'CESARET', oylama: 'OYLAMA', gorev: 'GÖREV', telefon: 'TELEFON', grup: 'GRUP', ceza: 'CEZA', kural: 'KURAL', screenshot: 'SCREENSHOT', gelin_damat: 'GELİN/DAMAT', dare_call: 'CESARET ÇAĞRISI' };
       
       const intensityIcons = { 1: '☕', 2: '🍷', 3: '🔥', 4: '💀', 5: '🚨' };
       const intensityNames = { 1: 'Light', 2: 'Samimi', 3: 'Ateşli', 4: 'Hardcore', 5: 'Limit Yok' };
@@ -13052,11 +14177,40 @@
           </div>
         `;
       }
+      
+      // 🍾 Shot Ruleti (Bekarlığa Veda)
+      let shotRouletteHtml = '';
+      if (card.mechanic === 'shot_roulette' && game.id === 'itiraf-bekarlik') {
+        shotRouletteHtml = ShotRoulette.render();
+      }
+      
+      // ⛓️ Zincir Göstergesi (Hangover)
+      let chainHtml = '';
+      if (card.mechanic === 'chain' && ChainTask.active) {
+        chainHtml = ChainTask.render();
+      }
+      
+      // 👑 Aktif Kral Kuralı
+      let kingRuleHtml = '';
+      if (gameState.activeKingRule) {
+        kingRuleHtml = `
+          <div style="text-align: center; margin-bottom: 12px; padding: 8px 16px; background: rgba(198, 161, 91, 0.1); border-radius: 8px; border: 1px solid rgba(198, 161, 91, 0.2);">
+            <span style="font-size: 12px; color: var(--gold);">👑 ${gameState.activeKingRule.by}: "${gameState.activeKingRule.rule}"</span>
+          </div>
+        `;
+      }
 
       // Random reveal button for İfşa games
       let randomRevealHtml = '';
       if ((game.id === 'ifsa-z' || game.id === 'ifsa-klasik') && isMyTurn) {
         randomRevealHtml = `<button class="random-reveal-btn" onclick="randomReveal()">💣 Rastgele İfşa Patlat</button>`;
+      }
+      
+      // ⚖️ Jüri Sistemi (İfşa Klasik) - Kartı çeken için oy bekleme
+      let juryHtml = '';
+      if (game.id === 'ifsa-klasik' && !isMyTurn && card.type === 'itiraf') {
+        JurySystem.init(currentPlayer.id);
+        juryHtml = JurySystem.showVoting();
       }
       
       // Seviye göstergesi
@@ -13070,6 +14224,8 @@
       `;
 
       gameArea.innerHTML = `
+        ${kingRuleHtml}
+        ${chainHtml}
         <div class="player-queue-container" id="player-queue-container"></div>
         <div class="card ${intensity >= 5 ? 'card-fire-entrance' : 'card-fly-in'}" id="game-card">
           ${special ? `<div class="card-type-badge ${special.class}">${special.text}</div>` : ''}
@@ -13080,9 +14236,11 @@
           ${levelBadgeHtml}
           <div class="card-divider"></div>
           <div class="card-text ${CardTextProcessor.process(card.text).class}">${CardTextProcessor.process(card.text).text}</div>
+          ${shotRouletteHtml}
           <div class="card-timer-circular" id="timer-container"></div>
         </div>
         ${actionsHtml}
+        ${juryHtml}
         ${randomRevealHtml}
       `;
 
@@ -13179,6 +14337,15 @@
         allCards = allCards.concat(hangoverCards.kural.map(c => ({ ...c, type: 'kural' })));
       }
       
+      // 👑 KRAL KARTI (%10)
+      if (Math.random() > 0.90) {
+        showKingCard();
+        return;
+      }
+      
+      // 🎲 ZAR MEKANİĞİ (%25)
+      const useDice = Math.random() > 0.75;
+      
       const available = allCards.filter(c => !gameState.usedCardIds.includes(c.text));
 
       if (available.length === 0) {
@@ -13187,14 +14354,148 @@
       }
 
       const card = available[Math.floor(Math.random() * available.length)];
+      
+      // ⛓️ ZİNCİR MEKANİĞİ (%20)
+      if (Math.random() > 0.80 && card.type === 'gorev') {
+        card.mechanic = 'chain';
+        ChainTask.start(card);
+      }
+      
+      // 🎲 Zar çarpanı uygula
+      if (useDice) {
+        card.mechanic = 'dice';
+      }
+      
       gameState.currentCard = card;
       gameState.usedCardIds.push(card.text);
       gameState.currentRound++;
       gameState.timer = card.type === 'kural' ? 0 : 60;
 
       saveRoomToStorage();
+      
+      // Zar mekaniği varsa önce zar at
+      if (card.mechanic === 'dice') {
+        showDiceCard(card);
+        return;
+      }
+      
       showCard(card);
       updateGameScreen();
+    }
+    
+    // 🎲 Zar Kartı Göster
+    function showDiceCard(card) {
+      const gameArea = document.getElementById('game-area');
+      
+      gameArea.innerHTML = `
+        <div style="text-align: center;">
+          <h3 style="color: var(--gold); margin-bottom: 16px;">🎲 ZAR AT!</h3>
+          <p style="color: var(--cream-dark); font-size: 13px; margin-bottom: 24px;">
+            Zar sonucuna göre puan çarpanın belirlenir
+          </p>
+          <div class="dice-container">
+            <div class="dice" id="dice" onclick="rollDiceAndShowCard()">🎲</div>
+            <div class="dice-result" id="dice-result">Zara dokun!</div>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('draw-btn').style.display = 'none';
+    }
+    
+    function rollDiceAndShowCard() {
+      const dice = document.getElementById('dice');
+      const diceResult = document.getElementById('dice-result');
+      const faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+      const multipliers = [0.5, 1, 1.5, 2, 2.5, 3];
+      
+      dice.classList.add('rolling');
+      AudioSystem.play('draw');
+      
+      let rollCount = 0;
+      const rollInterval = setInterval(() => {
+        dice.textContent = faces[Math.floor(Math.random() * 6)];
+        rollCount++;
+        
+        if (rollCount >= 10) {
+          clearInterval(rollInterval);
+          const result = Math.floor(Math.random() * 6);
+          dice.textContent = faces[result];
+          dice.classList.remove('rolling');
+          
+          gameState.diceMultiplier = multipliers[result];
+          diceResult.innerHTML = `
+            <strong>${result + 1}</strong> geldi! 
+            <span style="color: var(--gold)">x${multipliers[result]} çarpan</span>
+          `;
+          
+          HapticFeedback.medium();
+          
+          setTimeout(() => {
+            showCard(gameState.currentCard);
+            updateGameScreen();
+          }, 1500);
+        }
+      }, 100);
+    }
+    
+    // 👑 Kral Kartı Göster
+    function showKingCard() {
+      const gameArea = document.getElementById('game-area');
+      const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+      const isMyTurn = currentPlayer.id === gameState.playerId;
+      
+      gameArea.innerHTML = `
+        <div class="card king-card" style="text-align: center;">
+          <div style="font-size: 64px; margin-bottom: 16px;">👑</div>
+          <div style="color: var(--gold); font-size: 24px; font-weight: 600; margin-bottom: 8px;">KRAL KARTI!</div>
+          <div style="color: var(--cream-dark); font-size: 14px; margin-bottom: 24px;">
+            ${currentPlayer.name}, bir kural koy!<br>
+            <small>Oyun bitene kadar geçerli olacak.</small>
+          </div>
+          ${isMyTurn ? `
+            <input type="text" class="king-rule-input" id="king-rule" placeholder="Kuralını yaz..." maxlength="100">
+            <button class="btn btn-primary" style="margin-top: 16px; width: 100%;" onclick="setKingRule()">
+              Kuralı Koy! 👑
+            </button>
+          ` : `
+            <div style="color: var(--text-muted); font-style: italic;">
+              ${currentPlayer.name} kural koyuyor...
+            </div>
+          `}
+        </div>
+      `;
+      
+      document.getElementById('draw-btn').style.display = 'none';
+      AudioSystem.play('achievement');
+    }
+    
+    function setKingRule() {
+      const input = document.getElementById('king-rule');
+      if (!input || !input.value.trim()) {
+        showNotification('Bir kural yazmalısın!');
+        return;
+      }
+      
+      const rule = input.value.trim();
+      const player = gameState.players[gameState.currentPlayerIndex];
+      
+      // Kuralı kaydet
+      gameState.activeKingRule = {
+        rule: rule,
+        by: player.name
+      };
+      
+      showNotification(`👑 Yeni Kural: "${rule}"`);
+      player.score += 15;
+      showScorePopup('+15 (Kral!)', 'positive');
+      AudioSystem.play('achievement');
+      HapticFeedback.success();
+      
+      // Combo artır
+      ComboSystem.increment();
+      
+      setTimeout(() => nextTurn(), 1500);
     }
 
     // ==========================================
@@ -13273,6 +14574,7 @@
       // Karakter seç
       const category = gameState.whoamiCategory || 'all';
       const data = CARDS['benkimim'];
+      const mode = data.modes[gameState.whoamiMode] || data.modes.classic;
       
       let characterPool = [];
       
@@ -13290,9 +14592,26 @@
         return;
       }
       
+      // ⏱️ SPEED ROUND modu
+      if (mode.mechanic === 'speed_round') {
+        // Tüm karakterleri karıştırıp Speed Round başlat
+        const shuffled = [...characterPool].sort(() => Math.random() - 0.5);
+        SpeedRound.start(shuffled.slice(0, 30).map(name => ({ name })));
+        return;
+      }
+      
       const character = characterPool[Math.floor(Math.random() * characterPool.length)];
       
-      // State'i güncelle
+      // 🎭 TAKLİT modu
+      if (mode.mechanic === 'mimic') {
+        gameState.whoamiCharacter = character;
+        gameState.currentRound++;
+        AudioSystem.play('draw');
+        showMimicMode(character);
+        return;
+      }
+      
+      // State'i güncelle (normal modlar)
       gameState.whoamiCharacter = character;
       gameState.whoamiCharacterCategory = category;
       gameState.whoamiQuestions = 0;
@@ -13303,6 +14622,75 @@
       
       AudioSystem.play('draw');
       showWhoamiGameScreen();
+    }
+    
+    // 🎭 Taklit Modu Ekranı
+    function showMimicMode(character) {
+      const gameArea = document.getElementById('game-area');
+      const current = gameState.players[gameState.currentPlayerIndex];
+      const isMyTurn = current?.id === gameState.playerId;
+      
+      if (isMyTurn) {
+        // Taklit eden kişinin görünümü
+        gameArea.innerHTML = `
+          <div class="mimic-mode">
+            <div class="mimic-character">🎭</div>
+            <div style="color: var(--gold); font-size: 22px; margin-bottom: 8px; font-weight: 600;">TAKLİT MODU</div>
+            <div style="font-size: 14px; color: var(--cream); margin-bottom: 16px;">
+              Karakterin: <strong style="color: var(--gold);">${character}</strong>
+            </div>
+            <div class="mimic-hint">
+              Bu karakteri taklit et!<br>
+              Konuşma tarzı, hareketleri, meşhur replikler...<br>
+              Diğerleri tahmin etsin!
+            </div>
+            <div style="margin-top: 24px;">
+              <button class="btn btn-done" onclick="mimicSuccess()">Bildiler! 🎉 <span class="score-hint">(+30)</span></button>
+              <button class="btn btn-secondary" style="margin-top: 12px;" onclick="mimicFail()">Bilemediler 😔</button>
+            </div>
+          </div>
+        `;
+      } else {
+        // İzleyenlerin görünümü
+        gameArea.innerHTML = `
+          <div class="mimic-mode">
+            <div class="mimic-character">🎭</div>
+            <div style="color: var(--gold); font-size: 22px; margin-bottom: 8px; font-weight: 600;">TAKLİT MODU</div>
+            <div style="font-size: 14px; color: var(--cream); margin-bottom: 16px;">
+              <strong>${current.name}</strong> birini taklit ediyor!
+            </div>
+            <div class="mimic-hint">
+              Kim olduğunu tahmin et ve sesli söyle!
+            </div>
+            <div style="margin-top: 24px; padding: 16px; background: var(--surface); border-radius: 12px;">
+              <div style="font-size: 40px; margin-bottom: 8px;">🤔</div>
+              <div style="font-size: 13px; color: var(--text-muted);">Tahmin et...</div>
+            </div>
+          </div>
+        `;
+      }
+      
+      document.getElementById('draw-btn').style.display = 'none';
+    }
+    
+    function mimicSuccess() {
+      const player = gameState.players[gameState.currentPlayerIndex];
+      player.score += 30;
+      showScorePopup('+30 (Taklit Ustası!)', 'positive');
+      AudioSystem.play('score');
+      HapticFeedback.success();
+      
+      showNotification(`🎭 Cevap: ${gameState.whoamiCharacter}`);
+      gameState.whoamiCharacter = null;
+      
+      setTimeout(() => nextTurn(), 1500);
+    }
+    
+    function mimicFail() {
+      showNotification(`😔 Cevap: ${gameState.whoamiCharacter}`);
+      gameState.whoamiCharacter = null;
+      
+      setTimeout(() => nextTurn(), 1500);
     }
     
     function showWhoamiGameScreen() {
@@ -13890,6 +15278,27 @@
       StreakSystem.increment();
       cardScore = Math.round(cardScore * gameState.comboMultiplier);
       
+      // 🎲 Zar çarpanı (Hangover)
+      if (gameState.diceMultiplier && gameState.diceMultiplier !== 1) {
+        cardScore = Math.round(cardScore * gameState.diceMultiplier);
+        showNotification(`🎲 x${gameState.diceMultiplier} çarpan uygulandı!`);
+        gameState.diceMultiplier = null; // Sıfırla
+      }
+      
+      // 🔥 Combo sistemi (Hangover)
+      if (gameState.selectedGame?.id === 'hangover') {
+        ComboSystem.increment();
+        const comboBonus = ComboSystem.getBonus();
+        if (comboBonus > 1) {
+          cardScore = Math.round(cardScore * comboBonus);
+        }
+      }
+      
+      // ⛓️ Zincir tamamlama (Hangover)
+      if (ChainTask.active) {
+        ChainTask.complete();
+      }
+      
       // Seviye 5 sayacı
       if (gameState.currentCard.intensity >= 5) {
         player.level5Count = (player.level5Count || 0) + 1;
@@ -13964,10 +15373,27 @@
         return;
       }
       
+      // ⛓️ Zincir mekaniği - Pas geçince sonraki kişiye devret
+      if (ChainTask.active && gameState.selectedGame?.id === 'hangover') {
+        ChainTask.pass();
+        showNotification('⛓️ Zincir sonraki kişiye geçti!');
+        saveRoomToStorage();
+        setTimeout(() => nextTurn(), 400);
+        return;
+      }
+      
       player.score = Math.max(0, player.score - penalty);
       
       // Streak kır
       StreakSystem.reset();
+      
+      // 🔥 Combo sıfırla (Hangover)
+      if (gameState.selectedGame?.id === 'hangover') {
+        ComboSystem.reset();
+      }
+      
+      // 🎲 Zar çarpanı sıfırla
+      gameState.diceMultiplier = null;
       
       // Mini Leaderboard güncelle
       MiniLeaderboard.animateScoreChange(player.id);
