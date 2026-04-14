@@ -4248,6 +4248,86 @@
     body.couples-mode .turn-text {
       font-style: italic;
     }
+    
+    /* Couples Card Animation */
+    .couples-card {
+      animation: couplesBreathe 4s ease-in-out infinite;
+    }
+    
+    /* Special Card Badges */
+    .special-card-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: var(--space-2);
+      text-align: center;
+    }
+    
+    .future-badge {
+      background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(79, 70, 229, 0.2));
+      border: 1px solid rgba(147, 51, 234, 0.4);
+      color: #a78bfa;
+    }
+    
+    .flashback-badge {
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      color: #fcd34d;
+    }
+    
+    .defense-badge {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.2));
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #86efac;
+    }
+    
+    .memory-badge {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(219, 39, 119, 0.2));
+      border: 1px solid rgba(236, 72, 153, 0.4);
+      color: #f9a8d4;
+    }
+    
+    /* Couples Mode Enhanced Styling */
+    body.couples-mode .card {
+      background: linear-gradient(145deg, rgba(15, 15, 16, 0.95), rgba(26, 15, 20, 0.95));
+    }
+    
+    body.couples-mode .btn-done {
+      background: linear-gradient(135deg, var(--couples-accent), #9A2F3B);
+      border-color: var(--couples-accent);
+    }
+    
+    body.couples-mode .btn-done:hover {
+      box-shadow: 0 0 30px rgba(122, 31, 43, 0.5);
+    }
+    
+    body.couples-mode .timer-fill {
+      background: linear-gradient(90deg, var(--couples-accent), #B8405E);
+    }
+    
+    /* Kırılma Noktası Enhanced */
+    body.breaking-point-mode .card {
+      animation: breakingPulse 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes breakingPulse {
+      0%, 100% { 
+        box-shadow: 0 0 20px rgba(178, 58, 58, 0.3);
+      }
+      50% { 
+        box-shadow: 0 0 40px rgba(178, 58, 58, 0.6);
+      }
+    }
+    
+    body.breaking-point-mode .btn-pass {
+      background: rgba(60, 60, 60, 0.3) !important;
+      border-color: rgba(100, 100, 100, 0.3) !important;
+      color: var(--text-muted) !important;
+      cursor: not-allowed !important;
+    }
 
     /* Özel Rozetler */
     .special-badges {
@@ -7669,67 +7749,126 @@
         goztemas: [
           { intensity: 1, text: "Birbirinizin gözlerine bakarak, onsuz bir günün nasıl geçtiğini anlat.", mechanic: 'eye_contact' },
           { intensity: 1, text: "30 saniye göz teması yapın. Sonra ilk düşünceni söyle.", mechanic: 'eye_contact' },
+          { intensity: 1, text: "Gözlerine bakarak en sevdiğin fiziksel özelliğini söyle.", mechanic: 'eye_contact' },
+          { intensity: 1, text: "Göz teması yaparak neden onu seçtiğini anlat.", mechanic: 'eye_contact' },
           { intensity: 2, text: "Gözlerine bakarak ona en çok ne zaman aşık olduğunu söyle.", mechanic: 'eye_contact' },
           { intensity: 2, text: "Birbirinize bakarak en korktuğunuz şeyi paylaşın.", mechanic: 'eye_contact' },
+          { intensity: 2, text: "Gözlerine bakarak onu kaybetmekten ne kadar korktuğunu itiraf et.", mechanic: 'eye_contact' },
+          { intensity: 2, text: "30 saniye göz teması, sonra en mutlu anınızı anlat.", mechanic: 'eye_contact' },
           { intensity: 3, text: "Gözlerine bakarak en derin fantezini fısılda.", mechanic: 'eye_contact' },
           { intensity: 3, text: "30 saniye göz teması, sonra onu ne kadar istediğini anlat.", mechanic: 'eye_contact' },
+          { intensity: 3, text: "Gözlerine bakarak yatakta en çok neyi sevdiğini söyle.", mechanic: 'eye_contact' },
+          { intensity: 3, text: "Göz teması yaparak en utanç verici sırrını paylaş.", mechanic: 'eye_contact' },
           { intensity: 4, text: "Gözlerine bakarak sana yaptığı en kötü şeyi anlat.", mechanic: 'eye_contact' },
-          { intensity: 5, text: "Gözlerine bakarak hiç söyleyemediğin o şeyi söyle.", mechanic: 'eye_contact' }
+          { intensity: 4, text: "Göz teması yaparak hiç söyleyemediğin bir eleştiriyi söyle.", mechanic: 'eye_contact' },
+          { intensity: 4, text: "Gözlerine bakarak onu aldatmayı düşünüp düşünmediğini itiraf et.", mechanic: 'eye_contact' },
+          { intensity: 5, text: "Gözlerine bakarak hiç söyleyemediğin o şeyi söyle.", mechanic: 'eye_contact' },
+          { intensity: 5, text: "30 saniye göz teması, sonra en derin pişmanlığını anlat.", mechanic: 'eye_contact' },
+          { intensity: 5, text: "Gözlerine bakarak bu ilişkiyle ilgili en büyük korkunu söyle.", mechanic: 'eye_contact' }
         ],
         
-        // 🔮 GELECEK PROJEKSİYONU - Hayal kurduran kartlar
+        // 🔮 GELECEK PROJEKSİYONU - Hayal kurduran kartlar (Nora Özel)
         gelecek: [
           { intensity: 1, text: "5 yıl sonraki pazar sabahımızı tarif et. Neredeyiz, ne yapıyoruz?", type: 'future' },
           { intensity: 1, text: "İlk tatilimizde hangi kitabı birlikte okuyor olacağız?", type: 'future' },
           { intensity: 1, text: "10 yıl sonra bu geceyi nasıl hatırlayacağız?", type: 'future' },
+          { intensity: 1, text: "Birlikte açmak istediğimiz bir yer olsa, ne olurdu?", type: 'future' },
+          { intensity: 1, text: "Evimizin en sevdiğin odası nasıl görünecek?", type: 'future' },
+          { intensity: 1, text: "İlk evcil hayvanımız ne olacak ve adını ne koyacağız?", type: 'future' },
           { intensity: 2, text: "Çocuğumuz olsa, ona ilk ne öğretmek isterdin?", type: 'future' },
           { intensity: 2, text: "Yaşlandığımızda beraber yapacağımız en tuhaf şey ne olacak?", type: 'future' },
           { intensity: 2, text: "50. yıl dönümümüzde ne yapıyor olacağız?", type: 'future' },
+          { intensity: 2, text: "Beraber yazacağımız kitabın konusu ne olurdu?", type: 'future' },
+          { intensity: 2, text: "Torunlarımıza bizi nasıl anlatırdın?", type: 'future' },
+          { intensity: 2, text: "Düğünümüz nasıl olacak, hayal et ve anlat.", type: 'future' },
           { intensity: 3, text: "Emekli olduğumuzda nerede yaşamak istersin?", type: 'future' },
           { intensity: 3, text: "Beraber yazmak istediğin bir hikaye olsa, nasıl başlardı?", type: 'future' },
+          { intensity: 3, text: "Bir yıl boyunca dünyayı gezseydik, rotamız nasıl olurdu?", type: 'future' },
+          { intensity: 3, text: "İkimizin birlikte yaşlanmış hallerini tarif et.", type: 'future' },
+          { intensity: 3, text: "Ortak bir proje başlatsaydık, ne olurdu?", type: 'future' },
           { intensity: 4, text: "Seks hayatımız 20 yıl sonra nasıl olacak sence?", type: 'future' },
-          { intensity: 4, text: "Benim için en büyük hayalin ne? Gerçekleşirse ne hissedersin?", type: 'future' }
+          { intensity: 4, text: "Benim için en büyük hayalin ne? Gerçekleşirse ne hissedersin?", type: 'future' },
+          { intensity: 4, text: "En büyük krizimizi nasıl atlattığımızı hayal et ve anlat.", type: 'future' },
+          { intensity: 4, text: "Birbirimize yazdığımız son mektup ne der?", type: 'future' },
+          { intensity: 5, text: "Ölüm döşeğinde birbirimize ne söyleriz?", type: 'future' },
+          { intensity: 5, text: "Benden sonra hayatına devam edebilir misin? Nasıl?", type: 'future' }
         ],
         
         // 📸 FLASHBACK - Nostalji kartları
         flashback: [
           { intensity: 1, text: "Telefonunda 1 yıl önceki bir fotoğrafı bul ve o anı anlat.", type: 'flashback' },
           { intensity: 1, text: "Tanıştığımız gün ne giyiyordun, hatırlıyor musun?", type: 'flashback' },
+          { intensity: 1, text: "İlk buluşmamızdan bir detay anlat - çoğu kişi bilmez.", type: 'flashback' },
+          { intensity: 1, text: "Benimle ilgili ilk fark ettiğin şey neydi?", type: 'flashback' },
+          { intensity: 1, text: "İlk hediyeleşmemizi hatırlıyor musun? Ne almıştın?", type: 'flashback' },
           { intensity: 2, text: "İlk öpüşmemizden hemen önce ne düşünüyordun?", type: 'flashback' },
           { intensity: 2, text: "En çok güldüğümüz anı hatırla ve anlat.", type: 'flashback' },
           { intensity: 2, text: "Bana ilk 'seni seviyorum' demeden önceki gece ne hissettin?", type: 'flashback' },
+          { intensity: 2, text: "Ailenle tanıştığım günü anlat - gerçekten ne düşünmüştün?", type: 'flashback' },
+          { intensity: 2, text: "En kötü tartışmamızın ertesi günü nasıl hissettin?", type: 'flashback' },
+          { intensity: 2, text: "Beni arkadaşlarına ilk tanıttığın günü hatırlıyor musun?", type: 'flashback' },
           { intensity: 3, text: "En tutkulu gecemizi en başından anlat.", type: 'flashback' },
           { intensity: 3, text: "Benimle ilk kez birlikte olduğumuzda ne düşündün sonrasında?", type: 'flashback' },
+          { intensity: 3, text: "İlk kez beraber uyandığımız sabahı anlat.", type: 'flashback' },
+          { intensity: 3, text: "En utanç verici anımızı - gülmeye başlamadan - anlat.", type: 'flashback' },
           { intensity: 4, text: "En büyük kavgamızın sebebi neydi ve ne hissettirdi?", type: 'flashback' },
-          { intensity: 4, text: "Ayrılmayı düşündüğün o an, ne oldu da kaldın?", type: 'flashback' }
+          { intensity: 4, text: "Ayrılmayı düşündüğün o an, ne oldu da kaldın?", type: 'flashback' },
+          { intensity: 4, text: "Beni en çok kırdığın anı hatırlıyor musun? Ne düşünüyordun?", type: 'flashback' },
+          { intensity: 4, text: "Hiç yalan söylediğin bir anı şimdi itiraf et.", type: 'flashback' },
+          { intensity: 5, text: "Benden nefret ettiğin bir an oldu mu? Anlat.", type: 'flashback' },
+          { intensity: 5, text: "En büyük ihanetimiz ne oldu? Şimdi konuşalım.", type: 'flashback' }
         ],
         
         // ⚖️ SAVUNMA AVUKATI - Eksikleri güzele çevirme
         savunma: [
           { intensity: 2, text: "Partnerin en sevmediğin özelliğini 1 dakika boyunca 'aslında çok tatlı' diye savun.", type: 'defense' },
           { intensity: 2, text: "Seni en çok rahatsız eden alışkanlığını, neden aslında sevimli olduğunu açıkla.", type: 'defense' },
+          { intensity: 2, text: "En sinir bozucu huyu aslında neden onu özel kılıyor?", type: 'defense' },
+          { intensity: 2, text: "En çok eleştirdiğin özelliğini, neden minnettarsın aslında?", type: 'defense' },
           { intensity: 3, text: "En çok eleştirdiğin fiziksel özelliğini, neden aslında seksi olduğunu anlat.", type: 'defense' },
           { intensity: 3, text: "En sinir bozucu davranışını, ilişkiye nasıl değer kattığını savun.", type: 'defense' },
+          { intensity: 3, text: "Yatakta en beğenmediğin şeyi, aslında neden hoşuna gidiyor olabileceğini açıkla.", type: 'defense' },
+          { intensity: 3, text: "İletişim tarzındaki en büyük eksikliği, neden aslında güçlü bir yan olduğunu savun.", type: 'defense' },
           { intensity: 4, text: "En büyük hatasını, neden seni daha çok sevmene neden olduğunu açıkla.", type: 'defense' },
-          { intensity: 4, text: "En zayıf yönünü, aslında bir güç olarak nasıl görebileceğini anlat.", type: 'defense' }
+          { intensity: 4, text: "En zayıf yönünü, aslında bir güç olarak nasıl görebileceğini anlat.", type: 'defense' },
+          { intensity: 4, text: "Seni en çok inciten davranışını, neden onu anlayışla karşılaman gerektiğini savun.", type: 'defense' },
+          { intensity: 4, text: "Kıskanılacak bir yanı olmadığını düşündüğün özelliğini, başkalarının neden kıskanacağını anlat.", type: 'defense' },
+          { intensity: 5, text: "En affetmesi zor hatasını, neden affetmen gerektiğini kendine ikna et.", type: 'defense' },
+          { intensity: 5, text: "İlişkinizdeki en büyük sorunu, neden aslında bir fırsat olduğunu savun.", type: 'defense' }
         ],
         
         // 🎭 ROL DEĞİŞİMİ - Güç dengesi
         roldegisimi: [
           { intensity: 2, text: "Bu turda terapist sensin. Ona 3 soru sor, sadece dinle.", type: 'role_swap', role: 'therapist' },
           { intensity: 2, text: "Bu turda sadece dinleyici ol. O konuşsun, sen yorum yapma.", type: 'role_swap', role: 'listener' },
+          { intensity: 2, text: "Bu turda öğretmen ol. Ona ilişki hakkında 3 ders ver.", type: 'role_swap', role: 'teacher' },
+          { intensity: 2, text: "Gazeteci ol. Ona ilişkiniz hakkında röportaj yap.", type: 'role_swap', role: 'journalist' },
           { intensity: 3, text: "Bugün sen karar ver. Şu andan itibaren 10 dakika boyunca ne yapacağımıza sen karar ver.", type: 'role_swap', role: 'leader' },
           { intensity: 3, text: "Rollerinizi değiştirin. O seni oynasın, sen onu oyna - 1 dakika.", type: 'role_swap', role: 'mimic' },
+          { intensity: 3, text: "Avukat ol. Onun bir 'suçunu' savun, jüri biz olalım.", type: 'role_swap', role: 'lawyer' },
+          { intensity: 3, text: "Psikolog ol. Onun bir davranış kalıbını analiz et.", type: 'role_swap', role: 'psychologist' },
           { intensity: 4, text: "Dominant ol. Bir sonraki 3 kart boyunca tüm kararları sen ver.", type: 'role_swap', role: 'dominant' },
-          { intensity: 4, text: "İtaat et. Bir sonraki kart boyunca onun her dediğini yap.", type: 'role_swap', role: 'submissive' }
+          { intensity: 4, text: "İtaat et. Bir sonraki kart boyunca onun her dediğini yap.", type: 'role_swap', role: 'submissive' },
+          { intensity: 4, text: "Yönetmen ol. Ona bir sahne yönlendir - romantik veya dramatik.", type: 'role_swap', role: 'director' },
+          { intensity: 4, text: "Danışman ol. İlişkinizin geleceği için 3 tavsiye ver.", type: 'role_swap', role: 'advisor' },
+          { intensity: 5, text: "Hakimsin. İlişkinizdeki bir 'davayı' yargıla ve karar ver.", type: 'role_swap', role: 'judge' },
+          { intensity: 5, text: "Tanrı ol. İlişkiniz için 3 kural koy - herkes uymak zorunda.", type: 'role_swap', role: 'god' }
         ],
         
         // 🧠 HAFIZA - Önceki cevapları hatırlatan kartlar
         hafiza: [
           { intensity: 3, text: "Az önce söylediğin cevap gerçekten doğru muydu? Tekrar düşün.", type: 'memory' },
           { intensity: 3, text: "Bu oyunda söylediğin en büyük yalanı şimdi itiraf et.", type: 'memory' },
+          { intensity: 3, text: "Bu gece en çok hangi soruyu cevaplamaktan çekindin?", type: 'memory' },
+          { intensity: 3, text: "Oyun boyunca içinden geçen ama söyleyemediğin ne var?", type: 'memory' },
           { intensity: 4, text: "Bu gece söylediğin bir şey var ki tam dürüst değildin. Hangisi?", type: 'memory' },
-          { intensity: 4, text: "Oyun başından beri en çok hangi soruya yalan söyledin?", type: 'memory' }
+          { intensity: 4, text: "Oyun başından beri en çok hangi soruya yalan söyledin?", type: 'memory' },
+          { intensity: 4, text: "Partnerinin bu gece verdiği bir cevap seni şüphelendirdi mi?", type: 'memory' },
+          { intensity: 4, text: "Bu oyun boyunca öğrendiğin en şaşırtıcı şey neydi?", type: 'memory' },
+          { intensity: 5, text: "Bu gece yüzleşmekten kaçındığın konu ne? Şimdi yüzleş.", type: 'memory' },
+          { intensity: 5, text: "Oyun boyunca içini kemiren soru hangisiydi? Şimdi sor.", type: 'memory' },
+          { intensity: 5, text: "Partnerinin bu gece söylediği en acı gerçek neydi?", type: 'memory' },
+          { intensity: 5, text: "Bu oyunun sonunda ilişkiniz hakkında ne öğrendin?", type: 'memory' }
         ]
       },
 
@@ -14319,10 +14458,17 @@
 
       const current = gameState.players[gameState.currentPlayerIndex];
       const isMyTurn = current?.id === gameState.playerId;
+      
+      // Sevgililer Modu için özel turn text
+      let turnText = isMyTurn ? 'Sahne senin.' : (current?.name || '') + ' oynuyor';
+      if (CouplesMode.active) {
+        const partnerName = gameState.players.find(p => p.id !== gameState.playerId)?.name || 'Partner';
+        turnText = isMyTurn ? 'Onunla konuş.' : `${partnerName} düşünüyor...`;
+      }
 
       document.getElementById('turn-indicator').innerHTML = `
         <div class="turn-avatar">${current?.avatar || '🎭'}</div>
-        <div class="turn-text">${isMyTurn ? 'Sahne senin.' : (current?.name || '') + ' oynuyor'}</div>
+        <div class="turn-text">${turnText}</div>
       `;
 
       const drawBtn = document.getElementById('draw-btn');
@@ -14494,11 +14640,36 @@
     function showCouplesCardNormal(card, gameArea, typeIcons, typeNames, intensityIcons, cardScore, skipPenalty) {
       const intensity = card.intensity || 3;
       const isPraiseCard = card.type === 'ovgu';
-      const cardClass = isPraiseCard ? 'card praise-card' : 'card';
+      const cardClass = isPraiseCard ? 'card praise-card couples-card' : 'card couples-card';
+      
+      // Rol Değişimi badge'i
+      let roleSwapHtml = '';
+      if (card.type === 'roldegisimi' && card.role) {
+        const role = RoleSwap.roles.find(r => r.id === card.role) || RoleSwap.getRandomRole();
+        roleSwapHtml = RoleSwap.render(role);
+      }
+      
+      // Gelecek/Flashback/Savunma özel badge
+      let specialBadgeHtml = '';
+      if (card.type === 'gelecek') {
+        specialBadgeHtml = '<div class="special-card-badge future-badge">🔮 Hayal Kur</div>';
+      } else if (card.type === 'flashback') {
+        specialBadgeHtml = '<div class="special-card-badge flashback-badge">📸 Hatırla</div>';
+      } else if (card.type === 'savunma') {
+        specialBadgeHtml = '<div class="special-card-badge defense-badge">⚖️ Savun</div>';
+      } else if (card.type === 'hafiza') {
+        specialBadgeHtml = '<div class="special-card-badge memory-badge">🧠 Hafıza</div>';
+      }
+      
+      // Kırılma noktası aktifse pas butonunu devre dışı bırak
+      const skipDisabled = BreakingPoint.active ? 'disabled style="opacity:0.3;cursor:not-allowed;"' : '';
+      const skipOnclick = BreakingPoint.active ? 'onclick="showNotification(\'💥 Kırılma Noktasında pas yok!\')"' : 'onclick="skipCard()"';
       
       gameArea.innerHTML = `
         <div class="${cardClass}" style="position: relative;">
           <span class="card-type-badge">${typeIcons[card.type] || '🎴'}</span>
+          ${roleSwapHtml}
+          ${specialBadgeHtml}
           <div class="card-category">
             <div class="card-category-icon">${typeIcons[card.type] || '🎴'}</div>
             <div class="card-category-name">${typeNames[card.type] || 'KART'}</div>
@@ -14518,7 +14689,7 @@
           </div>
         </div>
         <div class="card-actions">
-          <button class="btn btn-pass" onclick="skipCard()">Kaç <span class="penalty-hint">(-${skipPenalty})</span></button>
+          <button class="btn btn-pass" ${skipDisabled} ${skipOnclick}>Kaç <span class="penalty-hint">(-${skipPenalty})</span></button>
           <button class="btn btn-done" onclick="completeCard()">Yüzleş <span class="score-hint">(+${cardScore})</span></button>
         </div>
       `;
