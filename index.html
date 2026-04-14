@@ -3866,6 +3866,389 @@
       background: rgba(178, 58, 58, 0.1);
     }
     
+    /* ═══════════════════════════════════════════════════════════ */
+    /* SEVGİLİLER MODU - ÖZEL TEMA                                 */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    body.couples-mode {
+      --couples-bg: #0F0F10;
+      --couples-accent: #7A1F2B;
+      --couples-accent-light: #9A2F3B;
+      --couples-glow: rgba(122, 31, 43, 0.3);
+      background: var(--couples-bg);
+    }
+    
+    body.couples-mode::after {
+      background: radial-gradient(ellipse at center, rgba(122, 31, 43, 0.08) 0%, transparent 60%);
+    }
+    
+    /* Couples Mode Cards */
+    body.couples-mode .card {
+      border-color: rgba(122, 31, 43, 0.3);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 0 60px rgba(122, 31, 43, 0.1);
+      animation: couplesBreathe 4s ease-in-out infinite;
+    }
+    
+    @keyframes couplesBreathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    
+    body.couples-mode .card-category-name,
+    body.couples-mode .card-level-badge,
+    body.couples-mode .level-name {
+      color: var(--couples-accent-light);
+    }
+    
+    body.couples-mode .card-level-badge {
+      background: rgba(122, 31, 43, 0.15);
+      border-color: rgba(122, 31, 43, 0.3);
+    }
+    
+    body.couples-mode .card-divider {
+      background: linear-gradient(90deg, transparent, var(--couples-accent), transparent);
+    }
+    
+    body.couples-mode .btn-primary {
+      border-color: var(--couples-accent);
+      color: var(--couples-accent-light);
+    }
+    
+    body.couples-mode .btn-primary:hover {
+      background: var(--couples-accent);
+      color: var(--cream);
+      box-shadow: 0 0 30px var(--couples-glow);
+    }
+    
+    /* Güven Skoru Bar */
+    .trust-score-container {
+      position: fixed;
+      top: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      padding: var(--space-2);
+      background: rgba(15, 15, 16, 0.95);
+      border: 1px solid rgba(122, 31, 43, 0.3);
+      border-radius: var(--radius-md);
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    
+    .trust-score-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-1);
+      font-size: var(--text-xs);
+      color: var(--couples-accent-light);
+      letter-spacing: 1px;
+    }
+    
+    .trust-score-bar {
+      height: 8px;
+      background: rgba(122, 31, 43, 0.2);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    
+    .trust-score-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--couples-accent), #B8405E);
+      border-radius: var(--radius-full);
+      transition: width 0.5s ease-out;
+    }
+    
+    .trust-score-change {
+      position: absolute;
+      top: 50%;
+      right: -30px;
+      transform: translateY(-50%);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      animation: trustPop 0.5s ease-out;
+    }
+    
+    .trust-score-change.positive { color: #4ade80; }
+    .trust-score-change.negative { color: var(--danger); }
+    
+    @keyframes trustPop {
+      0% { transform: translateY(-50%) scale(0); opacity: 0; }
+      50% { transform: translateY(-50%) scale(1.3); }
+      100% { transform: translateY(-50%) scale(1); opacity: 1; }
+    }
+    
+    /* Kırılma Noktası Modu */
+    body.breaking-point-mode {
+      background: linear-gradient(180deg, #0F0F10 0%, #1A0A0D 100%);
+    }
+    
+    body.breaking-point-mode .card {
+      border-color: var(--danger);
+      box-shadow: 0 0 40px rgba(178, 58, 58, 0.3);
+    }
+    
+    .breaking-point-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: var(--space-2);
+      background: linear-gradient(90deg, var(--danger), var(--couples-accent));
+      text-align: center;
+      z-index: 200;
+      animation: bannerPulse 2s ease-in-out infinite;
+    }
+    
+    .breaking-point-text {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--cream);
+      letter-spacing: 2px;
+    }
+    
+    @keyframes bannerPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    
+    /* Göz Teması Zamanlayıcısı */
+    .eye-contact-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 15, 16, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 300;
+    }
+    
+    .eye-contact-timer {
+      font-family: var(--font-display);
+      font-size: 120px;
+      color: var(--couples-accent-light);
+      margin-bottom: var(--space-3);
+    }
+    
+    .eye-contact-text {
+      font-size: var(--text-lg);
+      color: var(--cream);
+      text-align: center;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+    
+    .eye-contact-glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(122, 31, 43, 0.2) 0%, transparent 70%);
+      animation: eyeGlow 3s ease-in-out infinite;
+    }
+    
+    @keyframes eyeGlow {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+    
+    /* Safe Word (Güvenli Kelime) */
+    .safe-word-btn {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: rgba(122, 31, 43, 0.2);
+      border: 1px solid var(--couples-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 150;
+      transition: all 0.3s;
+    }
+    
+    .safe-word-btn:hover {
+      background: var(--couples-accent);
+      box-shadow: 0 0 20px var(--couples-glow);
+    }
+    
+    .safe-word-btn.disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    
+    .safe-word-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 20px;
+      height: 20px;
+      background: var(--danger);
+      border-radius: 50%;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cream);
+    }
+    
+    /* Aşk Kavanozu */
+    .love-jar-container {
+      position: fixed;
+      top: 130px;
+      right: 20px;
+      width: 60px;
+      text-align: center;
+      z-index: 100;
+    }
+    
+    .love-jar {
+      width: 50px;
+      height: 70px;
+      background: linear-gradient(180deg, transparent 0%, rgba(122, 31, 43, 0.1) 30%, rgba(122, 31, 43, 0.3) 100%);
+      border: 2px solid rgba(122, 31, 43, 0.4);
+      border-radius: 0 0 15px 15px;
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    
+    .love-jar::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -2px;
+      right: -2px;
+      height: 10px;
+      background: rgba(122, 31, 43, 0.5);
+      border-radius: 5px 5px 0 0;
+    }
+    
+    .love-jar-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, #B8405E 0%, var(--couples-accent) 100%);
+      transition: height 0.5s ease-out;
+    }
+    
+    .love-jar-hearts {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    
+    .love-jar-heart {
+      position: absolute;
+      font-size: 10px;
+      animation: floatHeart 2s ease-out forwards;
+    }
+    
+    @keyframes floatHeart {
+      0% { transform: translateY(0) scale(0); opacity: 1; }
+      100% { transform: translateY(-50px) scale(1); opacity: 0; }
+    }
+    
+    .love-jar-count {
+      margin-top: var(--space-1);
+      font-size: var(--text-xs);
+      color: var(--couples-accent-light);
+    }
+    
+    /* Rol Değişimi Badge */
+    .role-swap-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(122, 31, 43, 0.2);
+      border: 1px solid var(--couples-accent);
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-2);
+    }
+    
+    .role-swap-icon {
+      font-size: 16px;
+    }
+    
+    .role-swap-text {
+      font-size: var(--text-xs);
+      color: var(--couples-accent-light);
+      font-weight: 600;
+    }
+    
+    /* Hafıza Kartı */
+    .memory-card {
+      background: linear-gradient(135deg, rgba(122, 31, 43, 0.2) 0%, rgba(15, 15, 16, 0.9) 100%);
+      border: 1px solid var(--couples-accent);
+      padding: var(--space-3);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-2);
+    }
+    
+    .memory-card-title {
+      font-size: var(--text-xs);
+      color: var(--couples-accent-light);
+      letter-spacing: 1px;
+      margin-bottom: var(--space-1);
+    }
+    
+    .memory-card-text {
+      font-size: var(--text-sm);
+      color: var(--cream);
+      font-style: italic;
+    }
+    
+    /* Kupon Kazanma */
+    .coupon-earned {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 15, 16, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 400;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .coupon-card {
+      width: 280px;
+      padding: var(--space-4);
+      background: linear-gradient(135deg, var(--couples-accent) 0%, #4A1A23 100%);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(122, 31, 43, 0.4);
+    }
+    
+    .coupon-icon {
+      font-size: 48px;
+      margin-bottom: var(--space-2);
+    }
+    
+    .coupon-title {
+      font-size: var(--text-lg);
+      color: var(--cream);
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+    
+    .coupon-desc {
+      font-size: var(--text-sm);
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Turn Text Override for Couples */
+    body.couples-mode .turn-text {
+      font-style: italic;
+    }
+
     /* Özel Rozetler */
     .special-badges {
       display: flex;
@@ -6221,13 +6604,30 @@
         id: 'itiraf-sevgililer',
         name: 'Sevgililer Modu',
         icon: '💑',
-        desc: 'İki kişilik romantik itiraflar',
+        desc: 'Güven Skoru • Kırılma Noktası • Aşk Kavanozu',
         category: 'itiraf',
         hasIntensity: true,
         maxIntensity: 5,
         hasTruthLie: true,
         hasVoting: false,
-        couplesMode: true
+        couplesMode: true,
+        mechanics: [
+          'trust_score',      // Güven Skoru
+          'breaking_point',   // Kırılma Noktası
+          'eye_contact',      // Göz Teması Zamanlayıcısı
+          'role_swap',        // Rol Değişimi
+          'love_jar',         // Aşk Kavanozu
+          'safe_word',        // Güvenli Kelime
+          'memory_system',    // Hafıza Sistemi
+          'future_projection', // Gelecek Projeksiyonu
+          'flashback',        // Nostalji
+          'defense_attorney'  // Savunma Avukatı
+        ],
+        theme: {
+          bg: '#0F0F10',
+          accent: '#7A1F2B',
+          accentLight: '#9A2F3B'
+        }
       },
       'itiraf-bekarlik': {
         id: 'itiraf-bekarlik',
@@ -7263,6 +7663,73 @@
           { intensity: 4, text: "Birbirinize 10 üzerinden cinsel performans puanı verin." },
           { intensity: 5, text: "Birbirinizi aldatmayı düşündüğünüz oldu mu?" },
           { intensity: 5, text: "Birbirinizin en kötü cinsel özelliği ne?" }
+        ],
+        
+        // 👁️ GÖZ TEMASI - Cevaptan önce 30 saniye göz teması
+        goztemas: [
+          { intensity: 1, text: "Birbirinizin gözlerine bakarak, onsuz bir günün nasıl geçtiğini anlat.", mechanic: 'eye_contact' },
+          { intensity: 1, text: "30 saniye göz teması yapın. Sonra ilk düşünceni söyle.", mechanic: 'eye_contact' },
+          { intensity: 2, text: "Gözlerine bakarak ona en çok ne zaman aşık olduğunu söyle.", mechanic: 'eye_contact' },
+          { intensity: 2, text: "Birbirinize bakarak en korktuğunuz şeyi paylaşın.", mechanic: 'eye_contact' },
+          { intensity: 3, text: "Gözlerine bakarak en derin fantezini fısılda.", mechanic: 'eye_contact' },
+          { intensity: 3, text: "30 saniye göz teması, sonra onu ne kadar istediğini anlat.", mechanic: 'eye_contact' },
+          { intensity: 4, text: "Gözlerine bakarak sana yaptığı en kötü şeyi anlat.", mechanic: 'eye_contact' },
+          { intensity: 5, text: "Gözlerine bakarak hiç söyleyemediğin o şeyi söyle.", mechanic: 'eye_contact' }
+        ],
+        
+        // 🔮 GELECEK PROJEKSİYONU - Hayal kurduran kartlar
+        gelecek: [
+          { intensity: 1, text: "5 yıl sonraki pazar sabahımızı tarif et. Neredeyiz, ne yapıyoruz?", type: 'future' },
+          { intensity: 1, text: "İlk tatilimizde hangi kitabı birlikte okuyor olacağız?", type: 'future' },
+          { intensity: 1, text: "10 yıl sonra bu geceyi nasıl hatırlayacağız?", type: 'future' },
+          { intensity: 2, text: "Çocuğumuz olsa, ona ilk ne öğretmek isterdin?", type: 'future' },
+          { intensity: 2, text: "Yaşlandığımızda beraber yapacağımız en tuhaf şey ne olacak?", type: 'future' },
+          { intensity: 2, text: "50. yıl dönümümüzde ne yapıyor olacağız?", type: 'future' },
+          { intensity: 3, text: "Emekli olduğumuzda nerede yaşamak istersin?", type: 'future' },
+          { intensity: 3, text: "Beraber yazmak istediğin bir hikaye olsa, nasıl başlardı?", type: 'future' },
+          { intensity: 4, text: "Seks hayatımız 20 yıl sonra nasıl olacak sence?", type: 'future' },
+          { intensity: 4, text: "Benim için en büyük hayalin ne? Gerçekleşirse ne hissedersin?", type: 'future' }
+        ],
+        
+        // 📸 FLASHBACK - Nostalji kartları
+        flashback: [
+          { intensity: 1, text: "Telefonunda 1 yıl önceki bir fotoğrafı bul ve o anı anlat.", type: 'flashback' },
+          { intensity: 1, text: "Tanıştığımız gün ne giyiyordun, hatırlıyor musun?", type: 'flashback' },
+          { intensity: 2, text: "İlk öpüşmemizden hemen önce ne düşünüyordun?", type: 'flashback' },
+          { intensity: 2, text: "En çok güldüğümüz anı hatırla ve anlat.", type: 'flashback' },
+          { intensity: 2, text: "Bana ilk 'seni seviyorum' demeden önceki gece ne hissettin?", type: 'flashback' },
+          { intensity: 3, text: "En tutkulu gecemizi en başından anlat.", type: 'flashback' },
+          { intensity: 3, text: "Benimle ilk kez birlikte olduğumuzda ne düşündün sonrasında?", type: 'flashback' },
+          { intensity: 4, text: "En büyük kavgamızın sebebi neydi ve ne hissettirdi?", type: 'flashback' },
+          { intensity: 4, text: "Ayrılmayı düşündüğün o an, ne oldu da kaldın?", type: 'flashback' }
+        ],
+        
+        // ⚖️ SAVUNMA AVUKATI - Eksikleri güzele çevirme
+        savunma: [
+          { intensity: 2, text: "Partnerin en sevmediğin özelliğini 1 dakika boyunca 'aslında çok tatlı' diye savun.", type: 'defense' },
+          { intensity: 2, text: "Seni en çok rahatsız eden alışkanlığını, neden aslında sevimli olduğunu açıkla.", type: 'defense' },
+          { intensity: 3, text: "En çok eleştirdiğin fiziksel özelliğini, neden aslında seksi olduğunu anlat.", type: 'defense' },
+          { intensity: 3, text: "En sinir bozucu davranışını, ilişkiye nasıl değer kattığını savun.", type: 'defense' },
+          { intensity: 4, text: "En büyük hatasını, neden seni daha çok sevmene neden olduğunu açıkla.", type: 'defense' },
+          { intensity: 4, text: "En zayıf yönünü, aslında bir güç olarak nasıl görebileceğini anlat.", type: 'defense' }
+        ],
+        
+        // 🎭 ROL DEĞİŞİMİ - Güç dengesi
+        roldegisimi: [
+          { intensity: 2, text: "Bu turda terapist sensin. Ona 3 soru sor, sadece dinle.", type: 'role_swap', role: 'therapist' },
+          { intensity: 2, text: "Bu turda sadece dinleyici ol. O konuşsun, sen yorum yapma.", type: 'role_swap', role: 'listener' },
+          { intensity: 3, text: "Bugün sen karar ver. Şu andan itibaren 10 dakika boyunca ne yapacağımıza sen karar ver.", type: 'role_swap', role: 'leader' },
+          { intensity: 3, text: "Rollerinizi değiştirin. O seni oynasın, sen onu oyna - 1 dakika.", type: 'role_swap', role: 'mimic' },
+          { intensity: 4, text: "Dominant ol. Bir sonraki 3 kart boyunca tüm kararları sen ver.", type: 'role_swap', role: 'dominant' },
+          { intensity: 4, text: "İtaat et. Bir sonraki kart boyunca onun her dediğini yap.", type: 'role_swap', role: 'submissive' }
+        ],
+        
+        // 🧠 HAFIZA - Önceki cevapları hatırlatan kartlar
+        hafiza: [
+          { intensity: 3, text: "Az önce söylediğin cevap gerçekten doğru muydu? Tekrar düşün.", type: 'memory' },
+          { intensity: 3, text: "Bu oyunda söylediğin en büyük yalanı şimdi itiraf et.", type: 'memory' },
+          { intensity: 4, text: "Bu gece söylediğin bir şey var ki tam dürüst değildin. Hangisi?", type: 'memory' },
+          { intensity: 4, text: "Oyun başından beri en çok hangi soruya yalan söyledin?", type: 'memory' }
         ]
       },
 
@@ -10960,6 +11427,470 @@
       }
     };
 
+    // ═══════════════════════════════════════════════════════════
+    // SEVGİLİLER MODU - ÖZEL SİSTEMLER
+    // ═══════════════════════════════════════════════════════════
+
+    // ❤️ Güven Skoru Sistemi
+    const TrustScore = {
+      score: 0,
+      maxScore: 10,
+      element: null,
+      
+      init() {
+        this.score = 0;
+        this.render();
+      },
+      
+      render() {
+        this.remove();
+        
+        const container = document.createElement('div');
+        container.className = 'trust-score-container';
+        container.id = 'trust-score';
+        container.innerHTML = `
+          <div class="trust-score-label">
+            <span>❤️ GÜVEN</span>
+            <span id="trust-value">${this.score}/${this.maxScore}</span>
+          </div>
+          <div class="trust-score-bar">
+            <div class="trust-score-fill" id="trust-fill" style="width: ${(this.score / this.maxScore) * 100}%"></div>
+          </div>
+        `;
+        document.body.appendChild(container);
+        this.element = container;
+      },
+      
+      add(amount, reason) {
+        const oldScore = this.score;
+        this.score = Math.min(this.maxScore, Math.max(0, this.score + amount));
+        
+        const fill = document.getElementById('trust-fill');
+        const value = document.getElementById('trust-value');
+        if (fill) fill.style.width = `${(this.score / this.maxScore) * 100}%`;
+        if (value) value.textContent = `${this.score}/${this.maxScore}`;
+        
+        this.showChange(amount);
+        
+        if (this.score >= 7 && oldScore < 7) {
+          BreakingPoint.activate();
+        }
+        
+        return this.score;
+      },
+      
+      showChange(amount) {
+        const container = document.getElementById('trust-score');
+        if (!container) return;
+        
+        const popup = document.createElement('span');
+        popup.className = `trust-score-change ${amount > 0 ? 'positive' : 'negative'}`;
+        popup.textContent = amount > 0 ? `+${amount}` : amount;
+        container.appendChild(popup);
+        
+        setTimeout(() => popup.remove(), 1000);
+      },
+      
+      remove() {
+        if (this.element) {
+          this.element.remove();
+          this.element = null;
+        }
+        const existing = document.getElementById('trust-score');
+        if (existing) existing.remove();
+      }
+    };
+
+    // 💥 Kırılma Noktası Sistemi
+    const BreakingPoint = {
+      active: false,
+      
+      activate() {
+        if (this.active) return;
+        this.active = true;
+        
+        document.body.classList.add('breaking-point-mode');
+        
+        const banner = document.createElement('div');
+        banner.className = 'breaking-point-banner';
+        banner.id = 'breaking-point-banner';
+        banner.innerHTML = `<div class="breaking-point-text">💥 KIRILMA NOKTASI — ARTIK KAÇIŞ YOK</div>`;
+        document.body.appendChild(banner);
+        
+        showNotification('💥 Kırılma Noktası aktif! Pas hakkı kapandı.');
+        AudioSystem.play('achievement');
+        HapticFeedback.heavy();
+        
+        this.disableSkip();
+      },
+      
+      disableSkip() {
+        document.querySelectorAll('.btn-pass').forEach(btn => {
+          btn.disabled = true;
+          btn.style.opacity = '0.3';
+          btn.style.cursor = 'not-allowed';
+          btn.onclick = () => showNotification('💥 Kırılma Noktasında pas yok!');
+        });
+      },
+      
+      deactivate() {
+        this.active = false;
+        document.body.classList.remove('breaking-point-mode');
+        const banner = document.getElementById('breaking-point-banner');
+        if (banner) banner.remove();
+      }
+    };
+
+    // 👁️ Göz Teması Zamanlayıcısı
+    const EyeContact = {
+      timer: null,
+      timeLeft: 30,
+      callback: null,
+      
+      start(duration = 30, callback) {
+        this.timeLeft = duration;
+        this.callback = callback;
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'eye-contact-overlay';
+        overlay.id = 'eye-contact-overlay';
+        overlay.innerHTML = `
+          <div class="eye-contact-glow"></div>
+          <div class="eye-contact-timer" id="eye-timer">${this.timeLeft}</div>
+          <div class="eye-contact-text">
+            Birbirinizin gözlerinin içine bakın.<br>
+            <small style="color: var(--text-muted);">Konuşmayın. Sadece bakın.</small>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+        
+        this.timer = setInterval(() => {
+          this.timeLeft--;
+          const timerEl = document.getElementById('eye-timer');
+          if (timerEl) timerEl.textContent = this.timeLeft;
+          
+          if (this.timeLeft <= 0) {
+            this.complete();
+          }
+        }, 1000);
+      },
+      
+      complete() {
+        clearInterval(this.timer);
+        const overlay = document.getElementById('eye-contact-overlay');
+        if (overlay) {
+          overlay.innerHTML = `
+            <div class="eye-contact-glow"></div>
+            <div style="font-size: 64px; margin-bottom: 16px;">💕</div>
+            <div class="eye-contact-text">Şimdi konuşabilirsiniz.</div>
+          `;
+          setTimeout(() => {
+            overlay.remove();
+            if (this.callback) this.callback();
+          }, 2000);
+        }
+        
+        TrustScore.add(1, 'Göz teması');
+      }
+    };
+
+    // 🔴 Safe Word (Güvenli Kelime) Sistemi
+    const SafeWord = {
+      remaining: 2,
+      element: null,
+      
+      init() {
+        this.remaining = 2;
+        this.render();
+      },
+      
+      render() {
+        this.remove();
+        
+        const btn = document.createElement('div');
+        btn.className = 'safe-word-btn';
+        btn.id = 'safe-word-btn';
+        btn.innerHTML = `
+          ❤️
+          <span class="safe-word-count">${this.remaining}</span>
+        `;
+        btn.onclick = () => this.use();
+        document.body.appendChild(btn);
+        this.element = btn;
+      },
+      
+      use() {
+        if (this.remaining <= 0) {
+          showNotification('Safe word hakkın bitti!');
+          return;
+        }
+        
+        this.remaining--;
+        
+        const count = this.element?.querySelector('.safe-word-count');
+        if (count) count.textContent = this.remaining;
+        
+        if (this.remaining <= 0) {
+          this.element?.classList.add('disabled');
+        }
+        
+        this.showSafeScreen();
+        
+        setTimeout(() => {
+          drawCard();
+        }, 4000);
+      },
+      
+      showSafeScreen() {
+        const overlay = document.createElement('div');
+        overlay.className = 'eye-contact-overlay';
+        overlay.id = 'safe-word-overlay';
+        overlay.innerHTML = `
+          <div style="text-align: center;">
+            <div style="font-size: 64px; margin-bottom: 24px;">🤍</div>
+            <div style="font-size: 18px; color: var(--cream); margin-bottom: 8px;">Partnerine sarıl.</div>
+            <div style="font-size: 14px; color: var(--text-muted);">Yeni bir sayfaya geçiyoruz.</div>
+            <div style="margin-top: 24px; font-size: 12px; color: var(--couples-accent-light);">
+              Kalan hak: ${this.remaining}
+            </div>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+        
+        AudioSystem.play('achievement');
+        HapticFeedback.medium();
+        
+        setTimeout(() => overlay.remove(), 4000);
+      },
+      
+      remove() {
+        if (this.element) {
+          this.element.remove();
+          this.element = null;
+        }
+        const existing = document.getElementById('safe-word-btn');
+        if (existing) existing.remove();
+      }
+    };
+
+    // 🫙 Aşk Kavanozu
+    const LoveJar = {
+      points: 0,
+      element: null,
+      coupons: [
+        { points: 10, title: '15 Dakika Masaj', icon: '💆' },
+        { points: 20, title: 'Akşam Yemeği Benden', icon: '🍽️' },
+        { points: 30, title: 'Film Gecesi Senin Seçimin', icon: '🎬' },
+        { points: 40, title: 'Hafta Sonu Gezisi', icon: '🚗' },
+        { points: 50, title: 'Dilek Kuponu', icon: '⭐' }
+      ],
+      
+      init() {
+        this.points = 0;
+        this.render();
+      },
+      
+      render() {
+        this.remove();
+        
+        const container = document.createElement('div');
+        container.className = 'love-jar-container';
+        container.id = 'love-jar';
+        container.innerHTML = `
+          <div class="love-jar">
+            <div class="love-jar-fill" id="jar-fill" style="height: 0%"></div>
+            <div class="love-jar-hearts" id="jar-hearts"></div>
+          </div>
+          <div class="love-jar-count" id="jar-count">${this.points}</div>
+        `;
+        document.body.appendChild(container);
+        this.element = container;
+      },
+      
+      add(amount) {
+        this.points += amount;
+        
+        const fill = document.getElementById('jar-fill');
+        const count = document.getElementById('jar-count');
+        const maxPoints = 50;
+        
+        if (fill) fill.style.height = `${Math.min(100, (this.points / maxPoints) * 100)}%`;
+        if (count) count.textContent = this.points;
+        
+        this.addHeart();
+        this.checkCoupons();
+      },
+      
+      addHeart() {
+        const hearts = document.getElementById('jar-hearts');
+        if (!hearts) return;
+        
+        const heart = document.createElement('span');
+        heart.className = 'love-jar-heart';
+        heart.textContent = '❤️';
+        heart.style.left = `${Math.random() * 80 + 10}%`;
+        heart.style.bottom = '0';
+        hearts.appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 2000);
+      },
+      
+      checkCoupons() {
+        const earned = this.coupons.find(c => c.points === this.points);
+        if (earned) {
+          this.showCoupon(earned);
+        }
+      },
+      
+      showCoupon(coupon) {
+        const overlay = document.createElement('div');
+        overlay.className = 'coupon-earned';
+        overlay.id = 'coupon-overlay';
+        overlay.innerHTML = `
+          <div class="coupon-card">
+            <div class="coupon-icon">${coupon.icon}</div>
+            <div class="coupon-title">KUPON KAZANDIN!</div>
+            <div class="coupon-desc">${coupon.title}</div>
+          </div>
+          <button class="btn btn-primary" style="margin-top: 24px; width: 200px;" onclick="document.getElementById('coupon-overlay').remove()">
+            Harika! 💕
+          </button>
+        `;
+        document.body.appendChild(overlay);
+        
+        AudioSystem.play('legendary');
+        HapticFeedback.success();
+      },
+      
+      remove() {
+        if (this.element) {
+          this.element.remove();
+          this.element = null;
+        }
+        const existing = document.getElementById('love-jar');
+        if (existing) existing.remove();
+      }
+    };
+
+    // 🧠 Hafıza Sistemi
+    const MemorySystem = {
+      memories: [],
+      
+      init() {
+        this.memories = [];
+      },
+      
+      save(question, answer) {
+        this.memories.push({
+          question,
+          answer,
+          timestamp: Date.now()
+        });
+      },
+      
+      getRandomMemory() {
+        if (this.memories.length < 3) return null;
+        return this.memories[Math.floor(Math.random() * this.memories.length)];
+      },
+      
+      createMemoryQuestion() {
+        const memory = this.getRandomMemory();
+        if (!memory) return null;
+        
+        return {
+          text: `Az önce "${memory.question}" sorusuna verdiğin cevabı hatırlıyor musun? Gerçekten doğru muydu?`,
+          type: 'memory',
+          originalMemory: memory
+        };
+      }
+    };
+
+    // 🎭 Rol Değişimi
+    const RoleSwap = {
+      roles: [
+        { id: 'therapist', icon: '🧠', text: 'Bu turda terapist sensin. Sadece soru sor.' },
+        { id: 'listener', icon: '👂', text: 'Bu turda sadece dinle. Yorum yapma.' },
+        { id: 'defender', icon: '⚖️', text: 'Partnerin en sevmediğin özelliğini savun.' },
+        { id: 'storyteller', icon: '📖', text: 'Bu anıyı bir hikaye gibi anlat.' }
+      ],
+      
+      getRandomRole() {
+        return this.roles[Math.floor(Math.random() * this.roles.length)];
+      },
+      
+      render(role) {
+        return `
+          <div class="role-swap-badge">
+            <span class="role-swap-icon">${role.icon}</span>
+            <span class="role-swap-text">${role.text}</span>
+          </div>
+        `;
+      }
+    };
+
+    // 🔮 Sevgililer Modu Ana Kontrol
+    const CouplesMode = {
+      active: false,
+      
+      activate() {
+        this.active = true;
+        document.body.classList.add('couples-mode');
+        
+        TrustScore.init();
+        SafeWord.init();
+        LoveJar.init();
+        MemorySystem.init();
+        
+        this.showIntro();
+      },
+      
+      showIntro() {
+        const overlay = document.createElement('div');
+        overlay.className = 'eye-contact-overlay';
+        overlay.id = 'couples-intro';
+        overlay.innerHTML = `
+          <div style="text-align: center; max-width: 300px;">
+            <div style="font-size: 48px; margin-bottom: 24px;">💑</div>
+            <div style="font-size: 20px; color: var(--cream); margin-bottom: 8px; font-weight: 600;">
+              Bu mod dürüstlük ister.
+            </div>
+            <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6;">
+              Birbirinize açılın, dinleyin, ve güven inşa edin.
+            </div>
+            <button class="btn btn-primary" onclick="document.getElementById('couples-intro').remove()">
+              Hazırız 💕
+            </button>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+      },
+      
+      deactivate() {
+        this.active = false;
+        document.body.classList.remove('couples-mode');
+        
+        TrustScore.remove();
+        SafeWord.remove();
+        LoveJar.remove();
+        BreakingPoint.deactivate();
+      },
+      
+      onCardComplete(card) {
+        const trustGain = card.intensity >= 4 ? 2 : 1;
+        TrustScore.add(trustGain, card.intensity >= 4 ? 'Riskli itiraf' : 'Dürüstlük');
+        
+        LoveJar.add(card.intensity || 1);
+        
+        if (card.text) {
+          MemorySystem.save(card.text, 'completed');
+        }
+      },
+      
+      onCardSkip() {
+        TrustScore.add(-1, 'Kaçınma');
+      }
+    };
+
     // Circular Timer
     const CircularTimer = {
       element: null,
@@ -13289,6 +14220,11 @@
       // Gece Modu kontrolü
       NightMode.check(gameState.selectedGame?.id);
       
+      // 💑 Sevgililer Modu kontrolü
+      if (gameState.selectedGame?.id === 'itiraf-sevgililer') {
+        CouplesMode.activate();
+      }
+      
       // Bağlantı yönetimi başlat
       PlayerConnection.start();
 
@@ -13310,6 +14246,7 @@
         TurnGlow.hide();
         Card3D.destroy();
         NightMode.disable();
+        CouplesMode.deactivate(); // Couples mode kapat
         PlayerConnection.stop();
         leaveRoom();
       }
@@ -13433,11 +14370,26 @@
       const cards = CARDS['itiraf-sevgililer'];
       const selectedIntensities = gameState.settings.intensities || [1, 2, 3, 4, 5];
       
-      // Kart tiplerini belirle
-      const cardTypes = ['itiraf', 'cesaret', 'senaryo', 'ikilem', 'rolyapma', 'sirkutusu', 'ovgu', 'karsilikli'];
+      // Kart tiplerini belirle - yeni tipler eklendi
+      const cardTypes = [
+        'itiraf', 'cesaret', 'senaryo', 'ikilem', 'rolyapma', 
+        'sirkutusu', 'ovgu', 'karsilikli',
+        'goztemas', 'gelecek', 'flashback', 'savunma', 'roldegisimi', 'hafiza'
+      ];
       
       // Moda göre uygun tipi seç
       let availableTypes = ['itiraf', 'cesaret', 'senaryo', 'ikilem', 'rolyapma', 'ovgu'];
+      
+      // Yeni özel tipleri ekle (%20 ihtimal)
+      if (Math.random() < 0.20) {
+        const specialTypes = ['goztemas', 'gelecek', 'flashback', 'savunma', 'roldegisimi'];
+        availableTypes = [specialTypes[Math.floor(Math.random() * specialTypes.length)]];
+      }
+      
+      // Hafıza kartı - en az 5 tur sonra (%10)
+      if (gameState.currentRound >= 5 && Math.random() < 0.10 && MemorySystem.memories.length >= 3) {
+        availableTypes = ['hafiza'];
+      }
       
       // Karşılıklı modda karsilikli kartları da ekle
       if (gameState.couplesMode === 'mutual') {
@@ -13488,15 +14440,34 @@
       
       const typeIcons = {
         itiraf: '💬', cesaret: '💋', senaryo: '🔮', ikilem: '⚖️',
-        rolyapma: '🎭', sirkutusu: '🔒', ovgu: '❤️', karsilikli: '🔄'
+        rolyapma: '🎭', sirkutusu: '🔒', ovgu: '❤️', karsilikli: '🔄',
+        goztemas: '👁️', gelecek: '🔮', flashback: '📸', savunma: '⚖️',
+        roldegisimi: '🎭', hafiza: '🧠'
       };
       const typeNames = {
         itiraf: 'İTİRAF', cesaret: 'GÖREV', senaryo: 'SENARYO', ikilem: 'İKİLEM',
-        rolyapma: 'ROL YAPMA', sirkutusu: 'SIR KUTUSU', ovgu: 'ÖVGÜ', karsilikli: 'KARŞILIKLI'
+        rolyapma: 'ROL YAPMA', sirkutusu: 'SIR KUTUSU', ovgu: 'ÖVGÜ', karsilikli: 'KARŞILIKLI',
+        goztemas: 'GÖZ TEMASI', gelecek: 'GELECEK', flashback: 'FLASHBACK', savunma: 'SAVUNMA AVUKATI',
+        roldegisimi: 'ROL DEĞİŞİMİ', hafiza: 'HAFIZA'
       };
       
       const intensityIcons = { 1: '☕', 2: '🍷', 3: '🔥', 4: '💀', 5: '🚨' };
       const intensity = card.intensity || 3;
+      
+      // 👁️ Göz Teması kartları için özel akış
+      if (card.mechanic === 'eye_contact' || card.type === 'goztemas') {
+        EyeContact.start(30, () => {
+          // Göz teması bittikten sonra kartı göster
+          showCouplesCardNormal(card, gameArea, typeIcons, typeNames, intensityIcons, cardScore, skipPenalty);
+        });
+        return;
+      }
+      
+      // 🎭 Rol Değişimi kartları
+      if (card.type === 'roldegisimi' && card.role) {
+        const role = RoleSwap.roles.find(r => r.id === card.role) || RoleSwap.getRandomRole();
+        card.roleSwapHtml = RoleSwap.render(role);
+      }
       
       // Sır Kutusu için özel onay ekranı
       if (card.type === 'sirkutusu' && !gameState.secretBoxAccepted[gameState.playerId]) {
@@ -13516,7 +14487,12 @@
         return;
       }
       
-      // Normal mod - standart kart gösterimi
+      // Normal mod
+      showCouplesCardNormal(card, gameArea, typeIcons, typeNames, intensityIcons, cardScore, skipPenalty);
+    }
+    
+    function showCouplesCardNormal(card, gameArea, typeIcons, typeNames, intensityIcons, cardScore, skipPenalty) {
+      const intensity = card.intensity || 3;
       const isPraiseCard = card.type === 'ovgu';
       const cardClass = isPraiseCard ? 'card praise-card' : 'card';
       
@@ -15278,6 +16254,11 @@
       StreakSystem.increment();
       cardScore = Math.round(cardScore * gameState.comboMultiplier);
       
+      // 💑 Sevgililer Modu - Güven Skoru & Aşk Kavanozu
+      if (CouplesMode.active) {
+        CouplesMode.onCardComplete(gameState.currentCard);
+      }
+      
       // 🎲 Zar çarpanı (Hangover)
       if (gameState.diceMultiplier && gameState.diceMultiplier !== 1) {
         cardScore = Math.round(cardScore * gameState.diceMultiplier);
@@ -15364,6 +16345,12 @@
       const player = gameState.players[gameState.currentPlayerIndex];
       const penalty = getSkipPenalty(gameState.currentCard || { intensity: 3 });
       
+      // 💥 Kırılma Noktası aktifse pas geçme!
+      if (BreakingPoint.active) {
+        showNotification('💥 Kırılma Noktasında pas yok!');
+        return;
+      }
+      
       // Shield joker kontrolü
       if (gameState.shieldActive) {
         gameState.shieldActive = false;
@@ -15371,6 +16358,11 @@
         saveRoomToStorage();
         setTimeout(() => nextTurn(), 400);
         return;
+      }
+      
+      // 💑 Sevgililer Modu - Güven skoru düşür
+      if (CouplesMode.active) {
+        CouplesMode.onCardSkip();
       }
       
       // ⛓️ Zincir mekaniği - Pas geçince sonraki kişiye devret
