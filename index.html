@@ -4328,6 +4328,356 @@
       color: var(--text-muted) !important;
       cursor: not-allowed !important;
     }
+    
+    /* 🌡️ Yoğunluk Geçişi Faz Stilleri */
+    body.intensity-phase-2 {
+      background: linear-gradient(180deg, #0F0F10 0%, #150A0D 100%);
+    }
+    
+    body.intensity-phase-3 {
+      background: linear-gradient(180deg, #0F0F10 0%, #1A0A0D 100%);
+    }
+    
+    body.intensity-phase-4 {
+      background: linear-gradient(180deg, #0F0F10 0%, #200A0D 100%);
+    }
+    
+    body.intensity-phase-3::after,
+    body.intensity-phase-4::after {
+      background: radial-gradient(ellipse at center, rgba(178, 58, 58, 0.1) 0%, transparent 60%);
+    }
+    
+    /* Faz Geçiş Overlay */
+    .phase-transition-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 15, 16, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 500;
+      animation: phaseFlash 2.5s ease-out forwards;
+    }
+    
+    @keyframes phaseFlash {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    
+    .phase-transition-content {
+      text-align: center;
+      animation: phaseZoom 0.5s ease-out;
+    }
+    
+    @keyframes phaseZoom {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .phase-icon {
+      font-size: 72px;
+      margin-bottom: var(--space-3);
+      animation: phasePulse 1s ease-in-out infinite;
+    }
+    
+    @keyframes phasePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .phase-name {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--danger);
+      letter-spacing: 4px;
+      margin-bottom: var(--space-2);
+    }
+    
+    .phase-sub {
+      font-size: var(--text-md);
+      color: var(--cream);
+      font-style: italic;
+    }
+    
+    /* 📝 Yazılı Cevap Modu */
+    .written-answer-container {
+      text-align: center;
+      padding: var(--space-4);
+    }
+    
+    .written-question {
+      font-size: var(--text-lg);
+      color: var(--cream);
+      margin-bottom: var(--space-2);
+      line-height: 1.5;
+    }
+    
+    .written-instruction {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      margin-bottom: var(--space-3);
+    }
+    
+    .written-input {
+      width: 100%;
+      min-height: 120px;
+      padding: var(--space-3);
+      background: rgba(23, 23, 26, 0.8);
+      border: 1px solid rgba(122, 31, 43, 0.3);
+      border-radius: var(--radius-lg);
+      color: var(--cream);
+      font-size: var(--text-md);
+      resize: none;
+      font-family: inherit;
+    }
+    
+    .written-input:focus {
+      outline: none;
+      border-color: var(--couples-accent);
+      box-shadow: 0 0 20px rgba(122, 31, 43, 0.2);
+    }
+    
+    .written-char-count {
+      text-align: right;
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      margin-top: var(--space-1);
+      margin-bottom: var(--space-3);
+    }
+    
+    .written-submit {
+      width: 100%;
+    }
+    
+    .written-waiting {
+      text-align: center;
+      padding: var(--space-4);
+    }
+    
+    .waiting-icon {
+      font-size: 48px;
+      margin-bottom: var(--space-2);
+      animation: spin 2s linear infinite;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .waiting-text {
+      font-size: var(--text-lg);
+      color: var(--cream);
+    }
+    
+    .your-answer-preview {
+      margin-top: var(--space-3);
+      padding: var(--space-2);
+      background: rgba(122, 31, 43, 0.1);
+      border-radius: var(--radius-md);
+    }
+    
+    .answer-blur {
+      filter: blur(4px);
+      color: var(--cream);
+      font-style: italic;
+      transition: filter 0.3s;
+    }
+    
+    .answer-blur:hover {
+      filter: blur(0);
+    }
+    
+    /* Yazılı Cevap Reveal */
+    .written-reveal {
+      text-align: center;
+      padding: var(--space-3);
+    }
+    
+    .reveal-question {
+      font-size: var(--text-md);
+      color: var(--text-muted);
+      margin-bottom: var(--space-3);
+      font-style: italic;
+    }
+    
+    .reveal-answers {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    
+    .reveal-answer {
+      padding: var(--space-3);
+      background: rgba(23, 23, 26, 0.8);
+      border: 1px solid rgba(122, 31, 43, 0.3);
+      border-radius: var(--radius-lg);
+    }
+    
+    .reveal-name {
+      font-size: var(--text-sm);
+      color: var(--couples-accent-light);
+      margin-bottom: var(--space-1);
+    }
+    
+    .reveal-text {
+      font-size: var(--text-md);
+      color: var(--cream);
+      line-height: 1.5;
+    }
+    
+    .reveal-vs {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    
+    /* 🎭 Gerçek mi Yalan mı */
+    .truthlie-container {
+      text-align: center;
+      padding: var(--space-3);
+    }
+    
+    .truthlie-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      background: linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(236, 72, 153, 0.2));
+      border: 1px solid rgba(147, 51, 234, 0.4);
+      border-radius: var(--radius-full);
+      color: #c084fc;
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: var(--space-3);
+    }
+    
+    .truthlie-question {
+      font-size: var(--text-lg);
+      color: var(--cream);
+      margin-bottom: var(--space-2);
+      line-height: 1.5;
+    }
+    
+    .truthlie-instruction {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      margin-bottom: var(--space-3);
+    }
+    
+    .truthlie-buttons {
+      display: flex;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+    }
+    
+    .truthlie-btn {
+      flex: 1;
+      padding: var(--space-3);
+      border-radius: var(--radius-lg);
+      font-weight: 600;
+    }
+    
+    .truthlie-btn.truth {
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      color: #86efac;
+    }
+    
+    .truthlie-btn.lie {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      color: #fca5a5;
+    }
+    
+    .truthlie-waiting {
+      padding: var(--space-4);
+    }
+    
+    .truthlie-player-answer {
+      padding: var(--space-3);
+      background: rgba(23, 23, 26, 0.8);
+      border: 1px solid rgba(122, 31, 43, 0.3);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-3);
+    }
+    
+    .answer-by {
+      font-size: var(--text-sm);
+      color: var(--couples-accent-light);
+      margin-bottom: var(--space-1);
+    }
+    
+    .answer-text {
+      font-size: var(--text-lg);
+      color: var(--cream);
+      font-style: italic;
+    }
+    
+    .truthlie-guess-buttons {
+      display: flex;
+      gap: var(--space-2);
+    }
+    
+    .truthlie-result {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: var(--space-3);
+      animation: resultPop 0.5s ease-out;
+    }
+    
+    @keyframes resultPop {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    
+    .truthlie-result.correct {
+      color: #86efac;
+    }
+    
+    .truthlie-result.wrong {
+      color: #fca5a5;
+    }
+    
+    .truthlie-reveal {
+      padding: var(--space-3);
+      background: rgba(23, 23, 26, 0.8);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-2);
+    }
+    
+    .reveal-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+    
+    .reveal-badge.truth {
+      background: rgba(34, 197, 94, 0.3);
+      color: #86efac;
+    }
+    
+    .reveal-badge.lie {
+      background: rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+    
+    .reveal-answer {
+      font-size: var(--text-md);
+      color: var(--cream);
+      font-style: italic;
+    }
+    
+    .points-earned {
+      font-size: var(--text-sm);
+      color: var(--gold);
+      margin-top: var(--space-2);
+    }
 
     /* Özel Rozetler */
     .special-badges {
@@ -7256,7 +7606,29 @@
           { intensity: 2, text: "Bir yakınının sırrını ifşa ettin mi?" },
           { intensity: 3, text: "Bu masadaki biriyle romantik bir anın oldu mu?" },
           { intensity: 3, text: "Yasadışı yaptığın bir şey var mı?" },
-          { intensity: 3, text: "Birini gerçekten incittin mi? Nasıl?" }
+          { intensity: 3, text: "Birini gerçekten incittin mi? Nasıl?" },
+          
+          // 🔥 UNDERGROUND HARD - KLASİK
+          { intensity: 4, text: "Ailenin bilmediği en karanlık sırrın ne?" },
+          { intensity: 4, text: "Hiç birine fiziksel şiddet uyguladın mı?" },
+          { intensity: 4, text: "En yakın arkadaşının sırtından bıçakladığın an?" },
+          { intensity: 4, text: "Parasızlıktan yaptığın en aşağılık şey?" },
+          { intensity: 4, text: "Hiç birini kullandın mı sadece çıkar için?" },
+          { intensity: 4, text: "Uyuşturucu kullandın mı? Hangisi, ne oldu?" },
+          { intensity: 4, text: "En büyük borç batağın nasıl oldu?" },
+          { intensity: 4, text: "Hiç polisle başın belaya girdi mi? Anlat." },
+          { intensity: 4, text: "Ailenin parasını çaldın mı?" },
+          { intensity: 4, text: "Kimseye söyleyemediğin suç ne?" },
+          { intensity: 5, text: "Hayatında öldürmeyi düşündüğün biri oldu mu?" },
+          { intensity: 5, text: "En pislik yaptığın insan kim ve neden?" },
+          { intensity: 5, text: "Tecavüze uğradın mı veya tacize? İlk kez anlat." },
+          { intensity: 5, text: "İntihar düşündün mü? En yakın olduğun an?" },
+          { intensity: 5, text: "Hayatındaki en büyük ihanet - yapan veya yapılan?" },
+          { intensity: 5, text: "Mezara götürecektin ama şimdi söyleyeceksin - ne?" },
+          { intensity: 5, text: "En utanç verici cinsel deneyimin - kimse bilmiyor?" },
+          { intensity: 5, text: "Birini maddi olarak mahvettin mi?" },
+          { intensity: 5, text: "Şantaj yaptın mı veya yapıldı mı?" },
+          { intensity: 5, text: "Hayatında affetmediğin ve affetmeyeceğin kim?" }
         ]
       },
 
@@ -7709,7 +8081,24 @@
           { intensity: 5, text: "Hayatında benden sakladığın ve mezara götürecektin ama şimdi söyleyeceğin ne?" },
           { intensity: 5, text: "Bu ilişkide en büyük yalanın hangisiydi?" },
           { intensity: 5, text: "Benimle ilgili değiştirmek istediğin 5 şey - filtresiz." },
-          { intensity: 5, text: "Eski sevgilinle beni karşılaştır - her konuda - acımasızca." }
+          { intensity: 5, text: "Eski sevgilinle beni karşılaştır - her konuda - acımasızca." },
+          
+          // 🔥 UNDERGROUND HARD - SIR KUTUSU
+          { intensity: 5, text: "Benimle birlikteyken başka biriyle yattın mı? Şimdi itiraf et." },
+          { intensity: 5, text: "Benim en yakın arkadaşımla/kardeşimle bir şey yaşamak istedin mi?" },
+          { intensity: 5, text: "Beni terk edip başkasına gitmeyi planladın mı?" },
+          { intensity: 5, text: "Seks sırasında başka birini hayal ettin mi? Kim?" },
+          { intensity: 5, text: "Telefonunda sildiğin ama benim görmemem gereken ne vardı?" },
+          { intensity: 5, text: "Bana bulaştırdığın bir hastalık var mı?" },
+          { intensity: 5, text: "Benim paramı/statümü kullandın mı bu ilişkide?" },
+          { intensity: 5, text: "Benimle sadece seks için mi birlikteydin bir dönem?" },
+          { intensity: 5, text: "Hamilelik/çocuk konusunda bana yalan söyledin mi?" },
+          { intensity: 5, text: "Benim bilmediğim bir borç/suç/geçmiş var mı?" },
+          { intensity: 5, text: "Escort/fuhuş deneyimin oldu mu benimle tanışmadan önce veya sonra?" },
+          { intensity: 5, text: "Bana fiziksel şiddet uygulamak istedin mi hiç?" },
+          { intensity: 5, text: "Bu ilişkide beni manipüle ettin mi bilerek?" },
+          { intensity: 5, text: "Ailem hakkında gerçekten ne düşünüyorsun? Filtresiz." },
+          { intensity: 5, text: "Ölsem ne kadar sürede başkasıyla olursun?" }
         ],
         
         // ❤️ ÖVGÜ - Pozitif, sevgi dolu anlar
@@ -7742,7 +8131,14 @@
           { intensity: 4, text: "Birbirinizin arkadaş grubundan birini çekici buluyor musunuz?" },
           { intensity: 4, text: "Birbirinize 10 üzerinden cinsel performans puanı verin." },
           { intensity: 5, text: "Birbirinizi aldatmayı düşündüğünüz oldu mu?" },
-          { intensity: 5, text: "Birbirinizin en kötü cinsel özelliği ne?" }
+          { intensity: 5, text: "Birbirinizin en kötü cinsel özelliği ne?" },
+          
+          // 🔥 UNDERGROUND HARD - KARŞILIKLI
+          { intensity: 5, text: "Birbirinize hiç iğrendiniz mi? Ne zaman?" },
+          { intensity: 5, text: "Bu ilişkide en çok kimi kıskandınız?" },
+          { intensity: 5, text: "Birbirinizin hangi arkadaşıyla yatmak isterdiniz?" },
+          { intensity: 5, text: "İlişkiniz ne zaman ölecek sizce?" },
+          { intensity: 5, text: "Birbirinize en büyük yalanınızı şimdi itiraf edin." }
         ],
         
         // 👁️ GÖZ TEMASI - Cevaptan önce 30 saniye göz teması
@@ -7889,14 +8285,38 @@
           { intensity: 4, text: "Evlenmeden önce denemek istediğin ama cesaret edemediğin şey?" },
           { intensity: 5, text: "Eşine asla söyleyemeyeceğin, bu partide söyleyebileceğin şey ne?" },
           { intensity: 5, text: "Son bir kez özgür olsan ne yapardın?" },
-          { intensity: 5, text: "Evlilik hayatının gerçekten istediğin şey mi?" }
+          { intensity: 5, text: "Evlilik hayatının gerçekten istediğin şey mi?" },
+          
+          // 🔥 UNDERGROUND HARD - BEKARLİK
+          { intensity: 5, text: "Nişanlını aldattın mı? Bu gece itiraf et." },
+          { intensity: 5, text: "Eşin olacak kişinin bilmediği kaç kişiyle yattın?" },
+          { intensity: 5, text: "Evlenmeden önce son bir gece stand yapmak ister misin?" },
+          { intensity: 5, text: "Nişanlının arkadaşlarından biriyle bir şey yaşadın mı?" },
+          { intensity: 5, text: "Düğün iptal edilse rahatlar mısın?" },
+          { intensity: 5, text: "Nişanlının cinsel performansı seni tatmin ediyor mu gerçekten?" },
+          { intensity: 5, text: "Nişanlının en iğrenç bulduğun özelliği ne?" },
+          { intensity: 5, text: "Paranın için mi evleniyorsun?" },
+          { intensity: 5, text: "Nişanlın seni aldattı mı biliyor musun?" },
+          { intensity: 5, text: "Evlilikten sonra aldatacağını düşünüyor musun?" },
+          { intensity: 5, text: "Bu gece birine yürüsen kim olurdu?" },
+          { intensity: 5, text: "En vahşi seksini nişanlınla mı yaşadın?" },
+          { intensity: 5, text: "Eski sevgilin arayıp 'evlenme' dese ne yapardın?" },
+          { intensity: 5, text: "Evlilikten en çok korktuğun şey - cinsel monotonluk mu?" },
+          { intensity: 5, text: "Nişanlının ailesinden nefret mi ediyorsun?" }
         ],
         cesaret: [
           { intensity: 2, text: "Yabancı birine sarıl ve evleniyorum de!" },
           { intensity: 3, text: "Barmenle selfie çek ve 'son gecem' yaz." },
           { intensity: 3, text: "Eski sevgiline 'yarın evleniyorum' mesajı at." },
           { intensity: 4, text: "Masadaki herkese birer öpücük ver." },
-          { intensity: 5, text: "En cesur dansını ortada yap." }
+          { intensity: 5, text: "En cesur dansını ortada yap." },
+          
+          // 🔥 UNDERGROUND HARD - BEKARLİK GÖREVLER
+          { intensity: 5, text: "Nişanlını ara ve 'Bu gece biri beni öptü' de, sonra şaka de." },
+          { intensity: 5, text: "Birine lap dance yap, 1 dakika." },
+          { intensity: 5, text: "Story'ne 'son gece, her şey serbest' at." },
+          { intensity: 5, text: "Masadaki birinin iç çamaşırını çıkarmasını iste." },
+          { intensity: 5, text: "Birinin vücudundan body shot iç." }
         ],
         // 👰 GELİN/DAMAT ÖZEL KARTLARI
         gelin_damat: [
@@ -7997,7 +8417,38 @@
           { intensity: 5, text: "İç çamaşırının rengini göster." },
           { intensity: 5, text: "Birini seç, ona 1 dakika masaj yap." },
           { intensity: 5, text: "Birinin üst kıyafetini çıkar (izniyle)." },
-          { intensity: 5, text: "En çekici bulduğun kişiye yavaşça yaklaş ve 10 saniye sarıl." }
+          { intensity: 5, text: "En çekici bulduğun kişiye yavaşça yaklaş ve 10 saniye sarıl." },
+          
+          // 🔥 UNDERGROUND HARD - GECE GEÇ GÖREVLER
+          { intensity: 5, text: "Birine tam ağız öpücüğü ver, 5 saniye." },
+          { intensity: 5, text: "Karanlıkta 1 dakika boyunca rastgele seçilen biriyle yalnız kal." },
+          { intensity: 5, text: "Telefonundaki en müstehcen fotoğrafı göster." },
+          { intensity: 5, text: "Sağındaki ve solundaki kişiye aynı anda masaj yap." },
+          { intensity: 5, text: "Bardaki en seksi dansını herkesin önünde yap." }
+        ],
+        
+        // 🔥 UNDERGROUND HARD - GECE GEÇ İTİRAFLAR
+        underground: [
+          { intensity: 5, text: "En iğrenç cinsel deneyimini anlat, hiçbir detayı atlamadan." },
+          { intensity: 5, text: "Hiç escort tuttun mu veya escort oldun mu?" },
+          { intensity: 5, text: "Akrabanla ilgili aklından geçen en rahatsız edici düşünce?" },
+          { intensity: 5, text: "Hiç birini seks sırasında ağlattın mı? Nasıl?" },
+          { intensity: 5, text: "En pislik hissettiğin tek gecelik nasıl bitti?" },
+          { intensity: 5, text: "Hiç birine zorla bir şey yaptırdın mı veya yapıldı mı?" },
+          { intensity: 5, text: "Cinsel yolla bulaşan hastalık kaptın mı?" },
+          { intensity: 5, text: "Hiç sarhoşken istemediğin biriyle yattın mı?" },
+          { intensity: 5, text: "En utanç verici porno arama geçmişin ne?" },
+          { intensity: 5, text: "Hiç birisinin ilişkisini bozmak için seks teklif ettin mi?" },
+          { intensity: 5, text: "Grup seks denedin mi? Detay ver." },
+          { intensity: 5, text: "Hiç para karşılığı yattın mı veya para verdin mi?" },
+          { intensity: 5, text: "En yaşlı/genç birlikte olduğun kişi kaç yaşındaydı?" },
+          { intensity: 5, text: "Hiç hidden kamera veya gizli kayıt yaptın mı?" },
+          { intensity: 5, text: "Cinsel anlamda en pişman olduğun şey ne?" },
+          { intensity: 5, text: "Hiç BDSM denedin mi? En ileri gittiğin nokta?" },
+          { intensity: 5, text: "Partnerin dışında kaç kişiyle yazışıyorsun şu an?" },
+          { intensity: 5, text: "En utanç verici mastürbasyon anını anlat." },
+          { intensity: 5, text: "Hiç halka açık yerde yakalandın mı? Detay." },
+          { intensity: 5, text: "Cinsel hayatında yaptığın en aşağılık şey?" }
         ]
       },
 
@@ -9524,7 +9975,24 @@
           { intensity: 5, text: "Hiç para karşılığı bir şeyler yaşadın mı veya teklif aldın mı?" },
           { intensity: 5, text: "Bir ilişkide yaptığın en büyük sadakatsizlik neydi?" },
           { intensity: 5, text: "Masadaki kimin kirli çamaşırlarını biliyorsun ama susuyorsun?" },
-          { intensity: 5, text: "Vücudunda en çok tahrik olduğun gizli nokta neresi?" }
+          { intensity: 5, text: "Vücudunda en çok tahrik olduğun gizli nokta neresi?" },
+          
+          // 🔥 UNDERGROUND HARD - HANGOVER
+          { intensity: 5, text: "Sarhoşken yaptığın ve hayatını değiştiren en büyük hata?" },
+          { intensity: 5, text: "Hiç blackout olup ertesi gün birinin yatağında uyandın mı?" },
+          { intensity: 5, text: "Masadaki biriyle hiç gizli bir şey yaşadın mı? Anlat." },
+          { intensity: 5, text: "Bu gece biriyle eve gideceksen kim olurdu? Neden?" },
+          { intensity: 5, text: "Hiç kusarken seks yaptın mı?" },
+          { intensity: 5, text: "En vahşi sarhoş kavgan nasıl başladı?" },
+          { intensity: 5, text: "Hayatında yaptığın en rezil sarhoş telefon kaydı?" },
+          { intensity: 5, text: "Alkollüyken birine tecavüz etmeye veya edilmeye yaklaştın mı?" },
+          { intensity: 5, text: "Masadaki kimin uyuşturucu kullandığını biliyorsun?" },
+          { intensity: 5, text: "Bu gece yasadışı bir şey yapsan ne olurdu?" },
+          { intensity: 5, text: "Masadaki birinin seni secretly görüntülediğini hissedersen ne yaparsın?" },
+          { intensity: 5, text: "Hiç arkadaş grubundan birini şantaj malzemesiyle tehdit ettin mi?" },
+          { intensity: 5, text: "Sarhoşken uyuyakalan birini öptün mü?" },
+          { intensity: 5, text: "Hayatında en çok utandığın sarhoş anı - bunu daha önce hiç anlatmadın?" },
+          { intensity: 5, text: "Birinin evinden habersiz bir şey aldın mı sarhoşken?" }
         ],
         telefon: [
           { intensity: 2, text: "Son 5 WhatsApp konuşmanı aç, rastgele birinin son mesajını yüksek sesle oku." },
@@ -11979,6 +12447,7 @@
         SafeWord.init();
         LoveJar.init();
         MemorySystem.init();
+        IntensityProgression.init();
         
         this.showIntro();
       },
@@ -11994,7 +12463,7 @@
               Bu mod dürüstlük ister.
             </div>
             <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6;">
-              Birbirinize açılın, dinleyin, ve güven inşa edin.
+              Bazı cevaplar hoşuna gitmeyebilir.<br>Hazır mısın?
             </div>
             <button class="btn btn-primary" onclick="document.getElementById('couples-intro').remove()">
               Hazırız 💕
@@ -12007,6 +12476,7 @@
       deactivate() {
         this.active = false;
         document.body.classList.remove('couples-mode');
+        document.body.classList.remove('intensity-phase-2', 'intensity-phase-3', 'intensity-phase-4');
         
         TrustScore.remove();
         SafeWord.remove();
@@ -12023,10 +12493,353 @@
         if (card.text) {
           MemorySystem.save(card.text, 'completed');
         }
+        
+        // Yoğunluk geçişi kontrolü
+        IntensityProgression.check();
       },
       
       onCardSkip() {
         TrustScore.add(-1, 'Kaçınma');
+      }
+    };
+
+    // 🌡️ Yoğunluk Geçişi Sistemi
+    const IntensityProgression = {
+      currentPhase: 1,
+      
+      init() {
+        this.currentPhase = 1;
+        this.updateUI();
+      },
+      
+      getPhase() {
+        const round = gameState.currentRound || 0;
+        if (round <= 5) return 1;       // Açılma
+        if (round <= 12) return 2;      // Gerilim
+        if (round <= 20) return 3;      // Kırılma
+        return 4;                        // Sınır Yok
+      },
+      
+      getWeightedIntensities() {
+        const phase = this.getPhase();
+        switch(phase) {
+          case 1: return [1, 1, 1, 2, 2];           // Seviye 1-2 ağırlıklı
+          case 2: return [2, 2, 3, 3, 3];           // Seviye 2-3 ağırlıklı
+          case 3: return [3, 3, 4, 4, 4];           // Seviye 3-4 ağırlıklı
+          case 4: return [4, 4, 5, 5, 5];           // Seviye 4-5 ağırlıklı
+          default: return [1, 2, 3, 4, 5];
+        }
+      },
+      
+      check() {
+        const newPhase = this.getPhase();
+        if (newPhase !== this.currentPhase) {
+          this.currentPhase = newPhase;
+          this.updateUI();
+          this.showPhaseTransition();
+        }
+      },
+      
+      updateUI() {
+        // Arka plan koyulaşması
+        document.body.classList.remove('intensity-phase-2', 'intensity-phase-3', 'intensity-phase-4');
+        if (this.currentPhase >= 2) {
+          document.body.classList.add(`intensity-phase-${this.currentPhase}`);
+        }
+      },
+      
+      showPhaseTransition() {
+        const phaseNames = {
+          2: { icon: '🔥', text: 'GERİLİM', sub: 'Sorular derinleşiyor...' },
+          3: { icon: '🩸', text: 'KIRILMA', sub: 'Artık kaçış yok.' },
+          4: { icon: '💀', text: 'SINIR YOK', sub: 'Her şey masada.' }
+        };
+        
+        const phase = phaseNames[this.currentPhase];
+        if (!phase) return;
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'phase-transition-overlay';
+        overlay.innerHTML = `
+          <div class="phase-transition-content">
+            <div class="phase-icon">${phase.icon}</div>
+            <div class="phase-name">${phase.text}</div>
+            <div class="phase-sub">${phase.sub}</div>
+          </div>
+        `;
+        document.body.appendChild(overlay);
+        
+        AudioSystem.play('achievement');
+        HapticFeedback.heavy();
+        
+        setTimeout(() => overlay.remove(), 2500);
+      }
+    };
+
+    // 📝 Yazılı Cevap Modu
+    const WrittenAnswer = {
+      active: false,
+      answers: {},
+      currentQuestion: null,
+      
+      start(question) {
+        this.active = true;
+        this.answers = {};
+        this.currentQuestion = question;
+        this.showWriteScreen();
+      },
+      
+      showWriteScreen() {
+        const gameArea = document.getElementById('game-area');
+        gameArea.innerHTML = `
+          <div class="written-answer-container">
+            <div class="written-question">${this.currentQuestion}</div>
+            <div class="written-instruction">İkiniz de yazın, sonra aynı anda gösterin</div>
+            <textarea class="written-input" id="written-input" placeholder="Cevabını yaz..." maxlength="200"></textarea>
+            <div class="written-char-count"><span id="char-count">0</span>/200</div>
+            <button class="btn btn-primary written-submit" onclick="WrittenAnswer.submit()">
+              ✍️ Hazırım
+            </button>
+          </div>
+        `;
+        
+        document.getElementById('written-input').addEventListener('input', (e) => {
+          document.getElementById('char-count').textContent = e.target.value.length;
+        });
+      },
+      
+      submit() {
+        const input = document.getElementById('written-input');
+        const answer = input.value.trim();
+        
+        if (!answer) {
+          showNotification('Bir şeyler yaz!');
+          return;
+        }
+        
+        this.answers[gameState.playerId] = answer;
+        this.showWaitingOrReveal();
+      },
+      
+      showWaitingOrReveal() {
+        // 2 kişilik oyun - her iki cevap da hazırsa göster
+        const playerIds = gameState.players.map(p => p.id);
+        const allAnswered = playerIds.every(id => this.answers[id]);
+        
+        if (allAnswered || Object.keys(this.answers).length >= 2) {
+          this.showReveal();
+        } else {
+          this.showWaiting();
+        }
+      },
+      
+      showWaiting() {
+        const gameArea = document.getElementById('game-area');
+        gameArea.innerHTML = `
+          <div class="written-waiting">
+            <div class="waiting-icon">⏳</div>
+            <div class="waiting-text">Partnerin yazıyor...</div>
+            <div class="your-answer-preview">
+              <small>Senin cevabın:</small>
+              <div class="answer-blur">${this.answers[gameState.playerId]}</div>
+            </div>
+            <button class="btn btn-secondary" onclick="WrittenAnswer.forceReveal()" style="margin-top: 20px;">
+              Göster (Partnerin hazır)
+            </button>
+          </div>
+        `;
+      },
+      
+      forceReveal() {
+        // Partner cevabı simüle et (gerçek multiplayer'da localStorage sync olur)
+        const partner = gameState.players.find(p => p.id !== gameState.playerId);
+        if (partner && !this.answers[partner.id]) {
+          this.answers[partner.id] = '[Cevap bekleniyor...]';
+        }
+        this.showReveal();
+      },
+      
+      showReveal() {
+        const gameArea = document.getElementById('game-area');
+        const player1 = gameState.players[0];
+        const player2 = gameState.players[1];
+        
+        gameArea.innerHTML = `
+          <div class="written-reveal">
+            <div class="reveal-question">${this.currentQuestion}</div>
+            <div class="reveal-answers">
+              <div class="reveal-answer">
+                <div class="reveal-name">${player1?.avatar} ${player1?.name}</div>
+                <div class="reveal-text">${this.answers[player1?.id] || '—'}</div>
+              </div>
+              <div class="reveal-vs">VS</div>
+              <div class="reveal-answer">
+                <div class="reveal-name">${player2?.avatar} ${player2?.name}</div>
+                <div class="reveal-text">${this.answers[player2?.id] || '—'}</div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-done" onclick="WrittenAnswer.complete()">Devam 💕</button>
+            </div>
+          </div>
+        `;
+        
+        this.active = false;
+      },
+      
+      complete() {
+        completeCard();
+      }
+    };
+
+    // 🎭 Gerçek mi Yalan mı Mini-Game
+    const TruthOrLie = {
+      active: false,
+      currentPlayer: null,
+      answer: null,
+      
+      // %20 ihtimalle aktive olur
+      shouldTrigger() {
+        return Math.random() < 0.20;
+      },
+      
+      start(question) {
+        this.active = true;
+        this.currentPlayer = gameState.players[gameState.currentPlayerIndex];
+        this.showAnswerPhase(question);
+      },
+      
+      showAnswerPhase(question) {
+        const gameArea = document.getElementById('game-area');
+        const isMyTurn = this.currentPlayer.id === gameState.playerId;
+        
+        if (isMyTurn) {
+          gameArea.innerHTML = `
+            <div class="truthlie-container">
+              <div class="truthlie-badge">🎭 GERÇEK Mİ YALAN MI?</div>
+              <div class="truthlie-question">${question}</div>
+              <div class="truthlie-instruction">
+                Cevabını ver - gerçek veya yalan olabilir.<br>
+                <small>Partnerin tahmin edecek!</small>
+              </div>
+              <textarea class="written-input" id="truthlie-answer" placeholder="Cevabını yaz..." maxlength="200"></textarea>
+              <div class="truthlie-buttons">
+                <button class="btn truthlie-btn truth" onclick="TruthOrLie.submitAnswer(true)">
+                  ✓ Gerçeği Söyledim
+                </button>
+                <button class="btn truthlie-btn lie" onclick="TruthOrLie.submitAnswer(false)">
+                  ✗ Yalan Söyledim
+                </button>
+              </div>
+            </div>
+          `;
+        } else {
+          gameArea.innerHTML = `
+            <div class="truthlie-container">
+              <div class="truthlie-badge">🎭 GERÇEK Mİ YALAN MI?</div>
+              <div class="truthlie-waiting">
+                <div class="waiting-icon">🤔</div>
+                <div>${this.currentPlayer.name} cevaplıyor...</div>
+              </div>
+            </div>
+          `;
+        }
+      },
+      
+      submitAnswer(isTruth) {
+        const answerText = document.getElementById('truthlie-answer')?.value.trim();
+        if (!answerText) {
+          showNotification('Bir cevap yaz!');
+          return;
+        }
+        
+        this.answer = { text: answerText, isTruth };
+        this.showGuessPhase();
+      },
+      
+      showGuessPhase() {
+        const gameArea = document.getElementById('game-area');
+        const guesser = gameState.players.find(p => p.id !== this.currentPlayer.id);
+        const isGuesser = guesser?.id === gameState.playerId;
+        
+        if (isGuesser) {
+          gameArea.innerHTML = `
+            <div class="truthlie-container">
+              <div class="truthlie-badge">🎭 TAHMİN ZAMANI</div>
+              <div class="truthlie-player-answer">
+                <div class="answer-by">${this.currentPlayer.avatar} ${this.currentPlayer.name} diyor ki:</div>
+                <div class="answer-text">"${this.answer.text}"</div>
+              </div>
+              <div class="truthlie-instruction">Bu gerçek mi yoksa yalan mı?</div>
+              <div class="truthlie-guess-buttons">
+                <button class="btn truthlie-btn truth" onclick="TruthOrLie.guess(true)">
+                  ✓ GERÇEK
+                </button>
+                <button class="btn truthlie-btn lie" onclick="TruthOrLie.guess(false)">
+                  ✗ YALAN
+                </button>
+              </div>
+            </div>
+          `;
+        } else {
+          gameArea.innerHTML = `
+            <div class="truthlie-container">
+              <div class="truthlie-badge">🎭 TAHMİN BEKLENİYOR</div>
+              <div class="truthlie-waiting">
+                <div class="waiting-icon">🎯</div>
+                <div>${guesser?.name} tahmin ediyor...</div>
+              </div>
+            </div>
+          `;
+        }
+      },
+      
+      guess(guessedTruth) {
+        const correct = guessedTruth === this.answer.isTruth;
+        this.showResult(correct, guessedTruth);
+      },
+      
+      showResult(correct, guessedTruth) {
+        const gameArea = document.getElementById('game-area');
+        const guesser = gameState.players.find(p => p.id !== this.currentPlayer.id);
+        const answerer = this.currentPlayer;
+        
+        let resultHtml, pointsHtml;
+        
+        if (correct) {
+          // Tahmin doğru - tahmin eden +10
+          if (guesser) guesser.score = (guesser.score || 0) + 10;
+          resultHtml = `<div class="truthlie-result correct">🎯 DOĞRU TAHMİN!</div>`;
+          pointsHtml = `<div class="points-earned">${guesser?.name} +10 puan kazandı!</div>`;
+        } else {
+          // Tahmin yanlış - cevap veren +15
+          if (answerer) answerer.score = (answerer.score || 0) + 15;
+          resultHtml = `<div class="truthlie-result wrong">❌ YANLIŞ TAHMİN!</div>`;
+          pointsHtml = `<div class="points-earned">${answerer?.name} +15 puan kazandı!</div>`;
+        }
+        
+        const truthText = this.answer.isTruth ? 'GERÇEKTİ' : 'YALANDL';
+        
+        gameArea.innerHTML = `
+          <div class="truthlie-container">
+            ${resultHtml}
+            <div class="truthlie-reveal">
+              <div class="reveal-badge ${this.answer.isTruth ? 'truth' : 'lie'}">${truthText}</div>
+              <div class="reveal-answer">"${this.answer.text}"</div>
+            </div>
+            ${pointsHtml}
+            <button class="btn btn-done" onclick="TruthOrLie.complete()" style="margin-top: 20px;">
+              Devam
+            </button>
+          </div>
+        `;
+        
+        MiniLeaderboard.update();
+        this.active = false;
+      },
+      
+      complete() {
+        nextTurn();
       }
     };
 
@@ -14514,7 +15327,17 @@
     
     function drawCouplesCard() {
       const cards = CARDS['itiraf-sevgililer'];
-      const selectedIntensities = gameState.settings.intensities || [1, 2, 3, 4, 5];
+      
+      // 🌡️ Yoğunluk Geçişi - Faza göre seviye seç
+      let selectedIntensities;
+      if (CouplesMode.active) {
+        const weightedIntensities = IntensityProgression.getWeightedIntensities();
+        // Rastgele ağırlıklı seçim
+        const randomIntensity = weightedIntensities[Math.floor(Math.random() * weightedIntensities.length)];
+        selectedIntensities = [randomIntensity, randomIntensity, randomIntensity + 1].filter(i => i >= 1 && i <= 5);
+      } else {
+        selectedIntensities = gameState.settings.intensities || [1, 2, 3, 4, 5];
+      }
       
       // Kart tiplerini belirle - yeni tipler eklendi
       const cardTypes = [
@@ -14576,6 +15399,16 @@
       const card = { ...filteredCards[Math.floor(Math.random() * filteredCards.length)] };
       card.type = selectedType;
       
+      // 📝 Yazılı Cevap mekaniki (%15)
+      if (Math.random() < 0.15 && card.type === 'itiraf') {
+        card.mechanic = 'written';
+      }
+      
+      // 🎭 Gerçek mi Yalan mı (%20)
+      if (TruthOrLie.shouldTrigger() && card.type === 'itiraf' && !card.mechanic) {
+        card.mechanic = 'truthlie';
+      }
+      
       return card;
     }
     
@@ -14599,6 +15432,18 @@
       
       const intensityIcons = { 1: '☕', 2: '🍷', 3: '🔥', 4: '💀', 5: '🚨' };
       const intensity = card.intensity || 3;
+      
+      // 📝 Yazılı Cevap modu
+      if (card.mechanic === 'written') {
+        WrittenAnswer.start(card.text);
+        return;
+      }
+      
+      // 🎭 Gerçek mi Yalan mı
+      if (card.mechanic === 'truthlie') {
+        TruthOrLie.start(card.text);
+        return;
+      }
       
       // 👁️ Göz Teması kartları için özel akış
       if (card.mechanic === 'eye_contact' || card.type === 'goztemas') {
