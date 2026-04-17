@@ -955,6 +955,12 @@
       color: var(--gold);
       margin-bottom: 14px;
     }
+    .share-buttons {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 8px;
+    }
     .share-btn {
       display: inline-flex;
       align-items: center;
@@ -967,10 +973,25 @@
       letter-spacing: 1px;
       cursor: pointer;
       transition: all 0.3s;
+      border-radius: var(--radius-sm);
     }
     .share-btn:hover {
       border-color: var(--gold);
       color: var(--gold);
+    }
+    .share-btn-primary {
+      background: rgba(198, 161, 91, 0.1);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .share-btn-primary:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .share-hint {
+      font-size: 10px;
+      color: rgba(245, 240, 232, 0.4);
+      text-align: center;
     }
 
     .members-section { flex: 1; overflow-y: auto; }
@@ -6987,7 +7008,11 @@
       <div class="room-code-section">
         <div class="room-code-label">DAVETİYE KODU</div>
         <div class="room-code-value" id="display-room-code">------</div>
-        <button class="share-btn" onclick="shareRoom()">📤 Paylaş</button>
+        <div class="share-buttons">
+          <button class="share-btn share-btn-primary" onclick="shareRoom()">🔗 Link Paylaş</button>
+          <button class="share-btn" onclick="copyRoomCode()">📋 Kodu Kopyala</button>
+        </div>
+        <div class="share-hint">💡 Farklı telefondan katılmak için link paylaş!</div>
       </div>
 
       <div class="members-section">
@@ -15262,8 +15287,49 @@
       if (code.length !== 6) { alert('6 haneli kodu gir'); return; }
       if (!name) { alert('Lütfen adını gir'); return; }
 
+      // Önce URL'den gelen oda bilgilerini kontrol et
+      if (pendingRoom && pendingRoom.code === code) {
+        // URL üzerinden gelen oda bilgilerini kullan
+        gameState.roomCode = code;
+        gameState.playerId = 'player_' + Date.now();
+        gameState.playerName = name;
+        gameState.isHost = false;
+        gameState.selectedGame = GAMES[pendingRoom.game.id] || pendingRoom.game;
+        gameState.settings = pendingRoom.settings || {};
+        gameState.players = [{
+          id: 'host_placeholder',
+          name: pendingRoom.host || 'Ev Sahibi',
+          avatar: avatars[0],
+          score: 0,
+          isHost: true,
+          isReady: true
+        }];
+        
+        const avatarIndex = gameState.players.length % avatars.length;
+        gameState.players.push({
+          id: gameState.playerId,
+          name: name,
+          avatar: avatars[avatarIndex],
+          score: 0,
+          isHost: false,
+          isReady: false
+        });
+        
+        pendingRoom = null;
+        saveRoomToStorage();
+        updateLobbyUI();
+        showScreen('lobby-screen');
+        showNotification('🎉 Masaya katıldın!');
+        return;
+      }
+
+      // localStorage'dan kontrol et (aynı cihazda)
       const roomData = localStorage.getItem('masa_room_' + code);
-      if (!roomData) { alert('Masa bulunamadı'); return; }
+      if (!roomData) { 
+        // Oda bulunamadı - QR kod veya link ile dene
+        alert('Masa bulunamadı!\n\nİpucu: Ev sahibinden davet linkini iste. Link ile katılmak daha kolay!'); 
+        return; 
+      }
 
       const room = JSON.parse(roomData);
       gameState.roomCode = code;
@@ -15417,14 +15483,91 @@
 
     function shareRoom() {
       const game = gameState.selectedGame;
-      const text = `MASA'ya davetlisin!\n\n${game.icon} ${game.name}\nKod: ${gameState.roomCode}\n\n${window.location.href}`;
+      
+      // Oda bilgilerini URL'ye encode et
+      const roomData = {
+        code: gameState.roomCode,
+        game: { id: game.id, name: game.name, icon: game.icon },
+        settings: gameState.settings,
+        host: gameState.playerName
+      };
+      const encodedRoom = btoa(encodeURIComponent(JSON.stringify(roomData)));
+      const shareUrl = `${window.location.origin}${window.location.pathname}?join=${encodedRoom}`;
+      
+      const text = `MASA'ya davetlisin!\n\n${game.icon} ${game.name}\n👤 ${gameState.playerName} seni bekliyor!\n\n${shareUrl}`;
+      
       if (navigator.share) {
-        navigator.share({ title: 'MASA Daveti', text: text });
+        navigator.share({ 
+          title: 'MASA Daveti', 
+          text: `${game.icon} ${game.name} - ${gameState.playerName} seni bekliyor!`,
+          url: shareUrl 
+        });
       } else {
-        navigator.clipboard.writeText(text);
-        showNotification('📋 Davetiye kopyalandı!');
+        navigator.clipboard.writeText(shareUrl);
+        showNotification('📋 Davet linki kopyalandı!');
       }
     }
+    
+    function copyRoomCode() {
+      navigator.clipboard.writeText(gameState.roomCode);
+      showNotification('📋 Kod kopyalandı: ' + gameState.roomCode);
+    }
+    
+    // URL'den oda bilgilerini oku
+    function checkUrlForRoom() {
+      const params = new URLSearchParams(window.location.search);
+      const joinData = params.get('join');
+      
+      if (joinData) {
+        try {
+          const roomData = JSON.parse(decodeURIComponent(atob(joinData)));
+          
+          // Oda bilgilerini kaydet
+          pendingRoom = roomData;
+          
+          // URL'yi temizle
+          window.history.replaceState({}, '', window.location.pathname);
+          
+          // Otomatik join ekranına git
+          showJoinWithRoom(roomData);
+          return true;
+        } catch (e) {
+          console.error('Geçersiz davet linki:', e);
+        }
+      }
+      return false;
+    }
+    
+    let pendingRoom = null;
+    
+    function showJoinWithRoom(roomData) {
+      // Oyun bilgilerini set et
+      gameState.selectedGame = GAMES[roomData.game.id] || roomData.game;
+      gameState.settings = roomData.settings || {};
+      
+      // Join ekranına git
+      showScreen('join-screen');
+      
+      // Kodu otomatik doldur
+      const codeInputs = document.querySelectorAll('.code-input');
+      const code = roomData.code;
+      codeInputs.forEach((input, i) => {
+        input.value = code[i] || '';
+        input.classList.toggle('filled', code[i]);
+      });
+      
+      // Bilgi göster
+      showNotification(`${roomData.game.icon} ${roomData.host}'ın masasına katılıyorsun!`);
+    }
+    
+    // Sayfa yüklendiğinde URL kontrol et
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        if (!checkUrlForRoom()) {
+          // Normal akış
+        }
+      }, 500);
+    });
 
     function leaveRoom() {
       MiniLeaderboard.remove();
