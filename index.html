@@ -330,13 +330,22 @@
       max-width: 480px;
       margin: 0 auto;
       padding: var(--space-2);
+      padding-bottom: env(safe-area-inset-bottom, 16px);
       min-height: 100vh;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
-    .screen { display: none; flex-direction: column; flex: 1; }
+    .screen { 
+      display: none; 
+      flex-direction: column; 
+      flex: 1; 
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
     .screen.active { display: flex; animation: fadeIn 0.3s var(--ease-smooth); }
     
     @keyframes fadeIn {
@@ -6485,6 +6494,341 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+    
+    /* ═══════════════════════════════════════════════════════════ */
+    /* MOBİL RESPONSIVE DÜZELTMELER                                */
+    /* ═══════════════════════════════════════════════════════════ */
+    
+    /* Genel mobil düzeltmeler */
+    @media screen and (max-width: 480px) {
+      :root {
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+      }
+      
+      .container {
+        padding: 8px;
+        padding-bottom: calc(env(safe-area-inset-bottom, 8px) + 8px);
+      }
+      
+      /* Başlıklar */
+      .page-title {
+        font-size: 24px !important;
+        margin-bottom: 4px;
+      }
+      
+      .page-subtitle {
+        font-size: 12px !important;
+        margin-bottom: 12px;
+      }
+      
+      /* Oyun kartları grid */
+      .game-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      
+      .game-card {
+        padding: 12px 10px;
+      }
+      
+      .game-card-icon {
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+      
+      .game-card-name {
+        font-size: 13px;
+        margin-bottom: 2px;
+      }
+      
+      .game-card-desc {
+        font-size: 9px;
+        line-height: 1.3;
+      }
+      
+      .game-card-players {
+        font-size: 8px;
+        margin-top: 6px;
+      }
+      
+      /* Kategori başlıkları */
+      .category-header {
+        padding: 8px 0;
+        margin-bottom: 8px;
+      }
+      
+      .category-name {
+        font-size: 11px;
+        letter-spacing: 1px;
+      }
+      
+      /* Form elemanları */
+      .form-section {
+        margin-bottom: 12px;
+      }
+      
+      .form-label {
+        font-size: 11px;
+        margin-bottom: 6px;
+      }
+      
+      .form-input {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+      
+      /* Butonlar */
+      .btn {
+        padding: 12px 16px;
+        font-size: 12px;
+      }
+      
+      /* Lobby */
+      .room-code-section {
+        padding: 16px 12px;
+        margin-bottom: 12px;
+      }
+      
+      .room-code-value {
+        font-size: 24px;
+        letter-spacing: 4px;
+        margin-bottom: 10px;
+      }
+      
+      .share-buttons {
+        flex-direction: column;
+        gap: 6px;
+      }
+      
+      .share-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px;
+      }
+      
+      .share-hint {
+        margin-top: 8px;
+      }
+      
+      .member-card {
+        padding: 10px 12px;
+        margin-bottom: 6px;
+      }
+      
+      .member-avatar {
+        font-size: 20px;
+        width: 36px;
+        height: 36px;
+      }
+      
+      .member-name {
+        font-size: 13px;
+      }
+      
+      .member-status {
+        font-size: 10px;
+      }
+      
+      /* Oyun ekranı */
+      .game-header {
+        padding: 8px;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      
+      .exit-btn {
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+      
+      .round-indicator {
+        font-size: 11px;
+        padding: 4px 10px;
+      }
+      
+      /* Kart */
+      .card {
+        padding: 16px;
+        margin: 8px 0;
+      }
+      
+      .card-type-badge {
+        font-size: 10px;
+        padding: 4px 10px;
+      }
+      
+      .card-text {
+        font-size: 16px !important;
+        line-height: 1.5;
+        padding: 12px 0;
+      }
+      
+      .card-actions {
+        gap: 8px;
+        margin-top: 12px;
+        flex-direction: row;
+      }
+      
+      .card-actions .btn {
+        padding: 10px 8px;
+        font-size: 11px;
+      }
+      
+      /* Joker bar */
+      .joker-bar {
+        padding: 6px 8px;
+        gap: 4px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .joker-btn {
+        padding: 4px 8px;
+        font-size: 10px;
+      }
+      
+      /* Mini leaderboard */
+      .mini-leaderboard {
+        max-width: 90%;
+        right: 5%;
+        top: auto;
+        bottom: 60px;
+        max-height: 120px;
+      }
+      
+      /* Fixed elements */
+      .trust-score-container {
+        top: 50px;
+        left: 8px;
+        transform: scale(0.85);
+        transform-origin: top left;
+      }
+      
+      .safe-word-btn {
+        bottom: 70px;
+        right: 8px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+      
+      .love-jar-container {
+        top: 50px;
+        right: 8px;
+        transform: scale(0.8);
+        transform-origin: top right;
+      }
+      
+      #solo-indicator {
+        top: 50px;
+        right: 8px;
+        padding: 6px 12px;
+        font-size: 11px;
+      }
+      
+      /* Solo card */
+      .solo-card {
+        padding: 12px;
+      }
+      
+      .solo-question {
+        font-size: 16px;
+        padding: 12px;
+      }
+      
+      .solo-stats {
+        gap: 8px;
+        font-size: 11px;
+      }
+      
+      /* Overlay'ler */
+      .phase-transition-content .phase-icon {
+        font-size: 48px;
+      }
+      
+      .phase-transition-content .phase-name {
+        font-size: 24px;
+      }
+      
+      /* Written answer */
+      .written-input {
+        min-height: 80px;
+        font-size: 14px;
+      }
+      
+      /* Truth or lie */
+      .truthlie-question {
+        font-size: 16px;
+      }
+      
+      .truthlie-buttons {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .truthlie-btn {
+        padding: 12px;
+      }
+    }
+    
+    /* Çok küçük ekranlar için */
+    @media screen and (max-width: 360px) {
+      .container {
+        padding: 6px;
+      }
+      
+      .game-grid {
+        gap: 6px;
+      }
+      
+      .game-card {
+        padding: 10px 8px;
+      }
+      
+      .game-card-icon {
+        font-size: 18px;
+      }
+      
+      .game-card-name {
+        font-size: 12px;
+      }
+      
+      .room-code-value {
+        font-size: 20px;
+        letter-spacing: 3px;
+      }
+      
+      .card-text {
+        font-size: 14px !important;
+      }
+    }
+    
+    /* Landscape mode uyarısı */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+      .container {
+        padding: 4px 8px;
+      }
+      
+      .page-title {
+        font-size: 20px !important;
+        margin-bottom: 2px;
+      }
+      
+      .page-subtitle {
+        display: none;
+      }
+      
+      .card {
+        padding: 12px;
+      }
+      
+      .card-text {
+        font-size: 14px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -11476,14 +11820,26 @@
     // Oyuncu Bağlantı Yönetimi
     const PlayerConnection = {
       heartbeatInterval: null,
+      syncInterval: null,
       lastSeen: {},
       
       start() {
-        // Her 5 saniyede heartbeat gönder
+        // Her 2 saniyede localStorage'dan senkronize et
+        this.syncInterval = setInterval(() => {
+          this.syncFromStorage();
+        }, 2000);
+        
+        // Her 3 saniyede heartbeat gönder
         this.heartbeatInterval = setInterval(() => {
           this.sendHeartbeat();
-          this.checkDisconnected();
-        }, 5000);
+        }, 3000);
+        
+        // storage event listener - diğer sekmelerden güncellemeleri dinle
+        window.addEventListener('storage', (e) => {
+          if (e.key === 'masa_room_' + gameState.roomCode) {
+            this.syncFromStorage();
+          }
+        });
         
         // Sayfa kapanınca disconnect
         window.addEventListener('beforeunload', () => this.disconnect());
@@ -11492,8 +11848,71 @@
             this.markAway();
           } else {
             this.sendHeartbeat();
+            this.syncFromStorage();
           }
         });
+        
+        // İlk senkronizasyon
+        this.sendHeartbeat();
+      },
+      
+      syncFromStorage() {
+        if (!gameState.roomCode) return;
+        
+        const data = localStorage.getItem('masa_room_' + gameState.roomCode);
+        if (!data) return;
+        
+        try {
+          const room = JSON.parse(data);
+          
+          // Oyuncu listesini güncelle (kendi bilgilerini koruyarak)
+          const myPlayer = gameState.players.find(p => p.id === gameState.playerId);
+          const newPlayers = room.players || [];
+          
+          // Yeni oyuncu eklendi mi kontrol et
+          const oldCount = gameState.players.length;
+          const newCount = newPlayers.length;
+          
+          if (newCount > oldCount) {
+            const newPlayer = newPlayers.find(p => 
+              !gameState.players.some(op => op.id === p.id)
+            );
+            if (newPlayer) {
+              showNotification(`🎉 ${newPlayer.name} masaya katıldı!`);
+              AudioSystem.play('join');
+              HapticFeedback.success();
+            }
+          }
+          
+          // Oyuncu listesini güncelle
+          gameState.players = newPlayers;
+          
+          // Oyun başladı mı kontrol et
+          if (room.gameStarted && !gameState.gameStarted) {
+            gameState.gameStarted = true;
+            gameState.currentPlayerIndex = room.currentPlayerIndex || 0;
+            gameState.usedCardIds = room.usedCardIds || [];
+            startGameFromSync();
+          }
+          
+          // Tur değişti mi kontrol et
+          if (room.currentPlayerIndex !== gameState.currentPlayerIndex && gameState.gameStarted) {
+            gameState.currentPlayerIndex = room.currentPlayerIndex;
+            gameState.currentCard = room.currentCard;
+            updateGameScreen();
+            if (room.currentCard) {
+              showCard(room.currentCard);
+            }
+          }
+          
+          // Lobby güncelle
+          if (!gameState.gameStarted) {
+            updateLobbyUI();
+          }
+          
+        } catch (e) {
+          console.error('Sync error:', e);
+        }
       },
       
       sendHeartbeat() {
@@ -11526,28 +11945,39 @@
         }
       },
       
-      checkDisconnected() {
-        const now = Date.now();
-        const timeout = 15000; // 15 saniye
-        
-        gameState.players.forEach(player => {
-          if (player.id === gameState.playerId) return;
-          
-          if (player.lastSeen && (now - player.lastSeen > timeout)) {
-            player.status = 'disconnected';
-          }
-        });
-        
-        updateGameScreen();
-      },
-      
       stop() {
         if (this.heartbeatInterval) {
           clearInterval(this.heartbeatInterval);
           this.heartbeatInterval = null;
         }
+        if (this.syncInterval) {
+          clearInterval(this.syncInterval);
+          this.syncInterval = null;
+        }
       }
     };
+    
+    // Senkronizasyondan oyun başlat
+    async function startGameFromSync() {
+      // Sistemleri başlat
+      initJokers();
+      AudioSystem.init();
+      StatsSystem.load();
+      SoloMode.init();
+      
+      applyStoredSettings();
+      NightMode.check(gameState.selectedGame?.id);
+      
+      if (gameState.selectedGame?.id === 'itiraf-sevgililer') {
+        CouplesMode.activate();
+      }
+      
+      showScreen('game-screen');
+      updateGameScreen();
+      MiniLeaderboard.create();
+      
+      showNotification('🎮 Oyun başladı!');
+    }
 
     // ═══════════════════════════════════════════════════════════
     // YENİ OYUN MEKANİKLERİ
@@ -15130,12 +15560,17 @@
         avatar: avatars[0],
         score: 0,
         isHost: true,
-        isReady: true
+        isReady: true,
+        lastSeen: Date.now(),
+        status: 'online'
       }];
 
       saveRoomToStorage();
       updateLobbyUI();
       showScreen('lobby-screen');
+      
+      // Lobby'de senkronizasyon başlat
+      PlayerConnection.start();
     }
 
     // 🎯 SOLO MODE - Tek kişilik oyun
@@ -15302,7 +15737,9 @@
           avatar: avatars[0],
           score: 0,
           isHost: true,
-          isReady: true
+          isReady: true,
+          lastSeen: Date.now(),
+          status: 'online'
         }];
         
         const avatarIndex = gameState.players.length % avatars.length;
@@ -15312,13 +15749,19 @@
           avatar: avatars[avatarIndex],
           score: 0,
           isHost: false,
-          isReady: false
+          isReady: false,
+          lastSeen: Date.now(),
+          status: 'online'
         });
         
         pendingRoom = null;
         saveRoomToStorage();
         updateLobbyUI();
         showScreen('lobby-screen');
+        
+        // Lobby'de senkronizasyon başlat
+        PlayerConnection.start();
+        
         showNotification('🎉 Masaya katıldın!');
         return;
       }
@@ -15347,12 +15790,17 @@
         avatar: avatars[avatarIndex],
         score: 0,
         isHost: false,
-        isReady: false
+        isReady: false,
+        lastSeen: Date.now(),
+        status: 'online'
       });
 
       saveRoomToStorage();
       updateLobbyUI();
       showScreen('lobby-screen');
+      
+      // Lobby'de senkronizasyon başlat
+      PlayerConnection.start();
     }
 
     function handleCodeInput(input, index) {
