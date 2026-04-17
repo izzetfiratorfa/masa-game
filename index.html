@@ -410,6 +410,20 @@
       box-shadow: none;
     }
     
+    .btn-solo {
+      background: transparent;
+      color: #a78bfa;
+      border: 1.5px solid #a78bfa;
+    }
+    .btn-solo:hover {
+      background: #a78bfa;
+      color: var(--black);
+      box-shadow: 0 0 30px rgba(167, 139, 250, 0.3);
+    }
+    .btn-solo:active {
+      transform: scale(0.97);
+    }
+    
     .btn-secondary {
       background: transparent;
       color: var(--cream-dark);
@@ -4678,6 +4692,89 @@
       color: var(--gold);
       margin-top: var(--space-2);
     }
+    
+    /* 🎯 Solo Mode Styles */
+    .solo-card {
+      text-align: center;
+      padding: var(--space-3);
+    }
+    
+    .solo-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-3);
+    }
+    
+    .solo-badge {
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(139, 92, 246, 0.2));
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: #c4b5fd;
+    }
+    
+    .solo-intensity {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+    }
+    
+    .solo-question {
+      font-size: var(--text-xl);
+      color: var(--cream);
+      line-height: 1.5;
+      margin-bottom: var(--space-3);
+      padding: var(--space-3);
+      background: rgba(23, 23, 26, 0.6);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(167, 139, 250, 0.2);
+    }
+    
+    .solo-prompt {
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: var(--space-3);
+    }
+    
+    .solo-stats {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--cream-dark);
+    }
+    
+    .solo-stats span {
+      padding: 4px 12px;
+      background: rgba(167, 139, 250, 0.1);
+      border-radius: var(--radius-full);
+    }
+    
+    /* Solo Mode indicator in game header */
+    #solo-indicator {
+      position: fixed;
+      top: 60px;
+      right: 16px;
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(139, 92, 246, 0.2));
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      color: #c4b5fd;
+      z-index: 100;
+    }
+    
+    body.solo-mode .turn-text {
+      display: none;
+    }
+    
+    body.solo-mode .mini-leaderboard {
+      display: none;
+    }
 
     /* Özel Rozetler */
     .special-badges {
@@ -4785,6 +4882,30 @@
     .waiting-message-text {
       font-size: 14px;
       color: var(--gold);
+    }
+    
+    /* 🎯 Solo Mode Hint */
+    .solo-mode-hint {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(79, 70, 229, 0.1));
+      border: 1px dashed rgba(147, 51, 234, 0.4);
+      margin: 16px 0;
+      border-radius: 12px;
+    }
+    .solo-mode-icon {
+      font-size: 36px;
+      margin-bottom: 8px;
+      animation: soloTargetPulse 2s ease-in-out infinite;
+    }
+    @keyframes soloTargetPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .solo-mode-text {
+      font-size: 13px;
+      color: #c084fc;
+      line-height: 1.5;
     }
     
     /* Otomatik Geri Sayım */
@@ -6821,8 +6942,9 @@
         <div class="intensity-desc" id="intensity-desc" style="font-size: 11px; color: rgba(245,240,232,0.5); margin-top: 10px; text-align: center; font-style: italic;"></div>
       </div>
 
-      <div style="margin-top: auto; padding-top: 20px;">
-        <button class="btn btn-primary" onclick="createRoom()">Masayı Aç</button>
+      <div style="margin-top: auto; padding-top: 20px; display: flex; flex-direction: column; gap: 12px;">
+        <button class="btn btn-primary" onclick="createRoom()">👥 Çok Kişilik Masa</button>
+        <button class="btn btn-solo" onclick="startSoloMode()">🎯 Tek Başına Oyna</button>
       </div>
     </div>
 
@@ -14976,6 +15098,7 @@
       gameState.playerId = 'player_' + Date.now();
       gameState.playerName = name;
       gameState.isHost = true;
+      gameState.soloMode = false;
       gameState.players = [{
         id: gameState.playerId,
         name: name,
@@ -14988,6 +15111,147 @@
       saveRoomToStorage();
       updateLobbyUI();
       showScreen('lobby-screen');
+    }
+
+    // 🎯 SOLO MODE - Tek kişilik oyun
+    function startSoloMode() {
+      const name = document.getElementById('host-name').value.trim() || 'Sen';
+      if (!gameState.selectedGame) { alert('Lütfen oyun seç'); return; }
+
+      gameState.roomCode = 'SOLO_' + Date.now();
+      gameState.playerId = 'solo_player';
+      gameState.playerName = name;
+      gameState.isHost = true;
+      gameState.soloMode = true;
+      gameState.players = [{
+        id: gameState.playerId,
+        name: name,
+        avatar: avatars[0],
+        score: 0,
+        isHost: true,
+        isReady: true
+      }];
+
+      // Direkt oyunu başlat
+      startGame();
+    }
+
+    // Solo Mode sistemi
+    const SoloMode = {
+      active: false,
+      streak: 0,
+      maxStreak: 0,
+      cardsCompleted: 0,
+      cardsSkipped: 0,
+      
+      init() {
+        this.active = gameState.soloMode || false;
+        this.streak = 0;
+        this.maxStreak = 0;
+        this.cardsCompleted = 0;
+        this.cardsSkipped = 0;
+      },
+      
+      onComplete() {
+        this.cardsCompleted++;
+        this.streak++;
+        if (this.streak > this.maxStreak) {
+          this.maxStreak = this.streak;
+        }
+        this.updateUI();
+      },
+      
+      onSkip() {
+        this.cardsSkipped++;
+        this.streak = 0;
+        this.updateUI();
+      },
+      
+      updateUI() {
+        const indicator = document.getElementById('solo-indicator');
+        if (indicator) {
+          indicator.innerHTML = `🔥 ${this.streak} | ✓ ${this.cardsCompleted}`;
+        }
+      },
+      
+      showSoloCard(card) {
+        const gameArea = document.getElementById('game-area');
+        const cardScore = getCardScore(card);
+        
+        const typeIcons = {
+          itiraf: '💬', cesaret: '🎯', senaryo: '🔮', ikilem: '⚖️',
+          rolyapma: '🎭', sirkutusu: '🔒', ovgu: '❤️', gorevler: '🎲',
+          telefon: '📱', underground: '💀'
+        };
+        
+        const intensity = card.intensity || 3;
+        const intensityIcons = { 1: '☕', 2: '🍷', 3: '🔥', 4: '💀', 5: '🚨' };
+        
+        gameArea.innerHTML = `
+          <div class="solo-card">
+            <div class="solo-card-header">
+              <span class="solo-badge">🎯 SOLO</span>
+              <span class="solo-intensity">${intensityIcons[intensity]} Seviye ${intensity}</span>
+            </div>
+            
+            <div class="solo-question">
+              ${card.text}
+            </div>
+            
+            <div class="solo-prompt">
+              Kendine karşı dürüst ol. Cevapla veya geç.
+            </div>
+            
+            <div class="solo-stats">
+              <span>🔥 Seri: ${this.streak}</span>
+              <span>✓ Tamamlanan: ${this.cardsCompleted}</span>
+            </div>
+            
+            <div class="card-actions">
+              <button class="btn btn-pass" onclick="skipCard()">Geç</button>
+              <button class="btn btn-done" onclick="completeSoloCard()">Cevapladım ✓</button>
+            </div>
+          </div>
+        `;
+      },
+      
+      getEndStats() {
+        return {
+          completed: this.cardsCompleted,
+          skipped: this.cardsSkipped,
+          maxStreak: this.maxStreak,
+          totalCards: this.cardsCompleted + this.cardsSkipped
+        };
+      }
+    };
+
+    function completeSoloCard() {
+      SoloMode.onComplete();
+      
+      const player = gameState.players[0];
+      const card = gameState.currentCard;
+      const points = getCardScore(card);
+      player.score += points;
+      
+      // Streak bonus
+      if (SoloMode.streak >= 5) {
+        const bonus = Math.floor(SoloMode.streak * 2);
+        player.score += bonus;
+        showNotification(`🔥 ${SoloMode.streak} seri! +${bonus} bonus`);
+      }
+      
+      StreakSystem.increment();
+      
+      gameState.currentRound++;
+      gameState.usedCardIds.push(card.text);
+      
+      // Yoğunluk geçişi kontrolü (Sevgililer modunda)
+      if (CouplesMode.active) {
+        IntensityProgression.check();
+      }
+      
+      updateGameScreen();
+      drawCard();
     }
 
     function joinRoom() {
@@ -15068,8 +15332,13 @@
       document.getElementById('player-count').textContent = gameState.players.length + ' kişi';
 
       const list = document.getElementById('players-list');
-      const minPlayers = 2;
+      
+      // 🎮 SOLO MODE - Tek kişi ile de oynanabilir
+      const minPlayers = 1; // Eskiden 2 idi
       const neededPlayers = Math.max(0, minPlayers - gameState.players.length);
+      
+      // Solo mod kontrolü
+      gameState.soloMode = gameState.players.length === 1;
       
       // Oyuncu kartları
       list.innerHTML = gameState.players.map((p, i) => `
@@ -15085,8 +15354,15 @@
         </div>
       `).join('');
       
-      // Bekleme mesajı
-      if (neededPlayers > 0) {
+      // Solo mod mesajı veya bekleme mesajı
+      if (gameState.players.length === 1) {
+        list.innerHTML += `
+          <div class="solo-mode-hint">
+            <div class="solo-mode-icon">🎯</div>
+            <div class="solo-mode-text">Tek başına oynayabilirsin veya arkadaş bekleyebilirsin</div>
+          </div>
+        `;
+      } else if (neededPlayers > 0) {
         list.innerHTML += `
           <div class="waiting-message">
             <div class="waiting-message-emoji">👋</div>
@@ -15098,7 +15374,7 @@
       const startBtn = document.getElementById('start-btn');
       const readyBtn = document.getElementById('ready-btn');
       
-      // Herkes hazır mı kontrol et
+      // Herkes hazır mı kontrol et - Solo modda direkt başlayabilir
       const allReady = gameState.players.length >= minPlayers && 
                        gameState.players.every(p => p.isHost || p.isReady);
 
@@ -15106,6 +15382,13 @@
         startBtn.style.display = 'block';
         readyBtn.style.display = 'none';
         startBtn.disabled = gameState.players.length < minPlayers;
+        
+        // Solo modda farklı buton metni
+        if (gameState.soloMode) {
+          startBtn.textContent = '🎯 Solo Başla';
+        } else {
+          startBtn.textContent = 'Oyunu Başlat';
+        }
         
         // Herkes hazırsa pulse efekti
         if (allReady && gameState.players.length >= minPlayers) {
@@ -15165,6 +15448,19 @@
       initJokers();
       AudioSystem.init();
       StatsSystem.load();
+      SoloMode.init();
+      
+      // 🎯 Solo Mode kontrolü
+      if (gameState.soloMode || gameState.players.length === 1) {
+        gameState.soloMode = true;
+        document.body.classList.add('solo-mode');
+        
+        // Solo indicator ekle
+        const indicator = document.createElement('div');
+        indicator.id = 'solo-indicator';
+        indicator.innerHTML = '🔥 0 | ✓ 0';
+        document.body.appendChild(indicator);
+      }
       
       // Fase 2 - Ayarları uygula
       applyStoredSettings();
@@ -15178,7 +15474,9 @@
       }
       
       // Bağlantı yönetimi başlat
-      PlayerConnection.start();
+      if (!gameState.soloMode) {
+        PlayerConnection.start();
+      }
 
       saveRoomToStorage();
       
@@ -15188,8 +15486,10 @@
       showScreen('game-screen');
       updateGameScreen();
       
-      // Mini Leaderboard oluştur
-      MiniLeaderboard.create();
+      // Mini Leaderboard oluştur (solo modda gizli)
+      if (!gameState.soloMode) {
+        MiniLeaderboard.create();
+      }
     }
 
     function confirmExit() {
@@ -15198,8 +15498,13 @@
         TurnGlow.hide();
         Card3D.destroy();
         NightMode.disable();
-        CouplesMode.deactivate(); // Couples mode kapat
-        PlayerConnection.stop();
+        CouplesMode.deactivate();
+        document.body.classList.remove('solo-mode');
+        const soloIndicator = document.getElementById('solo-indicator');
+        if (soloIndicator) soloIndicator.remove();
+        if (!gameState.soloMode) {
+          PlayerConnection.stop();
+        }
         leaveRoom();
       }
     }
@@ -15272,9 +15577,12 @@
       const current = gameState.players[gameState.currentPlayerIndex];
       const isMyTurn = current?.id === gameState.playerId;
       
-      // Sevgililer Modu için özel turn text
+      // Solo mod veya Sevgililer Modu için özel turn text
       let turnText = isMyTurn ? 'Sahne senin.' : (current?.name || '') + ' oynuyor';
-      if (CouplesMode.active) {
+      
+      if (gameState.soloMode) {
+        turnText = 'Kendinle yüzleş. 🎯';
+      } else if (CouplesMode.active) {
         const partnerName = gameState.players.find(p => p.id !== gameState.playerId)?.name || 'Partner';
         turnText = isMyTurn ? 'Onunla konuş.' : `${partnerName} düşünüyor...`;
       }
@@ -16084,6 +16392,12 @@
       const currentPlayer = gameState.players[gameState.currentPlayerIndex];
       const isMyTurn = currentPlayer.id === gameState.playerId;
       const game = gameState.selectedGame;
+      
+      // 🎯 SOLO MODE - Özel kart gösterimi
+      if (gameState.soloMode) {
+        SoloMode.showSoloCard(card);
+        return;
+      }
       
       // Yeni kart çekildiğinde oylamaları sıfırla
       gameState.truthLieVotes = {};
@@ -17360,6 +17674,22 @@
 
       const player = gameState.players[gameState.currentPlayerIndex];
       const penalty = getSkipPenalty(gameState.currentCard || { intensity: 3 });
+      
+      // 🎯 SOLO MODE - Skip işlemi
+      if (gameState.soloMode) {
+        SoloMode.onSkip();
+        player.score = Math.max(0, player.score - penalty);
+        gameState.usedCardIds.push(gameState.currentCard?.text);
+        showScorePopup(`-${penalty}`, 'negative');
+        AudioSystem.play('penalty');
+        HapticFeedback.warning();
+        setTimeout(() => {
+          gameState.currentRound++;
+          updateGameScreen();
+          drawCard();
+        }, 400);
+        return;
+      }
       
       // 💥 Kırılma Noktası aktifse pas geçme!
       if (BreakingPoint.active) {
