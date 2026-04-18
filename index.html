@@ -7483,7 +7483,302 @@
 
   </div>
 
+  <!-- PeerJS CDN - Ücretsiz P2P bağlantı -->
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
   <script>
+    // ==========================================
+    // P2P MULTIPLAYER - PeerJS (ÜCRETSİZ)
+    // ==========================================
+    
+    let peer = null;
+    let connections = {}; // Diğer oyuncularla bağlantılar
+    let hostConnection = null; // Guest için host bağlantısı
+    
+    const P2PRoom = {
+      isHost: false,
+      peerId: null,
+      roomCode: null,
+      
+      // Host: Oda oluştur
+      async createRoom(roomCode) {
+        this.isHost = true;
+        this.roomCode = roomCode;
+        
+        // PeerJS ID olarak room code kullan
+        const peerId = 'masa_' + roomCode;
+        
+        return new Promise((resolve, reject) => {
+          peer = new Peer(peerId, {
+            debug: 1
+          });
+          
+          peer.on('open', (id) => {
+            console.log('✅ P2P Oda oluşturuldu:', id);
+            this.peerId = id;
+            resolve(id);
+          });
+          
+          peer.on('connection', (conn) => {
+            this.handleNewConnection(conn);
+          });
+          
+          peer.on('error', (err) => {
+            console.error('P2P Hata:', err);
+            if (err.type === 'unavailable-id') {
+              showNotification('⚠️ Bu oda kodu kullanımda, yeni kod deneniyor...');
+              // Yeni kod ile dene
+              const newCode = generateRoomCode();
+              gameState.roomCode = newCode;
+              document.getElementById('display-room-code').textContent = newCode;
+              this.createRoom(newCode);
+            } else {
+              reject(err);
+            }
+          });
+        });
+      },
+      
+      // Guest: Odaya katıl
+      async joinRoom(roomCode) {
+        this.isHost = false;
+        this.roomCode = roomCode;
+        
+        const myPeerId = 'masa_player_' + Date.now();
+        const hostPeerId = 'masa_' + roomCode;
+        
+        return new Promise((resolve, reject) => {
+          peer = new Peer(myPeerId, {
+            debug: 1
+          });
+          
+          peer.on('open', (id) => {
+            console.log('✅ P2P bağlantı hazır:', id);
+            this.peerId = id;
+            
+            // Host'a bağlan
+            const conn = peer.connect(hostPeerId, {
+              reliable: true,
+              metadata: {
+                playerName: gameState.playerName,
+                playerId: gameState.playerId
+              }
+            });
+            
+            conn.on('open', () => {
+              console.log('✅ Host\'a bağlandı!');
+              hostConnection = conn;
+              
+              // Katılım mesajı gönder
+              this.send({
+                type: 'player_join',
+                player: {
+                  id: gameState.playerId,
+                  name: gameState.playerName,
+                  avatar: avatars[Math.floor(Math.random() * avatars.length)],
+                  score: 0,
+                  isHost: false,
+                  isReady: false
+                }
+              });
+              
+              resolve(conn);
+            });
+            
+            conn.on('data', (data) => {
+              this.handleMessage(data, conn);
+            });
+            
+            conn.on('close', () => {
+              console.log('❌ Host bağlantısı koptu');
+              showNotification('⚠️ Host ile bağlantı kesildi!');
+            });
+            
+            conn.on('error', (err) => {
+              console.error('Bağlantı hatası:', err);
+              reject(err);
+            });
+          });
+          
+          peer.on('error', (err) => {
+            console.error('P2P Hata:', err);
+            if (err.type === 'peer-unavailable') {
+              showNotification('❌ Masa bulunamadı! Kod doğru mu?');
+              reject(new Error('Masa bulunamadı'));
+            } else {
+              reject(err);
+            }
+          });
+        });
+      },
+      
+      // Host: Yeni bağlantı geldi
+      handleNewConnection(conn) {
+        console.log('👋 Yeni oyuncu bağlanıyor...');
+        
+        conn.on('open', () => {
+          console.log('✅ Oyuncu bağlandı:', conn.peer);
+          connections[conn.peer] = conn;
+        });
+        
+        conn.on('data', (data) => {
+          this.handleMessage(data, conn);
+        });
+        
+        conn.on('close', () => {
+          console.log('❌ Oyuncu ayrıldı:', conn.peer);
+          delete connections[conn.peer];
+          
+          // Oyuncuyu listeden çıkar
+          const playerIndex = gameState.players.findIndex(p => p.peerId === conn.peer);
+          if (playerIndex > -1) {
+            const player = gameState.players[playerIndex];
+            gameState.players.splice(playerIndex, 1);
+            showNotification(`👋 ${player.name} ayrıldı`);
+            this.broadcast({ type: 'players_update', players: gameState.players });
+            updateLobbyUI();
+          }
+        });
+      },
+      
+      // Mesaj işle
+      handleMessage(data, conn) {
+        console.log('📥 Mesaj:', data.type, data);
+        
+        switch (data.type) {
+          case 'player_join':
+            if (this.isHost) {
+              // Oyuncuyu ekle
+              const newPlayer = { ...data.player, peerId: conn.peer };
+              gameState.players.push(newPlayer);
+              
+              showNotification(`🎉 ${newPlayer.name} masaya katıldı!`);
+              AudioSystem.play('join');
+              HapticFeedback.success();
+              
+              // Tüm oyunculara güncel listeyi gönder
+              this.broadcast({
+                type: 'room_sync',
+                players: gameState.players,
+                selectedGame: gameState.selectedGame,
+                settings: gameState.settings
+              });
+              
+              updateLobbyUI();
+              saveRoomToStorage();
+            }
+            break;
+            
+          case 'room_sync':
+            // Host'tan gelen oda bilgileri
+            gameState.players = data.players;
+            gameState.selectedGame = data.selectedGame || gameState.selectedGame;
+            gameState.settings = data.settings || gameState.settings;
+            updateLobbyUI();
+            break;
+            
+          case 'players_update':
+            gameState.players = data.players;
+            updateLobbyUI();
+            break;
+            
+          case 'player_ready':
+            const player = gameState.players.find(p => p.id === data.playerId);
+            if (player) {
+              player.isReady = data.isReady;
+              if (this.isHost) {
+                this.broadcast({ type: 'players_update', players: gameState.players });
+              }
+              updateLobbyUI();
+            }
+            break;
+            
+          case 'game_start':
+            if (!gameState.gameStarted) {
+              gameState.gameStarted = true;
+              gameState.currentPlayerIndex = data.currentPlayerIndex || 0;
+              gameState.players = data.players || gameState.players;
+              startGameFromSync();
+            }
+            break;
+            
+          case 'next_turn':
+            gameState.currentPlayerIndex = data.currentPlayerIndex;
+            gameState.currentRound = data.currentRound;
+            if (data.currentCard) {
+              gameState.currentCard = data.currentCard;
+            }
+            updateGameScreen();
+            if (data.currentCard) {
+              showCard(data.currentCard);
+            }
+            break;
+            
+          case 'score_update':
+            const scoringPlayer = gameState.players.find(p => p.id === data.playerId);
+            if (scoringPlayer) {
+              scoringPlayer.score = data.score;
+              updateGameScreen();
+              MiniLeaderboard.update();
+            }
+            break;
+        }
+      },
+      
+      // Mesaj gönder
+      send(data) {
+        if (this.isHost) {
+          // Host tüm oyunculara gönderir
+          this.broadcast(data);
+        } else if (hostConnection) {
+          // Guest host'a gönderir
+          hostConnection.send(data);
+        }
+      },
+      
+      // Host: Tüm oyunculara yayınla
+      broadcast(data) {
+        Object.values(connections).forEach(conn => {
+          if (conn.open) {
+            conn.send(data);
+          }
+        });
+      },
+      
+      // Hazır durumunu gönder
+      announceReady(playerId, isReady) {
+        this.send({ type: 'player_ready', playerId, isReady });
+      },
+      
+      // Oyun başladığını duyur
+      announceGameStart(gameData) {
+        this.broadcast({ type: 'game_start', ...gameData });
+      },
+      
+      // Sıradaki tur
+      announceNextTurn(turnData) {
+        this.broadcast({ type: 'next_turn', ...turnData });
+      },
+      
+      // Skor güncelleme
+      announceScoreUpdate(playerId, score) {
+        this.broadcast({ type: 'score_update', playerId, score });
+      },
+      
+      // Bağlantıyı kapat
+      destroy() {
+        if (peer) {
+          peer.destroy();
+          peer = null;
+        }
+        connections = {};
+        hostConnection = null;
+        this.isHost = false;
+        this.peerId = null;
+        this.roomCode = null;
+      }
+    };
+
     // ==========================================
     // OYUN VERİTABANI
     // ==========================================
@@ -15569,8 +15864,12 @@
       updateLobbyUI();
       showScreen('lobby-screen');
       
-      // Lobby'de senkronizasyon başlat
-      PlayerConnection.start();
+      // P2P oda oluştur
+      P2PRoom.createRoom(gameState.roomCode).then(() => {
+        showNotification('✅ Oda hazır! Linki paylaş.');
+      }).catch(err => {
+        console.error('P2P oda hatası:', err);
+      });
     }
 
     // 🎯 SOLO MODE - Tek kişilik oyun
@@ -15722,85 +16021,34 @@
       if (code.length !== 6) { alert('6 haneli kodu gir'); return; }
       if (!name) { alert('Lütfen adını gir'); return; }
 
-      // Önce URL'den gelen oda bilgilerini kontrol et
-      if (pendingRoom && pendingRoom.code === code) {
-        // URL üzerinden gelen oda bilgilerini kullan
-        gameState.roomCode = code;
-        gameState.playerId = 'player_' + Date.now();
-        gameState.playerName = name;
-        gameState.isHost = false;
-        gameState.selectedGame = GAMES[pendingRoom.game.id] || pendingRoom.game;
-        gameState.settings = pendingRoom.settings || {};
-        gameState.players = [{
-          id: 'host_placeholder',
-          name: pendingRoom.host || 'Ev Sahibi',
-          avatar: avatars[0],
-          score: 0,
-          isHost: true,
-          isReady: true,
-          lastSeen: Date.now(),
-          status: 'online'
-        }];
-        
-        const avatarIndex = gameState.players.length % avatars.length;
-        gameState.players.push({
-          id: gameState.playerId,
-          name: name,
-          avatar: avatars[avatarIndex],
-          score: 0,
-          isHost: false,
-          isReady: false,
-          lastSeen: Date.now(),
-          status: 'online'
-        });
-        
-        pendingRoom = null;
-        saveRoomToStorage();
-        updateLobbyUI();
-        showScreen('lobby-screen');
-        
-        // Lobby'de senkronizasyon başlat
-        PlayerConnection.start();
-        
-        showNotification('🎉 Masaya katıldın!');
-        return;
-      }
-
-      // localStorage'dan kontrol et (aynı cihazda)
-      const roomData = localStorage.getItem('masa_room_' + code);
-      if (!roomData) { 
-        // Oda bulunamadı - QR kod veya link ile dene
-        alert('Masa bulunamadı!\n\nİpucu: Ev sahibinden davet linkini iste. Link ile katılmak daha kolay!'); 
-        return; 
-      }
-
-      const room = JSON.parse(roomData);
       gameState.roomCode = code;
       gameState.playerId = 'player_' + Date.now();
       gameState.playerName = name;
       gameState.isHost = false;
-      gameState.selectedGame = room.selectedGame;
-      gameState.settings = room.settings;
-      gameState.players = room.players;
-
-      const avatarIndex = gameState.players.length % avatars.length;
-      gameState.players.push({
+      gameState.selectedGame = pendingRoom?.game ? (GAMES[pendingRoom.game.id] || pendingRoom.game) : null;
+      gameState.settings = pendingRoom?.settings || {};
+      gameState.players = [{
         id: gameState.playerId,
         name: name,
-        avatar: avatars[avatarIndex],
+        avatar: avatars[1],
         score: 0,
         isHost: false,
-        isReady: false,
-        lastSeen: Date.now(),
-        status: 'online'
-      });
-
-      saveRoomToStorage();
-      updateLobbyUI();
-      showScreen('lobby-screen');
+        isReady: false
+      }];
       
-      // Lobby'de senkronizasyon başlat
-      PlayerConnection.start();
+      pendingRoom = null;
+      showScreen('lobby-screen');
+      updateLobbyUI();
+      showNotification('🔄 Masaya bağlanılıyor...');
+      
+      // P2P ile odaya katıl
+      P2PRoom.joinRoom(code).then(() => {
+        showNotification('✅ Masaya katıldın!');
+      }).catch(err => {
+        console.error('P2P katılım hatası:', err);
+        showNotification('❌ Masa bulunamadı!');
+        showScreen('join-screen');
+      });
     }
 
     function handleCodeInput(input, index) {
@@ -15927,6 +16175,9 @@
       
       saveRoomToStorage();
       updateLobbyUI();
+      
+      // P2P ile duyur
+      P2PRoom.announceReady(gameState.playerId, gameState.isReady);
     }
 
     function shareRoom() {
@@ -16071,6 +16322,16 @@
 
       saveRoomToStorage();
       
+      // 📡 P2P ile oyun başladığını duyur (sadece host)
+      if (gameState.isHost && !gameState.soloMode) {
+        P2PRoom.announceGameStart({
+          currentPlayerIndex: 0,
+          settings: gameState.settings,
+          players: gameState.players,
+          selectedGame: gameState.selectedGame
+        });
+      }
+      
       // Başlangıç Seremonisi
       await GameCeremony.showStart();
       
@@ -16095,6 +16356,7 @@
         if (soloIndicator) soloIndicator.remove();
         if (!gameState.soloMode) {
           PlayerConnection.stop();
+          P2PRoom.destroy();
         }
         leaveRoom();
       }
@@ -18371,6 +18633,14 @@
       gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
 
       saveRoomToStorage();
+      
+      // P2P ile tur değişikliğini duyur (sadece host)
+      if (gameState.isHost && !gameState.soloMode) {
+        P2PRoom.announceNextTurn({
+          currentPlayerIndex: gameState.currentPlayerIndex,
+          currentRound: gameState.currentRound
+        });
+      }
 
       // Avatar değişim animasyonu
       animateTurnChange();
