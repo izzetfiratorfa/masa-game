@@ -1080,7 +1080,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
+      padding: 8px 0;
+      flex-wrap: nowrap;
+      gap: 8px;
     }
     .exit-btn {
       font-size: 11px;
@@ -1089,11 +1092,14 @@
       border: none;
       cursor: pointer;
       letter-spacing: 1px;
+      white-space: nowrap;
+      padding: 4px 8px;
     }
     .round-indicator {
       font-size: 11px;
       color: var(--gold);
       letter-spacing: 2px;
+      white-space: nowrap;
     }
     .end-game-btn {
       font-size: 10px;
@@ -1111,11 +1117,7 @@
     }
 
     .scores-bar {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
+      display: none; /* Mobilde gizle, leaderboard var */
     }
     .score-chip {
       display: flex;
@@ -1137,30 +1139,38 @@
       color: var(--gold);
     }
     
-    /* Genişletilmiş Oyuncu Listesi */
+    /* Genişletilmiş Oyuncu Listesi - Kapalı tutulacak */
     .players-panel {
       background: var(--black-lighter);
       border: 1px solid rgba(201, 169, 89, 0.2);
-      padding: 12px;
-      margin-bottom: 16px;
+      padding: 8px;
+      margin-bottom: 8px;
+      max-height: 100px;
+      overflow: hidden;
+      transition: max-height 0.3s;
+    }
+    .players-panel.expanded {
+      max-height: 300px;
+      overflow-y: auto;
     }
     .players-panel-header {
       font-size: 10px;
       color: var(--gold);
       letter-spacing: 2px;
-      margin-bottom: 10px;
       text-align: center;
+      cursor: pointer;
+      padding: 4px;
     }
     .players-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 4px;
     }
     .player-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 12px;
+      padding: 6px 10px;
       background: var(--black);
       border-left: 3px solid transparent;
       transition: all 0.3s;
@@ -1488,11 +1498,12 @@
 
     .turn-indicator {
       text-align: center;
-      margin-bottom: var(--space-3);
+      margin-bottom: 8px;
+      padding: 8px;
     }
     .turn-avatar { 
-      font-size: 48px; 
-      margin-bottom: var(--space-1);
+      font-size: 36px; 
+      margin-bottom: 4px;
       animation: pulseGlow 2s ease-in-out infinite;
     }
     @keyframes pulseGlow {
@@ -1501,7 +1512,7 @@
     }
     .turn-text {
       font-family: var(--font-body);
-      font-size: var(--text-base);
+      font-size: 13px;
       font-weight: 500;
       color: var(--cream);
       letter-spacing: 0.5px;
@@ -1513,7 +1524,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: var(--space-2) 0;
+      padding: 8px 0;
+      min-height: 200px;
     }
 
     /* Draw Button - Premium Card Stack */
@@ -3966,17 +3978,15 @@
     
     /* Güven Skoru Bar */
     .trust-score-container {
-      position: fixed;
-      top: 70px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 200px;
-      padding: var(--space-2);
+      position: relative;
+      width: 100%;
+      max-width: 200px;
+      margin: 0 auto 8px auto;
+      padding: 8px 12px;
       background: rgba(15, 15, 16, 0.95);
       border: 1px solid rgba(122, 31, 43, 0.3);
       border-radius: var(--radius-md);
-      z-index: 100;
-      backdrop-filter: blur(10px);
+      z-index: 10;
     }
     
     .trust-score-label {
@@ -4144,11 +4154,13 @@
     /* Aşk Kavanozu */
     .love-jar-container {
       position: fixed;
-      top: 130px;
-      right: 20px;
-      width: 60px;
+      bottom: 80px;
+      right: 12px;
+      width: 50px;
       text-align: center;
       z-index: 100;
+      transform: scale(0.8);
+      transform-origin: bottom right;
     }
     
     .love-jar {
@@ -5293,23 +5305,26 @@
     /* Joker Kartlar */
     .joker-bar {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       justify-content: center;
-      padding: 12px;
+      padding: 8px;
       background: var(--black-lighter);
       border-bottom: 1px solid rgba(201, 169, 89, 0.2);
+      flex-wrap: nowrap;
+      overflow-x: auto;
     }
     .joker-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
-      padding: 8px 12px;
+      gap: 2px;
+      padding: 6px 10px;
       background: var(--black);
       border: 1px solid rgba(255, 255, 255, 0.1);
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
+      min-width: 60px;
     }
     .joker-btn:hover:not(:disabled) {
       border-color: var(--gold);
@@ -5319,21 +5334,21 @@
       opacity: 0.3;
       cursor: not-allowed;
     }
-    .joker-icon { font-size: 20px; }
+    .joker-icon { font-size: 16px; }
     .joker-name {
-      font-size: 9px;
+      font-size: 8px;
       letter-spacing: 0.5px;
       color: rgba(245, 240, 232, 0.7);
     }
     .joker-count {
       position: absolute;
-      top: -6px;
-      right: -6px;
+      top: -4px;
+      right: -4px;
       background: var(--burgundy);
       color: white;
-      font-size: 10px;
-      width: 18px;
-      height: 18px;
+      font-size: 9px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -7374,16 +7389,19 @@
     </div>
 
     <!-- GAME SCREEN -->
+    <!-- GAME SCREEN -->
     <div id="game-screen" class="screen">
+      <!-- Üst Bar: Çıkış + Tur -->
       <div class="game-header">
         <button class="exit-btn" onclick="confirmExit()">✕ ÇIK</button>
-        <button class="pause-btn" onclick="pauseGame()" style="background: none; border: 1px solid var(--gold); color: var(--gold); padding: 6px 12px; font-size: 12px; cursor: pointer;">⏸️</button>
         <span class="round-indicator" id="round-indicator">Tur 1</span>
-        <button class="rules-btn" onclick="openGameRules()" style="background: none; border: 1px solid rgba(201,169,89,0.3); color: rgba(245,240,232,0.6); padding: 6px 10px; font-size: 11px; cursor: pointer;">❓</button>
-        <button class="end-game-btn" id="end-game-btn" onclick="confirmEndGame()" style="display: none;">🏁 BİTİR</button>
+        <button class="settings-mini-btn" onclick="openSettings()" style="background: none; border: 1px solid rgba(201,169,89,0.3); color: var(--gold); padding: 4px 8px; font-size: 12px; cursor: pointer;">⚙️</button>
       </div>
 
-      <!-- Joker Bar -->
+      <!-- Sevgililer Modu: Güven Skoru (Buraya yerleşecek) -->
+      <div id="trust-score-slot"></div>
+
+      <!-- Joker Bar - Kompakt -->
       <div class="joker-bar" id="joker-bar">
         <button class="joker-btn change" id="joker-change" onclick="useJoker('change')">
           <span class="joker-icon">🔄</span>
@@ -7402,7 +7420,7 @@
         </button>
       </div>
 
-      <!-- Sevgililer Modu Özel Butonları -->
+      <!-- Sevgililer Modu Butonları -->
       <div class="couples-mode-selector" id="couples-mode-selector" style="display: none;">
         <button class="mode-btn active" onclick="setCouplesMode('normal')" id="mode-normal">
           <span class="mode-btn-icon">🎴</span> Normal
@@ -7415,17 +7433,13 @@
         </button>
       </div>
 
-      <!-- Genişletilmiş Oyuncu Paneli -->
-      <div class="players-panel" id="players-panel">
-        <div class="players-panel-header">OYUNCULAR</div>
-        <div class="players-list" id="players-list"></div>
-      </div>
-
+      <!-- Sıra Göstergesi -->
       <div class="turn-indicator" id="turn-indicator">
         <div class="turn-avatar">🦊</div>
         <div class="turn-text">Senin sıran</div>
       </div>
 
+      <!-- Ana Oyun Alanı -->
       <div class="game-area" id="game-area">
         <div class="card-deck" id="card-deck" onclick="drawCardWithAnimation()">
           <div class="deck-stack"></div>
@@ -7442,13 +7456,10 @@
         </div>
       </div>
 
-      <div class="reactions-bar" id="reactions-bar" style="display: none;">
-        <button class="reaction-btn" onclick="sendReaction('😂')">😂</button>
-        <button class="reaction-btn" onclick="sendReaction('🔥')">🔥</button>
-        <button class="reaction-btn" onclick="sendReaction('😱')">😱</button>
-        <button class="reaction-btn" onclick="sendReaction('👏')">👏</button>
-        <button class="reaction-btn" onclick="sendReaction('💀')">💀</button>
-        <button class="reaction-btn" onclick="sendReaction('🫣')">🫣</button>
+      <!-- Oyuncular Paneli - Alt kısımda (kapalı) -->
+      <div class="players-panel" id="players-panel">
+        <div class="players-panel-header" onclick="togglePlayersPanel()">OYUNCULAR ▼</div>
+        <div class="players-list" id="players-list"></div>
       </div>
     </div>
 
@@ -7705,12 +7716,67 @@
           case 'next_turn':
             gameState.currentPlayerIndex = data.currentPlayerIndex;
             gameState.currentRound = data.currentRound;
-            if (data.currentCard) {
-              gameState.currentCard = data.currentCard;
-            }
+            gameState.currentCard = null;
             updateGameScreen();
-            if (data.currentCard) {
-              showCard(data.currentCard);
+            // Kart destesini göster
+            document.getElementById('game-area').innerHTML = `
+              <div class="card-deck" id="card-deck" onclick="drawCardWithAnimation()">
+                <div class="deck-stack"></div>
+                <div class="deck-stack"></div>
+                <div class="card-deck-inner">
+                  <div class="card-deck-front">
+                    <span class="deck-symbol">✦</span>
+                    <span class="deck-text">KART ÇEK</span>
+                  </div>
+                  <div class="card-deck-back">
+                    <span style="font-size: 32px;">🎴</span>
+                  </div>
+                </div>
+              </div>
+            `;
+            break;
+            
+          case 'card_drawn':
+            // Kart çekildiğinde tüm oyunculara göster
+            gameState.currentCard = data.card;
+            gameState.currentRound = data.currentRound || gameState.currentRound;
+            showCard(data.card);
+            updateGameScreen();
+            break;
+            
+          case 'card_complete':
+            // Kart tamamlandı - sıradaki tura geç
+            const completingPlayer = gameState.players.find(p => p.id === data.playerId);
+            if (completingPlayer && data.score !== undefined) {
+              completingPlayer.score = data.score;
+            }
+            gameState.currentCard = null;
+            gameState.currentPlayerIndex = data.nextPlayerIndex;
+            gameState.currentRound = data.currentRound;
+            updateGameScreen();
+            MiniLeaderboard.update();
+            // Kart destesini göster
+            document.getElementById('game-area').innerHTML = `
+              <div class="card-deck" id="card-deck" onclick="drawCardWithAnimation()">
+                <div class="deck-stack"></div>
+                <div class="deck-stack"></div>
+                <div class="card-deck-inner">
+                  <div class="card-deck-front">
+                    <span class="deck-symbol">✦</span>
+                    <span class="deck-text">KART ÇEK</span>
+                  </div>
+                  <div class="card-deck-back">
+                    <span style="font-size: 32px;">🎴</span>
+                  </div>
+                </div>
+              </div>
+            `;
+            break;
+            
+          case 'mutual_confirm':
+            // Karşılıklı onay (Sevgililer modu)
+            if (typeof handleMutualConfirm === 'function') {
+              handleMutualConfirm(data.playerId, data.confirmed);
             }
             break;
             
@@ -7748,6 +7814,31 @@
       // Hazır durumunu gönder
       announceReady(playerId, isReady) {
         this.send({ type: 'player_ready', playerId, isReady });
+      },
+      
+      // Kart çekildiğini duyur
+      announceCardDrawn(card) {
+        this.broadcast({ 
+          type: 'card_drawn', 
+          card: card,
+          currentRound: gameState.currentRound
+        });
+      },
+      
+      // Kart tamamlandığını duyur
+      announceCardComplete(playerId, score, nextPlayerIndex) {
+        this.broadcast({ 
+          type: 'card_complete', 
+          playerId,
+          score,
+          nextPlayerIndex,
+          currentRound: gameState.currentRound
+        });
+      },
+      
+      // Karşılıklı onay gönder
+      announceMutualConfirm(playerId, confirmed) {
+        this.send({ type: 'mutual_confirm', playerId, confirmed });
       },
       
       // Oyun başladığını duyur
@@ -12924,6 +13015,9 @@
       render() {
         this.remove();
         
+        const slot = document.getElementById('trust-score-slot');
+        if (!slot) return;
+        
         const container = document.createElement('div');
         container.className = 'trust-score-container';
         container.id = 'trust-score';
@@ -12936,7 +13030,7 @@
             <div class="trust-score-fill" id="trust-fill" style="width: ${(this.score / this.maxScore) * 100}%"></div>
           </div>
         `;
-        document.body.appendChild(container);
+        slot.appendChild(container);
         this.element = container;
       },
       
@@ -14991,7 +15085,13 @@
       const current = gameState.players[gameState.currentPlayerIndex];
       const isMyTurn = current?.id === gameState.playerId;
       
-      if (!isMyTurn || gameState.currentCard) return;
+      // Multiplayer: Sadece sırası gelen kişi kart çekebilir
+      if (!isMyTurn && !gameState.soloMode) {
+        showNotification('⏳ Sıra sende değil!');
+        return;
+      }
+      
+      if (gameState.currentCard) return;
       
       const deck = document.getElementById('card-deck');
       if (!deck) {
@@ -16361,6 +16461,18 @@
         leaveRoom();
       }
     }
+    
+    // Oyuncu panelini aç/kapa
+    function togglePlayersPanel() {
+      const panel = document.getElementById('players-panel');
+      if (panel) {
+        panel.classList.toggle('expanded');
+        const header = panel.querySelector('.players-panel-header');
+        if (header) {
+          header.textContent = panel.classList.contains('expanded') ? 'OYUNCULAR ▲' : 'OYUNCULAR ▼';
+        }
+      }
+    }
 
     function updateGameScreen() {
       // Tur sayısını göster (sınırsız mod)
@@ -17073,6 +17185,12 @@
         gameState.secretBoxAccepted = {};
         
         saveRoomToStorage();
+        
+        // 📡 P2P: Kartı diğer oyunculara gönder
+        if (!gameState.soloMode) {
+          P2PRoom.announceCardDrawn(card);
+        }
+        
         showCouplesCard(card);
         updateGameScreen();
         return;
@@ -17173,6 +17291,11 @@
       gameState.timer = 30;
 
       saveRoomToStorage();
+      
+      // 📡 P2P: Kartı diğer oyunculara gönder
+      if (!gameState.soloMode) {
+        P2PRoom.announceCardDrawn(card);
+      }
       
       // 📸 Screenshot Challenge özel akış
       if (card.mechanic === 'screenshot') {
@@ -18506,6 +18629,12 @@
 
       saveRoomToStorage();
       
+      // 📡 P2P: Kart tamamlandığını duyur
+      if (!gameState.soloMode) {
+        const nextIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
+        P2PRoom.announceCardComplete(player.id, player.score, nextIndex);
+      }
+      
       // Animasyon bittikten sonra sıradaki tura geç
       setTimeout(() => nextTurn(), 500);
     }
@@ -18604,6 +18733,12 @@
       showScorePopup(`-${penalty}`, 'negative');
 
       saveRoomToStorage();
+      
+      // 📡 P2P: Kart pas geçildiğini duyur
+      if (!gameState.soloMode) {
+        const nextIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
+        P2PRoom.announceCardComplete(player.id, player.score, nextIndex);
+      }
       
       // Animasyon bittikten sonra sıradaki tura geç
       setTimeout(() => nextTurn(), 400);
